@@ -1,0 +1,45 @@
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysqldb
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3308:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - springboot-network
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: mysqldb
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    ports:
+      - "8090:80"
+    networks:
+      - springboot-network
+
+#  spring:
+#    build:
+#      context: ./toyProject
+#      dockerfile: DockerFile
+#    depends_on:
+#      - mysql
+#    ports:
+#      - "8084:8084"
+
+volumes:
+  db_data:
+
+networks:
+  springboot-network:
+    driver: bridge
