@@ -1,0 +1,46 @@
+<configuration>
+    <springProperty name="filePath" source="logging.file.path"/>
+    <property name="LOG_PATTERN" value="[%d{yyyy-MM-dd HH:mm:ss}:%-3relative][%thread] %-5level %C -%msg%n"/>
+    <property name="FILENAMEPATTERN" value="logback.%d{yyyy-MM-dd}.%i.log"/>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>${LOG_PATTERN}</Pattern>
+        </layout>
+    </appender>
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${filePath}/logback.log</file>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${filePath}/${FILENAMEPATTERN}</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>1GB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>30000</maxHistory>
+        </rollingPolicy>
+    </appender>
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
+    </root>
+    <logger name="org.springframework.web" level="DEBUG">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
+    </logger>
+    <logger name="com.zaxxer.hikari" level="info" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
+    </logger>
+    <logger name="log4jdbc.log4j2" level="error" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
+    </logger>
+    <Logger name="jdbc.sqlonly" level="info"/>
+    <Logger name="jdbc.sqltiming" level="off"/>
+    <Logger name="jdbc.audit" level="off"/>
+    <Logger name="jdbc.resultset" level="off"/>
+    <Logger name="jdbc.resultsettable" level="info"/>
+    <Logger name="jdbc.connection" level="info"/>
+    <Logger name="jdbc.BaseJdbcLogger" level="debug"/>
+</configuration>
