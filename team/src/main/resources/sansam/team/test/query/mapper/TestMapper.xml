@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="sansam.team.test.query.mappers.TestMapper">
+<mapper namespace="sansam.team.test.query.mapper.TestMapper">
     <!-- 모든 Test 데이터를 가져오는 SQL -->
     <select id="findAllTests" resultType="TestDTO">
         SELECT * FROM test

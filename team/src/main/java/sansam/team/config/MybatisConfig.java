@@ -9,8 +9,8 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import sansam.team.test.command.services.TestDTO;
-import sansam.team.test.query.mappers.TestMapper;
+import sansam.team.test.command.dto.TestDTO;
+import sansam.team.test.query.mapper.TestMapper;
 
 @Configuration
 @MapperScan(basePackages = "sansam.team", annotationClass = Mapper.class)
