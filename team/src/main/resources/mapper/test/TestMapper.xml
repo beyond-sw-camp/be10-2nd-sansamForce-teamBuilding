@@ -5,11 +5,16 @@
 <mapper namespace="sansam.team.test.query.mapper.TestMapper">
     <!-- 모든 Test 데이터를 가져오는 SQL -->
     <select id="findAllTests" resultType="TestDTO">
-        SELECT * FROM test
+        SELECT id
+            , content
+        FROM test
     </select>
 
     <!-- 특정 ID로 Test 데이터를 가져오는 SQL -->
     <select id="findTestById" parameterType="long" resultType="TestDTO">
-        SELECT * FROM test WHERE id = #{id}
+        SELECT id
+            , content
+        FROM test
+        WHERE id = #{id}
     </select>
 </mapper>
