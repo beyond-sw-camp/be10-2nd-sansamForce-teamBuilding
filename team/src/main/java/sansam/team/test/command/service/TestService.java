@@ -1,5 +1,8 @@
 package sansam.team.test.command.service;
 
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sansam.team.test.command.dto.TestDTO;
@@ -7,27 +10,28 @@ import sansam.team.test.command.entity.Test;
 import sansam.team.test.command.repository.TestRepository;
 
 @Service
+@RequiredArgsConstructor
 public class TestService {
 
-    @Autowired
-    private TestRepository testRepository;
-
-
+    private final TestRepository testRepository;
+    private final ModelMapper modelMapper;
     /* Test Post 작업*/
     public TestDTO createTest(String content){
 
-        Test test = new Test(content);
-        Test savedTest = testRepository.save(test);
-        return new TestDTO(savedTest.getContent());
+        TestDTO testDTO = new TestDTO(content);
+        Test test = modelMapper.map(testDTO, Test.class);
+        testRepository.save(test);
+        return testDTO;
     }
 
+    @Transactional
     public TestDTO updateTest(Long id, String content) {
         Test test = testRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 ID의 데이터가 존재하지 않습니다 : " + id));
 
-        test.setContent(content);  // 업데이트된 content 설정
-        Test updatedTest = testRepository.save(test);  // 업데이트 후 저장
-        return new TestDTO(updatedTest.getContent());  // 업데이트된 DTO 반환
+        test.modifyContent(content);  // 업데이트된 content 설정
+
+        return new TestDTO(test.getContent());  // 업데이트된 DTO 반환
     }
 
     // Test Delete

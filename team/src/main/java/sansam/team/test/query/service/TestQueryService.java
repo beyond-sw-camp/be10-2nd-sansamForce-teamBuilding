@@ -1,5 +1,6 @@
 package sansam.team.test.query.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sansam.team.test.command.dto.TestDTO;
@@ -8,10 +9,10 @@ import sansam.team.test.query.mapper.TestMapper;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class TestQueryService {
 
-    @Autowired
-    private TestMapper testMapper;
+    private final TestMapper testMapper;
 
     // 모든 Test 데이터를 조회하는 메서드
     public List<TestDTO> getAllTests() {
