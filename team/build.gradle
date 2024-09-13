@@ -47,6 +47,12 @@ dependencies {
 	// ModelMapper : DTO -> Entity OR Entity -> DTO
 	implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.1.1'
 
+	// log4j2
+	implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
+
+	// HikariCP
+	implementation 'com.zaxxer:HikariCP:4.0.3'
+
 	// DockerCompose Helper
 //	developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
 
