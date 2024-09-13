@@ -1,15 +1,14 @@
 package sansam.team.test.command.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name = "test")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+// @Setter, @AllArgsConstructor, @ToString 사용 지양
+// -> Entity 수정 시 필요한 메서드를 직접 선언하여 사용
 public class Test {
 
     @Id
@@ -18,7 +17,7 @@ public class Test {
 
     private String content;
 
-    public Test(String content) {
+    public void modifyContent(String content) {
         this.content = content;  // content 필드 초기화
     }
 }
