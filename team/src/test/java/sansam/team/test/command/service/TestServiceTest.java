@@ -1,11 +1,12 @@
-package sansam.team.test.command.services;
+package sansam.team.test.command.service;
 
 import org.junit.jupiter.api.BeforeEach;
-import sansam.team.test.command.entities.Test;
+import sansam.team.test.command.dto.TestDTO;
+import sansam.team.test.command.entity.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import sansam.team.test.command.repositories.TestRepository;
+import sansam.team.test.command.repository.TestRepository;
 
 import java.util.Optional;
 

@@ -1,4 +1,4 @@
-package sansam.team.test.command.controllers;
+package sansam.team.test.command.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import sansam.team.common.FileUploadUtil;
-import sansam.team.test.command.services.TestDTO;
-import sansam.team.test.command.services.TestService;
+import sansam.team.test.command.dto.TestDTO;
+import sansam.team.test.command.service.TestService;
 
 import java.io.IOException;
 import java.util.Collections;

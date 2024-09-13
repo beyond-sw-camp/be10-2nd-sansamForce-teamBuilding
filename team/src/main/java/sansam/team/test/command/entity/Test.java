@@ -1,4 +1,4 @@
-package sansam.team.test.command.entities;
+package sansam.team.test.command.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

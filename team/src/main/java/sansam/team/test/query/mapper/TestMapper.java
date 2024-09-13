@@ -1,7 +1,7 @@
-package sansam.team.test.query.mappers;
+package sansam.team.test.query.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
-import sansam.team.test.command.services.TestDTO;
+import sansam.team.test.command.dto.TestDTO;
 
 import java.util.List;
 

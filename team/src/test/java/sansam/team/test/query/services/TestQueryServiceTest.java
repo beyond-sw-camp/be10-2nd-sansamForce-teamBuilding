@@ -4,9 +4,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import sansam.team.test.command.services.TestDTO;
-import sansam.team.test.query.mappers.TestMapper;
-import sansam.team.test.query.servicies.TestQueryService;
+import sansam.team.test.command.dto.TestDTO;
+import sansam.team.test.query.mapper.TestMapper;
+import sansam.team.test.query.service.TestQueryService;
 
 
 import java.util.Arrays;

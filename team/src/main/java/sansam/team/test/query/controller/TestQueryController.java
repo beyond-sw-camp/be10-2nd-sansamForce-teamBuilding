@@ -1,4 +1,4 @@
-package sansam.team.test.query.controllers;
+package sansam.team.test.query.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import sansam.team.test.command.services.TestDTO;
-import sansam.team.test.query.servicies.TestQueryService;
+import sansam.team.test.command.dto.TestDTO;
+import sansam.team.test.query.service.TestQueryService;
 
 import java.util.List;
 

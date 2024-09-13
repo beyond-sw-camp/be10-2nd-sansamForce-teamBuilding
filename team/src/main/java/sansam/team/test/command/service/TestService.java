@@ -1,9 +1,10 @@
-package sansam.team.test.command.services;
+package sansam.team.test.command.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sansam.team.test.command.entities.Test;
-import sansam.team.test.command.repositories.TestRepository;
+import sansam.team.test.command.dto.TestDTO;
+import sansam.team.test.command.entity.Test;
+import sansam.team.test.command.repository.TestRepository;
 
 @Service
 public class TestService {
