@@ -14,15 +14,27 @@ spring:
     password: ${MYSQL_PASSWORD}
     driver-class-name: ${DRIVER_CLASS_NAME}
   jpa:
+    show-sql: true
     hibernate:
       ddl-auto: update
-    show-sql: true
+      naming:
+        # JPA 변수 명명규칙을 카멜 케이스로 설정
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
     properties:
       hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
+      hibernate:
+        format_sql: true
   servlet:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
+
+# mybatis
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: mapper/**/*.xml
+  type-aliases-package: sansam.team.**
 
 cloud:
   aws:
@@ -42,7 +54,8 @@ logging:
 
 springdoc:
   swagger-ui:
-    path: /  # swagger-ui ?? ??? ?? ??, ?? ??? ???? http://localhost:8080/swagger-ui/index.html? ????? ?.
+    path: /
+# swagger-ui ?? ??? ?? ??, ?? ??? ???? http://localhost:8080/swagger-ui/index.html? ????? ?.
 #    #path, query, body, response ??? ??
 #    groups-order: DESC
 #    #??? ??? ??? ??
