@@ -1,15 +1,15 @@
-package sansam.team.test.command.controllers;
+package sansam.team.test.command.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import sansam.team.common.FileUploadUtil;
-import sansam.team.test.command.services.TestDTO;
-import sansam.team.test.command.services.TestService;
+import sansam.team.test.command.dto.TestDTO;
+import sansam.team.test.command.service.TestService;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -18,13 +18,11 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/test")
+@RequiredArgsConstructor
 public class TestController {
 
-    @Autowired
-    private TestService testService;
-
-    @Autowired
-    private FileUploadUtil fileUploadUtil;
+    private final TestService testService;
+    private final FileUploadUtil fileUploadUtil;
 
     // POST
     @PostMapping

@@ -1,10 +1,10 @@
-package sansam.team.test.query.servicies;
+package sansam.team.test.query.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor  // 기본 생성자
 @AllArgsConstructor // 모든 필드를 받는 생성자
 public class TestQueryDTO {

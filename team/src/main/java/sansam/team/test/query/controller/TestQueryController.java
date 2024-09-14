@@ -1,22 +1,22 @@
-package sansam.team.test.query.controllers;
+package sansam.team.test.query.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import sansam.team.test.command.services.TestDTO;
-import sansam.team.test.query.servicies.TestQueryService;
+import sansam.team.test.command.dto.TestDTO;
+import sansam.team.test.query.service.TestQueryService;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/test")
+@RequiredArgsConstructor
 public class TestQueryController {
 
-    @Autowired
-    private TestQueryService testQueryService;
+    private final TestQueryService testQueryService;
 
     // 모든 Test 데이터를 조회
     @GetMapping
