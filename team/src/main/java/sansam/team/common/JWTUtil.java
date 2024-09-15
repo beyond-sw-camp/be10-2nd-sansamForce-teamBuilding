@@ -9,8 +9,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
-import sansam.team.test.command.dto.JwtToken;
-import sansam.team.test.command.dto.UserDTO;
+import sansam.team.user.command.dto.JwtToken;
+import sansam.team.user.command.dto.UserDTO;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.crypto.SecretKey;
