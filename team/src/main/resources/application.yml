@@ -31,10 +31,6 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
-  security:
-    user:
-      name: ${SECURITY_ID}
-      password: ${SECURITY_PW}
 
 # mybatis
 mybatis:
