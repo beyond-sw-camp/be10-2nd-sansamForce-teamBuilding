@@ -13,16 +13,16 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import sansam.team.common.JWTUtil;
-import sansam.team.test.command.dto.JwtToken;
-import sansam.team.test.command.dto.UserDTO;
-import sansam.team.test.command.entity.User;
+import sansam.team.user.command.dto.JwtToken;
+import sansam.team.user.command.dto.UserDTO;
+import sansam.team.user.command.entity.User;
 
 @Slf4j
 @RequiredArgsConstructor
 public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
     private final JWTUtil jwtUtil;
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
