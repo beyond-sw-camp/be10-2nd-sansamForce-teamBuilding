@@ -18,11 +18,6 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping(value = {"", "/", "/login"})
-    public ResponseEntity<String> login(HttpServletRequest request) {
-        return ResponseEntity.ok("login");
-    }
-
     @PostMapping(value = {"/login"})
     public ResponseEntity<String> login(@RequestParam String id, @RequestParam String pw) {
         User user = userService.loginProcess(id, pw);
