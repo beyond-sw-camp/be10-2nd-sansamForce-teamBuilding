@@ -1,6 +1,9 @@
 # 서버 포트 번호
 server:
   port: 8086
+  servlet:
+    encoding:
+      charset: UTF-8
 
 # mysql, jpa 관련
 spring:
@@ -28,6 +31,10 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
+  security:
+    user:
+      name: ${SECURITY_ID}
+      password: ${SECURITY_PW}
 
 # mybatis
 mybatis:
