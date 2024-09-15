@@ -1,4 +1,4 @@
-package sansam.team.test.command.enums;
+package sansam.team.user.command.enums;
 
 public enum RoleType {
     MANAGER("관리자"),

@@ -1,4 +1,4 @@
-package sansam.team.test.command.dto;
+package sansam.team.user.command.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

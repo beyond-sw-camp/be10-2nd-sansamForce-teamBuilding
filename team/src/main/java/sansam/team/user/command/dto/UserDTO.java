@@ -1,10 +1,10 @@
-package sansam.team.test.command.dto;
+package sansam.team.user.command.dto;
 
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import sansam.team.test.command.enums.RoleType;
-import sansam.team.test.command.enums.StatusType;
+import sansam.team.user.command.enums.RoleType;
+import sansam.team.user.command.enums.StatusType;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

@@ -1,13 +1,12 @@
-package sansam.team.test.command.entity;
+package sansam.team.user.command.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
-import sansam.team.test.command.enums.RoleType;
-import sansam.team.test.command.enums.StatusType;
+import sansam.team.user.command.enums.RoleType;
+import sansam.team.user.command.enums.StatusType;
 
 import java.time.LocalDateTime;
 
@@ -15,6 +14,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "tbl_user")
 @Getter
+@NoArgsConstructor @AllArgsConstructor
 public class User {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,9 +32,9 @@ public class User {
     @Column(name="user_password", nullable = false)
     private String password;
 
+    @Column(name="user_auth", nullable = false)
     @Enumerated(EnumType.STRING)
-    @Column(name="user_auth") @ColumnDefault("MEMBER")
-    private RoleType auth;
+    private RoleType auth = RoleType.MEMBER; // 기본값을 직접 지정
 
     @Column(name="user_phone")
     private String phone;

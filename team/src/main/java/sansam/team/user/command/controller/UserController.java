@@ -1,4 +1,4 @@
-package sansam.team.test.command.controller;
+package sansam.team.user.command.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -6,9 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sansam.team.test.command.dto.UserDTO;
-import sansam.team.test.command.entity.User;
-import sansam.team.test.command.service.UserService;
+import sansam.team.user.command.dto.UserDTO;
+import sansam.team.user.command.entity.User;
+import sansam.team.user.command.service.UserService;
 
 @Slf4j
 @RestController
