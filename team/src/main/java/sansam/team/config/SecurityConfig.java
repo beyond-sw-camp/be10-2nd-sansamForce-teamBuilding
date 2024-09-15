@@ -1,6 +1,7 @@
 package sansam.team.config;
 
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,6 +25,7 @@ public class SecurityConfig {
 
     private final JWTUtil jwtUtil;
     private final AuthenticationConfiguration authenticationConfiguration;
+    private final ModelMapper modelMapper;  // ModelMapper 주입
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
@@ -43,20 +45,21 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequest ->
                         authorizeRequest
                                 .requestMatchers(
-                                        "/api/v1/user/"
-                                        , "/api/v1/user/login"
-                                        , "/api/v1/user/join"
-                                ).hasAnyRole("MEMBER", "MENTOR")
+                                        "/",
+                                        "/swagger-ui/**", // Swagger UI 경로
+                                        "/v3/api-docs/**", // Swagger API 문서 경로
+                                        "/api/v1/user/",
+                                        "/api/v1/user/login",
+                                        "/api/v1/user/join"
+                                ).permitAll()
                                 .requestMatchers(
                                         "/api/v1/admin/**"
-                                )
-                                .hasAnyRole("MANAGER", "SUB_MANAGER")
-                                .anyRequest().permitAll()
+                                ).hasAnyRole("MANAGER", "SUB_MANAGER")
+                                .anyRequest().authenticated()
                 )
                 .addFilterBefore(new JWTFilter(jwtUtil), LoginFilter.class)
-                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil), UsernamePasswordAuthenticationFilter.class)
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(new JWTFilter(jwtUtil), LoginFilter.class);
+                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, modelMapper), UsernamePasswordAuthenticationFilter.class)  // ModelMapper 추가
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         return http.build();
     }
@@ -65,5 +68,5 @@ public class SecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().requestMatchers( "/error", "/error/*", "/img/**", "/favicon.ico");
     }
-
 }
+
