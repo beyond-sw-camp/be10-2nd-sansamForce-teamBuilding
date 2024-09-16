@@ -12,7 +12,7 @@ import java.util.Collection;
 
 @Setter
 @Getter
-@ToString
+@ToString(exclude = "jwtToken")
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDTO {
@@ -39,7 +39,7 @@ public class UserDTO {
 
     private String githubId;
 
-    private String propileImg;
+    private String profileImg;
 
     private StatusType status;
 
@@ -55,29 +55,10 @@ public class UserDTO {
 
     private JwtToken jwtToken;
 
-    public void changePasswordEncoder(String password) {
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        this.password = bCryptPasswordEncoder.encode(password);
-    }
-
-    public void changeAuthMember() {
-        this.auth = RoleType.MEMBER;
-    }
-
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    public boolean isEnabled() {
-        return true;
+    public UserDTO(String id, RoleType auth, String name) {
+        this.id = id;
+        this.auth = auth;
+        this.name = name;
     }
 
 }
