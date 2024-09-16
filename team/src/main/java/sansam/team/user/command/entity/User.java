@@ -5,8 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Persistent;
 import org.springframework.security.core.GrantedAuthority;
+import sansam.team.project.command.entity.ProjectBoard;
 import sansam.team.user.command.enums.RoleType;
 import sansam.team.user.command.enums.StatusType;
 
@@ -19,48 +19,50 @@ import java.util.List;
 @Entity
 @Table(name = "tbl_user")
 @Getter
-@NoArgsConstructor @AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userSeq;
 
-    @Column(name="user_id", nullable = false)
+    @Column(name = "user_id", nullable = false)
     private String id;
 
-    @Column(name="user_name", nullable = false)
+    @Column(name = "user_name", nullable = false)
     private String name;
 
-    @Column(name="user_nickname", nullable = false)
+    @Column(name = "user_nickname", nullable = false)
     private String nickname;
 
-    @Column(name="user_password", nullable = false)
+    @Column(name = "user_password", nullable = false)
     private String password;
 
-    @Column(name="user_auth", nullable = false)
+    @Column(name = "user_auth", nullable = false)
     @Enumerated(EnumType.STRING)
     private RoleType auth = RoleType.MEMBER; // 기본값을 직접 지정
 
-    @Column(name="user_phone")
+    @Column(name = "user_phone")
     private String phone;
 
-    @Column(name="user_email")
+    @Column(name = "user_email")
     private String email;
 
-    @Column(name="user_birth_date")
+    @Column(name = "user_birth_date")
     private String birthDate;
 
-    @Column(name="user_gender")
+    @Column(name = "user_gender")
     private String gender;
 
-    @Column(name="user_github_id")
+    @Column(name = "user_github_id")
     private String githubId;
 
-    @Column(name="user_propile_img")
-    private String propileImg;
+    @Column(name = "user_propile_img")
+    private String profileImg;
 
     @Enumerated(EnumType.STRING)
-    @Column(name="user_status")
+    @Column(name = "user_status")
     private StatusType status = StatusType.ACTIVE;
 
     @Column(name = "user_pwd_mod_date", insertable = false)
@@ -81,26 +83,31 @@ public class User {
     @Transient
     private String token;
 
-    public <E> User(String name, String s1, Collection<? extends GrantedAuthority> es) {
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProjectBoard> projectBoards = new ArrayList<>();
+
+    // JWT용 생성자
+    public User(String name, String id, Collection<? extends GrantedAuthority> authorities) {
         this.name = name;
-        es = es;
+        this.id = id;
+        // authorities는 사용되지 않으므로 이 필드 삭제 가능
     }
 
     public void setToken(String token) {
         this.token = token;
     }
 
+    // Spring Security 권한 반환
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        Collection<GrantedAuthority> authorities = new ArrayList<>();
 
-        Collection<GrantedAuthority> collection = new ArrayList<>();
-
-        collection.add(new GrantedAuthority() {
+        authorities.add(new GrantedAuthority() {
+            @Override
             public String getAuthority() {
-                return getAuth().getRole();
+                return getAuth().getCode();  // 권한을 RoleType의 영어 코드로 반환
             }
         });
 
-        return collection;
+        return authorities;
     }
-
 }
