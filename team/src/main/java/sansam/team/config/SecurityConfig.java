@@ -14,7 +14,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import sansam.team.common.JWTUtil;
+import sansam.team.common.jwt.JWTUtil;
 import sansam.team.filter.JWTFilter;
 import sansam.team.filter.LoginFilter;
 
@@ -48,11 +48,11 @@ public class SecurityConfig {
                                         "/",
                                         "/swagger-ui/**",
                                         "/v3/api-docs/**",
-                                        "/api/v1/user/",
+                                        "/api/v1/user/login",
                                         "/api/v1/user/join"
                                 ).permitAll()
                                 .requestMatchers("/api/v1/admin/**")
-                                .hasAnyRole("MANAGER", "SUB_MANAGER")
+                                .hasAnyAuthority("MANAGER", "SUB_MANAGER")
                                 .anyRequest().authenticated()
                 )
                 // LoginFilter는 UsernamePasswordAuthenticationFilter 앞에 위치시킵니다.
