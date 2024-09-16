@@ -1,12 +1,13 @@
 package sansam.team.user.command.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sansam.team.user.command.dto.JwtToken;
 import sansam.team.user.command.dto.UserDTO;
-import sansam.team.user.command.entity.User;
 import sansam.team.user.command.service.UserService;
 
 @Slf4j
@@ -24,11 +25,11 @@ public class UserController {
     }
 
     @PostMapping(value = {"/login"})
-    public ResponseEntity<User> loginProcess(@RequestParam String id, @RequestParam String pw) {
-        User user = userService.loginProcess(id, pw);
-        if(user == null) return ResponseEntity.notFound().build();
+    public ResponseEntity<JwtToken> loginProcess(@RequestParam String id, @RequestParam String pw) throws JsonProcessingException {
+        JwtToken token = userService.loginProcess(id, pw);
+        if(token == null) return ResponseEntity.notFound().build();
 
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(token);
     }
 
     @PostMapping(value = {"/join"})

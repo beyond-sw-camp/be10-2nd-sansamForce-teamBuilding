@@ -1,16 +1,21 @@
 package sansam.team.common;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
+import sansam.team.user.command.dto.JwtToken;
+import sansam.team.user.command.entity.User;
 
 import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -23,14 +28,31 @@ public class JWTUtil {
         this.secretKey = Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public String createToken(String userSpecification) {
-        return Jwts.builder()
-                .signWith(new SecretKeySpec(secretKey.getEncoded(), SignatureAlgorithm.HS512.getJcaName()))   // HS512 알고리즘을 사용하여 secretKey를 이용해 서명
-                .setSubject(userSpecification)
-                .setIssuer("test")
-                .setIssuedAt(new Date())
+    public JwtToken createToken(Authentication authentication) throws JsonProcessingException {
+        String authorities = authentication.getAuthorities()
+                .stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
+
+        User user = (User) authentication.getPrincipal();
+        String accessToken = Jwts.builder()
+                .setSubject(authentication.getName())
+                .claim("userInfo" , user.toString())
+                .claim("auth", authorities)
                 .setExpiration(new Date((new Date()).getTime() + 86400000))
+                .signWith(secretKey, SignatureAlgorithm.HS256)
                 .compact();
+
+        String refreshToken = Jwts.builder()
+                .setExpiration(new Date((new Date()).getTime() + 86400000))
+                .signWith(secretKey, SignatureAlgorithm.HS256)
+                .compact();
+
+        return JwtToken.builder()
+                .grantType("Bearer")
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .build();
     }
 
     public String validateTokenAndGetSubject(String token) {
