@@ -13,7 +13,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
-import sansam.team.common.JWTUtil;
+import sansam.team.common.jwt.JWTUtil;
 import sansam.team.user.command.entity.User;
 
 import java.io.IOException;
@@ -28,27 +28,43 @@ public class JWTFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String token = parseBearerToken(request);
+
+        // 토큰이 없으면 다음 필터로 진행
+        if (token == null) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         User user = parseUserSpecification(token);
-        AbstractAuthenticationToken authenticated = UsernamePasswordAuthenticationToken.authenticated(user, token, user.getAuthorities());
-        authenticated.setDetails(new WebAuthenticationDetails(request));
-        SecurityContextHolder.getContext().setAuthentication(authenticated);
+
+        if (user != null) {
+            AbstractAuthenticationToken authenticated =
+                    UsernamePasswordAuthenticationToken.authenticated(user, token, user.getAuthorities());
+            authenticated.setDetails(new WebAuthenticationDetails(request));
+            SecurityContextHolder.getContext().setAuthentication(authenticated);
+        }
 
         filterChain.doFilter(request, response);
     }
 
     private String parseBearerToken(HttpServletRequest request) {
         return Optional.ofNullable(request.getHeader(HttpHeaders.AUTHORIZATION))
-                .filter(token -> token.substring(0, 7).equalsIgnoreCase("Bearer "))
+                .filter(token -> token.startsWith("Bearer "))
                 .map(token -> token.substring(7))
                 .orElse(null);
     }
 
     private User parseUserSpecification(String token) {
-        String[] split = Optional.ofNullable(token)
-                .filter(subject -> subject.length() >= 10)
+        // 토큰 유효성 검증 후 subject 파싱
+        String subject = Optional.ofNullable(token)
+                .filter(subjectStr -> subjectStr.length() >= 10)  // 길이 조건 추가
                 .map(jwtUtil::validateTokenAndGetSubject)
-                .orElse("anonymous:anonymous")
-                .split(":");
+                .orElse("anonymous:anonymous");
+
+        String[] split = subject.split(":");
+        if (split.length < 2) {
+            throw new IllegalArgumentException("Invalid token format");
+        }
 
         return new User(split[0], "", List.of(new SimpleGrantedAuthority(split[1])));
     }
