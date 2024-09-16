@@ -1,8 +1,7 @@
 package sansam.team.common;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
@@ -28,26 +27,28 @@ public class JWTUtil {
         this.secretKey = Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public JwtToken createToken(Authentication authentication) throws JsonProcessingException {
-        String authorities = authentication.getAuthorities()
-                .stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.joining(","));
+    // JWT 생성 메서드 (User 객체를 매개변수로 사용)
+    public JwtToken createToken(User user) throws JsonProcessingException {
+        // 사용자 권한 정보 설정 (예시: ROLE_USER)
+        String authorities = user.getAuth().toString();  // user.getAuth()에서 권한을 가져옴
 
-        User user = (User) authentication.getPrincipal();
+        // Access Token 생성
         String accessToken = Jwts.builder()
-                .setSubject(authentication.getName())
-                .claim("userInfo" , user.toString())
-                .claim("auth", authorities)
-                .setExpiration(new Date((new Date()).getTime() + 86400000))
-                .signWith(secretKey, SignatureAlgorithm.HS256)
+                .setSubject(String.valueOf(user.getUserSeq()))
+                .claim("userId", user.getId())
+                .claim("userName", user.getName())// User의 ID를 subject로 설정
+                .claim("auth", authorities)  // 권한 정보를 추가
+                .setExpiration(new Date((new Date()).getTime() + 86400000))  // 만료 시간 설정 (1일)
+                .signWith(secretKey, SignatureAlgorithm.HS256)  // 서명 알고리즘 및 비밀 키 사용
                 .compact();
 
+        // Refresh Token 생성
         String refreshToken = Jwts.builder()
-                .setExpiration(new Date((new Date()).getTime() + 86400000))
-                .signWith(secretKey, SignatureAlgorithm.HS256)
+                .setExpiration(new Date((new Date()).getTime() + 86400000))  // 만료 시간 설정 (1일)
+                .signWith(secretKey, SignatureAlgorithm.HS256)  // 서명 알고리즘 및 비밀 키 사용
                 .compact();
 
+        // JWT 토큰 반환
         return JwtToken.builder()
                 .grantType("Bearer")
                 .accessToken(accessToken)
@@ -55,60 +56,22 @@ public class JWTUtil {
                 .build();
     }
 
+    // 토큰 검증 및 subject 반환
     public String validateTokenAndGetSubject(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(secretKey.getEncoded())
-                .build()
-                .parseClaimsJws(token)
-                .getBody()
-                .getSubject();
-    }
-
-/*    public JwtToken generateToken(Authentication authentication) {
-        String authorities = authentication.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.joining(","));
-
-        long now = (new Date()).getTime();
-
-        Date accessTokenExpiresIn = new Date(now + 86400000);
-        String accessToken = Jwts.builder()
-                .setSubject(authentication.getName())
-                .claim("auth", authorities)
-                .setExpiration(accessTokenExpiresIn)
-                .signWith(secretKey, SignatureAlgorithm.HS256)
-                .compact();
-
-        String refreshToken = Jwts.builder()
-                .setExpiration(new Date(now + 86400000))
-                .signWith(secretKey, SignatureAlgorithm.HS256)
-                .compact();
-
-        return JwtToken.builder()
-                .grantType("Bearer")
-                .accessToken(accessToken)
-                .refreshToken(refreshToken)
-                .build();
-    }
-
-    public Authentication getAuthentication(String accessToken) {
-        Claims claims = parseClaims(accessToken);
-
-        if (claims.get("auth") == null) {
-            throw new RuntimeException("권한 정보가 없는 토큰입니다.");
+        try {
+            return Jwts.parserBuilder()
+                    .setSigningKey(secretKey)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody()
+                    .getSubject();
+        } catch (JwtException e) {
+            log.error("Invalid JWT token", e);
+            return null;
         }
-
-        Collection<? extends GrantedAuthority> authorities = Arrays.stream(claims.get("auth").toString().split(","))
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
-
-        UserDTO user = new UserDTO();
-        user.setId(claims.getSubject());
-        user.getAuthorities(authorities);
-
-        return new UsernamePasswordAuthenticationToken(user, "", authorities);
     }
 
+    // 토큰 유효성 검증
     public boolean validateToken(String token) {
         try {
             Jwts.parserBuilder()
@@ -116,30 +79,10 @@ public class JWTUtil {
                     .build()
                     .parseClaimsJws(token);
             return true;
-        } catch (SecurityException | MalformedJwtException e) {
-            log.info("Invalid JWT Token", e);
-        } catch (ExpiredJwtException e) {
-            log.info("Expired JWT Token", e);
-        } catch (UnsupportedJwtException e) {
-            log.info("Unsupported JWT Token", e);
-        } catch (IllegalArgumentException e) {
-            log.info("JWT claims string is empty.", e);
-        }
-        return false;
-    }
-
-
-    private Claims parseClaims(String accessToken) {
-        try {
-            return Jwts.parserBuilder()
-                    .setSigningKey(secretKey)
-                    .build()
-                    .parseClaimsJws(accessToken)
-                    .getBody();
-        } catch (ExpiredJwtException e) {
-            return e.getClaims();
+        } catch (JwtException | IllegalArgumentException e) {
+            log.error("Invalid JWT token", e);
+            return false;
         }
     }
-*/
-
 }
+
