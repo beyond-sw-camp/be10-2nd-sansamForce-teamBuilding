@@ -18,12 +18,18 @@ public class UserController {
 
     private final UserService userService;
 
+    //로그인 페이지 진입 호출 메소드
+    @GetMapping(value = {"", "/", "/login"})
+    public ResponseEntity<String> login() {
+        return ResponseEntity.ok("login");
+    }
+
     @PostMapping(value = {"/login"})
-    public ResponseEntity<String> login(@RequestParam String id, @RequestParam String pw) {
+    public ResponseEntity<User> login(@RequestParam String id, @RequestParam String pw) {
         User user = userService.loginProcess(id, pw);
         if(user == null) return ResponseEntity.notFound().build();
 
-        return ResponseEntity.ok("login");
+        return ResponseEntity.ok(user);
     }
 
     @PostMapping(value = {"/join"})

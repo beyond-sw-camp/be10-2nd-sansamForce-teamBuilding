@@ -5,6 +5,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import sansam.team.common.JWTUtil;
 import sansam.team.user.command.dto.UserDTO;
 import sansam.team.user.command.entity.User;
@@ -20,26 +21,14 @@ public class UserService {
     private final JWTUtil jwtUtil;
 
     public User loginProcess(String id, String pw) throws UsernameNotFoundException {
-        // 사용자를 ID로 조회
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new UsernameNotFoundException("해당하는 회원을 찾을 수 없습니다."));
+                .filter(member -> passwordEncoder.matches(pw, member.getPassword()))
+                .orElseThrow(() -> new IllegalArgumentException("아이디 또는 비밀번호가 일치하지 않습니다."));
 
-        // 비밀번호 비교
-        if (!passwordEncoder.matches(pw, user.getPassword())) {
-            throw new UsernameNotFoundException("비밀번호가 일치하지 않습니다.");
-        }
-
-        return user;  // 비밀번호가 일치하면 사용자 정보를 반환
+        return user;
     }
 
-    private User createUserDetails(User member) {
-        return User.builder()
-                .id(member.getId())
-                .password(member.getPassword())
-                .auth(member.getAuth())
-                .build();
-    }
-
+    @Transactional
     public boolean joinProcess(UserDTO userDTO) {
         userDTO.changePasswordEncoder(userDTO.getPassword());
         userDTO.changeAuthMember();

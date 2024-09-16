@@ -49,7 +49,6 @@ public class SecurityConfig {
                                         "/swagger-ui/**", // Swagger UI 경로
                                         "/v3/api-docs/**", // Swagger API 문서 경로
                                         "/api/v1/user/",
-                                        "/api/v1/user/login",
                                         "/api/v1/user/join"
                                 ).permitAll()
                                 .requestMatchers(

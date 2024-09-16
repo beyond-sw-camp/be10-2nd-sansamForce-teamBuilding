@@ -16,7 +16,7 @@ INSERT INTO
             'test'
               , '테스트이름'
               , '테스트닉네임'
-              , 'test1'
+              , '$2a$10$1xMzXBNe8P5gxLP1Tqpxk.q1fnxuiDCxHoABhGqRbN0/Dfub1NYae'  /* 테스트2 */
               , 'MEMBER'
               , '01011112222'
               , 'test@gmail.com'

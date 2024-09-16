@@ -54,6 +54,7 @@ public class User {
     @Column(name="user_propile_img")
     private String propileImg;
 
+    @Enumerated(EnumType.STRING)
     @Column(name="user_status")
     private StatusType status;
 

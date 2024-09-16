@@ -5,7 +5,7 @@ CREATE TABLE tbl_user (
     user_id VARCHAR(30) NOT NULL,
     user_name VARCHAR(30),
     user_nickname VARCHAR(50),
-    user_password VARCHAR(15) NOT NULL,
+    user_password VARCHAR(100) NOT NULL,
     user_auth VARCHAR(15),
     user_phone VARCHAR(11),
     user_email VARCHAR(30),
