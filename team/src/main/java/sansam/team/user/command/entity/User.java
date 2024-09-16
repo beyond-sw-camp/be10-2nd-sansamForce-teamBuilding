@@ -61,7 +61,7 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     @Column(name="user_status")
-    private StatusType status;
+    private StatusType status = StatusType.ACTIVE;
 
     @Column(name = "user_pwd_mod_date", insertable = false)
     private LocalDateTime pwdModDate;
