@@ -46,18 +46,19 @@ public class SecurityConfig {
                         authorizeRequest
                                 .requestMatchers(
                                         "/",
-                                        "/swagger-ui/**", // Swagger UI 경로
-                                        "/v3/api-docs/**", // Swagger API 문서 경로
+                                        "/swagger-ui/**",
+                                        "/v3/api-docs/**",
                                         "/api/v1/user/",
                                         "/api/v1/user/join"
                                 ).permitAll()
-                                .requestMatchers(
-                                        "/api/v1/admin/**"
-                                ).hasAnyRole("MANAGER", "SUB_MANAGER")
+                                .requestMatchers("/api/v1/admin/**")
+                                .hasAnyRole("MANAGER", "SUB_MANAGER")
                                 .anyRequest().authenticated()
                 )
-                .addFilterBefore(new JWTFilter(jwtUtil), LoginFilter.class)
-                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, modelMapper), UsernamePasswordAuthenticationFilter.class)  // ModelMapper 추가
+                // LoginFilter는 UsernamePasswordAuthenticationFilter 앞에 위치시킵니다.
+                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, modelMapper), UsernamePasswordAuthenticationFilter.class)
+                // JWTFilter는 로그인 이후 JWT 검증을 담당하므로 UsernamePasswordAuthenticationFilter 뒤에 위치시킵니다.
+                .addFilterAfter(new JWTFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         return http.build();
