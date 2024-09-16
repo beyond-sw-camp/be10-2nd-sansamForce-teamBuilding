@@ -64,19 +64,6 @@ public class UserDTO {
         this.auth = RoleType.MEMBER;
     }
 
-    public Collection<? extends GrantedAuthority> getAuthorities(Collection<? extends GrantedAuthority> authorities) {
-
-        Collection<GrantedAuthority> collection = new ArrayList<>();
-
-        collection.add(new GrantedAuthority() {
-            public String getAuthority() {
-                return getAuth().getRole();
-            }
-        });
-
-        return collection;
-    }
-
     public boolean isAccountNonExpired() {
         return true;
     }

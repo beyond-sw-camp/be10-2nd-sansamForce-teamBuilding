@@ -1,6 +1,5 @@
 package sansam.team.user.command.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -25,7 +24,7 @@ public class UserController {
     }
 
     @PostMapping(value = {"/login"})
-    public ResponseEntity<User> login(@RequestParam String id, @RequestParam String pw) {
+    public ResponseEntity<User> loginProcess(@RequestParam String id, @RequestParam String pw) {
         User user = userService.loginProcess(id, pw);
         if(user == null) return ResponseEntity.notFound().build();
 

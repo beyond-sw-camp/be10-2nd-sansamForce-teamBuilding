@@ -25,6 +25,9 @@ public class UserService {
                 .filter(member -> passwordEncoder.matches(pw, member.getPassword()))
                 .orElseThrow(() -> new IllegalArgumentException("아이디 또는 비밀번호가 일치하지 않습니다."));
 
+        String token = jwtUtil.createToken(String.format("%s:%s", user.getId(), user.getAuth()));
+        user.setToken(token);
+
         return user;
     }
 

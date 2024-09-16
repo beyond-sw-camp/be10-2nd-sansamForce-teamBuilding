@@ -13,9 +13,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import sansam.team.common.JWTUtil;
-import sansam.team.user.command.dto.JwtToken;
-import sansam.team.user.command.dto.UserDTO;
-import sansam.team.user.command.entity.User;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -40,9 +37,9 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) {
-        log.info("로그인 성공");
+        log.info("=======로그인 성공=======");
 
-        User user  = (User) authentication.getPrincipal();
+        /*User user  = (User) authentication.getPrincipal();
 
         JwtToken jwtToken = jwtUtil.generateToken(authentication);
 
@@ -52,7 +49,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.setStatus(HttpStatus.OK.value());
+        response.setStatus(HttpStatus.OK.value());*/
     }
 
     @Override

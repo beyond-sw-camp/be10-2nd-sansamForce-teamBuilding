@@ -5,10 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Persistent;
+import org.springframework.security.core.GrantedAuthority;
 import sansam.team.user.command.enums.RoleType;
 import sansam.team.user.command.enums.StatusType;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Builder
 @Entity
@@ -72,5 +77,30 @@ public class User {
 
     @Column(name = "del_date", insertable = false)
     private LocalDateTime delDate;
+
+    @Transient
+    private String token;
+
+    public <E> User(String name, String s1, Collection<? extends GrantedAuthority> es) {
+        this.name = name;
+        es = es;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+
+        Collection<GrantedAuthority> collection = new ArrayList<>();
+
+        collection.add(new GrantedAuthority() {
+            public String getAuthority() {
+                return getAuth().getRole();
+            }
+        });
+
+        return collection;
+    }
 
 }

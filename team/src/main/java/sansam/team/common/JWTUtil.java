@@ -1,23 +1,16 @@
 package sansam.team.common;
 
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
-import sansam.team.user.command.dto.JwtToken;
-import sansam.team.user.command.dto.UserDTO;
 
 import javax.crypto.SecretKey;
-import java.util.Arrays;
-import java.util.Collection;
+import javax.crypto.spec.SecretKeySpec;
 import java.util.Date;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -30,7 +23,26 @@ public class JWTUtil {
         this.secretKey = Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public JwtToken generateToken(Authentication authentication) {
+    public String createToken(String userSpecification) {
+        return Jwts.builder()
+                .signWith(new SecretKeySpec(secretKey.getEncoded(), SignatureAlgorithm.HS512.getJcaName()))   // HS512 알고리즘을 사용하여 secretKey를 이용해 서명
+                .setSubject(userSpecification)
+                .setIssuer("test")
+                .setIssuedAt(new Date())
+                .setExpiration(new Date((new Date()).getTime() + 86400000))
+                .compact();
+    }
+
+    public String validateTokenAndGetSubject(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(secretKey.getEncoded())
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
+    }
+
+/*    public JwtToken generateToken(Authentication authentication) {
         String authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
@@ -106,5 +118,6 @@ public class JWTUtil {
             return e.getClaims();
         }
     }
+*/
 
 }
