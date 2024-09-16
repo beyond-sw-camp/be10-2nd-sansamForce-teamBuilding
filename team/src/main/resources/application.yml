@@ -1,6 +1,9 @@
 # 서버 포트 번호
 server:
   port: 8086
+  servlet:
+    encoding:
+      charset: UTF-8
 
 # mysql, jpa 관련
 spring:
