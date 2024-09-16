@@ -13,6 +13,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import sansam.team.common.JWTUtil;
+import sansam.team.user.command.dto.JwtToken;
+import sansam.team.user.command.dto.UserDTO;
+import sansam.team.user.command.entity.User;
+
+import java.io.IOException;
+import java.io.PrintWriter;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -23,12 +29,11 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-
         String userName = obtainUsername(request);
         String password = obtainPassword(request);
 
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userName, password, null);
-        Authentication authentication =  authenticationManager.authenticate(authToken);
+        Authentication authentication = authenticationManager.authenticate(authToken);
 
         log.info("request userid = {}, password = {}", userName, password);
 
@@ -36,20 +41,29 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     }
 
     @Override
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) {
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException {
         log.info("=======로그인 성공=======");
 
-        /*User user  = (User) authentication.getPrincipal();
+        // User 객체 가져오기
+        User user = (User) authentication.getPrincipal();
 
-        JwtToken jwtToken = jwtUtil.generateToken(authentication);
+        // JWT 토큰 생성 (User 객체를 매개변수로 전달)
+        JwtToken jwtToken = jwtUtil.createToken(user);
 
+        // UserDTO로 변환 후 JWT 토큰 세팅
         UserDTO loginUserInfo = modelMapper.map(user, UserDTO.class);
         loginUserInfo.setJwtToken(jwtToken);
+
         log.info("토큰 발급 완료 - accessToken : {}, refreshToken : {}", jwtToken.getAccessToken(), jwtToken.getRefreshToken());
 
+        // 응답으로 JWT 토큰 전송
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.setStatus(HttpStatus.OK.value());*/
+        response.setStatus(HttpStatus.OK.value());
+
+        PrintWriter out = response.getWriter();
+        out.write("{\"accessToken\":\"" + jwtToken.getAccessToken() + "\", \"refreshToken\":\"" + jwtToken.getRefreshToken() + "\", \"userId\":\"" + user.getId() + "\"}");
+        out.flush();
     }
 
     @Override
@@ -59,5 +73,5 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
     }
-
 }
+
