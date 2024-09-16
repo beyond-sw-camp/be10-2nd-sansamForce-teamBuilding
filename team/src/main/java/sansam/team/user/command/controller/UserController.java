@@ -6,8 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sansam.team.user.command.dto.JwtToken;
-import sansam.team.user.command.dto.UserDTO;
+import sansam.team.user.command.dto.*;
 import sansam.team.user.command.service.UserService;
 
 @Slf4j
@@ -24,20 +23,24 @@ public class UserController {
         return ResponseEntity.ok("login");
     }
 
+    // 로그인 요청 처리 메소드
     @PostMapping(value = {"/login"})
-    public ResponseEntity<JwtToken> loginProcess(@RequestParam String id, @RequestParam String pw) throws JsonProcessingException {
-        JwtToken token = userService.loginProcess(id, pw);
-        if(token == null) return ResponseEntity.notFound().build();
+    public ResponseEntity<LoginResponseDTO> loginProcess(@RequestBody LoginRequestDTO loginRequestDTO) throws JsonProcessingException {
+        JwtToken token = userService.loginProcess(loginRequestDTO);
+        if(token == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 
-        return ResponseEntity.ok(token);
+        // 로그인 성공 시 필요한 사용자 정보와 JWT 토큰을 포함한 응답을 반환
+        UserDTO userDTO = userService.findById(loginRequestDTO);  // 서비스에서 사용자를 조회
+        LoginResponseDTO loginResponse = new LoginResponseDTO(userDTO.getId(),userDTO.getName(), userDTO.getAuth(), token);
+
+        return ResponseEntity.ok(loginResponse);
     }
 
     @PostMapping(value = {"/join"})
-    public ResponseEntity<String> joinProcess(@RequestBody UserDTO userDTO) {
-        boolean isJoinMember = userService.joinProcess(userDTO);
-
+    public ResponseEntity<String> joinProcess(@RequestBody UserJoinDTO userJoinDTO) {
+        boolean isJoinMember = userService.joinProcess(userJoinDTO);
         return ResponseEntity.status(isJoinMember ? HttpStatus.CREATED : HttpStatus.BAD_REQUEST)
-                .body(isJoinMember ? "join member successfully" : " Error join member");
+                .body(isJoinMember ? "Join successful" : "Error during registration");
     }
 
 
