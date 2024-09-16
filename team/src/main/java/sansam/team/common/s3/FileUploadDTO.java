@@ -1,4 +1,4 @@
-package sansam.team.common;
+package sansam.team.common.s3;
 
 import lombok.Getter;
 import lombok.Setter;

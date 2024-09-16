@@ -1,4 +1,4 @@
-package sansam.team.common;
+package sansam.team.common.jwt;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.jsonwebtoken.*;
@@ -8,9 +8,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 import sansam.team.user.command.dto.JwtToken;
 import sansam.team.user.command.entity.User;
+import sansam.team.user.command.enums.RoleType;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
@@ -30,7 +32,9 @@ public class JWTUtil {
     // JWT 생성 메서드 (User 객체를 매개변수로 사용)
     public JwtToken createToken(User user) throws JsonProcessingException {
         // 사용자 권한 정보 설정 (예시: ROLE_USER)
-        String authorities = user.getAuth().toString();  // user.getAuth()에서 권한을 가져옴
+        String authorities = user.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)  // 이미 GrantedAuthority 타입이므로 getAuthority만 호출
+                .collect(Collectors.joining(","));
 
         // Access Token 생성
         String accessToken = Jwts.builder()
@@ -65,10 +69,18 @@ public class JWTUtil {
                     .parseClaimsJws(token)
                     .getBody()
                     .getSubject();
-        } catch (JwtException e) {
+        } catch (ExpiredJwtException e) {
+            log.error("Expired JWT token", e);
+        } catch (UnsupportedJwtException e) {
+            log.error("Unsupported JWT token", e);
+        } catch (MalformedJwtException e) {
             log.error("Invalid JWT token", e);
-            return null;
+        } catch (SignatureException e) {
+            log.error("Invalid JWT signature", e);
+        } catch (IllegalArgumentException e) {
+            log.error("JWT token is null or empty", e);
         }
+        return null;
     }
 
     // 토큰 유효성 검증
