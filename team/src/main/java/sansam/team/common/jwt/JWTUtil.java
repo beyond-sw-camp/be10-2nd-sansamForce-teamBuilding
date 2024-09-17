@@ -6,13 +6,9 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 import sansam.team.user.command.dto.JwtToken;
 import sansam.team.user.command.entity.User;
-import sansam.team.user.command.enums.RoleType;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
@@ -31,25 +27,27 @@ public class JWTUtil {
 
     // JWT 생성 메서드 (User 객체를 매개변수로 사용)
     public JwtToken createToken(User user) throws JsonProcessingException {
-        // 사용자 권한 정보 설정 (예시: ROLE_USER)
+        // 사용자 권한 정보 설정
         String authorities = user.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)  // 이미 GrantedAuthority 타입이므로 getAuthority만 호출
+                .map(authority -> authority.getAuthority())
                 .collect(Collectors.joining(","));
 
         // Access Token 생성
         String accessToken = Jwts.builder()
                 .setSubject(String.valueOf(user.getUserSeq()))
                 .claim("userId", user.getId())
-                .claim("userName", user.getName())// User의 ID를 subject로 설정
-                .claim("auth", authorities)  // 권한 정보를 추가
-                .setExpiration(new Date((new Date()).getTime() + 86400000))  // 만료 시간 설정 (1일)
-                .signWith(secretKey, SignatureAlgorithm.HS256)  // 서명 알고리즘 및 비밀 키 사용
+                .claim("userName", user.getName())
+                .claim("auth", authorities)  // 권한 정보 추가
+                .setIssuedAt(new Date())  // iat 추가 (발행 시간)
+                .setExpiration(new Date((new Date()).getTime() + 86400000))  // 만료 시간 (1일)
+                .signWith(secretKey, SignatureAlgorithm.HS256)
                 .compact();
 
-        // Refresh Token 생성
+        // Refresh Token 생성 (7일 만료)
         String refreshToken = Jwts.builder()
-                .setExpiration(new Date((new Date()).getTime() + 86400000))  // 만료 시간 설정 (1일)
-                .signWith(secretKey, SignatureAlgorithm.HS256)  // 서명 알고리즘 및 비밀 키 사용
+                .setIssuedAt(new Date())  // iat 추가 (발행 시간)
+                .setExpiration(new Date((new Date()).getTime() + 604800000))  // 만료 시간 (7일)
+                .signWith(secretKey, SignatureAlgorithm.HS256)
                 .compact();
 
         // JWT 토큰 반환
@@ -60,7 +58,7 @@ public class JWTUtil {
                 .build();
     }
 
-    // 토큰 검증 및 subject 반환
+    // 토큰에서 subject 파싱
     public String validateTokenAndGetSubject(String token) {
         try {
             return Jwts.parserBuilder()
@@ -83,6 +81,26 @@ public class JWTUtil {
         return null;
     }
 
+    // 토큰에서 권한 정보 파싱
+    public String getAuthFromToken(String token) {
+        Claims claims = parseClaims(token);
+        return claims != null ? claims.get("auth", String.class) : null;
+    }
+
+    // 토큰의 Claims 파싱
+    private Claims parseClaims(String token) {
+        try {
+            return Jwts.parserBuilder()
+                    .setSigningKey(secretKey)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+        } catch (JwtException e) {
+            log.error("Invalid JWT token", e);
+            return null;
+        }
+    }
+
     // 토큰 유효성 검증
     public boolean validateToken(String token) {
         try {
@@ -97,4 +115,3 @@ public class JWTUtil {
         }
     }
 }
-
