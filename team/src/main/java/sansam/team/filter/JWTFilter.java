@@ -35,9 +35,13 @@ public class JWTFilter extends OncePerRequestFilter {
             return;
         }
 
-        User user = parseUserSpecification(token);
+        // 유효한 토큰일 경우 subject와 auth를 파싱
+        String subject = jwtUtil.validateTokenAndGetSubject(token);
+        String auth = jwtUtil.getAuthFromToken(token);
 
-        if (user != null) {
+        // 사용자 정보와 권한이 올바르게 파싱되면 인증 객체 생성
+        if (subject != null && auth != null) {
+            User user = new User(subject, "", List.of(new SimpleGrantedAuthority(auth)));
             AbstractAuthenticationToken authenticated =
                     UsernamePasswordAuthenticationToken.authenticated(user, token, user.getAuthorities());
             authenticated.setDetails(new WebAuthenticationDetails(request));
@@ -53,47 +57,4 @@ public class JWTFilter extends OncePerRequestFilter {
                 .map(token -> token.substring(7))
                 .orElse(null);
     }
-
-    private User parseUserSpecification(String token) {
-        // 토큰 유효성 검증 후 subject 파싱
-        String subject = Optional.ofNullable(token)
-                .filter(subjectStr -> subjectStr.length() >= 10)  // 길이 조건 추가
-                .map(jwtUtil::validateTokenAndGetSubject)
-                .orElse("anonymous:anonymous");
-
-        String[] split = subject.split(":");
-        if (split.length < 2) {
-            throw new IllegalArgumentException("Invalid token format");
-        }
-
-        return new User(split[0], "", List.of(new SimpleGrantedAuthority(split[1])));
-    }
-
-    /*@Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        String token = null;
-        try {
-            token = resolveToken((HttpServletRequest) request);
-        } catch (SignatureException e) {
-            throw new RuntimeException(e);
-        }
-
-        if (token != null && jwtUtil.validateToken(token)) {
-            Authentication authentication = jwtUtil.getAuthentication(token);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-        }
-
-        chain.doFilter(request, response);
-    }
-
-    private String resolveToken(HttpServletRequest request) throws SignatureException {
-        String bearerToken = request.getHeader("Authorization");
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.split(" ")[1];
-        }
-
-        return null;
-    }*/
-
 }
-
