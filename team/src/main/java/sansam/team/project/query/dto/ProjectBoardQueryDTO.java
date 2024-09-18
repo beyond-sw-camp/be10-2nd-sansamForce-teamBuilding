@@ -23,9 +23,9 @@ public class ProjectBoardQueryDTO {
     private LocalDateTime projectEndDate;
 
     // Auditable 필드 추가
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-    private LocalDateTime deletedAt;
+    private LocalDateTime regDate;
+    private LocalDateTime modDate;
+    private LocalDateTime delDate;
 
     private Long userSeq; // User ID reference
 }
