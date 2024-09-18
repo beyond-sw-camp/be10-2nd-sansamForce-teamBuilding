@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sansam.team.project.command.dto.ProjectBoardDTO;
+import sansam.team.project.command.dto.projectboard.ProjectBoardDTO;
 import sansam.team.project.command.entity.ProjectBoard;
 import sansam.team.project.command.service.ProjectBoardService;
 
