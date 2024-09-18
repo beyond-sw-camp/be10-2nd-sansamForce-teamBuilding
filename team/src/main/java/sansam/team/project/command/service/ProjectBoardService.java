@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import sansam.team.project.command.dto.ProjectBoardDTO;
+import sansam.team.project.command.dto.projectboard.ProjectBoardDTO;
 import sansam.team.project.command.entity.ProjectBoard;
 import sansam.team.project.command.repository.ProjectBoardRepository;
 import sansam.team.user.command.entity.User;
@@ -43,7 +43,8 @@ public class ProjectBoardService {
                 null, // Auditable 자동 처리
                 projectBoardDTO.getProjectStartDate(),
                 projectBoardDTO.getProjectEndDate(),
-                user  // 올바르게 추출된 User 사용
+                user,  // 올바르게 추출된 User 사용
+                null  // projectApplyMembers는 null로 설정 (필요에 따라 빈 리스트로도 가능)
         );
 
         return projectBoardRepository.save(projectBoard);
@@ -69,7 +70,8 @@ public class ProjectBoardService {
                 projectBoard.getAuditable(),  // Auditable 필드는 유지
                 projectBoardDTO.getProjectStartDate(),
                 projectBoardDTO.getProjectEndDate(),
-                projectBoard.getUser()  // 기존 User 유지
+                projectBoard.getUser(),  // 기존 User 유지
+                projectBoard.getProjectApplyMembers()  // 기존 ApplyMembers 유지
         );
 
         // 업데이트된 객체 저장 및 반환
