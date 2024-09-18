@@ -1,5 +1,6 @@
 package sansam.team.project.command.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,8 +9,9 @@ import sansam.team.project.command.entity.ProjectBoard;
 import sansam.team.project.command.service.ProjectBoardService;
 
 @RestController
-@RequestMapping("api/v1/admin/project/board")
+@RequestMapping("api/v1/admin/project-board")
 @RequiredArgsConstructor
+@Tag(name = "Project Board API", description = "프로젝트 게시물 API")
 public class ProjectBoardController {
 
     private final ProjectBoardService projectBoardService;
