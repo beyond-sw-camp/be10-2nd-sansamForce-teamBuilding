@@ -2,6 +2,8 @@ package sansam.team.project.command.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import sansam.team.project.command.dto.ProjectBoardDTO;
 import sansam.team.project.command.entity.ProjectBoard;
@@ -17,11 +19,19 @@ public class ProjectBoardService {
     private final UserRepository userRepository;
 
     /* 프로젝트 모집글 생성 로직 */
+    /* 프로젝트 모집글 생성 로직 */
     @Transactional
     public ProjectBoard createProjectBoard(ProjectBoardDTO projectBoardDTO) {
-        User user = userRepository.findById(projectBoardDTO.getUserSeq())
-                .orElseThrow(() -> new IllegalArgumentException("유저가 없습니다."));
+        // SecurityContext에서 현재 인증된 사용자(User 객체) 추출
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();  // User 객체를 추출
 
+        // 추출한 User의 userSeq가 null이 아닌지 확인
+        if (user.getUserSeq() == null) {
+            throw new IllegalArgumentException("User Seq is null");
+        }
+
+        // ProjectBoard 생성
         ProjectBoard projectBoard = new ProjectBoard(
                 null,
                 projectBoardDTO.getProjectBoardTitle(),
@@ -34,13 +44,13 @@ public class ProjectBoardService {
                 null, // Auditable 자동 처리
                 projectBoardDTO.getProjectStartDate(),
                 projectBoardDTO.getProjectEndDate(),
-                user
+                user  // 올바르게 추출된 User 사용
         );
 
         return projectBoardRepository.save(projectBoard);
     }
 
-    /* 프로젝트 모집글 생성 로직 */
+    /* 프로젝트 모집글 수정 로직 */
     @Transactional
     public ProjectBoard updateProjectBoard(Long projectBoardSeq, ProjectBoardDTO projectBoardDTO) {
         ProjectBoard projectBoard = projectBoardRepository.findById(projectBoardSeq)
