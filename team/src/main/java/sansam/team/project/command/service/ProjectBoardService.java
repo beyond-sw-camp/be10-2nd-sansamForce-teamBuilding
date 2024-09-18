@@ -19,7 +19,6 @@ public class ProjectBoardService {
     private final UserRepository userRepository;
 
     /* 프로젝트 모집글 생성 로직 */
-    /* 프로젝트 모집글 생성 로직 */
     @Transactional
     public ProjectBoard createProjectBoard(ProjectBoardDTO projectBoardDTO) {
         // SecurityContext에서 현재 인증된 사용자(User 객체) 추출
