@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import sansam.team.project.command.entity.ProjectBoard;
 import sansam.team.user.command.enums.RoleType;
@@ -19,6 +20,7 @@ import java.util.List;
 @Entity
 @Table(name = "tbl_user")
 @Getter
+@Setter  // Setter를 추가하여 필요한 필드에 값을 설정할 수 있도록 함
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
@@ -90,7 +92,6 @@ public class User {
     public User(String name, String id, Collection<? extends GrantedAuthority> authorities) {
         this.name = name;
         this.id = id;
-        // authorities는 사용되지 않으므로 이 필드 삭제 가능
     }
 
     public void setToken(String token) {
