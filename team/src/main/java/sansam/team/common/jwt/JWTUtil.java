@@ -34,7 +34,7 @@ public class JWTUtil {
 
         // Access Token 생성
         String accessToken = Jwts.builder()
-                .setSubject(String.valueOf(user.getUserSeq()))
+                .setSubject(String.valueOf(user.getUserSeq()))  // userSeq를 subject로 설정
                 .claim("userId", user.getId())
                 .claim("userName", user.getName())
                 .claim("auth", authorities)  // 권한 정보 추가
@@ -58,15 +58,20 @@ public class JWTUtil {
                 .build();
     }
 
-    // 토큰에서 subject 파싱
-    public String validateTokenAndGetSubject(String token) {
+    // JWT 토큰에서 userSeq 추출 (subject에서 userSeq를 파싱)
+    public Long getUserSeqFromToken(String token) {
         try {
-            return Jwts.parserBuilder()
+            String subject = Jwts.parserBuilder()
                     .setSigningKey(secretKey)
                     .build()
                     .parseClaimsJws(token)
                     .getBody()
                     .getSubject();
+
+            // 로그 추가: 파싱된 subject 값 확인
+            log.info("Parsed JWT subject (userSeq): {}", subject);
+
+            return Long.valueOf(subject);  // subject는 userSeq를 의미
         } catch (ExpiredJwtException e) {
             log.error("Expired JWT token", e);
         } catch (UnsupportedJwtException e) {
