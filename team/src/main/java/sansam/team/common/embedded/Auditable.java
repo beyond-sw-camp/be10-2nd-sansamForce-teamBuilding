@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Embeddable
 @Getter @Setter
 public class Auditable {
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-    private LocalDateTime deletedAt;
+    private LocalDateTime regDate;
+    private LocalDateTime modDate;
+    private LocalDateTime delDate;
 }
