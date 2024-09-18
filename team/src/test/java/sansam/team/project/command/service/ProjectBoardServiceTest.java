@@ -9,7 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import sansam.team.common.embedded.Auditable;
-import sansam.team.project.command.dto.ProjectBoardDTO;
+import sansam.team.project.command.dto.projectboard.ProjectBoardDTO;
 import sansam.team.project.command.entity.ProjectBoard;
 import sansam.team.project.command.enums.BoardStatus;
 import sansam.team.project.command.repository.ProjectBoardRepository;
@@ -80,7 +80,8 @@ class ProjectBoardServiceTest {
                 new Auditable(),  // auditable
                 projectBoardDTO.getProjectStartDate(),  // projectStartDate
                 projectBoardDTO.getProjectEndDate(),  // projectEndDate
-                mockUser  // user
+                mockUser,  // user
+                null
         );
 
         when(projectBoardRepository.save(any(ProjectBoard.class))).thenReturn(mockProjectBoard);
@@ -137,7 +138,8 @@ class ProjectBoardServiceTest {
                 new Auditable(),  // Auditable 필드
                 LocalDateTime.now(),  // 프로젝트 시작 날짜
                 LocalDateTime.now().plusMonths(1),  // 프로젝트 종료 날짜
-                mockUser  // User
+                mockUser,  // User
+                null
         );
 
         // 기존 ProjectBoard를 찾도록 Mocking
@@ -156,7 +158,8 @@ class ProjectBoardServiceTest {
                 new Auditable(),
                 projectBoardDTO.getProjectStartDate(),
                 projectBoardDTO.getProjectEndDate(),
-                mockUser
+                mockUser,
+                null
         );
 
         when(projectBoardRepository.save(any(ProjectBoard.class))).thenReturn(updatedProjectBoard);
