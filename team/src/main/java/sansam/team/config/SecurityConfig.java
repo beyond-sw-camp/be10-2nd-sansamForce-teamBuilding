@@ -53,6 +53,9 @@ public class SecurityConfig {
                                 ).permitAll()
                                 .requestMatchers("/api/v1/admin/**")
                                 .hasAnyAuthority("MANAGER", "SUB_MANAGER")
+                                .requestMatchers(
+                                        "/api/v1/**"
+                                ).hasAnyAuthority("MEMBER", "MENTOR", "MANAGER", "SUB_MANAGER")
                                 .anyRequest().authenticated()
                 )
                 // LoginFilter는 UsernamePasswordAuthenticationFilter 앞에 위치시킵니다.
