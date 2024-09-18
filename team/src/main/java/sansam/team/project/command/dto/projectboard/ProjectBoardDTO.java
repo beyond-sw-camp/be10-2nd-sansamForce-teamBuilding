@@ -1,4 +1,4 @@
-package sansam.team.project.command.dto;
+package sansam.team.project.command.dto.projectboard;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
