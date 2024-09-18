@@ -52,11 +52,13 @@ public class ProjectBoardService {
     /* 프로젝트 모집글 수정 로직 */
     @Transactional
     public ProjectBoard updateProjectBoard(Long projectBoardSeq, ProjectBoardDTO projectBoardDTO) {
+        // 기존 프로젝트 보드를 찾음
         ProjectBoard projectBoard = projectBoardRepository.findById(projectBoardSeq)
                 .orElseThrow(() -> new IllegalArgumentException("Project board not found"));
 
-        projectBoard = new ProjectBoard(
-                projectBoardSeq,
+        // DTO의 값으로 기존 프로젝트 보드의 필드들을 업데이트
+        ProjectBoard updatedProjectBoard = new ProjectBoard(
+                projectBoard.getProjectBoardSeq(),
                 projectBoardDTO.getProjectBoardTitle(),
                 projectBoardDTO.getProjectBoardContent(),
                 projectBoardDTO.getProjectBoardHeadCount(),
@@ -64,13 +66,14 @@ public class ProjectBoardService {
                 projectBoardDTO.getProjectBoardStartDate(),
                 projectBoardDTO.getProjectBoardEndDate(),
                 projectBoardDTO.getBoardStatus(),
-                projectBoard.getAuditable(),  // Auditable 그대로 유지
+                projectBoard.getAuditable(),  // Auditable 필드는 유지
                 projectBoardDTO.getProjectStartDate(),
                 projectBoardDTO.getProjectEndDate(),
-                projectBoard.getUser() // 기존 유저 그대로 유지
+                projectBoard.getUser()  // 기존 User 유지
         );
 
-        return projectBoardRepository.save(projectBoard);
+        // 업데이트된 객체 저장 및 반환
+        return projectBoardRepository.save(updatedProjectBoard);
     }
 
     @Transactional
