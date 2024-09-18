@@ -15,7 +15,9 @@ public class ProjectBoardController {
     private final ProjectBoardService projectBoardService;
 
     @PostMapping
-    public ResponseEntity<ProjectBoard> createProjectBoard(@RequestBody ProjectBoardDTO projectBoardDTO) {
+    public ResponseEntity<ProjectBoard> createProjectBoard(
+            @RequestBody ProjectBoardDTO projectBoardDTO) {
+        // 서비스로 전달하여 ProjectBoard 생성
         ProjectBoard projectBoard = projectBoardService.createProjectBoard(projectBoardDTO);
         return ResponseEntity.ok(projectBoard);
     }
@@ -33,5 +35,4 @@ public class ProjectBoardController {
         projectBoardService.deleteProjectBoard(projectBoardSeq);
         return ResponseEntity.noContent().build();
     }
-
 }
