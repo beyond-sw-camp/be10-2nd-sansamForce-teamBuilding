@@ -1,10 +1,13 @@
 package sansam.team.project.command.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sansam.team.common.embedded.Auditable;
+import sansam.team.common.embedded.AuditableEntity;
+import sansam.team.common.embedded.BaseEntity;
 import sansam.team.project.command.enums.BoardStatus;
 import sansam.team.user.command.entity.User;
 
@@ -13,10 +16,13 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "tbl_project_board")
 @Getter
-@NoArgsConstructor @AllArgsConstructor
-public class ProjectBoard {
+@NoArgsConstructor
+@AllArgsConstructor
+@EntityListeners(BaseEntity.class)
+public class ProjectBoard implements AuditableEntity {
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "project_board_seq")
     private Long projectBoardSeq;
 
@@ -40,11 +46,11 @@ public class ProjectBoard {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "project_board_status", nullable = false)
-    private BoardStatus boardStatus = BoardStatus.RECRUITMENT; // 기본값 설정
+    private BoardStatus boardStatus = BoardStatus.RECRUITMENT;
 
-    /* 생성일, 수정일, 삭제일 */
+    // Auditable 필드를 초기화
     @Embedded
-    private Auditable auditable;
+    private Auditable auditable = new Auditable(); // 여기에서 기본값으로 초기화
 
     @Column(name = "project_start_date", nullable = false)
     private LocalDateTime projectStartDate;
@@ -52,9 +58,18 @@ public class ProjectBoard {
     @Column(name = "project_end_date")
     private LocalDateTime projectEndDate;
 
-    // 유저와 프로젝트 보드 간 다대일 관계 설정
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_seq", nullable = false)
+    @JsonIgnore // 순환 참조 방지: 직렬화에서 무시
     private User user;
-}
 
+    @Override
+    public Auditable getAuditable() {
+        return auditable;
+    }
+
+    @Override
+    public void setAuditable(Auditable auditable) {
+        this.auditable = auditable;
+    }
+}
