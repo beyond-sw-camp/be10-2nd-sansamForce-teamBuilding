@@ -21,5 +21,5 @@ public class ProjectBoardDTO {
     private BoardStatus boardStatus;
     private LocalDateTime projectStartDate;
     private LocalDateTime projectEndDate;
-    private Long userSeq;  // 유저를 관리할 기본적인 필드
+
 }
