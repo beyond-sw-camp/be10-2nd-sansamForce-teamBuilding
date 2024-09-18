@@ -7,7 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import sansam.team.common.FileUploadUtil;
+import sansam.team.common.s3.FileUploadUtil;
 import sansam.team.test.command.dto.TestDTO;
 import sansam.team.test.command.service.TestService;
 

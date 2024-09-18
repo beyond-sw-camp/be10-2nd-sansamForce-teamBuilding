@@ -1,4 +1,4 @@
-package sansam.team.common;
+package sansam.team.common.s3;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.ObjectMetadata;

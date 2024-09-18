@@ -13,7 +13,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
-import sansam.team.common.JWTUtil;
+import sansam.team.common.jwt.JWTUtil;
 import sansam.team.user.command.entity.User;
 
 import java.io.IOException;
@@ -28,56 +28,56 @@ public class JWTFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String token = parseBearerToken(request);
-        User user = parseUserSpecification(token);
-        AbstractAuthenticationToken authenticated = UsernamePasswordAuthenticationToken.authenticated(user, token, user.getAuthorities());
-        authenticated.setDetails(new WebAuthenticationDetails(request));
-        SecurityContextHolder.getContext().setAuthentication(authenticated);
 
+        // 토큰이 없으면 다음 필터로 진행
+        if (token == null) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        try {
+            // JWT 토큰에서 userSeq와 auth 권한 파싱
+            Long userSeq = jwtUtil.getUserSeqFromToken(token);  // userSeq 추출
+            String auth = jwtUtil.getAuthFromToken(token);      // 권한 추출
+
+            // userSeq와 auth가 null이 아닐 때만 인증 처리
+            if (userSeq != null && auth != null) {
+                // JWT의 auth에서 권한 추출
+                List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(auth));
+
+                // User 객체 생성 및 userSeq 설정
+                User user = new User();
+                user.setUserSeq(userSeq);
+
+                // 로그로 권한 상태 확인
+                log.info("JWT UserSeq: " + userSeq);
+                log.info("JWT Auth: " + auth);
+                log.info("User Authorities after setting: " + authorities);
+
+                // 인증 객체 생성
+                AbstractAuthenticationToken authenticated =
+                        new UsernamePasswordAuthenticationToken(user, null, authorities);
+                authenticated.setDetails(new WebAuthenticationDetails(request));
+
+                // SecurityContext에 인증 객체 설정
+                SecurityContextHolder.getContext().setAuthentication(authenticated);
+            }
+        } catch (Exception e) {
+            // JWT 인증 실패 시 로그 출력 및 403 응답
+            log.error("JWT Authentication failed", e);
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            return;
+        }
+
+        // 필터 체인 계속 진행
         filterChain.doFilter(request, response);
     }
 
+    // Bearer 토큰을 헤더에서 파싱하는 메소드
     private String parseBearerToken(HttpServletRequest request) {
         return Optional.ofNullable(request.getHeader(HttpHeaders.AUTHORIZATION))
-                .filter(token -> token.substring(0, 7).equalsIgnoreCase("Bearer "))
+                .filter(token -> token.startsWith("Bearer "))
                 .map(token -> token.substring(7))
                 .orElse(null);
     }
-
-    private User parseUserSpecification(String token) {
-        String[] split = Optional.ofNullable(token)
-                .filter(subject -> subject.length() >= 10)
-                .map(jwtUtil::validateTokenAndGetSubject)
-                .orElse("anonymous:anonymous")
-                .split(":");
-
-        return new User(split[0], "", List.of(new SimpleGrantedAuthority(split[1])));
-    }
-
-    /*@Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        String token = null;
-        try {
-            token = resolveToken((HttpServletRequest) request);
-        } catch (SignatureException e) {
-            throw new RuntimeException(e);
-        }
-
-        if (token != null && jwtUtil.validateToken(token)) {
-            Authentication authentication = jwtUtil.getAuthentication(token);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-        }
-
-        chain.doFilter(request, response);
-    }
-
-    private String resolveToken(HttpServletRequest request) throws SignatureException {
-        String bearerToken = request.getHeader("Authorization");
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.split(" ")[1];
-        }
-
-        return null;
-    }*/
-
 }
-

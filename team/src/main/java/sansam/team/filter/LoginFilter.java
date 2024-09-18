@@ -12,7 +12,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import sansam.team.common.JWTUtil;
+import sansam.team.common.jwt.JWTUtil;
 import sansam.team.user.command.dto.JwtToken;
 import sansam.team.user.command.dto.UserDTO;
 import sansam.team.user.command.entity.User;
