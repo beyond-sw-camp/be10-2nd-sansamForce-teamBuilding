@@ -3,10 +3,11 @@ package sansam.team.project.command.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import sansam.team.project.command.enums.BoardStatus;
 import java.time.LocalDateTime;
 
-@Getter
+@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProjectBoardDTO {
