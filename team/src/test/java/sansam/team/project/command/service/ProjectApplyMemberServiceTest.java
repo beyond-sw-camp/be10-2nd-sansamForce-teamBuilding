@@ -9,7 +9,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import sansam.team.common.embedded.Auditable;
-import sansam.team.project.command.dto.projectboard.ProjectApplyMemberDTO;
 import sansam.team.project.command.entity.ProjectApplyMember;
 import sansam.team.project.command.entity.ProjectBoard;
 import sansam.team.project.command.enums.ApplyStatus;
@@ -70,12 +69,11 @@ class ProjectApplyMemberServiceTest {
     @Test
     void applyForProject_shouldCreateNewProjectApplyMember() {
         // Given
-        ProjectApplyMemberDTO projectApplyMemberDTO = new ProjectApplyMemberDTO(ApplyStatus.APPLIED);
         Long projectBoardSeq = 1L;
 
         ProjectApplyMember mockProjectApplyMember = new ProjectApplyMember(
                 null,
-                projectApplyMemberDTO.getApplyStatus(),
+                ApplyStatus.APPLIED,  // 상태를 직접 설정
                 mockUser,
                 mockProjectBoard,
                 new Auditable()
@@ -86,7 +84,7 @@ class ProjectApplyMemberServiceTest {
         when(projectApplyMemberRepository.save(any(ProjectApplyMember.class))).thenReturn(new ProjectApplyMember()); // Save 호출 시 반환될 객체 설정
 
         // When
-        ProjectApplyMember result = projectApplyMemberService.applyForProject(projectBoardSeq, projectApplyMemberDTO);
+        ProjectApplyMember result = projectApplyMemberService.applyForProject(projectBoardSeq);
 
         // Then
         assertNotNull(result);  // 반환된 객체가 null이 아닌지 확인
