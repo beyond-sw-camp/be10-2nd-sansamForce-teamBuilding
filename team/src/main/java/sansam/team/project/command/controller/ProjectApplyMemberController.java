@@ -8,7 +8,7 @@ import sansam.team.project.command.entity.ProjectApplyMember;
 import sansam.team.project.command.service.ProjectApplyMemberService;
 
 @RestController
-@RequestMapping("/api/project/apply")
+@RequestMapping("/api/v1/project/apply")
 @RequiredArgsConstructor
 public class ProjectApplyMemberController {
 
