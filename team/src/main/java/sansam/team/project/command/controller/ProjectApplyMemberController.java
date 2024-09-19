@@ -1,5 +1,6 @@
 package sansam.team.project.command.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ public class ProjectApplyMemberController {
 
     // 프로젝트 신청 API
     @PostMapping("/{projectBoardSeq}")
+    @Operation(summary = "프로젝트 신청", description = "프로젝트 신청 API")
     public ResponseEntity<ProjectApplyMember> applyForProject(
             @PathVariable Long projectBoardSeq) {
 
@@ -27,6 +29,7 @@ public class ProjectApplyMemberController {
 
     // 프로젝트 신청 취소 API
     @DeleteMapping("/{projectBoardSeq}")
+    @Operation(summary = "프로젝트 신청 취소", description = "취소는 완전 삭제 기능 사용")
     public ResponseEntity<Void> cancelApplication(
             @PathVariable Long projectBoardSeq) {
 

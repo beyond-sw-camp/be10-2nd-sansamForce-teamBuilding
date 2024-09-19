@@ -1,5 +1,6 @@
 package sansam.team.project.query.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,7 @@ public class ProjectApplyMemberQueryController {
 
     // 특정 회원이 신청한 프로젝트 목록 조회 API
     @GetMapping("/my-projects")
+    @Operation(summary = "프로젝트 신청 리스트 조회", description = "해당 회원이 신청한 프로젝트 리스트 조회")
     public ResponseEntity<List<ApplyMemberQueryDTO>> getMyProjects() {
         List<ApplyMemberQueryDTO> projects = projectApplyMemberQueryService.findProjectsByCurrentUser();
         return ResponseEntity.ok(projects);
