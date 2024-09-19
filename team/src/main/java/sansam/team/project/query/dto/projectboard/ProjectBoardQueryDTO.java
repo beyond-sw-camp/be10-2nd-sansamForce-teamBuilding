@@ -1,9 +1,8 @@
-package sansam.team.project.query.dto;
+package sansam.team.project.query.dto.projectboard;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import sansam.team.project.command.enums.BoardStatus;
 
 import java.time.LocalDateTime;
 
