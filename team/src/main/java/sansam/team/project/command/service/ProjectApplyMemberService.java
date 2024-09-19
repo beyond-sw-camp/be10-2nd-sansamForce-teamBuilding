@@ -5,9 +5,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sansam.team.project.command.dto.projectboard.ProjectApplyMemberDTO;
 import sansam.team.project.command.entity.ProjectApplyMember;
 import sansam.team.project.command.entity.ProjectBoard;
+import sansam.team.project.command.enums.ApplyStatus;
 import sansam.team.project.command.repository.ProjectApplyMemberRepository;
 import sansam.team.project.command.repository.ProjectBoardRepository;
 import sansam.team.user.command.entity.User;
@@ -34,7 +34,7 @@ public class ProjectApplyMemberService {
     }
 
     @Transactional
-    public ProjectApplyMember applyForProject(Long projectBoardSeq, ProjectApplyMemberDTO projectApplyMemberDTO) {
+    public ProjectApplyMember applyForProject(Long projectBoardSeq) {
 
         // 인증된 사용자 추출
         User user = getAuthenticatedUser();
@@ -45,7 +45,7 @@ public class ProjectApplyMemberService {
         // ProjectApplyMember 생성
         ProjectApplyMember projectApplyMember = new ProjectApplyMember(
                 null,
-                projectApplyMemberDTO.getApplyStatus(),
+                ApplyStatus.APPLIED,
                 user,
                 projectBoard,
                 null // Auditable 자동 처리
