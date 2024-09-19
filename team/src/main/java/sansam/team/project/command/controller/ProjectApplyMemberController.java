@@ -17,10 +17,9 @@ public class ProjectApplyMemberController {
     // 프로젝트 신청 API
     @PostMapping("/{projectBoardSeq}")
     public ResponseEntity<ProjectApplyMember> applyForProject(
-            @PathVariable Long projectBoardSeq,
-            @RequestBody ProjectApplyMemberDTO projectApplyMemberDTO) {
+            @PathVariable Long projectBoardSeq) {
 
-        ProjectApplyMember applyMember = projectApplyMemberService.applyForProject(projectBoardSeq, projectApplyMemberDTO);
+        ProjectApplyMember applyMember = projectApplyMemberService.applyForProject(projectBoardSeq);
         return ResponseEntity.ok(applyMember);
     }
 
