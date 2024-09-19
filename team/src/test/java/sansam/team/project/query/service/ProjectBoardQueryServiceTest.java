@@ -5,7 +5,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import sansam.team.project.query.dto.ProjectBoardQueryDTO;
+import sansam.team.project.command.enums.ApplyStatus;
+import sansam.team.project.query.dto.projectboard.ProjectApplyMemberQueryDTO;
+import sansam.team.project.query.dto.projectboard.ProjectBoardQueryDTO;
 import sansam.team.project.query.mapper.ProjectBoardMapper;
 
 import java.time.LocalDateTime;
@@ -96,5 +98,49 @@ class ProjectBoardQueryServiceTest {
         // Assert
         assertNull(result);
         verify(projectBoardMapper, times(1)).findById(projectBoardSeq);
+    }
+
+    @Test
+    void testFindApplyMembersByProjectBoardSeq() {
+        // Arrange
+        Long projectBoardSeq = 1L;
+
+        ProjectApplyMemberQueryDTO member1 = new ProjectApplyMemberQueryDTO(
+                1L, "John Doe", "johndoe", ApplyStatus.APPLIED);
+
+        ProjectApplyMemberQueryDTO member2 = new ProjectApplyMemberQueryDTO(
+                2L, "Jane Smith", "janesmith", ApplyStatus.APPROVED);
+
+        List<ProjectApplyMemberQueryDTO> mockMembers = Arrays.asList(member1, member2);
+
+        when(projectBoardMapper.findApplyMembersByProjectBoardSeq(projectBoardSeq)).thenReturn(mockMembers);
+
+        // Act
+        List<ProjectApplyMemberQueryDTO> result = projectBoardQueryService.findApplyMembersByProjectBoardSeq(projectBoardSeq);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(2, result.size());
+        assertEquals("John Doe", result.get(0).getUserName());
+        assertEquals(ApplyStatus.APPLIED, result.get(0).getApplyStatus());
+        assertEquals("Jane Smith", result.get(1).getUserName());
+        assertEquals(ApplyStatus.APPROVED, result.get(1).getApplyStatus());
+        verify(projectBoardMapper, times(1)).findApplyMembersByProjectBoardSeq(projectBoardSeq);
+    }
+
+    @Test
+    void testFindApplyMembersByProjectBoardSeqNoMembers() {
+        // Arrange
+        Long projectBoardSeq = 1L;
+
+        when(projectBoardMapper.findApplyMembersByProjectBoardSeq(projectBoardSeq)).thenReturn(Arrays.asList());
+
+        // Act
+        List<ProjectApplyMemberQueryDTO> result = projectBoardQueryService.findApplyMembersByProjectBoardSeq(projectBoardSeq);
+
+        // Assert
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
+        verify(projectBoardMapper, times(1)).findApplyMembersByProjectBoardSeq(projectBoardSeq);
     }
 }

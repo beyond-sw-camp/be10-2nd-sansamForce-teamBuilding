@@ -7,42 +7,53 @@
     <!-- 모든 ProjectBoard 데이터를 가져오는 SQL -->
     <select id="findAll" resultType="ProjectBoardQueryDTO">
         SELECT
-        project_board_seq,
-        project_board_title,
-        project_board_content,
-        project_board_head_count,
-        project_board_img_url,
-        project_board_start_date,
-        project_board_end_date,
-        project_board_status,
-        project_start_date,
-        project_end_date,
-        created_at,
-        updated_at,
-        deleted_at,
-        user_seq
+            project_board_seq,
+            project_board_title,
+            project_board_content,
+            project_board_head_count,
+            project_board_img_url,
+            project_board_start_date,
+            project_board_end_date,
+            project_board_status,
+            project_start_date,
+            project_end_date,
+            created_at,
+            updated_at,
+            deleted_at,
+            user_seq
         FROM tbl_project_board
     </select>
 
     <!-- 특정 ID로 ProjectBoard 데이터를 가져오는 SQL -->
     <select id="findById" parameterType="long" resultType="ProjectBoardQueryDTO">
         SELECT
-        project_board_seq,
-        project_board_title,
-        project_board_content,
-        project_board_head_count,
-        project_board_img_url,
-        project_board_start_date,
-        project_board_end_date,
-        project_board_status,
-        project_start_date,
-        project_end_date,
-        created_at,
-        updated_at,
-        deleted_at,
-        user_seq
+            project_board_seq,
+            project_board_title,
+            project_board_content,
+            project_board_head_count,
+            project_board_img_url,
+            project_board_start_date,
+            project_board_end_date,
+            project_board_status,
+            project_start_date,
+            project_end_date,
+            created_at,
+            updated_at,
+            deleted_at,
+            user_seq
         FROM tbl_project_board
         WHERE project_board_seq = #{projectBoardSeq}
     </select>
 
+    <!-- 프로젝트 게시물에 신청한 회원 조회 -->
+    <select id="findApplyMembersByProjectBoardSeq" resultType="ProjectApplyMemberQueryDTO">
+        SELECT
+        pam.project_apply_member_status AS applyStatus,
+        u.user_seq AS userSeq,
+        u.user_name AS userName,
+        u.user_nickname AS userNickname
+        FROM tbl_project_apply_member pam
+        JOIN tbl_user u ON pam.user_seq = u.user_seq
+        WHERE pam.project_board_seq = #{projectBoardSeq}
+    </select>
 </mapper>
