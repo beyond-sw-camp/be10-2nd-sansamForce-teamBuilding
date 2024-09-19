@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
+import sansam.team.project.command.entity.ProjectApplyMember;
 import sansam.team.project.command.entity.ProjectBoard;
 import sansam.team.user.command.enums.RoleType;
 import sansam.team.user.command.enums.StatusType;
@@ -85,8 +86,13 @@ public class User {
     @Transient
     private String token;
 
+    /* 프로젝트 모집글 */
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProjectBoard> projectBoards = new ArrayList<>();
+
+    /* 프로젝트 신청 회원 */
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProjectApplyMember> projectApplyMembers = new ArrayList<>();
 
     // JWT용 생성자
     public User(String name, String id, Collection<? extends GrantedAuthority> authorities) {

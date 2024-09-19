@@ -9,9 +9,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import sansam.team.common.embedded.Auditable;
-import sansam.team.project.command.dto.ProjectBoardDTO;
+import sansam.team.project.command.dto.projectboard.ProjectApplyMemberDTO;
+import sansam.team.project.command.dto.projectboard.ProjectBoardDTO;
+import sansam.team.project.command.entity.ProjectApplyMember;
 import sansam.team.project.command.entity.ProjectBoard;
+import sansam.team.project.command.enums.ApplyStatus;
 import sansam.team.project.command.enums.BoardStatus;
+import sansam.team.project.command.repository.ProjectApplyMemberRepository;
 import sansam.team.project.command.repository.ProjectBoardRepository;
 import sansam.team.user.command.entity.User;
 import sansam.team.user.command.repository.UserRepository;
@@ -29,6 +33,9 @@ class ProjectBoardServiceTest {
 
     @Mock
     private ProjectBoardRepository projectBoardRepository;
+
+    @Mock
+    private ProjectApplyMemberRepository projectApplyMemberRepository;
 
     @Mock
     private UserRepository userRepository;
@@ -80,7 +87,8 @@ class ProjectBoardServiceTest {
                 new Auditable(),  // auditable
                 projectBoardDTO.getProjectStartDate(),  // projectStartDate
                 projectBoardDTO.getProjectEndDate(),  // projectEndDate
-                mockUser  // user
+                mockUser,  // user
+                null
         );
 
         when(projectBoardRepository.save(any(ProjectBoard.class))).thenReturn(mockProjectBoard);
@@ -137,7 +145,8 @@ class ProjectBoardServiceTest {
                 new Auditable(),  // Auditable 필드
                 LocalDateTime.now(),  // 프로젝트 시작 날짜
                 LocalDateTime.now().plusMonths(1),  // 프로젝트 종료 날짜
-                mockUser  // User
+                mockUser,  // User
+                null
         );
 
         // 기존 ProjectBoard를 찾도록 Mocking
@@ -156,7 +165,8 @@ class ProjectBoardServiceTest {
                 new Auditable(),
                 projectBoardDTO.getProjectStartDate(),
                 projectBoardDTO.getProjectEndDate(),
-                mockUser
+                mockUser,
+                null
         );
 
         when(projectBoardRepository.save(any(ProjectBoard.class))).thenReturn(updatedProjectBoard);
@@ -199,5 +209,114 @@ class ProjectBoardServiceTest {
 
         // Assert
         verify(projectBoardRepository, times(1)).deleteById(projectBoardSeq);
+    }
+
+    @Test
+    void testUpdateApplyMemberStatusSuccess() {
+        // Arrange
+        Long projectBoardSeq = 1L;
+        Long applyMemberSeq = 1L;
+
+        ProjectBoard mockProjectBoard = new ProjectBoard(
+                projectBoardSeq,
+                "Project Title",
+                "Project Content",
+                5,
+                "imgUrl",
+                null,
+                null,
+                null,
+                new Auditable(),
+                null,
+                null,
+                mockUser,
+                null
+        );
+
+        ProjectApplyMember mockApplyMember = new ProjectApplyMember(
+                applyMemberSeq,
+                ApplyStatus.APPLIED,
+                mockUser,
+                mockProjectBoard,
+                new Auditable()
+        );
+
+        ProjectApplyMemberDTO projectApplyMemberDTO = new ProjectApplyMemberDTO(ApplyStatus.APPROVED); // Update 상태
+
+        when(projectApplyMemberRepository.findById(applyMemberSeq)).thenReturn(Optional.of(mockApplyMember));
+
+        // ApplyStatus 변경 시 새로운 인스턴스를 반환하도록 수정
+        ProjectApplyMember updatedApplyMember = new ProjectApplyMember(
+                applyMemberSeq,
+                projectApplyMemberDTO.getApplyStatus(),
+                mockUser,
+                mockProjectBoard,
+                new Auditable()
+        );
+
+        when(projectApplyMemberRepository.save(any(ProjectApplyMember.class))).thenReturn(updatedApplyMember);
+
+        // Act
+        projectBoardService.updateApplyMemberStatus(projectBoardSeq, applyMemberSeq, projectApplyMemberDTO);
+
+        // Assert
+        verify(projectApplyMemberRepository, times(1)).findById(applyMemberSeq);
+        verify(projectApplyMemberRepository, times(1)).save(any(ProjectApplyMember.class));
+        assertEquals(ApplyStatus.APPROVED, updatedApplyMember.getProjectApplyMemberStatus());  // 업데이트된 객체에서 상태 확인
+    }
+
+
+    @Test
+    void testUpdateApplyMemberStatusNotFound() {
+        // Arrange
+        Long applyMemberSeq = 1L;
+        ProjectApplyMemberDTO projectApplyMemberDTO = new ProjectApplyMemberDTO(ApplyStatus.APPROVED); // Update 상태
+
+        when(projectApplyMemberRepository.findById(applyMemberSeq)).thenReturn(Optional.empty());
+
+        // Act & Assert
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> projectBoardService.updateApplyMemberStatus(1L, applyMemberSeq, projectApplyMemberDTO));
+        assertEquals("Apply member not found", exception.getMessage());
+    }
+
+    @Test
+    void testUpdateApplyMemberStatusProjectMismatch() {
+        // Arrange
+        Long projectBoardSeq = 1L;
+        Long applyMemberSeq = 1L;
+
+        ProjectBoard mockProjectBoard = new ProjectBoard(
+                2L, // 다른 ProjectBoardSeq
+                "Project Title",
+                "Project Content",
+                5,
+                "imgUrl",
+                null,
+                null,
+                null,
+                new Auditable(),
+                null,
+                null,
+                mockUser,
+                null
+        );
+
+        ProjectApplyMember mockApplyMember = new ProjectApplyMember(
+                applyMemberSeq,
+                ApplyStatus.APPLIED,
+                mockUser,
+                mockProjectBoard,
+                new Auditable()
+        );
+
+        ProjectApplyMemberDTO projectApplyMemberDTO = new ProjectApplyMemberDTO(ApplyStatus.APPROVED); // Update 상태
+
+        when(projectApplyMemberRepository.findById(applyMemberSeq)).thenReturn(Optional.of(mockApplyMember));
+
+        // Act & Assert
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> projectBoardService.updateApplyMemberStatus(projectBoardSeq, applyMemberSeq, projectApplyMemberDTO));
+        assertEquals("Apply member does not belong to the specified project", exception.getMessage());
     }
 }

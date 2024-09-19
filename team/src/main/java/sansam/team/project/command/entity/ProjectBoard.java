@@ -12,6 +12,8 @@ import sansam.team.project.command.enums.BoardStatus;
 import sansam.team.user.command.entity.User;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tbl_project_board")
@@ -63,6 +65,9 @@ public class ProjectBoard implements AuditableEntity {
     @JsonIgnore // 순환 참조 방지: 직렬화에서 무시
     private User user;
 
+    @OneToMany(mappedBy = "projectBoard", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProjectApplyMember> projectApplyMembers = new ArrayList<>();
+
     @Override
     public Auditable getAuditable() {
         return auditable;
@@ -72,4 +77,6 @@ public class ProjectBoard implements AuditableEntity {
     public void setAuditable(Auditable auditable) {
         this.auditable = auditable;
     }
+
+
 }
