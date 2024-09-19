@@ -44,7 +44,7 @@ public class User {
 
     @Column(name = "user_auth", nullable = false)
     @Enumerated(EnumType.STRING)
-    private RoleType auth = RoleType.MEMBER; // 기본값을 직접 지정
+    private RoleType auth = RoleType.MEMBER;
 
     @Column(name = "user_phone")
     private String phone;

@@ -2,6 +2,7 @@ package sansam.team.user.command.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,6 +17,7 @@ import sansam.team.user.command.dto.UserJoinDTO;
 import sansam.team.user.command.entity.User;
 import sansam.team.user.command.repository.UserRepository;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -26,14 +28,10 @@ public class UserService {
     private final JWTUtil jwtUtil;
     private final AuthenticationManager authenticationManager;
 
-    // 로그인 처리 메서드 (LoginRequestDTO 사용)
-    // 로그인 처리 메서드 (LoginRequestDTO 사용)
     public JwtToken loginProcess(LoginRequestDTO loginRequestDTO) throws UsernameNotFoundException, JsonProcessingException {
-        // LoginRequestDTO에서 ID와 PW 추출
         String id = loginRequestDTO.getId();
         String pw = loginRequestDTO.getPw();
 
-        // 사용자를 DB에서 찾고 비밀번호를 비교
         User user = userRepository.findById(id)
                 .filter(member -> passwordEncoder.matches(pw, member.getPassword()))
                 .orElseThrow(() -> new IllegalArgumentException("아이디 또는 비밀번호가 일치하지 않습니다."));
@@ -57,19 +55,17 @@ public class UserService {
 
     @Transactional
     public boolean joinProcess(UserJoinDTO userJoinDTO) {
-        // 비밀번호 인코딩
         userJoinDTO.changePasswordEncoder(userJoinDTO.getPassword());
         userJoinDTO.changeAuthMember();
 
-        // DTO를 엔티티로 변환
         User user = modelMapper.map(userJoinDTO, User.class);
 
         boolean isOk = true;
         try {
-            userRepository.save(user); // DB에 사용자 저장
+            userRepository.save(user);
         } catch (Exception e) {
             isOk = false;
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
         }
 
         return isOk;

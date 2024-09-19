@@ -17,20 +17,13 @@ public class UserController {
 
     private final UserService userService;
 
-    //로그인 페이지 진입 호출 메소드
-    @GetMapping(value = {"", "/", "/login"})
-    public ResponseEntity<String> login() {
-        return ResponseEntity.ok("login");
-    }
-
-    // 로그인 요청 처리 메소드
     @PostMapping(value = {"/login"})
     public ResponseEntity<LoginResponseDTO> loginProcess(@RequestBody LoginRequestDTO loginRequestDTO) throws JsonProcessingException {
         JwtToken token = userService.loginProcess(loginRequestDTO);
         if(token == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 
         // 로그인 성공 시 필요한 사용자 정보와 JWT 토큰을 포함한 응답을 반환
-        UserDTO userDTO = userService.findById(loginRequestDTO);  // 서비스에서 사용자를 조회
+        UserDTO userDTO = userService.findById(loginRequestDTO);
         LoginResponseDTO loginResponse = new LoginResponseDTO(userDTO.getId(),userDTO.getName(), userDTO.getAuth(), token);
 
         return ResponseEntity.ok(loginResponse);
