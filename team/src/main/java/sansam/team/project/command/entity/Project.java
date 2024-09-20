@@ -3,6 +3,7 @@ package sansam.team.project.command.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sansam.team.common.BaseTimeEntity;
@@ -37,4 +38,9 @@ public class Project extends BaseTimeEntity {
 
     private Long projectAdminUser;          // 프로젝트 작성자 (관리자)
 
+    @Builder
+    public Project(String projectTitle, String projectContent, ProjectStatus projectStatus, int projectHeadCount, String projectImgUrl, LocalDateTime projectStartDate, LocalDateTime projectEndDate, User user) {
+        super();
+
+    }
 }
