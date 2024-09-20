@@ -5,9 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import sansam.team.common.embedded.Auditable;
-import sansam.team.common.embedded.AuditableEntity;
-import sansam.team.common.embedded.BaseEntity;
+import sansam.team.common.BaseTimeEntity;
 import sansam.team.project.command.enums.ProjectStatus;
 import sansam.team.user.command.entity.User;
 
@@ -17,52 +15,26 @@ import java.time.LocalDateTime;
 @Table(name = "tbl_project")
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
-@EntityListeners(BaseEntity.class)
-public class Project implements AuditableEntity {
+public class Project extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "project_seq")
-    private Long projectSeq;
+    private Long projectSeq;    // 프로젝트 시퀀스 번호
 
-    @Column(name = "project_title", nullable = false)
-    private String projectTitle;
+    private String projectTitle;    // 프로젝트 제목
 
-    @Column(name = "project_content", nullable = false)
-    private String projectContent;
+    private String projectContent;  // 프로젝트 내용
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "project_status", nullable = false)
-    private ProjectStatus projectStatus = ProjectStatus.PROGRESS;
+    private ProjectStatus projectStatus = ProjectStatus.PROGRESS;   // 프로젝트 상태 PROGRESS(진행중), END(끝)
 
-    @Column(name = "project_head_count", nullable = false)
-    private int projectHeadCount;
+    private int projectHeadCount;          // 프로젝트 진행 인원 수
 
-    @Column(name = "project_img_url")
-    private String projectImgUrl;
+    private String projectImgUrl;           // 프로젝트 썸네일 이미지 Url
 
-    @Column(name = "project_start_date")
-    private LocalDateTime projectStartDate;
+    private LocalDateTime projectStartDate;     // 프로젝트 시작 날짜
 
-    @Column(name = "project_end_date")
-    private LocalDateTime projectEndDate;
+    private LocalDateTime projectEndDate;       // 프로젝트 종료 날짜
 
-    @Embedded
-    private Auditable auditable = new Auditable();
+    private Long projectAdminUser;          // 프로젝트 작성자 (관리자)
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "project_admin_seq", nullable = false)
-    @JsonIgnore
-    private User user;
-
-    @Override
-    public Auditable getAuditable() {
-        return auditable;
-    }
-
-    @Override
-    public void setAuditable(Auditable auditable) {
-        this.auditable = auditable;
-    }
 }
