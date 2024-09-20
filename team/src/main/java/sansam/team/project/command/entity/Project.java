@@ -52,7 +52,7 @@ public class Project implements AuditableEntity {
     private Auditable auditable = new Auditable();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_seq", nullable = false)
+    @JoinColumn(name = "project_admin_seq", nullable = false)
     @JsonIgnore
     private User user;
 
