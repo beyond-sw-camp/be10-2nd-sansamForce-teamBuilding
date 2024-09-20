@@ -1,25 +1,23 @@
 package sansam.team.project.command.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import sansam.team.user.command.entity.User;
+import sansam.team.common.YesNo;
 
 @Entity
 @Table(name = "tbl_project_member")
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 public class ProjectMember {
 
     @Id
     private int projectMemberSeq;
 
-    private String projectMemberDelYn;
+    private YesNo projectMemberDelYn = YesNo.Y;
 
-    private String projectMentorYn;
+    private YesNo projectMentorYn = YesNo.Y;
 
     private Long userSeq;
 
