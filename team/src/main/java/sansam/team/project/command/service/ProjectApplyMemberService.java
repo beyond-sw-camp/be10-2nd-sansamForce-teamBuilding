@@ -44,11 +44,9 @@ public class ProjectApplyMemberService {
 
         // ProjectApplyMember 생성
         ProjectApplyMember projectApplyMember = new ProjectApplyMember(
-                null,
                 ApplyStatus.APPLIED,
                 user,
-                projectBoard,
-                null // Auditable 자동 처리
+                projectBoard
         );
 
         return projectApplyMemberRepository.save(projectApplyMember);
@@ -66,9 +64,6 @@ public class ProjectApplyMemberService {
         // userSeq와 projectBoard로 ProjectApplyMember 조회
         ProjectApplyMember applyMember = projectApplyMemberRepository.findByUser_UserSeqAndProjectBoard_ProjectBoardSeq(user.getUserSeq(), projectBoardSeq)
                 .orElseThrow(() -> new IllegalArgumentException("Application not found"));
-
-        // Auditable 객체를 통해 삭제일 설정
-        applyMember.getAuditable().setDelDate(LocalDateTime.now());
 
         // 신청 삭제
         projectApplyMemberRepository.delete(applyMember);
