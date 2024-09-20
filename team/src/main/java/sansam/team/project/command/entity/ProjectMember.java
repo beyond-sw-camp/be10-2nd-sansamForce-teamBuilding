@@ -15,24 +15,14 @@ import sansam.team.user.command.entity.User;
 public class ProjectMember {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "project_member_seq")
     private int projectMemberSeq;
 
-    @Column(name = "project_member_del_yn", nullable = false)
     private String projectMemberDelYn;
 
-    @Column(name = "project_mentor_yn", nullable = false)
     private String projectMentorYn;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_seq", nullable = false)
-    @JsonIgnore
-    private User user;
+    private Long userSeq;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "project_seq", nullable = false)
-    @JsonIgnore
-    private Project project;
+    private Long projectSeq;
 
 }
