@@ -36,7 +36,37 @@ public class ProjectBoardService {
         }
 
         // ProjectBoard 생성
-        ProjectBoard projectBoard = new ProjectBoard(
+        ProjectBoard projectBoard = ProjectBoard.builder().projectBoardContent(projectBoardDTO.getProjectBoardContent())
+                .projectBoardTitle(projectBoardDTO.getProjectBoardTitle())
+                .projectBoardHeadCount(projectBoardDTO.getProjectBoardHeadCount())
+                .projectBoardImgUrl(projectBoardDTO.getProjectBoardImgUrl())
+                .projectBoardStartDate(projectBoardDTO.getProjectStartDate())
+                .projectBoardEndDate(projectBoardDTO.getProjectEndDate())
+                .boardStatus(projectBoardDTO.getBoardStatus())
+                .projectStartDate(projectBoardDTO.getProjectStartDate())
+                .projectEndDate(projectBoardDTO.getProjectEndDate())
+                .projectBoardAdminSeq(projectBoardDTO.getProjectBoardAdminSeq())
+                .build();
+
+
+        System.out.println("=========== ===========================");
+        System.out.println(projectBoard);
+        projectBoardRepository.save(projectBoard);
+        System.out.println(projectBoard);
+        System.out.println("=========== ===========================");
+        return projectBoard;
+    }
+
+    /* 프로젝트 모집글 수정 로직 */
+    @Transactional
+    public ProjectBoard updateProjectBoard(Long projectBoardSeq, ProjectBoardDTO projectBoardDTO) {
+        // 기존 프로젝트 보드를 찾음
+        ProjectBoard projectBoard = projectBoardRepository.findById(projectBoardSeq)
+                .orElseThrow(() -> new IllegalArgumentException("Project board not found"));
+
+        // DTO의 값으로 기존 프로젝트 보드의 필드들을 업데이트
+        ProjectBoard updatedProjectBoard = new ProjectBoard(
+                projectBoard.getProjectBoardSeq(),
                 projectBoardDTO.getProjectBoardTitle(),
                 projectBoardDTO.getProjectBoardContent(),
                 projectBoardDTO.getProjectBoardHeadCount(),
@@ -46,19 +76,17 @@ public class ProjectBoardService {
                 projectBoardDTO.getBoardStatus(),
                 projectBoardDTO.getProjectStartDate(),
                 projectBoardDTO.getProjectEndDate(),
-                user
+                projectBoard.getUser(),  // 기존 User 유지
+                projectBoard.getProjectApplyMembers()  // 기존 ApplyMembers 유지
         );
 
-        return projectBoardRepository.save(projectBoard);
+        // 업데이트된 객체 저장 및 반환
+        return projectBoardRepository.save(updatedProjectBoard);
     }
 
-    /* 프로젝트 모집글 수정 로직 */
-    @Transactional
-    public ProjectBoard updateProjectBoard(Long projectBoardSeq, ProjectBoardDTO projectBoardDTO) {
-        
-    }
+    /*
 
-    /* 프로젝트 모집글 삭제 로직 */
+    *//* 프로젝트 모집글 삭제 로직 *//*
     @Transactional
     public void deleteProjectBoard(Long projectBoardSeq) {
         projectBoardRepository.deleteById(projectBoardSeq);
@@ -90,5 +118,5 @@ public class ProjectBoardService {
 
         // 저장
         projectApplyMemberRepository.save(updatedApplyMember);
-    }
+    }*/
 }

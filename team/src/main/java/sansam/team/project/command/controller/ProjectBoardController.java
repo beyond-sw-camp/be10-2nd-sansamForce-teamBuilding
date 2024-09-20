@@ -27,7 +27,7 @@ public class ProjectBoardController {
         return ResponseEntity.ok(projectBoard);
     }
 
-    @PutMapping("/{projectBoardSeq}")
+   /* @PutMapping("/{projectBoardSeq}")
     @Operation(summary = "프로젝트 게시물 수정", description = "프로젝트 게시물 수정 API (관리자만 가능)")
     public ResponseEntity<ProjectBoard> updateProjectBoard(
             @PathVariable Long projectBoardSeq,
@@ -53,5 +53,5 @@ public class ProjectBoardController {
         // 서비스로 상태 업데이트 요청
         projectBoardService.updateApplyMemberStatus(projectBoardSeq, applyMemberSeq, projectApplyMemberDTO);
         return ResponseEntity.noContent().build();
-    }
+    }*/
 }
