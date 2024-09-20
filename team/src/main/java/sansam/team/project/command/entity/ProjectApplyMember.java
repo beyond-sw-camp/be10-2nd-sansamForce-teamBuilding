@@ -1,11 +1,13 @@
 package sansam.team.project.command.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sansam.team.common.BaseTimeEntity;
 
 import sansam.team.project.command.enums.ApplyStatus;
+import sansam.team.user.command.entity.User;
 
 @Entity
 @Table(name = "tbl_project_apply_member")
@@ -23,4 +25,8 @@ public class ProjectApplyMember extends BaseTimeEntity {
 
     private Long projectBoardSeq;                       // 프로젝트 게시글 번호
 
+    @Builder
+    public ProjectApplyMember(ApplyStatus applyStatus, User user, ProjectBoard projectBoard) {
+        super();
+    }
 }
