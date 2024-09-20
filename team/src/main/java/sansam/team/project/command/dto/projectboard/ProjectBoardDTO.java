@@ -1,18 +1,15 @@
 package sansam.team.project.command.dto.projectboard;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import sansam.team.project.command.enums.BoardStatus;
 import java.time.LocalDateTime;
 
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class ProjectBoardDTO {
 
-    private Long projectBoardSeq;
     private String projectBoardTitle;
     private String projectBoardContent;
     private int projectBoardHeadCount;
@@ -22,5 +19,6 @@ public class ProjectBoardDTO {
     private BoardStatus boardStatus;
     private LocalDateTime projectStartDate;
     private LocalDateTime projectEndDate;
+    private Long projectBoardAdminSeq;
 
 }
