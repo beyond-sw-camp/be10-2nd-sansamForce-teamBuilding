@@ -1,4 +1,4 @@
-package sansam.team.team.command.dto;
+package sansam.team.team.command.application.dto;
 
 import lombok.*;
 
@@ -7,8 +7,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class TeamDTO {
-    private long projectSeq;
+public class TeamUpdateRequestDTO {
     private long ruleSeq;
     private String teamName;
 }
