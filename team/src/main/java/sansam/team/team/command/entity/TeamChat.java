@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sansam.team.common.BaseTimeEntity;
+import sansam.team.common.Yn;
 
 import java.time.LocalDateTime;
 
@@ -22,7 +23,7 @@ public class TeamChat extends BaseTimeEntity {
     private long teamSeq;
     private String teamChatName;
     private String teamChatComment;
-    private String teamChatActive;
+    private Yn teamChatActive;
 
     private LocalDateTime delDate;
 }
