@@ -1,11 +1,7 @@
 package sansam.team.project.command.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import org.springframework.data.domain.Auditable;
+import lombok.*;
 import sansam.team.common.BaseTimeEntity;
 import sansam.team.project.command.enums.BoardStatus;
 import sansam.team.user.command.entity.User;
@@ -17,7 +13,8 @@ import java.util.List;
 @Entity
 @Table(name = "tbl_project_board")
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString
 public class ProjectBoard extends BaseTimeEntity {
 
     @Id
@@ -45,7 +42,16 @@ public class ProjectBoard extends BaseTimeEntity {
     private Long projectBoardAdminSeq;
 
     @Builder
-    public ProjectBoard(String projectBoardTitle, String projectBoardContent, int projectBoardHeadCount, String projectBoardImgUrl, LocalDateTime projectBoardStartDate, LocalDateTime projectBoardEndDate, BoardStatus boardStatus, LocalDateTime projectStartDate, LocalDateTime projectEndDate, User user) {
-        super();
+    public ProjectBoard(String projectBoardTitle, String projectBoardContent, int projectBoardHeadCount, String projectBoardImgUrl, LocalDateTime projectBoardStartDate, LocalDateTime projectBoardEndDate, BoardStatus boardStatus, LocalDateTime projectStartDate, LocalDateTime projectEndDate, Long projectBoardAdminSeq) {
+        this.projectBoardTitle = projectBoardTitle;
+        this.projectBoardContent = projectBoardContent;
+        this.projectBoardHeadCount = projectBoardHeadCount;
+        this.projectBoardImgUrl = projectBoardImgUrl;
+        this.projectBoardStartDate = projectBoardStartDate;
+        this.projectBoardEndDate = projectBoardEndDate;
+        this.boardStatus = boardStatus;
+        this.projectStartDate = projectStartDate;
+        this.projectEndDate = projectEndDate;
+        this.projectBoardAdminSeq = projectBoardAdminSeq;
     }
 }
