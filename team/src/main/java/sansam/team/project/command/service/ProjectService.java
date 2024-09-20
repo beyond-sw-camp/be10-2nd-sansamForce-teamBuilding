@@ -29,7 +29,6 @@ public class ProjectService {
         }
 
         Project project = new Project(
-                null,
                 projectDTO.getProjectTitle(),
                 projectDTO.getProjectContent(),
                 projectDTO.getProjectStatus(),
@@ -37,7 +36,6 @@ public class ProjectService {
                 projectDTO.getProjectImgUrl(),
                 projectDTO.getProjectStartDate(),
                 projectDTO.getProjectEndDate(),
-                null,
                 user
         );
 
