@@ -37,7 +37,6 @@ public class ProjectBoardService {
 
         // ProjectBoard 생성
         ProjectBoard projectBoard = new ProjectBoard(
-                null,
                 projectBoardDTO.getProjectBoardTitle(),
                 projectBoardDTO.getProjectBoardContent(),
                 projectBoardDTO.getProjectBoardHeadCount(),
@@ -45,11 +44,9 @@ public class ProjectBoardService {
                 projectBoardDTO.getProjectBoardStartDate(),
                 projectBoardDTO.getProjectBoardEndDate(),
                 projectBoardDTO.getBoardStatus(),
-                null, // Auditable 자동 처리
                 projectBoardDTO.getProjectStartDate(),
                 projectBoardDTO.getProjectEndDate(),
-                user,  // 올바르게 추출된 User 사용
-                null  // projectApplyMembers는 null로 설정 (필요에 따라 빈 리스트로도 가능)
+                user
         );
 
         return projectBoardRepository.save(projectBoard);
@@ -58,29 +55,7 @@ public class ProjectBoardService {
     /* 프로젝트 모집글 수정 로직 */
     @Transactional
     public ProjectBoard updateProjectBoard(Long projectBoardSeq, ProjectBoardDTO projectBoardDTO) {
-        // 기존 프로젝트 보드를 찾음
-        ProjectBoard projectBoard = projectBoardRepository.findById(projectBoardSeq)
-                .orElseThrow(() -> new IllegalArgumentException("Project board not found"));
-
-        // DTO의 값으로 기존 프로젝트 보드의 필드들을 업데이트
-        ProjectBoard updatedProjectBoard = new ProjectBoard(
-                projectBoard.getProjectBoardSeq(),
-                projectBoardDTO.getProjectBoardTitle(),
-                projectBoardDTO.getProjectBoardContent(),
-                projectBoardDTO.getProjectBoardHeadCount(),
-                projectBoardDTO.getProjectBoardImgUrl(),
-                projectBoardDTO.getProjectBoardStartDate(),
-                projectBoardDTO.getProjectBoardEndDate(),
-                projectBoardDTO.getBoardStatus(),
-                projectBoard.getAuditable(),  // Auditable 필드는 유지
-                projectBoardDTO.getProjectStartDate(),
-                projectBoardDTO.getProjectEndDate(),
-                projectBoard.getUser(),  // 기존 User 유지
-                projectBoard.getProjectApplyMembers()  // 기존 ApplyMembers 유지
-        );
-
-        // 업데이트된 객체 저장 및 반환
-        return projectBoardRepository.save(updatedProjectBoard);
+        
     }
 
     /* 프로젝트 모집글 삭제 로직 */
