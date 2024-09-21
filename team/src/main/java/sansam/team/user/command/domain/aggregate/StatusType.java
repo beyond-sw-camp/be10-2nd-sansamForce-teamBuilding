@@ -1,4 +1,4 @@
-package sansam.team.user.command.enums;
+package sansam.team.user.command.domain.aggregate;
 
 public enum StatusType {
     ACTIVE("활동중"),

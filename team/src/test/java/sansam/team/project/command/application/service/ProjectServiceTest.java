@@ -15,7 +15,7 @@ import sansam.team.project.command.entity.Project;
 import sansam.team.project.command.domain.aggregate.ProjectStatus;
 import sansam.team.project.command.repository.ProjectRepository;
 import sansam.team.user.command.entity.User;
-import sansam.team.user.command.repository.UserRepository;
+import sansam.team.user.command.infrastructure.repository.UserRepository;
 
 import java.time.LocalDateTime;
 

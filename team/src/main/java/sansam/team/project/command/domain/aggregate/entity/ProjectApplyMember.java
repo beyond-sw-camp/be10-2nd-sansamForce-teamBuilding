@@ -1,14 +1,12 @@
 package sansam.team.project.command.domain.aggregate.entity;
 
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sansam.team.common.BaseTimeEntity;
 
 import sansam.team.project.command.application.dto.board.ProjectApplyMemberDTO;
 import sansam.team.project.command.domain.aggregate.ApplyStatus;
-import sansam.team.user.command.entity.User;
 
 @Entity
 @Table(name = "tbl_project_apply_member")

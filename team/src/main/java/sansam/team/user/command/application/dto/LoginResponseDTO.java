@@ -1,8 +1,8 @@
-package sansam.team.user.command.dto;
+package sansam.team.user.command.application.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import sansam.team.user.command.enums.RoleType;
+import sansam.team.user.command.domain.aggregate.RoleType;
 
 @Getter
 @AllArgsConstructor

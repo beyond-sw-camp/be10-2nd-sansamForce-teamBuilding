@@ -1,4 +1,4 @@
-package sansam.team.user.command.controller;
+package sansam.team.user.command.application.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
@@ -6,8 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sansam.team.user.command.dto.*;
-import sansam.team.user.command.service.UserService;
+import sansam.team.user.command.application.dto.*;
+import sansam.team.user.command.application.service.UserService;
 
 @Slf4j
 @RestController

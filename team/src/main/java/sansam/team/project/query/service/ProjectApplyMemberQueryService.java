@@ -6,7 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import sansam.team.project.query.dto.projectboard.ApplyMemberQueryDTO;
 import sansam.team.project.query.mapper.ProjectApplyMemberMapper;
-import sansam.team.user.command.entity.User;
+import sansam.team.user.command.domain.aggregate.entity.User;
 
 import java.util.List;
 
