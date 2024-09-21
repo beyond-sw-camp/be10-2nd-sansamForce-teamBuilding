@@ -7,7 +7,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import sansam.team.project.command.domain.aggregate.ApplyStatus;
 import sansam.team.project.query.dto.projectboard.ProjectApplyMemberQueryDTO;
-import sansam.team.project.query.dto.projectboard.ProjectBoardQueryDTO;
+import sansam.team.project.query.dto.projectboard.ProjectBoardAdminDTO;
 import sansam.team.project.query.mapper.ProjectBoardMapper;
 
 import java.time.LocalDateTime;
@@ -34,22 +34,22 @@ class ProjectBoardQueryServiceTest {
     void testGetAllProjectBoards() {
         // Arrange
         LocalDateTime now = LocalDateTime.now();
-        ProjectBoardQueryDTO project1 = new ProjectBoardQueryDTO(
+        ProjectBoardAdminDTO project1 = new ProjectBoardAdminDTO(
                 1L, "Project 1", "Content 1", 5, "imgUrl1",
                 now, now.plusDays(30), "RECRUITMENT", now, now.plusMonths(1),
                 now, now, null, 1L);
 
-        ProjectBoardQueryDTO project2 = new ProjectBoardQueryDTO(
+        ProjectBoardAdminDTO project2 = new ProjectBoardAdminDTO(
                 2L, "Project 2", "Content 2", 10, "imgUrl2",
                 now.minusDays(10), now.plusDays(20), "IN_PROGRESS", now.minusMonths(1), now.plusMonths(2),
                 now.minusDays(10), now, null, 2L);
 
-        List<ProjectBoardQueryDTO> mockProjectBoards = Arrays.asList(project1, project2);
+        List<ProjectBoardAdminDTO> mockProjectBoards = Arrays.asList(project1, project2);
 
         when(projectBoardMapper.findAll()).thenReturn(mockProjectBoards);
 
         // Act
-        List<ProjectBoardQueryDTO> result = projectBoardQueryService.getAllProjectBoards();
+        List<ProjectBoardAdminDTO> result = projectBoardQueryService.getAllProjectBoards();
 
         // Assert
         assertNotNull(result);
@@ -64,7 +64,7 @@ class ProjectBoardQueryServiceTest {
         // Arrange
         Long projectBoardSeq = 1L;
         LocalDateTime now = LocalDateTime.now();
-        ProjectBoardQueryDTO mockProjectBoard = new ProjectBoardQueryDTO(
+        ProjectBoardAdminDTO mockProjectBoard = new ProjectBoardAdminDTO(
                 projectBoardSeq, "Project 1", "Content 1", 5, "imgUrl1",
                 now, now.plusDays(30), "RECRUITMENT", now, now.plusMonths(1),
                 now, now, null, 1L);
@@ -72,7 +72,7 @@ class ProjectBoardQueryServiceTest {
         when(projectBoardMapper.findById(projectBoardSeq)).thenReturn(mockProjectBoard);
 
         // Act
-        ProjectBoardQueryDTO result = projectBoardQueryService.getProjectBoardById(projectBoardSeq);
+        ProjectBoardAdminDTO result = projectBoardQueryService.getProjectBoardById(projectBoardSeq);
 
         // Assert
         assertNotNull(result);
@@ -93,7 +93,7 @@ class ProjectBoardQueryServiceTest {
         when(projectBoardMapper.findById(projectBoardSeq)).thenReturn(null);
 
         // Act
-        ProjectBoardQueryDTO result = projectBoardQueryService.getProjectBoardById(projectBoardSeq);
+        ProjectBoardAdminDTO result = projectBoardQueryService.getProjectBoardById(projectBoardSeq);
 
         // Assert
         assertNull(result);

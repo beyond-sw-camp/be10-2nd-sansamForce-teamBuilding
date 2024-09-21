@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProjectBoardQueryDTO {
+public class ProjectBoardAdminDTO {
 
     /* 관리자 전용 프로젝트 게시물 상세 조회 DTO */
     private Long projectBoardSeq;

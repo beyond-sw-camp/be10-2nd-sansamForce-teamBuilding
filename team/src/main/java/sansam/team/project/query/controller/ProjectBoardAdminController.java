@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import sansam.team.project.query.dto.projectboard.ProjectApplyMemberQueryDTO;
 import sansam.team.project.query.dto.projectboard.ProjectBoardAllQueryDTO;
-import sansam.team.project.query.dto.projectboard.ProjectBoardQueryDTO;
+import sansam.team.project.query.dto.projectboard.ProjectBoardAdminDTO;
 import sansam.team.project.query.service.ProjectBoardQueryService;
 
 import java.util.List;
@@ -18,8 +18,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/admin/project-board")
 @RequiredArgsConstructor
-@Tag(name = "Project Board API", description = "프로젝트 게시물 API")
-public class ProjectBoardQueryController {
+@Tag(name = "Project Board Admin API", description = "프로젝트 게시물 관리자 API")
+public class ProjectBoardAdminController {
 
     private final ProjectBoardQueryService projectBoardQueryService;
 
@@ -35,8 +35,8 @@ public class ProjectBoardQueryController {
     /* 프로젝트 게시물 상세 조회*/
     @GetMapping("/{id}")
     @Operation(summary = "프로젝트 게시물 상세 조회", description = "프로젝트 게시물 상세 조회 API (관리자만 가능)")
-    public ResponseEntity<ProjectBoardQueryDTO> getProjectBoardById(@PathVariable("id") Long projectBoardSeq) {
-        ProjectBoardQueryDTO projectBoard = projectBoardQueryService.getProjectBoardById(projectBoardSeq);
+    public ResponseEntity<ProjectBoardAdminDTO> getProjectBoardById(@PathVariable("id") Long projectBoardSeq) {
+        ProjectBoardAdminDTO projectBoard = projectBoardQueryService.getProjectBoardByIdForAdmin(projectBoardSeq);
         return ResponseEntity.ok(projectBoard);
     }
 
