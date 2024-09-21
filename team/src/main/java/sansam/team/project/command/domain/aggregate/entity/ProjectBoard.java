@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 public class ProjectBoard extends BaseTimeEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long projectBoardSeq;
 
     private String projectBoardTitle;
@@ -32,7 +33,7 @@ public class ProjectBoard extends BaseTimeEntity {
     private LocalDateTime projectBoardEndDate;
 
     @Enumerated(EnumType.STRING)
-    private BoardStatus boardStatus = BoardStatus.RECRUITMENT;
+    private BoardStatus projectBoardStatus = BoardStatus.RECRUITMENT;
 
     private LocalDateTime projectStartDate;
 
@@ -47,7 +48,7 @@ public class ProjectBoard extends BaseTimeEntity {
         this.projectBoardImgUrl = projectBoardImgUrl;
         this.projectBoardStartDate = projectBoardStartDate;
         this.projectBoardEndDate = projectBoardEndDate;
-        this.boardStatus = boardStatus;
+        this.projectBoardStatus = boardStatus;
         this.projectStartDate = projectStartDate;
         this.projectEndDate = projectEndDate;
         this.projectBoardAdminSeq = projectBoardAdminSeq;
@@ -65,7 +66,7 @@ public class ProjectBoard extends BaseTimeEntity {
         this.projectBoardImgUrl = projectBoardUpdateDTO.getProjectBoardImgUrl();
         this.projectBoardStartDate = projectBoardUpdateDTO.getProjectBoardStartDate();
         this.projectBoardEndDate = projectBoardUpdateDTO.getProjectBoardEndDate();
-        this.boardStatus = projectBoardUpdateDTO.getBoardStatus();
+        this.projectBoardStatus = projectBoardUpdateDTO.getBoardStatus();
         this.projectStartDate = projectBoardUpdateDTO.getProjectStartDate();
         this.projectEndDate = projectBoardUpdateDTO.getProjectEndDate();
     }
