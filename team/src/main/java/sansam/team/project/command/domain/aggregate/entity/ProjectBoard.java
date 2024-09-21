@@ -41,6 +41,8 @@ public class ProjectBoard extends BaseTimeEntity {
 
     private Long projectBoardAdminSeq;
 
+    private LocalDateTime delDate;
+
     /*private ProjectBoard(String projectBoardTitle, String projectBoardContent, int projectBoardHeadCount, String projectBoardImgUrl, LocalDateTime projectBoardStartDate, LocalDateTime projectBoardEndDate, BoardStatus boardStatus, LocalDateTime projectStartDate, LocalDateTime projectEndDate, Long projectBoardAdminSeq) {
         this.projectBoardTitle = projectBoardTitle;
         this.projectBoardContent = projectBoardContent;
