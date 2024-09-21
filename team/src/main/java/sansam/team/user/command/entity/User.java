@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
+import sansam.team.common.BaseTimeEntity;
 import sansam.team.project.command.domain.aggregate.entity.ProjectApplyMember;
 import sansam.team.project.command.domain.aggregate.entity.ProjectBoard;
 import sansam.team.user.command.enums.RoleType;
@@ -23,76 +24,53 @@ import java.util.Collection;
 @Setter  // Setter를 추가하여 필요한 필드에 값을 설정할 수 있도록 함
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class User extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userSeq;
+    private Long userSeq;           // 회원 번호
 
-    // 새로운 필드 추가
-    @Column(name = "major_seq")
-    private Long majorSeq;
+    private Long majorSeq;          // 전공 번호
 
-    @Column(name = "user_id", nullable = false)
-    private String id;
+    private String userId;          // 회원 아이디
 
-    @Column(name = "user_name", nullable = false)
-    private String name;
+    private String userName;        // 회원 이름
 
-    @Column(name = "user_nickname", nullable = false)
-    private String nickname;
+    private String userNickname;    // 회원 닉네임
 
-    @Column(name = "user_password", nullable = false)
-    private String password;
-
-    @Column(name = "user_auth", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private RoleType auth = RoleType.MEMBER; // 기본값을 직접 지정
-
-    @Column(name = "user_phone")
-    private String phone;
-
-    @Column(name = "user_email")
-    private String email;
-
-    @Column(name = "user_birth_date")
-    private String birthDate;
-
-    @Column(name = "user_gender")
-    private String gender;
-
-    @Column(name = "user_github_id")
-    private String githubId;
-
-    @Column(name = "user_profile_img") // 필드 이름 수정
-    private String profileImg;
+    private String userPassword;        // 회원 비밀번호
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "user_status")
-    private StatusType status = StatusType.ACTIVE;
+    private RoleType userAuth = RoleType.MEMBER;        // 회원 권한 (MANAGER, SUBMANAGER, MEMBER, MANTOR)
 
-    @Column(name = "user_pwd_mod_date", columnDefinition = "TIMESTAMP NULL")
-    private LocalDateTime pwdModDate;
+    private String userPhone;           // 회원 전화번호
 
-    @Column(name = "reg_date", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private LocalDateTime regDate;
+    private String userEmail;           // 회원 이메일
 
-    @Column(name = "mod_date", columnDefinition = "TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP")
-    private LocalDateTime modDate;
+    private String userBirthDate;       // 회원 생년월일
 
-    @Column(name = "user_ban_date", columnDefinition = "TIMESTAMP NULL")
-    private LocalDateTime banDate;
+    private String userGender;          // 회원 성별
 
-    @Column(name = "del_date", columnDefinition = "TIMESTAMP NULL")
-    private LocalDateTime delDate;
+    private String userGithubId;        // 회원 깃허브 아이디
+
+    private String userProfileImg;      // 회원 프로필 이미지
+
+    @Enumerated(EnumType.STRING)
+    private StatusType userStatus = StatusType.ACTIVE;      // 회원 상태 (ACTIVE, BAN, DELETE)
+
+    private LocalDateTime userPwdModDate;   // 회원 비밀번호 수정 날짜
+
+    private LocalDateTime userBanDate;      // 회원 정지 날짜
+
+    private LocalDateTime delDate;      // 회원 탈퇴 날짜
 
     @Transient
     private String token;
 
     // JWT용 생성자
     public User(String name, String id, Collection<? extends GrantedAuthority> authorities) {
-        this.name = name;
-        this.id = id;
+        this.userName = name;
+        this.userId = id;
     }
 
     public void setToken(String token) {
@@ -106,7 +84,7 @@ public class User {
         authorities.add(new GrantedAuthority() {
             @Override
             public String getAuthority() {
-                return getAuth().getCode();  // 권한을 RoleType의 영어 코드로 반환
+                return getUserAuth().getCode();  // 권한을 RoleType의 영어 코드로 반환
             }
         });
 
