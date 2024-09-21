@@ -1,14 +1,11 @@
-package sansam.team.project.command.entity;
+package sansam.team.project.command.domain.aggregate.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
 import sansam.team.common.BaseTimeEntity;
-import sansam.team.project.command.enums.BoardStatus;
-import sansam.team.user.command.entity.User;
+import sansam.team.project.command.domain.aggregate.BoardStatus;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "tbl_project_board")

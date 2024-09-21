@@ -1,14 +1,13 @@
-package sansam.team.project.command.controller;
+package sansam.team.project.command.application.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sansam.team.project.command.dto.projectboard.ProjectApplyMemberDTO;
-import sansam.team.project.command.dto.projectboard.ProjectBoardDTO;
-import sansam.team.project.command.entity.ProjectBoard;
-import sansam.team.project.command.service.ProjectBoardService;
+import sansam.team.project.command.application.dto.board.ProjectBoardDTO;
+import sansam.team.project.command.domain.aggregate.entity.ProjectBoard;
+import sansam.team.project.command.application.service.ProjectBoardService;
 
 @RestController
 @RequestMapping("api/v1/admin/project/board")

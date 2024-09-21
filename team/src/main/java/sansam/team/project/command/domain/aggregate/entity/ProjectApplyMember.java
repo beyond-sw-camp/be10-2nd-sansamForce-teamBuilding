@@ -1,4 +1,4 @@
-package sansam.team.project.command.entity;
+package sansam.team.project.command.domain.aggregate.entity;
 
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sansam.team.common.BaseTimeEntity;
 
-import sansam.team.project.command.enums.ApplyStatus;
+import sansam.team.project.command.domain.aggregate.ApplyStatus;
 import sansam.team.user.command.entity.User;
 
 @Entity

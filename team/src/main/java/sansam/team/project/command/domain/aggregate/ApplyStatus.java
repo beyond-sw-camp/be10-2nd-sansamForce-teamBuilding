@@ -1,4 +1,4 @@
-package sansam.team.project.command.enums;
+package sansam.team.project.command.domain.aggregate;
 
 public enum ApplyStatus {
     APPLIED,   // 신청

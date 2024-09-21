@@ -1,13 +1,11 @@
-package sansam.team.project.command.entity;
+package sansam.team.project.command.domain.aggregate.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sansam.team.common.BaseTimeEntity;
-import sansam.team.project.command.enums.ProjectStatus;
+import sansam.team.project.command.domain.aggregate.ProjectStatus;
 import sansam.team.user.command.entity.User;
 
 import java.time.LocalDateTime;

@@ -1,4 +1,4 @@
-package sansam.team.project.command.entity;
+package sansam.team.project.command.domain.aggregate.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

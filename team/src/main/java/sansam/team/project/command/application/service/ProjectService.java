@@ -1,12 +1,12 @@
-package sansam.team.project.command.service;
+package sansam.team.project.command.application.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import sansam.team.project.command.dto.project.ProjectDTO;
-import sansam.team.project.command.entity.Project;
-import sansam.team.project.command.repository.ProjectRepository;
+import sansam.team.project.command.application.dto.project.ProjectDTO;
+import sansam.team.project.command.domain.aggregate.entity.Project;
+import sansam.team.project.command.infrastructure.repository.JpaProjectRepository;
 import jakarta.transaction.Transactional;
 import sansam.team.user.command.entity.User;
 
@@ -15,7 +15,7 @@ import sansam.team.user.command.entity.User;
 @RequiredArgsConstructor
 public class ProjectService {
 
-    private final ProjectRepository projectRepository;
+    private final JpaProjectRepository jpaProjectRepository;
 
     /* 프로젝트 생성 로직 */
     @Transactional
@@ -39,6 +39,6 @@ public class ProjectService {
                 user
         );
 
-        return projectRepository.save(project);
+        return jpaProjectRepository.save(project);
     }
 }

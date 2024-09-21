@@ -1,7 +1,7 @@
-package sansam.team.project.command.dto.projectboard;
+package sansam.team.project.command.application.dto.board;
 
 import lombok.*;
-import sansam.team.project.command.enums.BoardStatus;
+import sansam.team.project.command.domain.aggregate.BoardStatus;
 import java.time.LocalDateTime;
 
 @Getter @Setter

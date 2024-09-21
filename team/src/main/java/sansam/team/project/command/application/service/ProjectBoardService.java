@@ -1,14 +1,14 @@
-package sansam.team.project.command.service;
+package sansam.team.project.command.application.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import sansam.team.project.command.dto.projectboard.ProjectBoardDTO;
-import sansam.team.project.command.entity.ProjectBoard;
-import sansam.team.project.command.repository.ProjectApplyMemberRepository;
-import sansam.team.project.command.repository.ProjectBoardRepository;
+import sansam.team.project.command.application.dto.board.ProjectBoardDTO;
+import sansam.team.project.command.domain.aggregate.entity.ProjectBoard;
+import sansam.team.project.command.infrastructure.repository.JpaProjectApplyMemberRepository;
+import sansam.team.project.command.infrastructure.repository.JpaProjectBoardRepository;
 import sansam.team.user.command.entity.User;
 import sansam.team.user.command.repository.UserRepository;
 
@@ -16,8 +16,8 @@ import sansam.team.user.command.repository.UserRepository;
 @RequiredArgsConstructor
 public class ProjectBoardService {
 
-    private final ProjectBoardRepository projectBoardRepository;
-    private final ProjectApplyMemberRepository projectApplyMemberRepository;
+    private final JpaProjectBoardRepository jpaProjectBoardRepository;
+    private final JpaProjectApplyMemberRepository jpaProjectApplyMemberRepository;
     private final UserRepository userRepository;
 
     /* 프로젝트 모집글 생성 로직 */
@@ -48,7 +48,7 @@ public class ProjectBoardService {
 
         System.out.println("=========== ===========================");
         System.out.println(projectBoard);
-        projectBoardRepository.save(projectBoard);
+        jpaProjectBoardRepository.save(projectBoard);
         System.out.println(projectBoard);
         System.out.println("=========== ===========================");
         return projectBoard;
@@ -58,7 +58,7 @@ public class ProjectBoardService {
     @Transactional
     public ProjectBoard updateProjectBoard(Long projectBoardSeq, ProjectBoardDTO projectBoardDTO) {
         // 기존 프로젝트 보드를 찾음
-        ProjectBoard projectBoard = projectBoardRepository.findById(projectBoardSeq)
+        ProjectBoard projectBoard = jpaProjectBoardRepository.findById(projectBoardSeq)
                 .orElseThrow(() -> new IllegalArgumentException("Project board not found"));
 
         // DTO의 값으로 기존 프로젝트 보드의 필드들을 업데이트
@@ -78,7 +78,7 @@ public class ProjectBoardService {
         );
 
         // 업데이트된 객체 저장 및 반환
-        return projectBoardRepository.save(updatedProjectBoard);
+        return jpaProjectBoardRepository.save(updatedProjectBoard);
     }
 
     /*
