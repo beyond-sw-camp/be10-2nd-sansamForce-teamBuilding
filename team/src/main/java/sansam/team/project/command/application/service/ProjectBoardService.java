@@ -5,10 +5,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import sansam.team.project.command.application.dto.board.ProjectBoardDTO;
+import sansam.team.project.command.application.dto.board.ProjectBoardCreateDTO;
+import sansam.team.project.command.application.dto.board.ProjectBoardUpdateDTO;
 import sansam.team.project.command.domain.aggregate.entity.ProjectBoard;
+import sansam.team.project.command.domain.repository.ProjectBoardRepository;
 import sansam.team.project.command.infrastructure.repository.JpaProjectApplyMemberRepository;
-import sansam.team.project.command.infrastructure.repository.JpaProjectBoardRepository;
+import sansam.team.project.command.mapper.ProjectBoardMapper;
 import sansam.team.user.command.entity.User;
 import sansam.team.user.command.repository.UserRepository;
 
@@ -16,13 +18,13 @@ import sansam.team.user.command.repository.UserRepository;
 @RequiredArgsConstructor
 public class ProjectBoardService {
 
-    private final JpaProjectBoardRepository jpaProjectBoardRepository;
+    private final ProjectBoardRepository projectBoardRepository;
     private final JpaProjectApplyMemberRepository jpaProjectApplyMemberRepository;
     private final UserRepository userRepository;
 
     /* 프로젝트 모집글 생성 로직 */
     @Transactional
-    public ProjectBoard createProjectBoard(ProjectBoardDTO projectBoardDTO) {
+    public ProjectBoard createProjectBoard(ProjectBoardCreateDTO projectBoardCreateDTO) {
         // SecurityContext에서 현재 인증된 사용자(User 객체) 추출
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();  // User 객체를 추출
@@ -32,64 +34,38 @@ public class ProjectBoardService {
             throw new IllegalArgumentException("User Seq is null");
         }
 
-        // ProjectBoard 생성
-        ProjectBoard projectBoard = ProjectBoard.builder().projectBoardContent(projectBoardDTO.getProjectBoardContent())
-                .projectBoardTitle(projectBoardDTO.getProjectBoardTitle())
-                .projectBoardHeadCount(projectBoardDTO.getProjectBoardHeadCount())
-                .projectBoardImgUrl(projectBoardDTO.getProjectBoardImgUrl())
-                .projectBoardStartDate(projectBoardDTO.getProjectStartDate())
-                .projectBoardEndDate(projectBoardDTO.getProjectEndDate())
-                .boardStatus(projectBoardDTO.getBoardStatus())
-                .projectStartDate(projectBoardDTO.getProjectStartDate())
-                .projectEndDate(projectBoardDTO.getProjectEndDate())
-                .projectBoardAdminSeq(projectBoardDTO.getProjectBoardAdminSeq())
-                .build();
+        ProjectBoard projectBoard = ProjectBoardMapper.toEntity(user.getUserSeq() ,projectBoardCreateDTO);
 
+        projectBoardRepository.save(projectBoard);
 
-        System.out.println("=========== ===========================");
-        System.out.println(projectBoard);
-        jpaProjectBoardRepository.save(projectBoard);
-        System.out.println(projectBoard);
-        System.out.println("=========== ===========================");
         return projectBoard;
     }
 
     /* 프로젝트 모집글 수정 로직 */
     @Transactional
-    public ProjectBoard updateProjectBoard(Long projectBoardSeq, ProjectBoardDTO projectBoardDTO) {
+    public ProjectBoard updateProjectBoard(Long projectBoardSeq, ProjectBoardUpdateDTO projectBoardUpdateDTO) {
+
         // 기존 프로젝트 보드를 찾음
-        ProjectBoard projectBoard = jpaProjectBoardRepository.findById(projectBoardSeq)
+        ProjectBoard projectBoard = projectBoardRepository.findById(projectBoardSeq)
                 .orElseThrow(() -> new IllegalArgumentException("Project board not found"));
 
-        // DTO의 값으로 기존 프로젝트 보드의 필드들을 업데이트
-        ProjectBoard updatedProjectBoard = new ProjectBoard(
-                projectBoard.getProjectBoardSeq(),
-                projectBoardDTO.getProjectBoardTitle(),
-                projectBoardDTO.getProjectBoardContent(),
-                projectBoardDTO.getProjectBoardHeadCount(),
-                projectBoardDTO.getProjectBoardImgUrl(),
-                projectBoardDTO.getProjectBoardStartDate(),
-                projectBoardDTO.getProjectBoardEndDate(),
-                projectBoardDTO.getBoardStatus(),
-                projectBoardDTO.getProjectStartDate(),
-                projectBoardDTO.getProjectEndDate(),
-                projectBoard.getUser(),  // 기존 User 유지
-                projectBoard.getProjectApplyMembers()  // 기존 ApplyMembers 유지
-        );
+        projectBoard.modifyProjectBoard(projectBoardUpdateDTO);
 
         // 업데이트된 객체 저장 및 반환
-        return jpaProjectBoardRepository.save(updatedProjectBoard);
+        return projectBoard;
     }
 
-    /*
 
-    *//* 프로젝트 모집글 삭제 로직 *//*
+
+    /* 프로젝트 모집글 삭제 로직 */
     @Transactional
     public void deleteProjectBoard(Long projectBoardSeq) {
+
         projectBoardRepository.deleteById(projectBoardSeq);
     }
 
 
+    /*
     @Transactional
     public void updateApplyMemberStatus(Long projectBoardSeq, Long applyMemberSeq, ProjectApplyMemberDTO projectApplyMemberDTO) {
         // 신청 회원(ProjectApplyMember) 존재 확인
