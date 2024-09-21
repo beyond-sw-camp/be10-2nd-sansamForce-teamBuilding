@@ -15,7 +15,6 @@ import sansam.team.user.command.enums.StatusType;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 @Builder
 @Entity
@@ -29,6 +28,10 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userSeq;
+
+    // 새로운 필드 추가
+    @Column(name = "major_seq")
+    private Long majorSeq;
 
     @Column(name = "user_id", nullable = false)
     private String id;
@@ -61,26 +64,26 @@ public class User {
     @Column(name = "user_github_id")
     private String githubId;
 
-    @Column(name = "user_propile_img")
+    @Column(name = "user_profile_img") // 필드 이름 수정
     private String profileImg;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "user_status")
     private StatusType status = StatusType.ACTIVE;
 
-    @Column(name = "user_pwd_mod_date", insertable = false)
+    @Column(name = "user_pwd_mod_date", columnDefinition = "TIMESTAMP NULL")
     private LocalDateTime pwdModDate;
 
-    @Column(name = "reg_date", updatable = false)
+    @Column(name = "reg_date", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime regDate;
 
-    @Column(name = "mod_date", insertable = false)
+    @Column(name = "mod_date", columnDefinition = "TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP")
     private LocalDateTime modDate;
 
-    @Column(name = "user_ban_date", insertable = false)
+    @Column(name = "user_ban_date", columnDefinition = "TIMESTAMP NULL")
     private LocalDateTime banDate;
 
-    @Column(name = "del_date", insertable = false)
+    @Column(name = "del_date", columnDefinition = "TIMESTAMP NULL")
     private LocalDateTime delDate;
 
     @Transient
