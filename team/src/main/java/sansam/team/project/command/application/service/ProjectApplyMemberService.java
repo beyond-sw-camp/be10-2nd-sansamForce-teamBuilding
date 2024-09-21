@@ -5,65 +5,61 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sansam.team.project.command.application.dto.board.ProjectApplyMemberDTO;
 import sansam.team.project.command.domain.aggregate.entity.ProjectApplyMember;
 import sansam.team.project.command.domain.aggregate.entity.ProjectBoard;
-import sansam.team.project.command.domain.aggregate.ApplyStatus;
-import sansam.team.project.command.infrastructure.repository.JpaProjectApplyMemberRepository;
-import sansam.team.project.command.infrastructure.repository.JpaProjectBoardRepository;
+import sansam.team.project.command.domain.repository.ProjectApplyMemberRepository;
+import sansam.team.project.command.domain.repository.ProjectBoardRepository;
+import sansam.team.project.command.mapper.ProjectApplyMemberMapper;
 import sansam.team.user.command.entity.User;
 
 @Service
 @RequiredArgsConstructor
 public class ProjectApplyMemberService {
 
-    private final JpaProjectApplyMemberRepository jpaProjectApplyMemberRepository;
-    private final JpaProjectBoardRepository jpaProjectBoardRepository;
+    private final ProjectApplyMemberRepository projectApplyMemberRepository;
+    private final ProjectBoardRepository projectBoardRepository;
 
-    // 인증된 사용자(User)를 가져오는 메서드
-    private User getAuthenticatedUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return (User) authentication.getPrincipal();
-    }
-
-    // ProjectBoard를 조회하는 메서드
-    private ProjectBoard getProjectBoard(Long projectBoardSeq) {
-        return jpaProjectBoardRepository.findById(projectBoardSeq)
-                .orElseThrow(() -> new IllegalArgumentException("Project board not found"));
-    }
 
     @Transactional
-    public ProjectApplyMember applyForProject(Long projectBoardSeq) {
+    public ProjectApplyMember applyForProject(Long projectBoardSeq, ProjectApplyMemberDTO applyMemberDTO) {
 
-        // 인증된 사용자 추출
-        User user = getAuthenticatedUser();
+        // SecurityContext에서 현재 인증된 사용자(User 객체) 추출
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
 
-        // ProjectBoardSeq로 ProjectBoard 엔티티 조회
-        ProjectBoard projectBoard = getProjectBoard(projectBoardSeq);
+        // 추출한 User의 userSeq가 null이 아닌지 확인
+        if (user.getUserSeq() == null) {
+            throw new IllegalArgumentException("User Seq is null");
+        }
 
-        // ProjectApplyMember 생성
-        ProjectApplyMember projectApplyMember = new ProjectApplyMember(
-                ApplyStatus.APPLIED,
-                user,
-                projectBoard
-        );
+        ProjectBoard projectBoard = projectBoardRepository.findById(projectBoardSeq)
+                .orElseThrow(() -> new IllegalArgumentException("Project board not found"));
 
-        return jpaProjectApplyMemberRepository.save(projectApplyMember);
+        ProjectApplyMember projectApplyMember = ProjectApplyMemberMapper.toEntity(user.getUserSeq(), projectBoard.getProjectBoardSeq(), applyMemberDTO);
+
+        projectApplyMemberRepository.save(projectApplyMember);
+
+        return projectApplyMember;
     }
 
     @Transactional
     public void cancelApplication(Long projectBoardSeq) {
 
-        // 인증된 사용자 추출
-        User user = getAuthenticatedUser();
+        // SecurityContext에서 현재 인증된 사용자(User 객체) 추출
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
 
-        // ProjectBoardSeq로 ProjectBoard 엔티티 조회
-        ProjectBoard projectBoard = getProjectBoard(projectBoardSeq);
+        // 추출한 User의 userSeq가 null이 아닌지 확인
+        if (user.getUserSeq() == null) {
+            throw new IllegalArgumentException("User Seq is null");
+        }
 
-        // userSeq와 projectBoard로 ProjectApplyMember 조회
-        ProjectApplyMember applyMember = jpaProjectApplyMemberRepository.findByUser_UserSeqAndProjectBoard_ProjectBoardSeq(user.getUserSeq(), projectBoardSeq)
-                .orElseThrow(() -> new IllegalArgumentException("Application not found"));
+        // 기존 프로젝트 보드를 찾음
+        ProjectBoard projectBoard = projectBoardRepository.findById(projectBoardSeq)
+                .orElseThrow(() -> new IllegalArgumentException("Project board not found"));
 
-        // 신청 삭제
-        jpaProjectApplyMemberRepository.delete(applyMember);
+        projectApplyMemberRepository.deleteById(projectBoardSeq);
+
     }
 }
