@@ -3,6 +3,7 @@ package sansam.team.project.query.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import sansam.team.project.query.dto.projectboard.ProjectApplyMemberQueryDTO;
+import sansam.team.project.query.dto.projectboard.ProjectBoardAllQueryDTO;
 import sansam.team.project.query.dto.projectboard.ProjectBoardQueryDTO;
 import sansam.team.project.query.mapper.ProjectApplyMemberMapper;
 import sansam.team.project.query.mapper.ProjectBoardMapper;
@@ -16,7 +17,7 @@ public class ProjectBoardQueryService {
     private final ProjectBoardMapper projectBoardMapper;
 
     /* 프로젝트 게시물 전체 조회 */
-    public List<ProjectBoardQueryDTO> getAllProjectBoards(){
+    public List<ProjectBoardAllQueryDTO> getAllProjectBoards(){
         return projectBoardMapper.findAll();
     }
 

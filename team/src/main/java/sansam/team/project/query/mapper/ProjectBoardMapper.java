@@ -3,6 +3,7 @@ package sansam.team.project.query.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import sansam.team.project.query.dto.projectboard.ProjectApplyMemberQueryDTO;
+import sansam.team.project.query.dto.projectboard.ProjectBoardAllQueryDTO;
 import sansam.team.project.query.dto.projectboard.ProjectBoardQueryDTO;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 @Mapper
 public interface ProjectBoardMapper {
 
-    List<ProjectBoardQueryDTO> findAll();
+    List<ProjectBoardAllQueryDTO> findAll();
 
     ProjectBoardQueryDTO findById(Long projectBoardSeq);
 

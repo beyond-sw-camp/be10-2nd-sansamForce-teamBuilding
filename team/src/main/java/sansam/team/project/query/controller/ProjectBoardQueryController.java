@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import sansam.team.project.query.dto.projectboard.ProjectApplyMemberQueryDTO;
+import sansam.team.project.query.dto.projectboard.ProjectBoardAllQueryDTO;
 import sansam.team.project.query.dto.projectboard.ProjectBoardQueryDTO;
 import sansam.team.project.query.service.ProjectBoardQueryService;
 
@@ -26,8 +27,8 @@ public class ProjectBoardQueryController {
     /* 프로젝트 게시물 전체 조회 */
     @GetMapping
     @Operation(summary = "프로젝트 게시물 전체 조회", description = "프로젝트 게시물 전체 조회 API (관리자만 가능)")
-    public ResponseEntity<List<ProjectBoardQueryDTO>> getAllProjectBoards() {
-        List<ProjectBoardQueryDTO> projectBoards = projectBoardQueryService.getAllProjectBoards();
+    public ResponseEntity<List<ProjectBoardAllQueryDTO>> getAllProjectBoards() {
+        List<ProjectBoardAllQueryDTO> projectBoards = projectBoardQueryService.getAllProjectBoards();
         return ResponseEntity.ok(projectBoards);
     }
 
