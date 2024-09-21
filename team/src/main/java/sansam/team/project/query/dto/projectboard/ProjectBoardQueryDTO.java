@@ -10,21 +10,23 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProjectBoardQueryDTO {
+
+    /* 관리자 전용 프로젝트 게시물 상세 조회 DTO */
     private Long projectBoardSeq;
+    private Long projectBoardAdminSeq;
     private String projectBoardTitle;
     private String projectBoardContent;
     private int projectBoardHeadCount;
     private String projectBoardImgUrl;
     private LocalDateTime projectBoardStartDate;
     private LocalDateTime projectBoardEndDate;
-    private String boardStatus;
+    private String projectBoardStatus;
     private LocalDateTime projectStartDate;
     private LocalDateTime projectEndDate;
 
-    // Auditable 필드 추가
     private LocalDateTime regDate;
     private LocalDateTime modDate;
     private LocalDateTime delDate;
 
-    private Long userSeq; // User ID reference
+
 }
