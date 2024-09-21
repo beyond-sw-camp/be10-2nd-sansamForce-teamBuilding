@@ -5,11 +5,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import sansam.team.project.command.application.dto.board.ProjectApplyMemberDTO;
 import sansam.team.project.command.application.dto.board.ProjectBoardCreateDTO;
 import sansam.team.project.command.application.dto.board.ProjectBoardUpdateDTO;
+import sansam.team.project.command.domain.aggregate.entity.ProjectApplyMember;
 import sansam.team.project.command.domain.aggregate.entity.ProjectBoard;
+import sansam.team.project.command.domain.repository.ProjectApplyMemberRepository;
 import sansam.team.project.command.domain.repository.ProjectBoardRepository;
-import sansam.team.project.command.infrastructure.repository.JpaProjectApplyMemberRepository;
 import sansam.team.project.command.mapper.ProjectBoardMapper;
 import sansam.team.user.command.entity.User;
 import sansam.team.user.command.repository.UserRepository;
@@ -19,7 +21,7 @@ import sansam.team.user.command.repository.UserRepository;
 public class ProjectBoardService {
 
     private final ProjectBoardRepository projectBoardRepository;
-    private final JpaProjectApplyMemberRepository jpaProjectApplyMemberRepository;
+    private final ProjectApplyMemberRepository projectApplyMemberRepository;
     private final UserRepository userRepository;
 
     /* 프로젝트 모집글 생성 로직 */
@@ -65,31 +67,21 @@ public class ProjectBoardService {
     }
 
 
-    /*
+
     @Transactional
-    public void updateApplyMemberStatus(Long projectBoardSeq, Long applyMemberSeq, ProjectApplyMemberDTO projectApplyMemberDTO) {
+    public ProjectApplyMember updateApplyMemberStatus(Long projectBoardSeq, Long applyMemberSeq, ProjectApplyMemberDTO projectApplyMemberDTO) {
+
         // 신청 회원(ProjectApplyMember) 존재 확인
         ProjectApplyMember applyMember = projectApplyMemberRepository.findById(applyMemberSeq)
                 .orElseThrow(() -> new IllegalArgumentException("Apply member not found"));
 
-        // 신청 회원의 프로젝트 ID와 매개변수로 전달된 프로젝트 ID가 일치하는지 확인
-        if (!applyMember.getProjectBoard().getProjectBoardSeq().equals(projectBoardSeq)) {
-            throw new IllegalArgumentException("Apply member does not belong to the specified project");
-        }
+        // 기존 프로젝트 보드를 찾음
+        ProjectBoard projectBoard = projectBoardRepository.findById(projectBoardSeq)
+                .orElseThrow(() -> new IllegalArgumentException("Project board not found"));
 
-        // 상태 업데이트: 새로운 인스턴스로 변경된 ApplyStatus 적용
-        ApplyStatus newApplyStatus = projectApplyMemberDTO.getApplyStatus();
-
-        // 새로운 엔티티를 생성하는 방식으로 변경된 상태 적용
-        ProjectApplyMember updatedApplyMember = new ProjectApplyMember(
-                applyMember.getProjectApplyMemberSeq(),
-                newApplyStatus,
-                applyMember.getUser(),
-                applyMember.getProjectBoard(),
-                applyMember.getAuditable()
-        );
+        applyMember.modifyApplyMemberStatus(projectBoard.getProjectBoardSeq(), projectApplyMemberDTO);
 
         // 저장
-        projectApplyMemberRepository.save(updatedApplyMember);
-    }*/
+        return applyMember;
+    }
 }
