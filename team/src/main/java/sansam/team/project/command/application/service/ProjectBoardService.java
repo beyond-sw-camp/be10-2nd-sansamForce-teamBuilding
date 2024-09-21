@@ -63,6 +63,7 @@ public class ProjectBoardService {
     @Transactional
     public void deleteProjectBoard(Long projectBoardSeq) {
 
+        /* 완전 삭제로 할지 소프트 삭제로 할지 의논 후 제대로 구현해야 할 듯 */
         projectBoardRepository.deleteById(projectBoardSeq);
     }
 
