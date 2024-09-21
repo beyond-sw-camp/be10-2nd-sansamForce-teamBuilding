@@ -1,11 +1,7 @@
-package sansam.team.user.command.dto;
+package sansam.team.user.command.application.dto;
 
 import lombok.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import sansam.team.user.command.enums.RoleType;
-import sansam.team.user.command.enums.StatusType;
-
-import java.time.LocalDateTime;
 
 @Setter
 @Getter

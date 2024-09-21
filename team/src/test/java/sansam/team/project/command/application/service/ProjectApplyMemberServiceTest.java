@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockedStatic;
 import org.mockito.MockitoAnnotations;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -14,7 +13,7 @@ import sansam.team.project.command.domain.aggregate.entity.ProjectApplyMember;
 import sansam.team.project.command.domain.aggregate.entity.ProjectBoard;
 import sansam.team.project.command.domain.repository.ProjectApplyMemberRepository;
 import sansam.team.project.command.domain.repository.ProjectBoardRepository;
-import sansam.team.user.command.entity.User;
+import sansam.team.user.command.domain.aggregate.entity.User;
 
 import java.util.Optional;
 

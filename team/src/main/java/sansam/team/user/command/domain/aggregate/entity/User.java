@@ -1,4 +1,4 @@
-package sansam.team.user.command.entity;
+package sansam.team.user.command.domain.aggregate.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,10 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import sansam.team.common.BaseTimeEntity;
-import sansam.team.project.command.domain.aggregate.entity.ProjectApplyMember;
-import sansam.team.project.command.domain.aggregate.entity.ProjectBoard;
-import sansam.team.user.command.enums.RoleType;
-import sansam.team.user.command.enums.StatusType;
+import sansam.team.user.command.domain.aggregate.RoleType;
+import sansam.team.user.command.domain.aggregate.StatusType;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

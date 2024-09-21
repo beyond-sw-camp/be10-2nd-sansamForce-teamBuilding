@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sansam.team.common.BaseTimeEntity;
 import sansam.team.project.command.domain.aggregate.ProjectStatus;
-import sansam.team.user.command.entity.User;
+import sansam.team.user.command.domain.aggregate.entity.User;
 
 import java.time.LocalDateTime;
 

@@ -14,7 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
 import sansam.team.common.jwt.JWTUtil;
-import sansam.team.user.command.entity.User;
+import sansam.team.user.command.domain.aggregate.entity.User;
 
 import java.io.IOException;
 import java.util.List;

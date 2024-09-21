@@ -8,7 +8,7 @@ import sansam.team.project.command.application.dto.project.ProjectDTO;
 import sansam.team.project.command.domain.aggregate.entity.Project;
 import sansam.team.project.command.infrastructure.repository.JpaProjectRepository;
 import jakarta.transaction.Transactional;
-import sansam.team.user.command.entity.User;
+import sansam.team.user.command.domain.aggregate.entity.User;
 
 
 @Service

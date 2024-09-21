@@ -15,9 +15,8 @@ import sansam.team.project.command.domain.aggregate.entity.ProjectApplyMember;
 import sansam.team.project.command.domain.aggregate.entity.ProjectBoard;
 import sansam.team.project.command.domain.repository.ProjectApplyMemberRepository;
 import sansam.team.project.command.domain.repository.ProjectBoardRepository;
-import sansam.team.project.command.infrastructure.repository.JpaProjectApplyMemberRepository;
-import sansam.team.user.command.entity.User;
-import sansam.team.user.command.repository.UserRepository;
+import sansam.team.user.command.domain.aggregate.entity.User;
+import sansam.team.user.command.infrastructure.repository.JpaUserRepository;
 
 import java.util.Optional;
 
@@ -34,7 +33,7 @@ class ProjectBoardServiceTest {
     private ProjectApplyMemberRepository projectApplyMemberRepository;
 
     @Mock
-    private UserRepository userRepository;
+    private JpaUserRepository userRepository;
 
     @Mock
     private SecurityContext securityContext;

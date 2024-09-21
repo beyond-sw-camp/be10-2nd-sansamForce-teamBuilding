@@ -13,8 +13,8 @@ import sansam.team.project.command.domain.aggregate.entity.ProjectBoard;
 import sansam.team.project.command.domain.repository.ProjectApplyMemberRepository;
 import sansam.team.project.command.domain.repository.ProjectBoardRepository;
 import sansam.team.project.command.mapper.ProjectBoardMapper;
-import sansam.team.user.command.entity.User;
-import sansam.team.user.command.repository.UserRepository;
+import sansam.team.user.command.domain.aggregate.entity.User;
+import sansam.team.user.command.infrastructure.repository.JpaUserRepository;
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +22,7 @@ public class ProjectBoardService {
 
     private final ProjectBoardRepository projectBoardRepository;
     private final ProjectApplyMemberRepository projectApplyMemberRepository;
-    private final UserRepository userRepository;
+    private final JpaUserRepository userRepository;
 
     /* 프로젝트 모집글 생성 로직 */
     @Transactional

@@ -11,7 +11,7 @@ import sansam.team.project.command.domain.aggregate.entity.ProjectBoard;
 import sansam.team.project.command.domain.repository.ProjectApplyMemberRepository;
 import sansam.team.project.command.domain.repository.ProjectBoardRepository;
 import sansam.team.project.command.mapper.ProjectApplyMemberMapper;
-import sansam.team.user.command.entity.User;
+import sansam.team.user.command.domain.aggregate.entity.User;
 
 @Service
 @RequiredArgsConstructor

@@ -7,8 +7,8 @@ import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import sansam.team.user.command.dto.JwtToken;
-import sansam.team.user.command.entity.User;
+import sansam.team.user.command.application.dto.JwtToken;
+import sansam.team.user.command.domain.aggregate.entity.User;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
