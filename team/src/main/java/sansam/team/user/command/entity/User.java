@@ -7,8 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
-import sansam.team.project.command.entity.ProjectApplyMember;
-import sansam.team.project.command.entity.ProjectBoard;
+import sansam.team.project.command.domain.aggregate.entity.ProjectApplyMember;
+import sansam.team.project.command.domain.aggregate.entity.ProjectBoard;
 import sansam.team.user.command.enums.RoleType;
 import sansam.team.user.command.enums.StatusType;
 

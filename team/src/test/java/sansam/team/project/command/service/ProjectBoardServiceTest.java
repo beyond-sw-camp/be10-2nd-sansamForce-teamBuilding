@@ -5,23 +5,19 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.data.domain.Auditable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import sansam.team.project.command.dto.projectboard.ProjectApplyMemberDTO;
-import sansam.team.project.command.dto.projectboard.ProjectBoardDTO;
-import sansam.team.project.command.entity.ProjectApplyMember;
-import sansam.team.project.command.entity.ProjectBoard;
-import sansam.team.project.command.enums.ApplyStatus;
-import sansam.team.project.command.enums.BoardStatus;
-import sansam.team.project.command.repository.ProjectApplyMemberRepository;
-import sansam.team.project.command.repository.ProjectBoardRepository;
+import sansam.team.project.command.application.dto.board.ProjectBoardDTO;
+import sansam.team.project.command.application.service.ProjectBoardService;
+import sansam.team.project.command.domain.aggregate.entity.ProjectBoard;
+import sansam.team.project.command.domain.aggregate.BoardStatus;
+import sansam.team.project.command.infrastructure.repository.JpaProjectApplyMemberRepository;
+import sansam.team.project.command.infrastructure.repository.JpaProjectBoardRepository;
 import sansam.team.user.command.entity.User;
 import sansam.team.user.command.repository.UserRepository;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -32,10 +28,10 @@ class ProjectBoardServiceTest {
     private ProjectBoardService projectBoardService;
 
     @Mock
-    private ProjectBoardRepository projectBoardRepository;
+    private JpaProjectBoardRepository jpaProjectBoardRepository;
 
     @Mock
-    private ProjectApplyMemberRepository projectApplyMemberRepository;
+    private JpaProjectApplyMemberRepository jpaProjectApplyMemberRepository;
 
     @Mock
     private UserRepository userRepository;
@@ -88,7 +84,7 @@ class ProjectBoardServiceTest {
                 mockUser.getUserSeq()
         );
 
-        when(projectBoardRepository.save(any(ProjectBoard.class))).thenReturn(mockProjectBoard);
+        when(jpaProjectBoardRepository.save(any(ProjectBoard.class))).thenReturn(mockProjectBoard);
 
         // Act
         ProjectBoard createdProjectBoard = projectBoardService.createProjectBoard(projectBoardDTO);
@@ -98,7 +94,7 @@ class ProjectBoardServiceTest {
         assertEquals("Test Project", createdProjectBoard.getProjectBoardTitle());
         assertEquals("Content", createdProjectBoard.getProjectBoardContent());
         assertEquals(5, createdProjectBoard.getProjectBoardHeadCount());
-        verify(projectBoardRepository, times(1)).save(any(ProjectBoard.class));
+        verify(jpaProjectBoardRepository, times(1)).save(any(ProjectBoard.class));
         verify(authentication, times(1)).getPrincipal();
     }
 

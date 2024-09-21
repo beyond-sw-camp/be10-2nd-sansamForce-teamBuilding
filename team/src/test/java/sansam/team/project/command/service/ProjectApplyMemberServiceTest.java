@@ -12,7 +12,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import sansam.team.project.command.entity.ProjectApplyMember;
 import sansam.team.project.command.entity.ProjectBoard;
-import sansam.team.project.command.enums.ApplyStatus;
+import sansam.team.project.command.domain.aggregate.ApplyStatus;
 import sansam.team.project.command.repository.ProjectApplyMemberRepository;
 import sansam.team.project.command.repository.ProjectBoardRepository;
 import sansam.team.user.command.entity.User;
