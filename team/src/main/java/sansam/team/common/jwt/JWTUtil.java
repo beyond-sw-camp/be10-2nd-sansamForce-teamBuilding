@@ -35,8 +35,8 @@ public class JWTUtil {
         // Access Token 생성
         String accessToken = Jwts.builder()
                 .setSubject(String.valueOf(user.getUserSeq()))  // userSeq를 subject로 설정
-                .claim("userId", user.getId())
-                .claim("userName", user.getName())
+                .claim("userId", user.getUserId())
+                .claim("userName", user.getUserName())
                 .claim("auth", authorities)  // 권한 정보 추가
                 .setIssuedAt(new Date())  // iat 추가 (발행 시간)
                 .setExpiration(new Date((new Date()).getTime() + 86400000))  // 만료 시간 (1일)

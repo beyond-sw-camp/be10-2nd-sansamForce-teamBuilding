@@ -62,7 +62,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         response.setStatus(HttpStatus.OK.value());
 
         PrintWriter out = response.getWriter();
-        out.write("{\"accessToken\":\"" + jwtToken.getAccessToken() + "\", \"refreshToken\":\"" + jwtToken.getRefreshToken() + "\", \"userId\":\"" + user.getId() + "\"}");
+        out.write("{\"accessToken\":\"" + jwtToken.getAccessToken() + "\", \"refreshToken\":\"" + jwtToken.getRefreshToken() + "\", \"userId\":\"" + user.getUserId() + "\"}");
         out.flush();
     }
 

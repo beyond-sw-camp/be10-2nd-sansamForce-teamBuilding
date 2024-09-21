@@ -24,9 +24,7 @@ public class UserService {
     private final BCryptPasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
     private final JWTUtil jwtUtil;
-    private final AuthenticationManager authenticationManager;
 
-    // 로그인 처리 메서드 (LoginRequestDTO 사용)
     // 로그인 처리 메서드 (LoginRequestDTO 사용)
     public JwtToken loginProcess(LoginRequestDTO loginRequestDTO) throws UsernameNotFoundException, JsonProcessingException {
         // LoginRequestDTO에서 ID와 PW 추출
@@ -34,8 +32,8 @@ public class UserService {
         String pw = loginRequestDTO.getPw();
 
         // 사용자를 DB에서 찾고 비밀번호를 비교
-        User user = userRepository.findById(id)
-                .filter(member -> passwordEncoder.matches(pw, member.getPassword()))
+        User user = userRepository.findByUserId(id)
+                .filter(member -> passwordEncoder.matches(pw, member.getUserPassword()))
                 .orElseThrow(() -> new IllegalArgumentException("아이디 또는 비밀번호가 일치하지 않습니다."));
 
         // JWT 토큰 생성 및 반환
@@ -48,18 +46,17 @@ public class UserService {
         String id = loginRequestDTO.getId();
 
         // 사용자를 조회
-        User user = userRepository.findById(id)
+        User user = userRepository.findByUserId(id)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         // User 엔티티를 UserDTO로 변환하여 반환
-        return new UserDTO(user.getId(), user.getAuth(), user.getName());
+        return new UserDTO(user.getUserId(), user.getUserAuth(), user.getUserName());
     }
 
     @Transactional
     public boolean joinProcess(UserJoinDTO userJoinDTO) {
         // 비밀번호 인코딩
         userJoinDTO.changePasswordEncoder(userJoinDTO.getPassword());
-        userJoinDTO.changeAuthMember();
 
         // DTO를 엔티티로 변환
         User user = modelMapper.map(userJoinDTO, User.class);
