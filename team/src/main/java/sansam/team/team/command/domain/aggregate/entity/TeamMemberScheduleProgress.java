@@ -1,6 +1,9 @@
-package sansam.team.team.command.entity;
+package sansam.team.team.command.domain.aggregate.entity;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import sansam.team.common.BaseTimeEntity;
 
 @Entity
@@ -9,6 +12,8 @@ import sansam.team.common.BaseTimeEntity;
         name = "TEAM_MEMBER_SCHEDULE_PROGRESS_SEQ_GENERATOR"
         , sequenceName = "TEAM_MEMBER_SCHEDULE_PROGRESS_SEQ"
         , allocationSize = 1)
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class TeamMemberScheduleProgress extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO, generator = "TEAM_MEMBER_SCHEDULE_PROGRESS_SEQ_GENERATOR")

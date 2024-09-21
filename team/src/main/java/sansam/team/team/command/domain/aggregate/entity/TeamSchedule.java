@@ -1,4 +1,4 @@
-package sansam.team.team.command.entity;
+package sansam.team.team.command.domain.aggregate.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
