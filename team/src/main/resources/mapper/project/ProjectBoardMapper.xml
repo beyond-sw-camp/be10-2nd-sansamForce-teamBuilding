@@ -18,8 +18,8 @@
         FROM tbl_project_board
     </select>
 
-    <!-- 특정 ID로 ProjectBoard 데이터를 가져오는 SQL -->
-    <select id="findById" parameterType="long" resultType="ProjectBoardQueryDTO">
+    <!-- 특정 ID로 ProjectBoard 데이터를 가져오는 SQL (관리자 전용) -->
+    <select id="findByIdForAdmin" parameterType="long" resultType="ProjectBoardAdminDTO">
         SELECT
             project_board_seq,
             project_board_admin_seq,
@@ -35,6 +35,21 @@
             reg_date,
             mod_date,
             del_date
+        FROM tbl_project_board
+        WHERE project_board_seq = #{projectBoardSeq}
+    </select>
+
+    <!-- 특정 ID로 ProjectBoard 데이터를 가져오는 SQL (사용자 전용) -->
+    <select id="findByIdForUser" parameterType="long" resultType="ProjectBoardUserDTO">
+        SELECT
+            project_board_seq,
+            project_board_title,
+            project_board_content,
+            project_board_head_count,
+            project_board_img_url,
+            project_board_status,
+            project_start_date,
+            project_end_date,
         FROM tbl_project_board
         WHERE project_board_seq = #{projectBoardSeq}
     </select>
