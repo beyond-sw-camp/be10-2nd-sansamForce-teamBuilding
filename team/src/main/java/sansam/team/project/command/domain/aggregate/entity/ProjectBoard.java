@@ -3,6 +3,8 @@ package sansam.team.project.command.domain.aggregate.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import sansam.team.common.BaseTimeEntity;
+import sansam.team.project.command.application.dto.board.ProjectBoardCreateDTO;
+import sansam.team.project.command.application.dto.board.ProjectBoardUpdateDTO;
 import sansam.team.project.command.domain.aggregate.BoardStatus;
 
 import java.time.LocalDateTime;
@@ -38,8 +40,7 @@ public class ProjectBoard extends BaseTimeEntity {
 
     private Long projectBoardAdminSeq;
 
-    @Builder
-    public ProjectBoard(String projectBoardTitle, String projectBoardContent, int projectBoardHeadCount, String projectBoardImgUrl, LocalDateTime projectBoardStartDate, LocalDateTime projectBoardEndDate, BoardStatus boardStatus, LocalDateTime projectStartDate, LocalDateTime projectEndDate, Long projectBoardAdminSeq) {
+    private ProjectBoard(String projectBoardTitle, String projectBoardContent, int projectBoardHeadCount, String projectBoardImgUrl, LocalDateTime projectBoardStartDate, LocalDateTime projectBoardEndDate, BoardStatus boardStatus, LocalDateTime projectStartDate, LocalDateTime projectEndDate, Long projectBoardAdminSeq) {
         this.projectBoardTitle = projectBoardTitle;
         this.projectBoardContent = projectBoardContent;
         this.projectBoardHeadCount = projectBoardHeadCount;
@@ -50,5 +51,22 @@ public class ProjectBoard extends BaseTimeEntity {
         this.projectStartDate = projectStartDate;
         this.projectEndDate = projectEndDate;
         this.projectBoardAdminSeq = projectBoardAdminSeq;
+    }
+
+    public static ProjectBoard createEntity(String projectBoardTitle, String projectBoardContent, int projectBoardHeadCount, String projectBoardImgUrl, LocalDateTime projectBoardStartDate, LocalDateTime projectBoardEndDate, BoardStatus boardStatus, LocalDateTime projectStartDate, LocalDateTime projectEndDate, Long projectBoardAdminSeq) {
+        
+        return new ProjectBoard(projectBoardTitle, projectBoardContent, projectBoardHeadCount, projectBoardImgUrl, projectBoardStartDate, projectBoardEndDate, boardStatus, projectStartDate, projectEndDate, projectBoardAdminSeq);
+    }
+
+    public void modifyProjectBoard(ProjectBoardUpdateDTO projectBoardUpdateDTO) {
+        this.projectBoardTitle = projectBoardUpdateDTO.getProjectBoardTitle();
+        this.projectBoardContent = projectBoardUpdateDTO.getProjectBoardContent();
+        this.projectBoardHeadCount = projectBoardUpdateDTO.getProjectBoardHeadCount();
+        this.projectBoardImgUrl = projectBoardUpdateDTO.getProjectBoardImgUrl();
+        this.projectBoardStartDate = projectBoardUpdateDTO.getProjectBoardStartDate();
+        this.projectBoardEndDate = projectBoardUpdateDTO.getProjectBoardEndDate();
+        this.boardStatus = projectBoardUpdateDTO.getBoardStatus();
+        this.projectStartDate = projectBoardUpdateDTO.getProjectStartDate();
+        this.projectEndDate = projectBoardUpdateDTO.getProjectEndDate();
     }
 }
