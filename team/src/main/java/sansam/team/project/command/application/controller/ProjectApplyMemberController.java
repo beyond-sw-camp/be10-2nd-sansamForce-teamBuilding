@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sansam.team.project.command.application.dto.board.ProjectApplyMemberDTO;
 import sansam.team.project.command.domain.aggregate.entity.ProjectApplyMember;
 import sansam.team.project.command.application.service.ProjectApplyMemberService;
 
@@ -20,9 +21,11 @@ public class ProjectApplyMemberController {
     @PostMapping("/{projectBoardSeq}")
     @Operation(summary = "프로젝트 신청", description = "프로젝트 신청 API")
     public ResponseEntity<ProjectApplyMember> applyForProject(
-            @PathVariable Long projectBoardSeq) {
+            @PathVariable Long projectBoardSeq,
+            @RequestBody ProjectApplyMemberDTO applyMemberDTO) {
 
-        ProjectApplyMember applyMember = projectApplyMemberService.applyForProject(projectBoardSeq);
+        // 서비스로 전달하여 신청 처리
+        ProjectApplyMember applyMember = projectApplyMemberService.applyForProject(projectBoardSeq, applyMemberDTO);
         return ResponseEntity.ok(applyMember);
     }
 
