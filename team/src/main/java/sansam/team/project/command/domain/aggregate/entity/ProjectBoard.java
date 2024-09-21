@@ -41,7 +41,7 @@ public class ProjectBoard extends BaseTimeEntity {
 
     private Long projectBoardAdminSeq;
 
-    private ProjectBoard(String projectBoardTitle, String projectBoardContent, int projectBoardHeadCount, String projectBoardImgUrl, LocalDateTime projectBoardStartDate, LocalDateTime projectBoardEndDate, BoardStatus boardStatus, LocalDateTime projectStartDate, LocalDateTime projectEndDate, Long projectBoardAdminSeq) {
+    /*private ProjectBoard(String projectBoardTitle, String projectBoardContent, int projectBoardHeadCount, String projectBoardImgUrl, LocalDateTime projectBoardStartDate, LocalDateTime projectBoardEndDate, BoardStatus boardStatus, LocalDateTime projectStartDate, LocalDateTime projectEndDate, Long projectBoardAdminSeq) {
         this.projectBoardTitle = projectBoardTitle;
         this.projectBoardContent = projectBoardContent;
         this.projectBoardHeadCount = projectBoardHeadCount;
@@ -69,5 +69,9 @@ public class ProjectBoard extends BaseTimeEntity {
         this.projectBoardStatus = projectBoardUpdateDTO.getBoardStatus();
         this.projectStartDate = projectBoardUpdateDTO.getProjectStartDate();
         this.projectEndDate = projectBoardUpdateDTO.getProjectEndDate();
+    }*/
+
+    public void setProjectBoardAdminSeq(Long userSeq) {
+        this.projectBoardAdminSeq = userSeq;
     }
 }

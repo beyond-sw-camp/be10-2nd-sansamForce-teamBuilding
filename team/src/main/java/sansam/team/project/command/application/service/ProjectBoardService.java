@@ -2,6 +2,7 @@ package sansam.team.project.command.application.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class ProjectBoardService {
 
     private final ProjectBoardRepository projectBoardRepository;
     private final ProjectApplyMemberRepository projectApplyMemberRepository;
-    private final JpaUserRepository userRepository;
+    private final ModelMapper modelMapper;
 
     /* 프로젝트 모집글 생성 로직 */
     @Transactional
@@ -36,7 +37,8 @@ public class ProjectBoardService {
             throw new IllegalArgumentException("User Seq is null");
         }
 
-        ProjectBoard projectBoard = ProjectBoardMapper.toEntity(user.getUserSeq() ,projectBoardCreateDTO);
+        ProjectBoard projectBoard = modelMapper.map(projectBoardCreateDTO, ProjectBoard.class);
+        projectBoard.setProjectBoardAdminSeq(user.getUserSeq());
 
         projectBoardRepository.save(projectBoard);
 
@@ -51,7 +53,11 @@ public class ProjectBoardService {
         ProjectBoard projectBoard = projectBoardRepository.findById(projectBoardSeq)
                 .orElseThrow(() -> new IllegalArgumentException("Project board not found"));
 
-        projectBoard.modifyProjectBoard(projectBoardUpdateDTO);
+//        projectBoard.modifyProjectBoard(projectBoardUpdateDTO);
+
+        // ModelMapper를 사용해 기존 ProjectBoard 객체에 업데이트 사항을 반영
+        modelMapper.getConfiguration().setSkipNullEnabled(true);
+        modelMapper.map(projectBoardUpdateDTO, projectBoard);
 
         // 업데이트된 객체 저장 및 반환
         return projectBoard;

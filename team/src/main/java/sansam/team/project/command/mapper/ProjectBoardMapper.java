@@ -5,7 +5,7 @@ import sansam.team.project.command.domain.aggregate.entity.ProjectBoard;
 
 public class ProjectBoardMapper {
 
-    public static ProjectBoard toEntity(Long userSeq, ProjectBoardCreateDTO createDTO){
+    /*public static ProjectBoard toEntity(Long userSeq, ProjectBoardCreateDTO createDTO){
 
         return ProjectBoard.createEntity(
                 createDTO.getProjectBoardTitle(),
@@ -19,5 +19,5 @@ public class ProjectBoardMapper {
                 createDTO.getProjectEndDate(),
                 userSeq
         );
-    }
+    }*/
 }
