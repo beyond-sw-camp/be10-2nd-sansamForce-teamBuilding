@@ -86,14 +86,6 @@ public class User {
     @Transient
     private String token;
 
-    /* 프로젝트 모집글 */
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProjectBoard> projectBoards = new ArrayList<>();
-
-    /* 프로젝트 신청 회원 */
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProjectApplyMember> projectApplyMembers = new ArrayList<>();
-
     // JWT용 생성자
     public User(String name, String id, Collection<? extends GrantedAuthority> authorities) {
         this.name = name;
