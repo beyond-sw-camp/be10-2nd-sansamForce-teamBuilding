@@ -8,9 +8,12 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import sansam.team.project.command.application.dto.board.ProjectApplyMemberDTO;
 import sansam.team.project.command.application.dto.board.ProjectBoardCreateDTO;
 import sansam.team.project.command.application.dto.board.ProjectBoardUpdateDTO;
+import sansam.team.project.command.domain.aggregate.entity.ProjectApplyMember;
 import sansam.team.project.command.domain.aggregate.entity.ProjectBoard;
+import sansam.team.project.command.domain.repository.ProjectApplyMemberRepository;
 import sansam.team.project.command.domain.repository.ProjectBoardRepository;
 import sansam.team.project.command.infrastructure.repository.JpaProjectApplyMemberRepository;
 import sansam.team.user.command.entity.User;
@@ -28,7 +31,7 @@ class ProjectBoardServiceTest {
     private ProjectBoardRepository projectBoardRepository;
 
     @Mock
-    private JpaProjectApplyMemberRepository jpaProjectApplyMemberRepository;
+    private ProjectApplyMemberRepository projectApplyMemberRepository;
 
     @Mock
     private UserRepository userRepository;
@@ -141,5 +144,75 @@ class ProjectBoardServiceTest {
 
         // deleteById 메서드가 호출되었는지 확인
         verify(projectBoardRepository, times(1)).deleteById(projectBoardSeq);
+    }
+
+    @Test
+    void updateApplyMemberStatus_Success() {
+        // Given
+        Long projectBoardSeq = 1L;
+        Long applyMemberSeq = 1L;
+        ProjectApplyMemberDTO projectApplyMemberDTO = new ProjectApplyMemberDTO();
+
+        // Mock ProjectApplyMember 객체 생성
+        ProjectApplyMember applyMember = mock(ProjectApplyMember.class);
+
+        // Mock ProjectBoard 객체 생성
+        ProjectBoard projectBoard = mock(ProjectBoard.class);
+
+        // ProjectApplyMemberRepository가 applyMember를 반환하도록 Mock 설정
+        when(projectApplyMemberRepository.findById(applyMemberSeq)).thenReturn(Optional.of(applyMember));
+
+        // ProjectBoardRepository가 projectBoard를 반환하도록 Mock 설정
+        when(projectBoardRepository.findById(projectBoardSeq)).thenReturn(Optional.of(projectBoard));
+
+        // applyMember 객체의 modifyApplyMemberStatus 메서드 호출 설정
+        doNothing().when(applyMember).modifyApplyMemberStatus(anyLong(), any(ProjectApplyMemberDTO.class));
+
+        // When
+        ProjectApplyMember result = projectBoardService.updateApplyMemberStatus(projectBoardSeq, applyMemberSeq, projectApplyMemberDTO);
+
+        // Then
+        assertNotNull(result); // 결과가 null이 아닌지 확인
+        verify(applyMember, times(1)).modifyApplyMemberStatus(projectBoard.getProjectBoardSeq(), projectApplyMemberDTO);
+    }
+
+    @Test
+    void updateApplyMemberStatus_ApplyMemberNotFound_ThrowsException() {
+        // Given
+        Long projectBoardSeq = 1L;
+        Long applyMemberSeq = 1L;
+        ProjectApplyMemberDTO projectApplyMemberDTO = new ProjectApplyMemberDTO();
+
+        // ProjectApplyMemberRepository가 빈 값을 반환하도록 설정
+        when(projectApplyMemberRepository.findById(applyMemberSeq)).thenReturn(Optional.empty());
+
+        // When / Then
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            projectBoardService.updateApplyMemberStatus(projectBoardSeq, applyMemberSeq, projectApplyMemberDTO);
+        });
+
+        assertEquals("Apply member not found", exception.getMessage());
+    }
+
+    @Test
+    void updateApplyMemberStatus_ProjectBoardNotFound_ThrowsException() {
+        // Given
+        Long projectBoardSeq = 1L;
+        Long applyMemberSeq = 1L;
+        ProjectApplyMemberDTO projectApplyMemberDTO = new ProjectApplyMemberDTO();
+
+        // ProjectApplyMember 객체를 반환하도록 Mock 설정
+        ProjectApplyMember applyMember = mock(ProjectApplyMember.class);
+        when(projectApplyMemberRepository.findById(applyMemberSeq)).thenReturn(Optional.of(applyMember));
+
+        // ProjectBoardRepository가 빈 값을 반환하도록 설정
+        when(projectBoardRepository.findById(projectBoardSeq)).thenReturn(Optional.empty());
+
+        // When / Then
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            projectBoardService.updateApplyMemberStatus(projectBoardSeq, applyMemberSeq, projectApplyMemberDTO);
+        });
+
+        assertEquals("Project board not found", exception.getMessage());
     }
 }
