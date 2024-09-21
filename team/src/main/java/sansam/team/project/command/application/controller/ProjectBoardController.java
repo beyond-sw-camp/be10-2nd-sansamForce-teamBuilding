@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sansam.team.project.command.application.dto.board.ProjectBoardDTO;
+import sansam.team.project.command.application.dto.board.ProjectBoardCreateDTO;
 import sansam.team.project.command.domain.aggregate.entity.ProjectBoard;
 import sansam.team.project.command.application.service.ProjectBoardService;
 
@@ -20,9 +20,9 @@ public class ProjectBoardController {
     @PostMapping
     @Operation(summary = "프로젝트 게시물 추가", description = "프로젝트 게시물 추가 API (관리자만 가능)")
     public ResponseEntity<ProjectBoard> createProjectBoard(
-            @RequestBody ProjectBoardDTO projectBoardDTO) {
+            @RequestBody ProjectBoardCreateDTO projectBoardCreateDTO) {
         // 서비스로 전달하여 ProjectBoard 생성
-        ProjectBoard projectBoard = projectBoardService.createProjectBoard(projectBoardDTO);
+        ProjectBoard projectBoard = projectBoardService.createProjectBoard(projectBoardCreateDTO);
         return ResponseEntity.ok(projectBoard);
     }
 

@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class ProjectBoardDTO {
+public class ProjectBoardCreateDTO {
 
     private String projectBoardTitle;
     private String projectBoardContent;
