@@ -25,8 +25,13 @@ public class ProjectApplyMember extends BaseTimeEntity {
 
     private Long projectBoardSeq;                       // 프로젝트 게시글 번호
 
-    @Builder
-    public ProjectApplyMember(ApplyStatus applyStatus, User user, ProjectBoard projectBoard) {
-        super();
+    private ProjectApplyMember(ApplyStatus applyStatus, Long userSeq, Long projectBoardSeq) {
+        this.projectApplyMemberStatus = applyStatus;
+        this.userSeq = userSeq;
+        this.projectBoardSeq = projectBoardSeq;
+    }
+
+    public static ProjectApplyMember createEntity(ApplyStatus applyStatus, Long userSeq, Long projectBoardSeq) {
+        return new ProjectApplyMember(applyStatus, userSeq, projectBoardSeq);
     }
 }
