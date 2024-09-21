@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sansam.team.common.BaseTimeEntity;
 
+import sansam.team.project.command.application.dto.board.ProjectApplyMemberDTO;
 import sansam.team.project.command.domain.aggregate.ApplyStatus;
 import sansam.team.user.command.entity.User;
 
@@ -16,6 +17,7 @@ import sansam.team.user.command.entity.User;
 public class ProjectApplyMember extends BaseTimeEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long projectApplyMemberSeq;                 // 프로젝트 신청 테이블 번호
 
     @Enumerated(EnumType.STRING)
@@ -33,5 +35,10 @@ public class ProjectApplyMember extends BaseTimeEntity {
 
     public static ProjectApplyMember createEntity(ApplyStatus applyStatus, Long userSeq, Long projectBoardSeq) {
         return new ProjectApplyMember(applyStatus, userSeq, projectBoardSeq);
+    }
+
+    public void modifyApplyMemberStatus(Long projectBoardSeq, ProjectApplyMemberDTO projectApplyMemberDTO) {
+        this.projectBoardSeq = projectBoardSeq;
+        this.projectApplyMemberStatus = projectApplyMemberDTO.getApplyStatus();
     }
 }
