@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import sansam.team.project.command.dto.projectboard.ProjectApplyMemberDTO;
-import sansam.team.project.command.service.ProjectApplyMemberService;
 import sansam.team.project.query.dto.projectboard.ProjectApplyMemberQueryDTO;
 import sansam.team.project.query.dto.projectboard.ProjectBoardQueryDTO;
 import sansam.team.project.query.service.ProjectBoardQueryService;

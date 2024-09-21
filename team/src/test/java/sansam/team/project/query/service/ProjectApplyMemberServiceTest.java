@@ -11,7 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import sansam.team.project.query.dto.projectboard.ApplyMemberQueryDTO;
 import sansam.team.project.query.mapper.ProjectApplyMemberMapper;
 import sansam.team.user.command.entity.User;
-import sansam.team.project.command.enums.ApplyStatus;
+import sansam.team.project.command.domain.aggregate.ApplyStatus;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;

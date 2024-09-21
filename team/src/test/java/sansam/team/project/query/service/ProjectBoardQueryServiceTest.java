@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import sansam.team.project.command.enums.ApplyStatus;
+import sansam.team.project.command.domain.aggregate.ApplyStatus;
 import sansam.team.project.query.dto.projectboard.ProjectApplyMemberQueryDTO;
 import sansam.team.project.query.dto.projectboard.ProjectBoardQueryDTO;
 import sansam.team.project.query.mapper.ProjectBoardMapper;

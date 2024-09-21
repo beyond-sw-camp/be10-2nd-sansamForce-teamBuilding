@@ -35,11 +35,11 @@ CREATE TABLE `tbl_user`
     `user_name` varchar(30) NOT NULL,
     `user_nickname` varchar(50) NOT NULL,
     `user_password` varchar(100) NOT NULL,
-    `user_auth` varchar(15) NOT NULL,
+    `user_auth` ENUM('MANAGER', 'SUBMANAGER', 'MENTOR', 'MEMBER') NOT NULL,
     `user_phone` char(11) NULL,
     `user_email` varchar(30) NOT NULL,
     `user_birth_date` char(6) NULL,
-    `user_gender` char(1) NOT NULL,
+    `user_gender` char(10) NOT NULL,
     `user_github_id` varchar(30) NULL,
     `user_profile_img` varchar(255) NULL,
     `user_status` varchar(20) NULL,
@@ -85,21 +85,21 @@ CREATE TABLE `tbl_project`
 CREATE TABLE `tbl_project_board`
 (
     `project_board_seq` bigint NOT NULL AUTO_INCREMENT,
-    `user_seq` bigint NOT NULL,
+    `project_board_admin_seq` bigint NOT NULL,
     `project_board_title` varchar(50) NOT NULL,
     `project_board_content` longtext NOT NULL,
     `project_board_head_count` int NOT NULL,
     `project_board_img_url` varchar(30) NULL,
     `project_board_start_date` timestamp NOT NULL,
     `project_board_end_date` timestamp NOT NULL,
-    `project_board_status` char(1) NULL,
+    `project_board_status` ENUM('RECRUITMENT', 'DEADLINE', 'DELETE') NULL,
     `project_start_date` timestamp NULL,
     `project_end_date` timestamp NULL,
     `reg_date` timestamp NOT NULL,
     `mod_date` timestamp NULL,
     `del_date` timestamp NULL,
     PRIMARY KEY (`project_board_seq`),
-    CONSTRAINT `FK_TBL_PROJECT_BOARD_USER_SEQ` FOREIGN KEY (`user_seq`) REFERENCES `tbl_user`(`user_seq`)
+    CONSTRAINT `FK_TBL_PROJECT_BOARD_USER_SEQ` FOREIGN KEY (`project_board_admin_seq`) REFERENCES `tbl_user`(`user_seq`)
 );
 
 CREATE TABLE `tbl_project_member`
@@ -119,14 +119,13 @@ CREATE TABLE `tbl_project_member`
 CREATE TABLE `tbl_project_apply_member`
 (
     `project_apply_member_seq` bigint NOT NULL AUTO_INCREMENT,
-    `project_seq` bigint NOT NULL,
+    `project_board_seq` bigint NOT NULL,
     `user_seq` bigint NOT NULL,
-    `project_apply_member_status` varchar(10) NOT NULL,
+    `project_apply_member_status` ENUM('APPLIED', 'APPROVED', 'REJECTED') NOT NULL,
     `reg_date` timestamp NOT NULL,
     `mod_date` timestamp NULL,
-    `del_date` timestamp NULL,
     PRIMARY KEY (`project_apply_member_seq`),
-    CONSTRAINT `FK_TBL_PROJECT_APPLY_MEMBER_PROJECT_SEQ` FOREIGN KEY (`project_seq`) REFERENCES `tbl_project`(`project_seq`),
+    CONSTRAINT `FK_TBL_PROJECT_APPLY_MEMBER_PROJECT_SEQ` FOREIGN KEY (`project_board_seq`) REFERENCES `tbl_project_board`(`project_board_seq`),
     CONSTRAINT `FK_TBL_PROJECT_APPLY_MEMBER_USER_SEQ` FOREIGN KEY (`user_seq`) REFERENCES `tbl_user`(`user_seq`)
 );
 
