@@ -14,7 +14,6 @@ import sansam.team.project.command.domain.aggregate.entity.ProjectApplyMember;
 import sansam.team.project.command.domain.aggregate.entity.ProjectBoard;
 import sansam.team.project.command.domain.repository.ProjectApplyMemberRepository;
 import sansam.team.project.command.domain.repository.ProjectBoardRepository;
-import sansam.team.project.command.mapper.ProjectApplyMemberMapper;
 import sansam.team.user.command.entity.User;
 
 import java.util.Optional;

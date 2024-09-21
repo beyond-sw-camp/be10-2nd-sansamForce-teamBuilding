@@ -10,7 +10,6 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import sansam.team.project.command.application.dto.board.ProjectBoardCreateDTO;
 import sansam.team.project.command.application.dto.board.ProjectBoardUpdateDTO;
-import sansam.team.project.command.application.service.ProjectBoardService;
 import sansam.team.project.command.domain.aggregate.entity.ProjectBoard;
 import sansam.team.project.command.domain.repository.ProjectBoardRepository;
 import sansam.team.project.command.infrastructure.repository.JpaProjectApplyMemberRepository;
