@@ -19,7 +19,6 @@ import java.util.Collection;
 @Entity
 @Table(name = "tbl_user")
 @Getter
-@Setter  // Setter를 추가하여 필요한 필드에 값을 설정할 수 있도록 함
 @NoArgsConstructor
 @AllArgsConstructor
 public class User extends BaseTimeEntity {

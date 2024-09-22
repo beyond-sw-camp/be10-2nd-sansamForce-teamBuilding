@@ -1,4 +1,4 @@
-package sansam.team.user.command.application.dto;
+package sansam.team.common.jwt;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,7 +7,6 @@ import lombok.ToString;
 
 @Builder
 @Getter
-@ToString
 @AllArgsConstructor
 public class JwtToken {
     private String grantType;

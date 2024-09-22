@@ -5,7 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sansam.team.common.BaseTimeEntity;
-import sansam.team.common.YesNo;
+import sansam.team.common.YnType;
 
 import java.time.LocalDateTime;
 
@@ -25,7 +25,7 @@ public class TeamChat extends BaseTimeEntity {
     private String teamChatName;
     private String teamChatComment;
     @Enumerated(value = EnumType.STRING)
-    private YesNo teamChatActive;
+    private YnType teamChatActive;
 
     private LocalDateTime delDate;
 }
