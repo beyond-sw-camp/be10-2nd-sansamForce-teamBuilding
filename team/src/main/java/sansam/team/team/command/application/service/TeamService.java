@@ -16,7 +16,6 @@ import sansam.team.team.command.mapper.TeamMapper;
 @Slf4j
 public class TeamService {
 
-    private final ModelMapper modelMapper;
     private final TeamRepository teamRepository;
 
     @Transactional

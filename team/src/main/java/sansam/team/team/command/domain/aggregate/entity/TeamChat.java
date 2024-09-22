@@ -2,8 +2,10 @@ package sansam.team.team.command.domain.aggregate.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
 import sansam.team.common.BaseTimeEntity;
 import sansam.team.common.YnType;
 
@@ -17,6 +19,7 @@ import java.time.LocalDateTime;
         , allocationSize = 1)
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@SQLDelete(sql = "UPDATE tbl_team_chat SET team_chat_active = 'N', del_date = NOW() WHERE team_chat_seq = ?")
 public class TeamChat extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO, generator = "TEAM_CHAT_SEQ_GENERATOR")
@@ -28,4 +31,17 @@ public class TeamChat extends BaseTimeEntity {
     private YnType teamChatActive;
 
     private LocalDateTime delDate;
+
+    @Builder
+    protected TeamChat(long teamSeq, String teamChatName, String teamChatComment, YnType teamChatActive) {
+        this.teamSeq = teamSeq;
+        this.teamChatName = teamChatName;
+        this.teamChatComment = teamChatComment;
+        this.teamChatActive = teamChatActive;
+    }
+
+    public void modifyTeamChat(String teamChatName, String teamChatComment) {
+        this.teamChatName = teamChatName;
+        this.teamChatComment = teamChatComment;
+    }
 }
