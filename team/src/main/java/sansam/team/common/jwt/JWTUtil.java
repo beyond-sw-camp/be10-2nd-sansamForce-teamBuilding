@@ -6,8 +6,8 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
-import sansam.team.user.command.application.dto.JwtToken;
 import sansam.team.user.command.domain.aggregate.entity.User;
 
 import javax.crypto.SecretKey;
@@ -25,11 +25,10 @@ public class JWTUtil {
         this.secretKey = Keys.hmacShaKeyFor(keyBytes);
     }
 
-    // JWT 생성 메서드 (User 객체를 매개변수로 사용)
     public JwtToken createToken(User user) throws JsonProcessingException {
         // 사용자 권한 정보 설정
         String authorities = user.getAuthorities().stream()
-                .map(authority -> authority.getAuthority())
+                .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
 
         // Access Token 생성
@@ -58,7 +57,6 @@ public class JWTUtil {
                 .build();
     }
 
-    // JWT 토큰에서 userSeq 추출 (subject에서 userSeq를 파싱)
     public Long getUserSeqFromToken(String token) {
         try {
             String subject = Jwts.parserBuilder()
@@ -68,7 +66,6 @@ public class JWTUtil {
                     .getBody()
                     .getSubject();
 
-            // 로그 추가: 파싱된 subject 값 확인
             log.info("Parsed JWT subject (userSeq): {}", subject);
 
             return Long.valueOf(subject);  // subject는 userSeq를 의미

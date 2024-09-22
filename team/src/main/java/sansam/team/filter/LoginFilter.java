@@ -13,12 +13,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import sansam.team.common.jwt.JWTUtil;
-import sansam.team.user.command.application.dto.JwtToken;
-import sansam.team.user.command.application.dto.UserDTO;
-import sansam.team.user.command.domain.aggregate.entity.User;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -43,7 +39,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException {
         log.info("=======로그인 성공=======");
-
+/*
         // User 객체 가져오기
         User user = (User) authentication.getPrincipal();
 
@@ -63,7 +59,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
         PrintWriter out = response.getWriter();
         out.write("{\"accessToken\":\"" + jwtToken.getAccessToken() + "\", \"refreshToken\":\"" + jwtToken.getRefreshToken() + "\", \"userId\":\"" + user.getUserId() + "\"}");
-        out.flush();
+        out.flush();*/
     }
 
     @Override

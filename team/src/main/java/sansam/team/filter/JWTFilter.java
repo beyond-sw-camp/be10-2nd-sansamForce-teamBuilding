@@ -46,8 +46,7 @@ public class JWTFilter extends OncePerRequestFilter {
                 List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(auth));
 
                 // User 객체 생성 및 userSeq 설정
-                User user = new User();
-                user.setUserSeq(userSeq);
+                User user = User.builder().userSeq(userSeq).build();
 
                 // 로그로 권한 상태 확인
                 log.info("JWT UserSeq: " + userSeq);

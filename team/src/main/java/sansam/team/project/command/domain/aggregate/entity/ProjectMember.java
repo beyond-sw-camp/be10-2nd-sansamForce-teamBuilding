@@ -1,10 +1,11 @@
 package sansam.team.project.command.domain.aggregate.entity;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import sansam.team.common.YesNo;
+import sansam.team.common.YnType;
 
 @Entity
 @Table(name = "tbl_project_member")
@@ -15,9 +16,9 @@ public class ProjectMember {
     @Id
     private int projectMemberSeq;
 
-    private YesNo projectMemberDelYn = YesNo.Y;
+    private YnType projectMemberDelYn = YnType.Y;
 
-    private YesNo projectMentorYn = YesNo.Y;
+    private YnType projectMentorYn = YnType.Y;
 
     private Long userSeq;
 
