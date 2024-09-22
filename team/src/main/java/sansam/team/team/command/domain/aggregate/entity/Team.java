@@ -13,7 +13,7 @@ import sansam.team.common.BaseTimeEntity;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(
         name = "TEAM_SEQ_GENERATOR"
-        , sequenceName = "TEAM_SEQ" //매핑할 데이터베이스 시퀀스 이름
+        , sequenceName = "team_seq" //매핑할 데이터베이스 시퀀스 이름
         , allocationSize = 1)
 public class Team extends BaseTimeEntity {
 
