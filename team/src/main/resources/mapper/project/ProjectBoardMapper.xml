@@ -5,29 +5,24 @@
 <mapper namespace="sansam.team.project.query.mapper.ProjectBoardMapper">
 
     <!-- 모든 ProjectBoard 데이터를 가져오는 SQL -->
-    <select id="findAll" resultType="ProjectBoardQueryDTO">
+    <select id="findAll" resultType="ProjectBoardAllQueryDTO">
         SELECT
             project_board_seq,
             project_board_title,
             project_board_content,
             project_board_head_count,
             project_board_img_url,
-            project_board_start_date,
-            project_board_end_date,
-            project_board_status,
             project_start_date,
             project_end_date,
-            created_at,
-            updated_at,
-            deleted_at,
-            user_seq
+            project_board_status
         FROM tbl_project_board
     </select>
 
-    <!-- 특정 ID로 ProjectBoard 데이터를 가져오는 SQL -->
-    <select id="findById" parameterType="long" resultType="ProjectBoardQueryDTO">
+    <!-- 특정 ID로 ProjectBoard 데이터를 가져오는 SQL (관리자 전용) -->
+    <select id="findByIdForAdmin" parameterType="long" resultType="ProjectBoardAdminDTO">
         SELECT
             project_board_seq,
+            project_board_admin_seq,
             project_board_title,
             project_board_content,
             project_board_head_count,
@@ -37,10 +32,24 @@
             project_board_status,
             project_start_date,
             project_end_date,
-            created_at,
-            updated_at,
-            deleted_at,
-            user_seq
+            reg_date,
+            mod_date,
+            del_date
+        FROM tbl_project_board
+        WHERE project_board_seq = #{projectBoardSeq}
+    </select>
+
+    <!-- 특정 ID로 ProjectBoard 데이터를 가져오는 SQL (사용자 전용) -->
+    <select id="findByIdForUser" parameterType="long" resultType="ProjectBoardUserDTO">
+        SELECT
+            project_board_seq,
+            project_board_title,
+            project_board_content,
+            project_board_head_count,
+            project_board_img_url,
+            project_board_status,
+            project_start_date,
+            project_end_date,
         FROM tbl_project_board
         WHERE project_board_seq = #{projectBoardSeq}
     </select>
@@ -48,10 +57,10 @@
     <!-- 프로젝트 게시물에 신청한 회원 조회 -->
     <select id="findApplyMembersByProjectBoardSeq" resultType="ProjectApplyMemberQueryDTO">
         SELECT
-        pam.project_apply_member_status AS applyStatus,
-        u.user_seq AS userSeq,
-        u.user_name AS userName,
-        u.user_nickname AS userNickname
+            pam.project_apply_member_status AS applyStatus,
+            u.user_seq AS userSeq,
+            u.user_name AS userName,
+            u.user_nickname AS userNickname
         FROM tbl_project_apply_member pam
         JOIN tbl_user u ON pam.user_seq = u.user_seq
         WHERE pam.project_board_seq = #{projectBoardSeq}
