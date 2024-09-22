@@ -7,8 +7,8 @@ import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import sansam.team.user.command.dto.JwtToken;
-import sansam.team.user.command.entity.User;
+import sansam.team.user.command.application.dto.JwtToken;
+import sansam.team.user.command.domain.aggregate.entity.User;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
@@ -35,8 +35,8 @@ public class JWTUtil {
         // Access Token 생성
         String accessToken = Jwts.builder()
                 .setSubject(String.valueOf(user.getUserSeq()))  // userSeq를 subject로 설정
-                .claim("userId", user.getId())
-                .claim("userName", user.getName())
+                .claim("userId", user.getUserId())
+                .claim("userName", user.getUserName())
                 .claim("auth", authorities)  // 권한 정보 추가
                 .setIssuedAt(new Date())  // iat 추가 (발행 시간)
                 .setExpiration(new Date((new Date()).getTime() + 86400000))  // 만료 시간 (1일)
