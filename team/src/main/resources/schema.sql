@@ -23,7 +23,7 @@ CREATE TABLE `tbl_major`
     `major_department` varchar(30) NULL,
     `major_department_code` char(10) NULL,
     `reg_date` timestamp NOT NULL,
-    `mol_date` timestamp NULL,
+    `mod_date` timestamp NULL,
     PRIMARY KEY (`major_seq`)
 );
 
@@ -233,7 +233,7 @@ CREATE TABLE `tbl_user_review`
     `user_review_star` double NOT NULL,
     `user_review_content` varchar(255) NOT NULL,
     `reg_date` TIMESTAMP NOT NULL,
-    `mol_date` timestamp NULL,
+    `mod_date` timestamp NULL,
     PRIMARY KEY (`user_review_seq`),
     CONSTRAINT `FK_TBL_USER_REVIEW_SEND_TEAM_MEMBER_SEQ` FOREIGN KEY (`send_team_member_seq`) REFERENCES `tbl_team_member`(`team_member_seq`),
     CONSTRAINT `FK_TBL_USER_REVIEW_RECEIVE_TEAM_MEMBER_SEQ` FOREIGN KEY (`receive_team_member_seq`) REFERENCES `tbl_team_member`(`team_member_seq`)
