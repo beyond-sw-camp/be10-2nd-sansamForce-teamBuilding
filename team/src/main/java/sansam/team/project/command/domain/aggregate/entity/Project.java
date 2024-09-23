@@ -1,12 +1,11 @@
 package sansam.team.project.command.domain.aggregate.entity;
 
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sansam.team.common.BaseTimeEntity;
+import sansam.team.project.command.application.dto.project.ProjectUpdateDTO;
 import sansam.team.project.command.domain.aggregate.ProjectStatus;
-import sansam.team.user.command.domain.aggregate.entity.User;
 
 import java.time.LocalDateTime;
 
@@ -17,6 +16,7 @@ import java.time.LocalDateTime;
 public class Project extends BaseTimeEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long projectSeq;    // 프로젝트 시퀀스 번호
 
     private String projectTitle;    // 프로젝트 제목
@@ -34,11 +34,20 @@ public class Project extends BaseTimeEntity {
 
     private LocalDateTime projectEndDate;       // 프로젝트 종료 날짜
 
-    private Long projectAdminUser;          // 프로젝트 작성자 (관리자)
+    private Long projectAdminSeq;          // 프로젝트 작성자 (관리자)
 
-    @Builder
-    public Project(String projectTitle, String projectContent, ProjectStatus projectStatus, int projectHeadCount, String projectImgUrl, LocalDateTime projectStartDate, LocalDateTime projectEndDate, User user) {
-        super();
 
+    public void setProjectAdminSeq(Long userSeq) {
+        this.projectAdminSeq = userSeq;
+    }
+
+    public void modifyProject(ProjectUpdateDTO projectDTO) {
+        this.projectTitle = projectDTO.getProjectTitle();
+        this.projectContent = projectDTO.getProjectContent();
+        this.projectHeadCount = projectDTO.getProjectHeadCount();
+        this.projectImgUrl = projectDTO.getProjectImgUrl();
+        this.projectStartDate = projectDTO.getProjectStartDate();
+        this.projectEndDate = projectDTO.getProjectEndDate();
+        this.projectStatus = projectDTO.getProjectStatus();
     }
 }

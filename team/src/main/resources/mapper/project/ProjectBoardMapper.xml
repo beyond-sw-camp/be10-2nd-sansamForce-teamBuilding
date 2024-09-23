@@ -49,7 +49,7 @@
             project_board_img_url,
             project_board_status,
             project_start_date,
-            project_end_date,
+            project_end_date
         FROM tbl_project_board
         WHERE project_board_seq = #{projectBoardSeq}
     </select>

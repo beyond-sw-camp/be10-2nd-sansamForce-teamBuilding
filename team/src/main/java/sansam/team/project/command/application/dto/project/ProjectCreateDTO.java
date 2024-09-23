@@ -12,9 +12,8 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProjectDTO {
+public class ProjectCreateDTO {
 
-    private Long projectSeq;
     private String projectTitle;
     private String projectContent;
     private ProjectStatus projectStatus;
@@ -22,4 +21,5 @@ public class ProjectDTO {
     private String projectImgUrl;
     private LocalDateTime projectStartDate;
     private LocalDateTime projectEndDate;
+    private Long projectAdminSeq;
 }
