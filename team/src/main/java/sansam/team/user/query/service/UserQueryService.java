@@ -10,8 +10,7 @@ import sansam.team.common.jwt.JWTUtil;
 import sansam.team.common.jwt.JwtToken;
 import sansam.team.config.SecurityConfig;
 import sansam.team.user.command.domain.aggregate.entity.User;
-import sansam.team.user.query.dto.UserQueryDTO;
-import sansam.team.user.query.mapper.UserQueryMapper;
+
 
 @Service
 @RequiredArgsConstructor
