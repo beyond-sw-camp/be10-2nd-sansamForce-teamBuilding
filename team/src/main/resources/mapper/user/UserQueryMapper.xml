@@ -5,7 +5,8 @@
 <mapper namespace="sansam.team.user.query.mapper.UserQueryMapper">
 
     <select id="findByUserId" resultType="sansam.team.user.query.dto.UserQueryDTO$LoginResponseDTO">
-        SELECT user_id
+        SELECT user_seq
+            , user_id
             , user_name
             , user_nickname
             , user_password
