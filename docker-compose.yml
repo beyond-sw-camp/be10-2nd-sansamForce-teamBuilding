@@ -28,6 +28,28 @@ services:
     networks:
       - springboot-network
 
+#  zookeeper:
+#    image: wurstmeister/zookeeper
+#    container_name: zookeeper
+#    ports:
+#      - "2181:2181"
+#
+#  kafka:
+#    image: wurstmeister/kafka
+#    container_name: kafka
+#    ports:
+#      - "9092:9092"
+#    environment:
+#      KAFKA_ADVERTISED_HOST_NAME: ${KAFKA_HOST}
+#      KAFKA_CREATE_TOPICS: "Topic:1:1"
+#      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+#    # 볼륨 설정
+#    volumes:
+#      - /var/run/docker.sock
+#    # 의존 관계 설정
+#    depends_on:
+#      - zookeeper
+
 #  spring:
 #    build:
 #      context: ./toyProject
@@ -43,3 +65,4 @@ volumes:
 networks:
   springboot-network:
     driver: bridge
+
