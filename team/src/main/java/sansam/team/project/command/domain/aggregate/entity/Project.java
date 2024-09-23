@@ -34,11 +34,15 @@ public class Project extends BaseTimeEntity {
 
     private LocalDateTime projectEndDate;       // 프로젝트 종료 날짜
 
-    private Long projectAdminUser;          // 프로젝트 작성자 (관리자)
+    private Long projectAdminSeq;          // 프로젝트 작성자 (관리자)
 
     @Builder
     public Project(String projectTitle, String projectContent, ProjectStatus projectStatus, int projectHeadCount, String projectImgUrl, LocalDateTime projectStartDate, LocalDateTime projectEndDate, User user) {
         super();
 
+    }
+
+    public void setProjectAdminSeq(Long userSeq) {
+        this.projectAdminSeq = userSeq;
     }
 }
