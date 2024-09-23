@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import sansam.team.common.BaseTimeEntity;
 import sansam.team.user.command.domain.aggregate.RoleType;
@@ -86,5 +85,10 @@ public class User extends BaseTimeEntity {
         });
 
         return authorities;
+    }
+
+    /* 테스트용 userSeq 세터 메소드 */
+    public void setUserSeq(Long userSeq) {
+        this.userSeq = userSeq;
     }
 }
