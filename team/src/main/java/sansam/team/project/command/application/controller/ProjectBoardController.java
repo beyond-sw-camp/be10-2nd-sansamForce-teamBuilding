@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import sansam.team.project.command.application.dto.board.ProjectApplyMemberDTO;
 import sansam.team.project.command.application.dto.board.ProjectBoardCreateDTO;
@@ -11,6 +12,7 @@ import sansam.team.project.command.application.dto.board.ProjectBoardUpdateDTO;
 import sansam.team.project.command.application.service.ProjectBoardService;
 import sansam.team.project.command.domain.aggregate.entity.ProjectApplyMember;
 import sansam.team.project.command.domain.aggregate.entity.ProjectBoard;
+import sansam.team.user.command.domain.aggregate.UserPrincipal;
 
 @RestController
 @RequestMapping("api/v1/admin/project/board")
@@ -23,9 +25,15 @@ public class ProjectBoardController {
     @PostMapping
     @Operation(summary = "프로젝트 게시물 추가", description = "프로젝트 게시물 추가 API (관리자만 가능)")
     public ResponseEntity<ProjectBoard> createProjectBoard(
-            @RequestBody ProjectBoardCreateDTO projectBoardCreateDTO) {
+            @RequestBody ProjectBoardCreateDTO projectBoardCreateDTO,
+            @AuthenticationPrincipal UserPrincipal userPrincipal) { // UserPrincipal을 주입받음
+
+        // UserPrincipal에서 userSeq 가져오기
+        Long userSeq = userPrincipal.getUserSeq();
+
         // 서비스로 전달하여 ProjectBoard 생성
-        ProjectBoard projectBoard = projectBoardService.createProjectBoard(projectBoardCreateDTO);
+        ProjectBoard projectBoard = projectBoardService.createProjectBoard(projectBoardCreateDTO, userSeq);
+
         return ResponseEntity.ok(projectBoard);
     }
 
