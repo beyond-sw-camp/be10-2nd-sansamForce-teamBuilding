@@ -21,4 +21,5 @@ public class ProjectCreateDTO {
     private String projectImgUrl;
     private LocalDateTime projectStartDate;
     private LocalDateTime projectEndDate;
+    private Long projectAdminSeq;
 }
