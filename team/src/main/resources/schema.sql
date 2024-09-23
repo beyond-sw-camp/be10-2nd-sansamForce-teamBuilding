@@ -67,7 +67,7 @@ CREATE TABLE `tbl_login_log`
 CREATE TABLE `tbl_project`
 (
     `project_seq` bigint NOT NULL AUTO_INCREMENT,
-    `user_seq` bigint,
+    `project_admin_seq` bigint,
     `project_title` varchar(50) NOT NULL,
     `project_content` longtext NOT NULL,
     `project_status` varchar(10) NOT NULL,
@@ -79,7 +79,7 @@ CREATE TABLE `tbl_project`
     `mod_date` timestamp NULL,
     `del_date` timestamp NULL,
     PRIMARY KEY (`project_seq`),
-    CONSTRAINT `FK_TBL_PROJECT_USER_SEQ` FOREIGN KEY (`user_seq`) REFERENCES `tbl_user`(`user_seq`)
+    CONSTRAINT `FK_TBL_PROJECT_USER_SEQ` FOREIGN KEY (`project_admin_seq`) REFERENCES `tbl_user`(`user_seq`)
 );
 
 CREATE TABLE `tbl_project_board`
