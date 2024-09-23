@@ -53,11 +53,11 @@ public class ProjectBoardService {
         ProjectBoard projectBoard = projectBoardRepository.findById(projectBoardSeq)
                 .orElseThrow(() -> new IllegalArgumentException("Project board not found"));
 
-//        projectBoard.modifyProjectBoard(projectBoardUpdateDTO);
+        projectBoard.modifyProjectBoard(projectBoardUpdateDTO);
 
         // ModelMapper를 사용해 기존 ProjectBoard 객체에 업데이트 사항을 반영
-        modelMapper.getConfiguration().setSkipNullEnabled(true);
-        modelMapper.map(projectBoardUpdateDTO, projectBoard);
+        /*modelMapper.getConfiguration().setSkipNullEnabled(true);
+        modelMapper.map(projectBoardUpdateDTO, projectBoard);*/
 
         // 업데이트된 객체 저장 및 반환
         return projectBoard;
