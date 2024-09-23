@@ -25,3 +25,25 @@ INSERT INTO
               , 'Test-git'
               , 'ACTIVE'
            );
+INSERT INTO tbl_building_rule ( rule_team_count
+                              , rule_major_weight
+                              , rule_career_weight
+                              , rule_github_weight
+                              , rule_team_review_weight
+                              , rule_mentor_review_weight
+                              , rule_tech_stack_yn
+                              , reg_date
+                              , mod_date
+                              )
+                    VALUES (
+                             1,
+                             10,
+                             4,
+                             3,
+                             2,
+                             5,
+                             4,
+                             'Y',
+                             NOW(),
+                             NOW()
+                           );
