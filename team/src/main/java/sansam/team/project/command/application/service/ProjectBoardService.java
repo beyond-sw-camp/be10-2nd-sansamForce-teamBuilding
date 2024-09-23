@@ -6,6 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import sansam.team.common.jwt.SecurityUtil;
 import sansam.team.project.command.application.dto.board.ProjectApplyMemberDTO;
 import sansam.team.project.command.application.dto.board.ProjectBoardCreateDTO;
 import sansam.team.project.command.application.dto.board.ProjectBoardUpdateDTO;
@@ -27,18 +28,16 @@ public class ProjectBoardService {
 
     /* 프로젝트 모집글 생성 로직 */
     @Transactional
-    public ProjectBoard createProjectBoard(ProjectBoardCreateDTO projectBoardCreateDTO, Long userSeq) {
-        // SecurityContext에서 현재 인증된 사용자(User 객체) 추출
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        User user = (User) authentication.getPrincipal();  // User 객체를 추출
+    public ProjectBoard createProjectBoard(ProjectBoardCreateDTO projectBoardCreateDTO) {
 
-        // 추출한 User의 userSeq가 null이 아닌지 확인
-        if (userSeq == null) {
+        User user = SecurityUtil.getAuthenticatedUser();
+
+        if(user.getUserSeq() == null){
             throw new IllegalArgumentException("User Seq is null");
         }
 
         ProjectBoard projectBoard = modelMapper.map(projectBoardCreateDTO, ProjectBoard.class);
-        projectBoard.setProjectBoardAdminSeq(userSeq);
+        projectBoard.setProjectBoardAdminSeq(user.getUserSeq());
 
         projectBoardRepository.save(projectBoard);
 
