@@ -1,146 +1,140 @@
 package sansam.team.project.query.service;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import sansam.team.project.command.domain.aggregate.ApplyStatus;
-import sansam.team.project.query.dto.projectboard.ProjectApplyMemberQueryDTO;
-import sansam.team.project.query.dto.projectboard.ProjectBoardAdminDTO;
+import sansam.team.project.query.dto.projectboard.*;
 import sansam.team.project.query.mapper.ProjectBoardMapper;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 class ProjectBoardQueryServiceTest {
-
-    @InjectMocks
-    private ProjectBoardQueryService projectBoardQueryService;
 
     @Mock
     private ProjectBoardMapper projectBoardMapper;
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
+    @InjectMocks
+    private ProjectBoardQueryService projectBoardQueryService;
+
+    @Test
+    void getAllProjectBoards_ShouldReturnAllProjectBoards() {
+        // Given
+        List<ProjectBoardAllQueryDTO> expected = Arrays.asList(
+                new ProjectBoardAllQueryDTO(
+                        1L,
+                        "Project 1",
+                        "Description 1",
+                        5,
+                        "https://example.com/image1.jpg",
+                        LocalDateTime.of(2023, 10, 1, 0, 0),
+                        LocalDateTime.of(2023, 12, 31, 0, 0),
+                        "ONGOING"
+                ),
+                new ProjectBoardAllQueryDTO(
+                        2L,
+                        "Project 2",
+                        "Description 2",
+                        3,
+                        "https://example.com/image2.jpg",
+                        LocalDateTime.of(2023, 11, 1, 0, 0),
+                        LocalDateTime.of(2024, 1, 31, 0, 0),
+                        "COMPLETED"
+                )
+        );
+        when(projectBoardMapper.findAll()).thenReturn(expected);
+
+        // When
+        List<ProjectBoardAllQueryDTO> actual = projectBoardQueryService.getAllProjectBoards();
+
+        // Then
+        assertEquals(expected, actual);
     }
 
     @Test
-    void testGetAllProjectBoards() {
-        // Arrange
-        LocalDateTime now = LocalDateTime.now();
-        ProjectBoardAdminDTO project1 = new ProjectBoardAdminDTO(
-                1L, "Project 1", "Content 1", 5, "imgUrl1",
-                now, now.plusDays(30), "RECRUITMENT", now, now.plusMonths(1),
-                now, now, null, 1L);
-
-        ProjectBoardAdminDTO project2 = new ProjectBoardAdminDTO(
-                2L, "Project 2", "Content 2", 10, "imgUrl2",
-                now.minusDays(10), now.plusDays(20), "IN_PROGRESS", now.minusMonths(1), now.plusMonths(2),
-                now.minusDays(10), now, null, 2L);
-
-        List<ProjectBoardAdminDTO> mockProjectBoards = Arrays.asList(project1, project2);
-
-        when(projectBoardMapper.findAll()).thenReturn(mockProjectBoards);
-
-        // Act
-        List<ProjectBoardAdminDTO> result = projectBoardQueryService.getAllProjectBoards();
-
-        // Assert
-        assertNotNull(result);
-        assertEquals(2, result.size());
-        assertEquals("Project 1", result.get(0).getProjectBoardTitle());
-        assertEquals("Project 2", result.get(1).getProjectBoardTitle());
-        verify(projectBoardMapper, times(1)).findAll();
-    }
-
-    @Test
-    void testGetProjectBoardByIdSuccess() {
-        // Arrange
+    void getProjectBoardByIdForAdmin_ShouldReturnProjectBoardForAdmin() {
+        // Given
         Long projectBoardSeq = 1L;
-        LocalDateTime now = LocalDateTime.now();
-        ProjectBoardAdminDTO mockProjectBoard = new ProjectBoardAdminDTO(
-                projectBoardSeq, "Project 1", "Content 1", 5, "imgUrl1",
-                now, now.plusDays(30), "RECRUITMENT", now, now.plusMonths(1),
-                now, now, null, 1L);
+        ProjectBoardAdminDTO expected = new ProjectBoardAdminDTO(
+                projectBoardSeq,
+                1L,
+                "Project 1",
+                "Description 1",
+                5,
+                "https://example.com/image1.jpg",
+                LocalDateTime.of(2023, 10, 1, 0, 0),
+                LocalDateTime.of(2023, 12, 31, 0, 0),
+                "ONGOING",
+                LocalDateTime.of(2023, 10, 5, 0, 0),
+                LocalDateTime.of(2023, 12, 25, 0, 0),
+                LocalDateTime.of(2023, 9, 1, 0, 0),
+                LocalDateTime.of(2023, 9, 10, 0, 0),
+                null
+        );
+        when(projectBoardMapper.findByIdForAdmin(projectBoardSeq)).thenReturn(expected);
 
-        when(projectBoardMapper.findById(projectBoardSeq)).thenReturn(mockProjectBoard);
+        // When
+        ProjectBoardAdminDTO actual = projectBoardQueryService.getProjectBoardByIdForAdmin(projectBoardSeq);
 
-        // Act
-        ProjectBoardAdminDTO result = projectBoardQueryService.getProjectBoardById(projectBoardSeq);
-
-        // Assert
-        assertNotNull(result);
-        assertEquals("Project 1", result.getProjectBoardTitle());
-        assertEquals("Content 1", result.getProjectBoardContent());
-        assertEquals(5, result.getProjectBoardHeadCount());
-        assertEquals("imgUrl1", result.getProjectBoardImgUrl());
-        assertEquals("RECRUITMENT", result.getBoardStatus());
-        assertEquals(1L, result.getUserSeq());
-        verify(projectBoardMapper, times(1)).findById(projectBoardSeq);
+        // Then
+        assertEquals(expected, actual);
     }
 
     @Test
-    void testGetProjectBoardByIdNotFound() {
-        // Arrange
+    void getProjectBoardByIdForUser_ShouldReturnProjectBoardForUser() {
+        // Given
         Long projectBoardSeq = 1L;
+        ProjectBoardUserDTO expected = new ProjectBoardUserDTO(
+                projectBoardSeq,
+                "Project 1",
+                "Description 1",
+                5,
+                "https://example.com/image1.jpg",
+                "ONGOING",
+                LocalDateTime.of(2023, 10, 1, 0, 0),
+                LocalDateTime.of(2023, 12, 31, 0, 0)
+        );
+        when(projectBoardMapper.findByIdForUser(projectBoardSeq)).thenReturn(expected);
 
-        when(projectBoardMapper.findById(projectBoardSeq)).thenReturn(null);
+        // When
+        ProjectBoardUserDTO actual = projectBoardQueryService.getProjectBoardByIdForUser(projectBoardSeq);
 
-        // Act
-        ProjectBoardAdminDTO result = projectBoardQueryService.getProjectBoardById(projectBoardSeq);
-
-        // Assert
-        assertNull(result);
-        verify(projectBoardMapper, times(1)).findById(projectBoardSeq);
+        // Then
+        assertEquals(expected, actual);
     }
 
     @Test
-    void testFindApplyMembersByProjectBoardSeq() {
-        // Arrange
+    void findApplyMembersByProjectBoardSeq_ShouldReturnApplyMembersList() {
+        // Given
         Long projectBoardSeq = 1L;
+        List<ProjectApplyMemberQueryDTO> expected = Arrays.asList(
+                new ProjectApplyMemberQueryDTO(
+                        1L,
+                        "User 1",
+                        "Nickname 1",
+                        ApplyStatus.APPLIED
+                ),
+                new ProjectApplyMemberQueryDTO(
+                        2L,
+                        "User 2",
+                        "Nickname 2",
+                        ApplyStatus.APPROVED
+                )
+        );
+        when(projectBoardMapper.findApplyMembersByProjectBoardSeq(projectBoardSeq)).thenReturn(expected);
 
-        ProjectApplyMemberQueryDTO member1 = new ProjectApplyMemberQueryDTO(
-                1L, "John Doe", "johndoe", ApplyStatus.APPLIED);
+        // When
+        List<ProjectApplyMemberQueryDTO> actual = projectBoardQueryService.findApplyMembersByProjectBoardSeq(projectBoardSeq);
 
-        ProjectApplyMemberQueryDTO member2 = new ProjectApplyMemberQueryDTO(
-                2L, "Jane Smith", "janesmith", ApplyStatus.APPROVED);
-
-        List<ProjectApplyMemberQueryDTO> mockMembers = Arrays.asList(member1, member2);
-
-        when(projectBoardMapper.findApplyMembersByProjectBoardSeq(projectBoardSeq)).thenReturn(mockMembers);
-
-        // Act
-        List<ProjectApplyMemberQueryDTO> result = projectBoardQueryService.findApplyMembersByProjectBoardSeq(projectBoardSeq);
-
-        // Assert
-        assertNotNull(result);
-        assertEquals(2, result.size());
-        assertEquals("John Doe", result.get(0).getUserName());
-        assertEquals(ApplyStatus.APPLIED, result.get(0).getApplyStatus());
-        assertEquals("Jane Smith", result.get(1).getUserName());
-        assertEquals(ApplyStatus.APPROVED, result.get(1).getApplyStatus());
-        verify(projectBoardMapper, times(1)).findApplyMembersByProjectBoardSeq(projectBoardSeq);
-    }
-
-    @Test
-    void testFindApplyMembersByProjectBoardSeqNoMembers() {
-        // Arrange
-        Long projectBoardSeq = 1L;
-
-        when(projectBoardMapper.findApplyMembersByProjectBoardSeq(projectBoardSeq)).thenReturn(Arrays.asList());
-
-        // Act
-        List<ProjectApplyMemberQueryDTO> result = projectBoardQueryService.findApplyMembersByProjectBoardSeq(projectBoardSeq);
-
-        // Assert
-        assertNotNull(result);
-        assertTrue(result.isEmpty());
-        verify(projectBoardMapper, times(1)).findApplyMembersByProjectBoardSeq(projectBoardSeq);
+        // Then
+        assertEquals(expected, actual);
     }
 }
