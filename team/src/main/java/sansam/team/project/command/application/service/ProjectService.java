@@ -2,13 +2,12 @@ package sansam.team.project.command.application.service;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import sansam.team.common.jwt.SecurityUtil;
 import sansam.team.project.command.application.dto.project.ProjectCreateDTO;
+import sansam.team.project.command.application.dto.project.ProjectUpdateDTO;
 import sansam.team.project.command.domain.aggregate.entity.Project;
 import sansam.team.project.command.domain.repository.ProjectRepository;
-import sansam.team.project.command.infrastructure.repository.JpaProjectRepository;
 import jakarta.transaction.Transactional;
 import sansam.team.user.command.domain.aggregate.entity.User;
 
@@ -23,9 +22,8 @@ public class ProjectService {
     /* 프로젝트 생성 로직 */
     @Transactional
     public Project createProject(ProjectCreateDTO projectCreateDTO){
-        // SecurityContext 에서 현재 진증된 사용자(User 객체) 추출
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) authentication.getPrincipal();
+
+        User user = SecurityUtil.getAuthenticatedUser();
 
         if(user.getUserSeq() == null){
             throw new IllegalArgumentException("User Seq is null");
@@ -37,5 +35,26 @@ public class ProjectService {
         projectRepository.save(project);
 
         return project;
+    }
+
+    /* 프로젝트 수정 로직 */
+    @Transactional
+    public Project updateProject(Long projectSeq, ProjectUpdateDTO projectUpdateDTO){
+
+        // 기존 프로젝트를 찾음
+        Project project = projectRepository.findById(projectSeq)
+                .orElseThrow(() -> new IllegalArgumentException("Project not found"));
+
+        project.modifyProject(projectUpdateDTO);
+
+        return project;
+    }
+
+    /* 프로젝트 삭제 로직 */
+    @Transactional
+    public void deleteProject(Long projectSeq){
+
+        /* 완전 삭제로 할지 소프트 삭제로 할지 의논 후 제대로 구현해야 함 */
+        projectRepository.deleteById(projectSeq);
     }
 }
