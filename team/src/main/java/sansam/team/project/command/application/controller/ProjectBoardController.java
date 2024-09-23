@@ -12,12 +12,11 @@ import sansam.team.project.command.application.dto.board.ProjectBoardUpdateDTO;
 import sansam.team.project.command.application.service.ProjectBoardService;
 import sansam.team.project.command.domain.aggregate.entity.ProjectApplyMember;
 import sansam.team.project.command.domain.aggregate.entity.ProjectBoard;
-import sansam.team.user.command.domain.aggregate.UserPrincipal;
 
 @RestController
 @RequestMapping("api/v1/admin/project/board")
 @RequiredArgsConstructor
-@Tag(name = "Project Board API", description = "프로젝트 게시물 API")
+@Tag(name = "Project Board Admin API", description = "프로젝트 게시물 관리자 API")
 public class ProjectBoardController {
 
     private final ProjectBoardService projectBoardService;
@@ -25,14 +24,10 @@ public class ProjectBoardController {
     @PostMapping
     @Operation(summary = "프로젝트 게시물 추가", description = "프로젝트 게시물 추가 API (관리자만 가능)")
     public ResponseEntity<ProjectBoard> createProjectBoard(
-            @RequestBody ProjectBoardCreateDTO projectBoardCreateDTO,
-            @AuthenticationPrincipal UserPrincipal userPrincipal) { // UserPrincipal을 주입받음
-
-        // UserPrincipal에서 userSeq 가져오기
-        Long userSeq = userPrincipal.getUserSeq();
+            @RequestBody ProjectBoardCreateDTO projectBoardCreateDTO) { // UserPrincipal을 주입받음
 
         // 서비스로 전달하여 ProjectBoard 생성
-        ProjectBoard projectBoard = projectBoardService.createProjectBoard(projectBoardCreateDTO, userSeq);
+        ProjectBoard projectBoard = projectBoardService.createProjectBoard(projectBoardCreateDTO);
 
         return ResponseEntity.ok(projectBoard);
     }
