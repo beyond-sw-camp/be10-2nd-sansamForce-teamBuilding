@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,6 +32,9 @@ class ProjectBoardServiceTest {
 
     @Mock
     private ProjectApplyMemberRepository projectApplyMemberRepository;
+
+    @Mock
+    private ModelMapper modelMapper;
 
     @Mock
     private JpaUserRepository userRepository;
@@ -68,6 +72,9 @@ class ProjectBoardServiceTest {
 
         // ProjectBoardRepository의 save 메서드가 호출될 때 Mock 객체 반환
         when(projectBoardRepository.save(any(ProjectBoard.class))).thenReturn(projectBoard);
+
+        // ModelMapper의 map 메서드가 호출될 때 Mock 객체 반환
+        when(modelMapper.map(any(ProjectBoardCreateDTO.class), eq(ProjectBoard.class))).thenReturn(projectBoard);
 
         ProjectBoard createdProjectBoard = projectBoardService.createProjectBoard(projectBoardCreateDTO);
 
