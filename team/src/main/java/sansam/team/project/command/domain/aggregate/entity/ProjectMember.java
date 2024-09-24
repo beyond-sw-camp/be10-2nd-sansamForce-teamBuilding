@@ -1,8 +1,6 @@
 package sansam.team.project.command.domain.aggregate.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sansam.team.common.YnType;
@@ -14,6 +12,7 @@ import sansam.team.common.YnType;
 public class ProjectMember {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int projectMemberSeq;
 
     private YnType projectMemberDelYn = YnType.Y;
