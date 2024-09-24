@@ -113,3 +113,4 @@ VALUES
     (2, 'Alpha Team B Design Review', '2024-01-10 14:00:00', '2024-01-10 16:00:00'),
     (3, 'Beta Team A Sprint Planning', '2024-02-05 09:00:00', '2024-02-05 11:00:00'),
     (4, 'Beta Team B Retrospective', '2024-02-15 15:00:00', '2024-02-15 17:00:00');
+
