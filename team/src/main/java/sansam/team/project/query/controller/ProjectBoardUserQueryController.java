@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import sansam.team.project.query.dto.projectboard.ProjectBoardAdminDTO;
 import sansam.team.project.query.dto.projectboard.ProjectBoardAllQueryDTO;
 import sansam.team.project.query.dto.projectboard.ProjectBoardUserDTO;
 import sansam.team.project.query.service.ProjectBoardQueryService;
@@ -19,7 +18,7 @@ import java.util.List;
 @RequestMapping("/api/v1/project-board")
 @RequiredArgsConstructor
 @Tag(name = "Project Board User API", description = "프로젝트 게시물 유저 API")
-public class ProjectBoardUserController {
+public class ProjectBoardUserQueryController {
 
     private final ProjectBoardQueryService projectBoardQueryService;
 

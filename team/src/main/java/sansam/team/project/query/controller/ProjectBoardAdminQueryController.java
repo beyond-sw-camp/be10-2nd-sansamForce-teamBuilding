@@ -19,7 +19,7 @@ import java.util.List;
 @RequestMapping("/api/v1/admin/project-board")
 @RequiredArgsConstructor
 @Tag(name = "Project Board Admin API", description = "프로젝트 게시물 관리자 API")
-public class ProjectBoardAdminController {
+public class ProjectBoardAdminQueryController {
 
     private final ProjectBoardQueryService projectBoardQueryService;
 
