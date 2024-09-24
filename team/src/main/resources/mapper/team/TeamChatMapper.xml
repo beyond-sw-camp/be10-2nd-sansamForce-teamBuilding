@@ -6,10 +6,10 @@
     <!-- 모든 채팅방을 조회해오는 쿼리 -->
     <select id="selectChatRoomList" parameterType="TeamChatQueryDTO" resultType="TeamChatDTO">
         SELECT team_chat_seq
-            , team_seq
+            , tc.team_seq
             , team_chat_name
             , team_chat_comment
-            , DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') reg_date
+            , DATE_FORMAT(tc.reg_date, '%Y-%m-%d %H:%i:%s') reg_date
 
             FROM tbl_team_chat tc
             <if test="roleType.getCode() == 'MENTOR'">
@@ -29,7 +29,7 @@
                 JOIN tbl_team t
                     ON tc.team_seq = t.team_seq
                 JOIN tbl_team_member tm
-                    ON tm.team_seq = t_team_seq
+                    ON tm.team_seq = t.team_seq
                 WHERE tm.user_seq = #{userSeq}
             </if>
     </select>
