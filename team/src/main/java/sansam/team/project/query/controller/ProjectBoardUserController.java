@@ -16,7 +16,7 @@ import sansam.team.project.query.service.ProjectBoardQueryService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/project-board")
+@RequestMapping("/api/v1/project/board")
 @RequiredArgsConstructor
 @Tag(name = "Project Board User API", description = "프로젝트 게시물 유저 API")
 public class ProjectBoardUserController {
