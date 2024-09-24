@@ -17,8 +17,10 @@ public class ProjectMember extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long projectMemberSeq;
 
+    @Enumerated(EnumType.STRING)
     private YnType projectMemberDelYn = YnType.N;
 
+    @Enumerated(EnumType.STRING)
     private YnType projectMentorYn = YnType.N;
 
     private Long userSeq;
