@@ -18,10 +18,10 @@ public class TeamChatController {
 
     private final TeamChatService teamChatService;
 
-    @PostMapping
+    @PostMapping("/{teamSeq}")
     @Operation(summary = "팀 채팅방 추가")
-    public ResponseEntity<TeamChat> createTeamChat(@RequestBody TeamChatCreateRequestDTO teamChatDTO) {
-        TeamChat teamChat = teamChatService.createTeamChat(teamChatDTO);
+    public ResponseEntity<TeamChat> createTeamChat(@PathVariable Long teamSeq, @RequestBody TeamChatCreateRequestDTO teamChatDTO) {
+        TeamChat teamChat = teamChatService.createTeamChat(teamSeq, teamChatDTO);
 
         return ResponseEntity.ok(teamChat);
     }
