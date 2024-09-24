@@ -1,6 +1,7 @@
 package sansam.team.project.command.application.controller;
 
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ public class ProjectMemberController {
 
     // 프로젝트 멤버 생성 엔드포인트
     @PostMapping("/{projectSeq}")
+    @Operation(summary = "프로젝트 회원 추가", description = "프로젝트 회원 추가 API (관리자만 가능)")
     public ResponseEntity<ProjectMember> addProjectMember(
             @PathVariable Long projectSeq,
             @RequestParam Long userSeq) {  // 요청 파라미터로 userSeq 받기
@@ -31,6 +33,7 @@ public class ProjectMemberController {
 
     // 프로젝트 멤버 수정 엔드포인트
     @PutMapping("/{projectMemberSeq}")
+    @Operation(summary = "프로젝트 회원 상태 변경(탈퇴 유무, 멘토 유무)", description = "프로젝트 수정 API (관리자만 가능)")
     public ResponseEntity<ProjectMember> updateProjectMember(
             @PathVariable Long projectMemberSeq,
             @RequestBody ProjectMemberUpdateDTO updateDTO) {
