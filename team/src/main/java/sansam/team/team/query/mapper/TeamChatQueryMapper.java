@@ -9,4 +9,6 @@ import java.util.List;
 @Mapper
 public interface TeamChatQueryMapper {
     List<TeamChatDTO> selectChatRoomList(TeamChatQueryDTO teamChatQueryDTO);
+
+    TeamChatDTO selectChatRoom(Long teamChatSeq);
 }

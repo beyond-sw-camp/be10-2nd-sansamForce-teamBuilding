@@ -33,4 +33,14 @@
                 WHERE tm.user_seq = #{userSeq}
             </if>
     </select>
+
+    <select id="selectChatRoom" resultType="TeamChatDTO">
+        SELECT team_chat_seq
+            , team_seq
+            , team_chat_name
+            , team_chat_comment
+            , DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') reg_date
+        FROM tbl_team_chat
+        WHERE team_chat_seq = #{teamChatSeq}
+    </select>
 </mapper>

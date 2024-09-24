@@ -19,9 +19,10 @@ public class TeamChatQueryService {
 
     public List<TeamChatDTO> selectChatRoomList() {
         User user = SecurityUtil.getAuthenticatedUser();
+        return teamChatQueryMapper.selectChatRoomList(new TeamChatQueryDTO(user.getUserSeq(), user.getUserAuth()));
+    }
 
-        List<TeamChatDTO> teamChatList = teamChatQueryMapper.selectChatRoomList(new TeamChatQueryDTO(user.getUserSeq(), user.getUserAuth()));
-
-        return teamChatList;
+    public TeamChatDTO selectChatRoom(Long teamChatSeq) {
+        return teamChatQueryMapper.selectChatRoom(teamChatSeq);
     }
 }
