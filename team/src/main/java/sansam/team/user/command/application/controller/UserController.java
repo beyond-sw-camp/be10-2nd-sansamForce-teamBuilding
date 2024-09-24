@@ -27,5 +27,4 @@ public class UserController {
                 .body(isJoinMember ? "Join successful" : "Error during registration");
     }
 
-
 }
