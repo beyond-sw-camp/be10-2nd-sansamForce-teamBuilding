@@ -25,3 +25,25 @@ INSERT INTO
               , 'Test-git'
               , 'ACTIVE'
            );
+
+INSERT INTO tbl_project (
+                          user_seq
+                        , project_title
+                        , project_content
+                        , project_status
+                        , project_head_count
+                        , project_img_url
+                        , project_start_date
+                        , project_end_date
+                        , reg_date
+) VALUES (
+            1
+         , "프로젝트 제목 테스트"
+         , "프로젝트 내용 테스트"
+         , "PROGRESS"
+         , 30
+         , "url test"
+         ,  date_add(now(), interval -1 day)
+         ,  date_add(now(), INTERVAL +70 day)
+         , NOW()
+         );
