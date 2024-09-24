@@ -1,4 +1,4 @@
-package sansam.team.user.command.domain.aggregate;
+package sansam.team.common.aggregate;
 
 public enum RoleType {
     MANAGER("관리자", "MANAGER"),

@@ -1,4 +1,4 @@
-package sansam.team.common;
+package sansam.team.common.aggregate;
 
 import lombok.Getter;
 

@@ -5,7 +5,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import sansam.team.common.YnType;
+import sansam.team.common.aggregate.YnType;
 
 @Entity
 @Table(name = "tbl_project_member")
