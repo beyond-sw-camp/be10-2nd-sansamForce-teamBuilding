@@ -5,15 +5,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import sansam.team.exception.aggregate.UserException;
+import sansam.team.exception.aggregate.UserNotFoundException;
 
 @ControllerAdvice
 public class ExceptionController {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(UserException.class)
+    @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleUserRegistException(
-            UserException e
+            UserNotFoundException e
     ) {
 
         String code = "ERROR_001";
