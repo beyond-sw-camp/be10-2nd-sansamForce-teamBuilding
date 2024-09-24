@@ -3,14 +3,12 @@ package sansam.team.project.command.application.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sansam.team.common.jwt.SecurityUtil;
-import sansam.team.project.command.application.dto.project.ProjectMemberCreateDTO;
+import sansam.team.project.command.application.dto.project.ProjectMemberUpdateDTO;
 import sansam.team.project.command.domain.aggregate.entity.Project;
 import sansam.team.project.command.domain.aggregate.entity.ProjectMember;
 import sansam.team.project.command.domain.repository.ProjectMemberRepository;
 import sansam.team.project.command.domain.repository.ProjectRepository;
 import sansam.team.project.command.mapper.ProjectMemberMapper;
-import sansam.team.user.command.domain.aggregate.entity.User;
 
 @Service
 @RequiredArgsConstructor
@@ -20,25 +18,37 @@ public class ProjectMemberService {
     private final ProjectRepository projectRepository;
 
     @Transactional
-    public ProjectMember containForProject(final Long projectSeq, ProjectMemberCreateDTO projectMemberCreateDTO){
+    public ProjectMember containForProject(Long projectSeq, Long userSeq) {
 
-        // SecurityContext에서 현재 인증된 사용자(User 객체) 추출
-        User user = SecurityUtil.getAuthenticatedUser();
-
-        // 추출한 User의 userSeq가 null이 아닌지 확인
-        if (user.getUserSeq() == null) {
+        // 주어진 userSeq로 사용자 정보 확인
+        if (userSeq == null) {
             throw new IllegalArgumentException("User Seq is null");
         }
 
+        // 프로젝트를 projectSeq로 조회
         Project project = projectRepository.findById(projectSeq)
                 .orElseThrow(() -> new IllegalArgumentException("Project not found"));
 
-        ProjectMember projectMember = ProjectMemberMapper.toEntity(user.getUserSeq(), project.getProjectSeq(), projectMemberCreateDTO);
+        // ProjectMember 엔티티 생성
+        ProjectMember projectMember = ProjectMemberMapper.toEntity(userSeq, project.getProjectSeq());
 
+        // 프로젝트 멤버 저장
         projectMemberRepository.save(projectMember);
 
         return projectMember;
+    }
 
+    @Transactional
+    public ProjectMember updateProjectMember(Long projectMemberSeq, ProjectMemberUpdateDTO updateDTO) {
+        // 기존 프로젝트 멤버를 찾음
+        ProjectMember projectMember = projectMemberRepository.findById(projectMemberSeq)
+                .orElseThrow(() -> new IllegalArgumentException("Project member not found"));
+
+        // 프로젝트 멤버 수정
+        projectMember.modifyProjectMember(updateDTO);
+
+        // 업데이트된 프로젝트 멤버 객체를 반환
+        return projectMember;
     }
 
 }
