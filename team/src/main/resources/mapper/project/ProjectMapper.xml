@@ -5,7 +5,7 @@
 <mapper namespace="sansam.team.project.query.mapper.ProjectMapper">
 
     <!-- 프로젝트 전체 조회 (관리자) -->
-    <select id="getAllProjectsForAdmin" resultType="ProjectAllQueryDTO">
+    <select id="findAllProjectForAdmin" resultType="ProjectAllQueryDTO">
         SELECT
             project_seq AS projectSeq,
             project_title AS projectTitle,
@@ -13,6 +13,23 @@
             project_img_url AS projectImgUrl
         FROM
             tbl_project
+    </select>
+
+    <!-- 프로젝트 전체 조회 (사용자) -->
+    <select id="findAllProjectForUser" resultType="ProjectAllQueryDTO">
+        SELECT
+            p.project_seq AS projectSeq,
+            p.project_title AS projectTitle,
+            p.project_status AS projectStatus,
+            p.project_img_url AS projectImgUrl
+        FROM
+            tbl_project p
+        JOIN
+            tbl_project_member pm ON p.project_seq = pm.project_seq
+        WHERE
+            pm.user_seq = #{userSeq}
+         AND pm.project_member_del_yn = 'N'
+
     </select>
 
     <!-- 프로젝트 상세 조회 (관리자) - 관리자 이름 포함 -->
@@ -26,7 +43,6 @@
             p.project_img_url AS projectImgUrl,
             p.project_start_date AS projectStartDate,
             p.project_end_date AS projectEndDate,
-            p.project_admin_seq AS projectAdminSeq,
             u.user_name AS projectAdminName    <!-- 관리자 이름 추가 -->
         FROM
             tbl_project p
