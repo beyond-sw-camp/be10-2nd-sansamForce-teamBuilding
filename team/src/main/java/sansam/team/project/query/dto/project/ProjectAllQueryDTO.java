@@ -1,4 +1,4 @@
-package sansam.team.project.command.application.dto.project;
+package sansam.team.project.query.dto.project;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,14 +12,11 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProjectDTO {
+public class ProjectAllQueryDTO {
 
     private Long projectSeq;
     private String projectTitle;
-    private String projectContent;
     private ProjectStatus projectStatus;
-    private int projectHeadCount;
     private String projectImgUrl;
-    private LocalDateTime projectStartDate;
-    private LocalDateTime projectEndDate;
+
 }

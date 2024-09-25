@@ -3,9 +3,8 @@ package sansam.team.project.command.application.service;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import sansam.team.common.jwt.SecurityUtil;
 import sansam.team.project.command.application.dto.board.ProjectApplyMemberDTO;
 import sansam.team.project.command.application.dto.board.ProjectBoardCreateDTO;
 import sansam.team.project.command.application.dto.board.ProjectBoardUpdateDTO;
@@ -13,9 +12,7 @@ import sansam.team.project.command.domain.aggregate.entity.ProjectApplyMember;
 import sansam.team.project.command.domain.aggregate.entity.ProjectBoard;
 import sansam.team.project.command.domain.repository.ProjectApplyMemberRepository;
 import sansam.team.project.command.domain.repository.ProjectBoardRepository;
-import sansam.team.project.command.mapper.ProjectBoardMapper;
 import sansam.team.user.command.domain.aggregate.entity.User;
-import sansam.team.user.command.infrastructure.repository.JpaUserRepository;
 
 @Service
 @RequiredArgsConstructor
@@ -28,12 +25,10 @@ public class ProjectBoardService {
     /* 프로젝트 모집글 생성 로직 */
     @Transactional
     public ProjectBoard createProjectBoard(ProjectBoardCreateDTO projectBoardCreateDTO) {
-        // SecurityContext에서 현재 인증된 사용자(User 객체) 추출
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) authentication.getPrincipal();  // User 객체를 추출
 
-        // 추출한 User의 userSeq가 null이 아닌지 확인
-        if (user.getUserSeq() == null) {
+        User user = SecurityUtil.getAuthenticatedUser();
+
+        if(user.getUserSeq() == null){
             throw new IllegalArgumentException("User Seq is null");
         }
 
