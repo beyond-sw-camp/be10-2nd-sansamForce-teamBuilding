@@ -1,7 +1,6 @@
-package sansam.team.project.command.domain.repository;
+package sansam.team.project.command.domain.repository.board;
 
 import sansam.team.project.command.domain.aggregate.entity.ProjectApplyMember;
-import sansam.team.project.command.domain.aggregate.entity.ProjectBoard;
 
 import java.util.Optional;
 

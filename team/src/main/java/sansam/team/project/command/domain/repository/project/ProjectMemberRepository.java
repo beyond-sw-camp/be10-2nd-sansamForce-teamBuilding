@@ -1,4 +1,4 @@
-package sansam.team.project.command.domain.repository;
+package sansam.team.project.command.domain.repository.project;
 
 import sansam.team.project.command.domain.aggregate.entity.ProjectMember;
 

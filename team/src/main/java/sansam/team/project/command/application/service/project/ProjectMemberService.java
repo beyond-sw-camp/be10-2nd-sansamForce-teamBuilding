@@ -1,4 +1,4 @@
-package sansam.team.project.command.application.service;
+package sansam.team.project.command.application.service.project;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -6,8 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import sansam.team.project.command.application.dto.project.ProjectMemberUpdateDTO;
 import sansam.team.project.command.domain.aggregate.entity.Project;
 import sansam.team.project.command.domain.aggregate.entity.ProjectMember;
-import sansam.team.project.command.domain.repository.ProjectMemberRepository;
-import sansam.team.project.command.domain.repository.ProjectRepository;
+import sansam.team.project.command.domain.repository.project.ProjectMemberRepository;
+import sansam.team.project.command.domain.repository.project.ProjectRepository;
 import sansam.team.project.command.mapper.ProjectMemberMapper;
 
 @Service
