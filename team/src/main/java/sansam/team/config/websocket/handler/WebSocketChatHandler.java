@@ -8,8 +8,8 @@ import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-import sansam.team.config.websocket.dto.ChatMessageDTO;
-import sansam.team.config.websocket.dto.ChatMessageType;
+import sansam.team.team.command.application.dto.TeamChatMessageDTO;
+import sansam.team.team.command.application.dto.TeamChatMessageType;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -50,10 +50,10 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
         log.info("payload {}", payload);
 
         // 페이로드 -> chatMessageDto로 변환
-        ChatMessageDTO chatMessageDTO = mapper.readValue(payload, ChatMessageDTO.class);
-        log.info("session {}", chatMessageDTO.toString());
+        TeamChatMessageDTO chatDTO = mapper.readValue(payload, TeamChatMessageDTO.class);
+        log.info("session {}", chatDTO.toString());
 
-        Long chatRoomId = chatMessageDTO.getTeamSeq();  // 팀 Seq로 채팅방 Id 생성
+        Long chatRoomId = chatDTO.getTeamSeq();  // 팀 Seq로 채팅방 Id 생성
         // 메모리 상에 채팅방에 대한 세션 없으면 만들어줌
         if(!chatRoomSessionMap.containsKey(chatRoomId)){
             chatRoomSessionMap.put(chatRoomId,new HashSet<>());
@@ -63,14 +63,14 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
         // message 에 담긴 타입을 확인한다.
         // 이때 message 에서 getType 으로 가져온 내용이
         // ChatDTO 의 열거형인 MessageType 안에 있는 ENTER 과 동일한 값이라면
-        if (chatMessageDTO.getMessageType().equals(ChatMessageType.ENTER)) {
+        if (chatDTO.getMessageType().equals(TeamChatMessageType.ENTER)) {
             // sessions 에 넘어온 session 을 담고,
             chatRoomSession.add(session);
         }
         if (chatRoomSession.size()>=3) {
             removeClosedSession(chatRoomSession);
         }
-        sendMessageToChatRoom(chatMessageDTO, chatRoomSession);
+        sendMessageToChatRoom(chatDTO, chatRoomSession);
 
     }
 
@@ -87,7 +87,7 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
         chatRoomSession.removeIf(sess -> !sessions.contains(sess));
     }
 
-    private void sendMessageToChatRoom(ChatMessageDTO chatMessageDto, Set<WebSocketSession> chatRoomSession) {
+    private void sendMessageToChatRoom(TeamChatMessageDTO chatMessageDto, Set<WebSocketSession> chatRoomSession) {
         chatRoomSession.parallelStream().forEach(sess -> sendMessage(sess, chatMessageDto));//2
     }
 

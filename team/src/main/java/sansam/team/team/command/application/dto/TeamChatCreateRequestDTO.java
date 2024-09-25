@@ -11,5 +11,5 @@ import sansam.team.common.aggregate.YnType;
 public class TeamChatCreateRequestDTO {
     private String teamChatName;
     private String teamChatComment;
-    private YnType teamChatActive;
+    private YnType teamChatActive = YnType.Y;
 }
