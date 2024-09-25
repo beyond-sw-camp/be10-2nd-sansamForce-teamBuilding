@@ -1,4 +1,4 @@
-package sansam.team.project.command.application.controller;
+package sansam.team.project.command.application.controller.project;
 
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sansam.team.project.command.application.dto.project.ProjectMemberUpdateDTO;
-import sansam.team.project.command.application.service.ProjectMemberService;
+import sansam.team.project.command.application.service.project.ProjectMemberService;
 import sansam.team.project.command.domain.aggregate.entity.ProjectMember;
 
 @RestController

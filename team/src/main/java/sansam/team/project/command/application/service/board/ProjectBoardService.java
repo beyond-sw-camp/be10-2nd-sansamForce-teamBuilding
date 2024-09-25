@@ -1,4 +1,4 @@
-package sansam.team.project.command.application.service;
+package sansam.team.project.command.application.service.board;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -10,8 +10,8 @@ import sansam.team.project.command.application.dto.board.ProjectBoardCreateDTO;
 import sansam.team.project.command.application.dto.board.ProjectBoardUpdateDTO;
 import sansam.team.project.command.domain.aggregate.entity.ProjectApplyMember;
 import sansam.team.project.command.domain.aggregate.entity.ProjectBoard;
-import sansam.team.project.command.domain.repository.ProjectApplyMemberRepository;
-import sansam.team.project.command.domain.repository.ProjectBoardRepository;
+import sansam.team.project.command.domain.repository.board.ProjectApplyMemberRepository;
+import sansam.team.project.command.domain.repository.board.ProjectBoardRepository;
 import sansam.team.user.command.domain.aggregate.entity.User;
 
 @Service
