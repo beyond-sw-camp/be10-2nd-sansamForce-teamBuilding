@@ -22,5 +22,5 @@ public class ProjectAdminQueryDTO {
     private String projectImgUrl;
     private LocalDateTime projectStartDate;
     private LocalDateTime projectEndDate;
-    private Long projectAdminSeq;
+    private String projectAdminName;
 }
