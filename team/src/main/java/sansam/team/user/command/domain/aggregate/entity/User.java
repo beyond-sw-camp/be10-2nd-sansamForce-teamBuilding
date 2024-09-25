@@ -84,13 +84,15 @@ public class User extends BaseTimeEntity {
         this.userSeq = userSeq;
     }
 
-    /* 마이페이지 update null 값이 아니면 저장 */
-    public void updateUserInfo(MyPageDTO myPageDTO) {
-        if (myPageDTO.getUserNickname() != null) this.userNickname = myPageDTO.getUserNickname();
-        if (myPageDTO.getUserPhone() != null) this.userPhone = myPageDTO.getUserPhone();
-        if (myPageDTO.getUserEmail() != null) this.userEmail = myPageDTO.getUserEmail();
-        if (myPageDTO.getUserGithubId() != null) this.userGithubId = myPageDTO.getUserGithubId();
-        if (myPageDTO.getUserProfileImg() != null) this.userProfileImg = myPageDTO.getUserProfileImg();
+
+    public void updateMyPageList(Long userSeq, MyPageDTO myPageDTO) {
+        this.userSeq = userSeq;
+        this.userNickname = myPageDTO.getUserNickname();
+        this.userPhone = myPageDTO.getUserPhone();
+        this.userEmail = myPageDTO.getUserEmail();
+        this.userPassword = myPageDTO.getUserPassword();
+        this.userGithubId = myPageDTO.getUserGithubId();
+        this.userProfileImg = myPageDTO.getUserProfileImg();
     }
 }
 
