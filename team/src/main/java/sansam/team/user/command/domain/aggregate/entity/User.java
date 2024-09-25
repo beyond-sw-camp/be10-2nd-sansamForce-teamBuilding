@@ -76,7 +76,16 @@ public class User extends BaseTimeEntity {
 
     // Spring Security 권한 반환
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        Collection<GrantedAuthority> authorities = new ArrayList<>();
+
+        authorities.add(new GrantedAuthority() {
+            @Override
+            public String getAuthority() {
+                return getUserAuth().getCode();  // 권한을 RoleType의 영어 코드로 반환
+            }
+        });
+
+        return authorities;
     }
 
     /* 테스트용 userSeq 세터 메소드 */

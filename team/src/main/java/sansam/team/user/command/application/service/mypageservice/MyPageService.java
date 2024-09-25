@@ -1,9 +1,9 @@
 package sansam.team.user.command.application.service.mypageservice;
 
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import sansam.team.common.jwt.SecurityUtil;
 import sansam.team.user.command.application.dto.mypagedto.MyPageDTO;
 import sansam.team.user.command.domain.aggregate.entity.User;
@@ -19,7 +19,7 @@ public class MyPageService {
     public User updateMyPage(MyPageDTO myPageDTO) {
         User user = SecurityUtil.getAuthenticatedUser();
 
-        if(user.getUserSeq() == null){
+        if (user.getUserSeq() == null) {
             throw new IllegalArgumentException("User Seq is null");
         }
 
