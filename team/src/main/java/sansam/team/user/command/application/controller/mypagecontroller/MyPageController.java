@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sansam.team.user.command.application.dto.mypagedto.MyPageDTO;
 import sansam.team.user.command.application.service.mypageservice.MyPageService;
+import sansam.team.user.command.domain.aggregate.entity.User;
 
 @RestController
 @RequiredArgsConstructor
@@ -15,11 +16,11 @@ public class MyPageController {
     private final MyPageService myPageService;
 
     @PutMapping("/update")
-    public ResponseEntity<String> updateMyPage(@RequestBody MyPageDTO myPageDTO) {
+    public ResponseEntity<User> updateMyPage(@RequestBody MyPageDTO myPageDTO) {
 
-        myPageService.updateMyPage(myPageDTO);
+        User user = myPageService.updateMyPage(myPageDTO);
 
-        return ResponseEntity.ok("수정 성공");
+        return ResponseEntity.ok(user);
     }
 
 
