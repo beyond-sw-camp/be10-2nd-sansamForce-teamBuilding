@@ -1,5 +1,6 @@
 package sansam.team.common.github;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.kohsuke.github.GHCommit;
 import org.kohsuke.github.GHRepository;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Getter
 @Slf4j
 @Component
 public class GithubUtil {
@@ -21,10 +23,6 @@ public class GithubUtil {
         this.github = new GitHubBuilder().withOAuthToken(token).build();
         this.github.checkApiUrlValidity();
         log.info("GitHub API 연결 성공: {}", token);
-    }
-
-    public GitHub getGithub() {
-        return github;
     }
 
 
