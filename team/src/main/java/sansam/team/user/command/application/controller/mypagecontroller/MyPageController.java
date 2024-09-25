@@ -18,7 +18,7 @@ public class MyPageController {
     private final MyPageService myPageService;
 
     @GetMapping("/update")
-    public ResponseEntity<?> updateMyPage(@RequestBody MyPageDTO myPageDTO) {
+    public ResponseEntity<String> updateMyPage(@RequestBody MyPageDTO myPageDTO) {
         myPageService.updateMyPage(myPageDTO);
         return ResponseEntity.ok("수정 성공");
     }
