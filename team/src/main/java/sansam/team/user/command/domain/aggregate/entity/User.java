@@ -91,4 +91,15 @@ public class User extends BaseTimeEntity {
     public void setUserSeq(Long userSeq) {
         this.userSeq = userSeq;
     }
+
+    /* 마이페이지 update*/
+    public void updateUserInfo(String userNickname, String userPhone, String userEmail, String userGithubId, String userProfileImg) {
+        if (userNickname != null) this.userNickname = userNickname;
+        if (userPhone != null) this.userPhone = userPhone;
+        if (userEmail != null) this.userEmail = userEmail;
+        if (userGithubId != null) this.userGithubId = userGithubId;
+        if (userProfileImg != null) this.userProfileImg = userProfileImg;
+    }
+
 }
+
