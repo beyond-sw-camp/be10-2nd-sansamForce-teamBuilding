@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import sansam.team.common.BaseTimeEntity;
+import sansam.team.user.command.application.dto.mypagedto.MyPageDTO;
 import sansam.team.user.command.domain.aggregate.RoleType;
 import sansam.team.user.command.domain.aggregate.StatusType;
 
@@ -75,16 +76,7 @@ public class User extends BaseTimeEntity {
 
     // Spring Security 권한 반환
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Collection<GrantedAuthority> authorities = new ArrayList<>();
-
-        authorities.add(new GrantedAuthority() {
-            @Override
-            public String getAuthority() {
-                return getUserAuth().getCode();  // 권한을 RoleType의 영어 코드로 반환
-            }
-        });
-
-        return authorities;
+        return null;
     }
 
     /* 테스트용 userSeq 세터 메소드 */
@@ -92,14 +84,13 @@ public class User extends BaseTimeEntity {
         this.userSeq = userSeq;
     }
 
-    /* 마이페이지 update*/
-    public void updateUserInfo(String userNickname, String userPhone, String userEmail, String userGithubId, String userProfileImg) {
-        if (userNickname != null) this.userNickname = userNickname;
-        if (userPhone != null) this.userPhone = userPhone;
-        if (userEmail != null) this.userEmail = userEmail;
-        if (userGithubId != null) this.userGithubId = userGithubId;
-        if (userProfileImg != null) this.userProfileImg = userProfileImg;
+    /* 마이페이지 update null 값이 아니면 저장 */
+    public void updateUserInfo(MyPageDTO myPageDTO) {
+        if (myPageDTO.getUserNickname() != null) this.userNickname = myPageDTO.getUserNickname();
+        if (myPageDTO.getUserPhone() != null) this.userPhone = myPageDTO.getUserPhone();
+        if (myPageDTO.getUserEmail() != null) this.userEmail = myPageDTO.getUserEmail();
+        if (myPageDTO.getUserGithubId() != null) this.userGithubId = myPageDTO.getUserGithubId();
+        if (myPageDTO.getUserProfileImg() != null) this.userProfileImg = myPageDTO.getUserProfileImg();
     }
-
 }
 
