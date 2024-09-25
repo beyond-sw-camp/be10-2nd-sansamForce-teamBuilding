@@ -1,4 +1,4 @@
-package sansam.team.project.command.application.controller;
+package sansam.team.project.command.application.controller.project;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sansam.team.project.command.application.dto.project.ProjectCreateDTO;
 import sansam.team.project.command.application.dto.project.ProjectUpdateDTO;
-import sansam.team.project.command.application.service.ProjectService;
+import sansam.team.project.command.application.service.project.ProjectService;
 import sansam.team.project.command.domain.aggregate.entity.Project;
 
 @RestController
