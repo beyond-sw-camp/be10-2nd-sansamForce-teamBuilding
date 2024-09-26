@@ -113,7 +113,7 @@ CREATE TABLE `tbl_project_member`
     `reg_date` timestamp NOT NULL,
     `mod_date` timestamp NULL,
     `project_member_major_yn` ENUM('Y','N') NULL,
-    `project_member_interest` ENUM('BACKEND', 'FRONTEND') NULL,
+    `project_member_interest_type` ENUM('BACKEND', 'FRONTEND') NULL,
     `project_member_commit_score` bigint NULL,
     PRIMARY KEY (`project_member_seq`),
     CONSTRAINT `FK_TBL_PROJECT_MEMBER_PROJECT_SEQ` FOREIGN KEY (`project_seq`) REFERENCES `tbl_project`(`project_seq`),
