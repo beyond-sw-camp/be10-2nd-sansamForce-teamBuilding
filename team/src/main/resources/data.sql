@@ -37,8 +37,8 @@ VALUES
 
 INSERT INTO `tbl_project` (`project_admin_seq`, `project_title`, `project_content`, `project_status`, `project_head_count`, `project_img_url`, `project_start_date`, `project_end_date`, `reg_date`)
 VALUES
-    (1, 'Project Alpha', 'Content for Project Alpha', 'ACTIVE', 10, 'http://example.com/alpha.png', '2024-01-01 00:00:00', '2024-12-31 23:59:59', NOW()),
-    (11, 'Project Beta', 'Content for Project Beta', 'ACTIVE', 10, 'http://example.com/beta.png', '2024-02-01 00:00:00', '2024-11-30 23:59:59', NOW());
+    (1, 'Project Alpha', 'Content for Project Alpha', 'PROGRESS', 10, 'http://example.com/alpha.png', '2024-01-01 00:00:00', '2024-12-31 23:59:59', NOW()),
+    (11, 'Project Beta', 'Content for Project Beta', 'PROGRESS', 10, 'http://example.com/beta.png', '2024-02-01 00:00:00', '2024-11-30 23:59:59', NOW());
 
 -- 프로젝트 Alpha (project_seq: 1)
 INSERT INTO `tbl_team` (`project_seq`, `rule_seq`, `team_name`, `reg_date`)
@@ -51,60 +51,60 @@ VALUES
     (2, 1, 'Beta Team B', NOW());
 
 -- 프로젝트 Alpha (project_seq: 1, user_seq: 1-10)
-INSERT INTO `tbl_project_member` (`project_seq`, `user_seq`, `project_member_del_yn`, `project_mentor_yn`, `reg_date`)
+INSERT INTO `tbl_project_member` (`project_seq`, `user_seq`, `project_member_del_yn`, `project_mentor_yn`, `project_member_major_yn`, `project_member_interest`,`reg_date`)
 VALUES
-    (1, 1, 'N', 'Y', NOW()),  -- 관리자
-    (1, 2, 'N', 'N', NOW()),
-    (1, 3, 'N', 'N', NOW()),
-    (1, 4, 'N', 'N', NOW()),
-    (1, 5, 'N', 'N', NOW()),
-    (1, 6, 'N', 'N', NOW()),
-    (1, 7, 'N', 'N', NOW()),
-    (1, 8, 'N', 'N', NOW()),
-    (1, 9, 'N', 'N', NOW()),
-    (1, 10, 'N', 'N', NOW()),
+    (1, 1, 'N', 'Y', 'Y',NULL, NOW()),  -- 관리자
+    (1, 2, 'N', 'N', 'Y','FRONTEND', NOW()),
+    (1, 3, 'N', 'N', 'Y','BACKEND', NOW()),
+    (1, 4, 'N', 'N', 'N','FRONTEND', NOW()),
+    (1, 5, 'N', 'N', 'N','BACKEND', NOW()),
+    (1, 6, 'N', 'N', 'N','BACKEND', NOW()),
+    (1, 7, 'N', 'N', 'N','FRONTEND', NOW()),
+    (1, 8, 'N', 'N', 'N','BACKEND', NOW()),
+    (1, 9, 'N', 'N', 'Y','BACKEND', NOW()),
+    (1, 10, 'N', 'N', 'Y','FRONTEND', NOW()),
 
 -- 프로젝트 Beta (project_seq: 2, user_seq: 11-20)
-    (2, 11, 'N', 'Y', NOW()),  -- 관리자
-    (2, 12, 'N', 'N', NOW()),
-    (2, 13, 'N', 'N', NOW()),
-    (2, 14, 'N', 'N', NOW()),
-    (2, 15, 'N', 'N', NOW()),
-    (2, 16, 'N', 'N', NOW()),
-    (2, 17, 'N', 'N', NOW()),
-    (2, 18, 'N', 'N', NOW()),
-    (2, 19, 'N', 'N', NOW()),
-    (2, 20, 'N', 'N', NOW());
+    (2, 11, 'N', 'Y', NULL,NULL,NOW()),  -- 관리자
+    (2, 12, 'N', 'N', 'Y','FRONTEND',NOW()),
+    (2, 13, 'N', 'N', 'Y','BACKEND',NOW()),
+    (2, 14, 'N', 'N', 'N','BACKEND',NOW()),
+    (2, 15, 'N', 'N', 'Y','FRONTEND',NOW()),
+    (2, 16, 'N', 'N', 'Y','BACKEND',NOW()),
+    (2, 17, 'N', 'N', 'N','FRONTEND',NOW()),
+    (2, 18, 'N', 'N', 'Y','BACKEND',NOW()),
+    (2, 19, 'N', 'N', 'N','FRONTEND',NOW()),
+    (2, 20, 'N', 'N', 'Y','BACKEND',NOW());
 
 -- Alpha Team A (team_seq: 1, user_seq: 1-5)
-INSERT INTO `tbl_team_member` (`team_seq`, `user_seq`, `team_member_major_yn`, `team_member_interest`, `reg_date`)
+INSERT INTO `tbl_team_member` (`team_seq`, `user_seq`, `reg_date`)
 VALUES
-    (1, 1, 'Y', NULL, NOW()),
-    (1, 2, 'N', NULL, NOW()),
-    (1, 3, 'N', NULL, NOW()),
-    (1, 4, 'N', NULL, NOW()),
-    (1, 5, 'N', NULL, NOW()),
+    (1, 1,  NOW()),
+    (1, 2,  NOW()),
+    (1, 3,  NOW()),
+    (1, 4,  NOW()),
+    (1, 5,  NOW()),
 
 -- Alpha Team B (team_seq: 2, user_seq: 6-10)
-    (2, 6, 'Y', NULL, NOW()),
-    (2, 7, 'N', NULL, NOW()),
-    (2, 8, 'N', NULL, NOW()),
-    (2, 9, 'N', NULL, NOW()),
-    (2, 10, 'N', NULL, NOW()),
+    (2, 6,  NOW()),
+    (2, 7,  NOW()),
+    (2, 8,  NOW()),
+    (2, 9,  NOW()),
+    (2, 10,  NOW()),
 
 -- Beta Team A (team_seq: 3, user_seq: 11-15)
-    (3, 11, 'Y', NULL, NOW()),
-    (3, 12, 'N', NULL, NOW()),
-    (3, 13, 'N', NULL, NOW()),
-    (3, 14, 'N', NULL, NOW()),
-    (3, 15, 'N', NULL, NOW()),
+    (3, 11,  NOW()),
+    (3, 12,  NOW()),
+    (3, 13,  NOW()),
+    (3, 14,  NOW()),
+    (3, 15,  NOW()),
 
 -- Beta Team B (team_seq: 4, user_seq: 16-20)
-    (4, 16, 'Y', NULL, NOW()),
-    (4, 17, 'N', NULL, NOW()),
-    (4, 18, 'N', NULL, NOW()),
-    (4, 19, 'N', NULL, NOW()),
-    (4, 20, 'N', NULL, NOW());
+    (4, 16,  NOW()),
+    (4, 17,  NOW()),
+    (4, 18,  NOW()),
+    (4, 19,  NOW()),
+    (4, 20,  NOW());
 
 -- 팀 스케줄 예시
 INSERT INTO `tbl_team_schedule` (`team_seq`, `team_schedule_content`, `team_schedule_start_date`, `team_schedule_end_date`)

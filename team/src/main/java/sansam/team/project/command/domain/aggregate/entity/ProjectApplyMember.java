@@ -5,8 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sansam.team.common.BaseTimeEntity;
 
+import sansam.team.common.YnType;
 import sansam.team.project.command.application.dto.board.ProjectApplyMemberDTO;
 import sansam.team.project.command.domain.aggregate.ApplyStatus;
+import sansam.team.project.command.domain.aggregate.InterestType;
 
 @Entity
 @Table(name = "tbl_project_apply_member")
@@ -24,6 +26,14 @@ public class ProjectApplyMember extends BaseTimeEntity {
     private Long userSeq;                               // 프로젝트 신청 회원 번호
 
     private Long projectBoardSeq;                       // 프로젝트 게시글 번호
+
+    @Column(name = "team_member_major_yn")
+    @Enumerated(value = EnumType.STRING)
+    private YnType majorYn;
+
+    @Column(name = "team_member_interest")
+    @Enumerated(value = EnumType.STRING)
+    private InterestType interest;
 
     private ProjectApplyMember(ApplyStatus applyStatus, Long userSeq, Long projectBoardSeq) {
         this.projectApplyMemberStatus = applyStatus;
