@@ -1,4 +1,4 @@
-package sansam.team.project.command.application.service;
+package sansam.team.project.command.application.service.project;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -7,7 +7,7 @@ import sansam.team.common.jwt.SecurityUtil;
 import sansam.team.project.command.application.dto.project.ProjectCreateDTO;
 import sansam.team.project.command.application.dto.project.ProjectUpdateDTO;
 import sansam.team.project.command.domain.aggregate.entity.Project;
-import sansam.team.project.command.domain.repository.ProjectRepository;
+import sansam.team.project.command.domain.repository.project.ProjectRepository;
 import jakarta.transaction.Transactional;
 import sansam.team.user.command.domain.aggregate.entity.User;
 

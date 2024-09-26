@@ -1,10 +1,8 @@
-package sansam.team.project.command.application.service;
+package sansam.team.project.command.application.service.board;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import sansam.team.common.jwt.SecurityUtil;
 import sansam.team.project.command.application.dto.board.ProjectApplyMemberDTO;
@@ -12,11 +10,9 @@ import sansam.team.project.command.application.dto.board.ProjectBoardCreateDTO;
 import sansam.team.project.command.application.dto.board.ProjectBoardUpdateDTO;
 import sansam.team.project.command.domain.aggregate.entity.ProjectApplyMember;
 import sansam.team.project.command.domain.aggregate.entity.ProjectBoard;
-import sansam.team.project.command.domain.repository.ProjectApplyMemberRepository;
-import sansam.team.project.command.domain.repository.ProjectBoardRepository;
-import sansam.team.project.command.mapper.ProjectBoardMapper;
+import sansam.team.project.command.domain.repository.board.ProjectApplyMemberRepository;
+import sansam.team.project.command.domain.repository.board.ProjectBoardRepository;
 import sansam.team.user.command.domain.aggregate.entity.User;
-import sansam.team.user.command.infrastructure.repository.JpaUserRepository;
 
 @Service
 @RequiredArgsConstructor
