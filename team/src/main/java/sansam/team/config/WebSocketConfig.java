@@ -1,4 +1,4 @@
-package sansam.team.config.websocket;
+package sansam.team.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +17,6 @@ public class WebSocketConfig implements WebSocketConfigurer {
         // endpoint 설정 : /api/v1/chat/{postId}
         // ws://localhost:9090/ws/chat 으로 요청이 들어오면 websocket 통신을 진행한다.
         // setAllowedOrigins("*") : 모든 ip에서 접속 가능
-        registry.addHandler(webSocketHandler, "/ws/chat").setAllowedOrigins("*");
+        registry.addHandler(webSocketHandler, "/ws/chat/**").setAllowedOrigins("*");
     }
 }

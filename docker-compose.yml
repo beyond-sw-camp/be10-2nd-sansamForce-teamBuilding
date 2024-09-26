@@ -28,35 +28,6 @@ services:
     networks:
       - springboot-network
 
-  mongodb:
-    image: mongo:latest
-    container_name: mongodb_sansam
-    restart: always
-    env_file:
-      - .env
-    volumes:
-      - mongodb-data:/data/db
-    ports:
-      - '27017:27017'
-
-  mongo-express:
-    image: mongo-express
-    container_name: mongo-express_sansam
-    restart: always
-    ports:
-      - '8091:8081'
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_INITDB_ROOT_USERNAME}
-      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
-      ME_CONFIG_MONGODB_SERVER: mongodb
-      ME_CONFIG_MONGODB_PORT: 27017
-      ME_CONFIG_MONGODB_ENABLE_ADMIN: 'true'
-      ME_CONFIG_MONGODB_AUTH_DATABASE: admin
-      ME_CONFIG_BASICAUTH_USERNAME: ${ME_CONFIG_BASICAUTH_USERNAME}
-      ME_CONFIG_BASICAUTH_PASSWORD: ${ME_CONFIG_BASICAUTH_PASSWORD}
-    depends_on:
-      - mongodb
-
 #  spring:
 #    build:
 #      context: ./toyProject
@@ -72,4 +43,6 @@ volumes:
 
 networks:
   springboot-network:
+    driver: bridge
+  network-mongo:
     driver: bridge

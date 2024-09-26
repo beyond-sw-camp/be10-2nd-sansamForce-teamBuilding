@@ -1,4 +1,4 @@
-package sansam.team.config.websocket.handler;
+package sansam.team.common.websocket.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -8,8 +8,8 @@ import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-import sansam.team.team.command.application.dto.TeamChatMessageDTO;
-import sansam.team.team.command.application.dto.TeamChatMessageType;
+import sansam.team.common.websocket.dto.TeamChatMessageDTO;
+import sansam.team.common.websocket.dto.TeamChatMessageType;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -58,6 +58,7 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
         if(!chatRoomSessionMap.containsKey(chatRoomId)){
             chatRoomSessionMap.put(chatRoomId,new HashSet<>());
         }
+
         Set<WebSocketSession> chatRoomSession = chatRoomSessionMap.get(chatRoomId);
 
         // message 에 담긴 타입을 확인한다.
@@ -87,10 +88,9 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
         chatRoomSession.removeIf(sess -> !sessions.contains(sess));
     }
 
-    private void sendMessageToChatRoom(TeamChatMessageDTO chatMessageDto, Set<WebSocketSession> chatRoomSession) {
-        chatRoomSession.parallelStream().forEach(sess -> sendMessage(sess, chatMessageDto));//2
+    private void sendMessageToChatRoom(TeamChatMessageDTO chatDTO, Set<WebSocketSession> chatRoomSession) {
+        chatRoomSession.parallelStream().forEach(sess -> sendMessage(sess, chatDTO.getMessage()));//2
     }
-
 
     public <T> void sendMessage(WebSocketSession session, T message) {
         try{
