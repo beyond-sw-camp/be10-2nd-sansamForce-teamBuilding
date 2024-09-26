@@ -94,8 +94,8 @@ public class User extends BaseTimeEntity {
     }
 
 
-    public void updateMyPageList(Long userSeq, MyPageDTO myPageDTO) {
-        this.userSeq = userSeq;
+    public void updateMyPageList(MyPageDTO myPageDTO) {
+
         this.userNickname = myPageDTO.getUserNickname();
         this.userPhone = myPageDTO.getUserPhone();
         this.userEmail = myPageDTO.getUserEmail();
