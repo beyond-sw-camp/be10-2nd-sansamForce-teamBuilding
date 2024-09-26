@@ -41,10 +41,10 @@ VALUES
     (11, 'Project Beta', 'Content for Project Beta', 'PROGRESS', 10, 'http://example.com/beta.png', '2024-02-01 00:00:00', '2024-11-30 23:59:59', NOW());
 
 -- 프로젝트 Alpha (project_seq: 1)
-INSERT INTO `tbl_team` (`project_seq`, `rule_seq`, `team_name`, `reg_date`)
+INSERT INTO `tbl_team` (`project_seq`, `rule_seq`, `team_name`, `team_status`, `reg_date`)
 VALUES
-    (1, 1, 'Alpha Team A', NOW()),
-    (1, 1, 'Alpha Team B', NOW()),
+    (1, 1, 'Alpha Team A', 'OPEN', NOW()),
+    (1, 1, 'Alpha Team B', 'OPEN', NOW()),
 
 -- 프로젝트 Beta (project_seq: 2)
     (2, 1, 'Beta Team A', NOW()),

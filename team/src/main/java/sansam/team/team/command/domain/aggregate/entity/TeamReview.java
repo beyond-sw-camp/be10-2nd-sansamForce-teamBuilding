@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import sansam.team.common.BaseTimeEntity;
+import sansam.team.common.aggregate.entity.BaseTimeEntity;
 
 @Entity
 @Getter
@@ -14,18 +14,18 @@ public class TeamReview extends BaseTimeEntity {
 
     @Id @Column(name = "user_review_seq")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userReviewSeq;
+    private long userReviewSeq;
 
     @Column(name = "send_team_member_seq")
-    private Long sendMemberSeq;
+    private long sendMemberSeq;
 
     @Column(name = "receive_team_member_seq")
-    private Long receiveMemberSeq;
+    private long receiveMemberSeq;
 
     @Column(name = "team_member_review_star")
-    private Long reviewStar;
+    private double reviewStar;
 
     @Column(name = "team_member_review_content")
-    private Long reviewContent;
+    private String reviewContent;
 
 }

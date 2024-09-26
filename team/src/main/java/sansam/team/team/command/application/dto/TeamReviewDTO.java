@@ -2,7 +2,7 @@ package sansam.team.team.command.application.dto;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import sansam.team.common.BaseTimeEntity;
+import sansam.team.common.aggregate.entity.BaseTimeEntity;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
