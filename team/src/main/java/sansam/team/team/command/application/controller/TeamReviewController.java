@@ -1,3 +1,4 @@
+/*
 package sansam.team.team.command.application.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -9,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import sansam.team.exception.CustomException;
 import sansam.team.team.command.application.dto.TeamReviewDTO;
 import sansam.team.team.command.application.service.TeamReviewService;
 
@@ -30,3 +30,4 @@ public class TeamReviewController {
                 .body(result ? "createTeamReview success" : "createTeamReview error");
     }
 }
+*/
