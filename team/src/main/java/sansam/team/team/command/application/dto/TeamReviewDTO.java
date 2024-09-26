@@ -8,8 +8,8 @@ import sansam.team.common.BaseTimeEntity;
 @EqualsAndHashCode(callSuper = true)
 public class TeamReviewDTO extends BaseTimeEntity {
     private long userReviewSeq;
-    private long sendTeamMemberSeq;
-    private long receiveTeamMemberSeq;
-    private double teamMemberReviewStar;
-    private String teamMemberReviewContent;
+    private long sendMemberSeq;
+    private long receiveMemberSeq;
+    private double reviewStar;
+    private String reviewContent;
 }

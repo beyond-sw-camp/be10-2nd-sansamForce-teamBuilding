@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import sansam.team.exception.CustomException;
 import sansam.team.team.command.application.dto.TeamReviewDTO;
 import sansam.team.team.command.application.service.TeamReviewService;
 
@@ -22,10 +23,10 @@ public class TeamReviewController {
 
     @PostMapping("/createReview")
     @Operation(summary = "팀 평가 추가")
-    public ResponseEntity<String> createTeamReview(@RequestBody TeamReviewDTO reviewDTO) {
+    public ResponseEntity<String> createTeamReview(@RequestBody TeamReviewDTO reviewDTO) throws CustomException {
         boolean result = teamReviewService.createTeamReview(reviewDTO);
 
         return ResponseEntity.status(result ? HttpStatus.CREATED : HttpStatus.BAD_REQUEST)
-                .body(result ? "register review" : "register review error");
+                .body(result ? "createTeamReview success" : "createTeamReview error");
     }
 }
