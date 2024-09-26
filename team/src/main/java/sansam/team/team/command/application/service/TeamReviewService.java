@@ -8,8 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 import sansam.team.exception.CustomException;
 import sansam.team.exception.ErrorCodeType;
 import sansam.team.team.command.application.dto.TeamReviewDTO;
+import sansam.team.team.command.domain.aggregate.entity.Team;
+import sansam.team.team.command.domain.aggregate.entity.TeamMember;
 import sansam.team.team.command.domain.aggregate.entity.TeamReview;
-import sansam.team.team.command.domain.repository.TeamRepository;
 import sansam.team.team.command.domain.repository.TeamReviewRepository;
 
 @Slf4j
@@ -17,7 +18,8 @@ import sansam.team.team.command.domain.repository.TeamReviewRepository;
 @RequiredArgsConstructor
 public class TeamReviewService {
     private final TeamReviewRepository teamReviewRepository;
-    private final TeamRepository teamRepository;
+    private final TeamMemberService teamMemberService;
+    private final TeamService teamService;
     private final ModelMapper modelMapper;
 
     @Transactional
@@ -25,6 +27,10 @@ public class TeamReviewService {
         boolean result = false;
         try {
 
+            TeamMember teamMember = teamMemberService.getTeamMemberById(teamReviewDTO.getUserReviewSeq());
+            Team team = teamService.getTeamById(teamMember.getTeamSeq());
+
+            // TODO 아영 - timeUtil로 팀시가 계산해서 status='CLOSE'이고, 평가 기간일때만 입력가능 코드 추가하기
             teamReviewRepository.save(modelMapper.map(teamReviewDTO, TeamReview.class));
             result = true;
         } catch (Exception e) {
