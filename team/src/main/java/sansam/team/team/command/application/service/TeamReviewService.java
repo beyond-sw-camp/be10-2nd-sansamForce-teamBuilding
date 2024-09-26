@@ -1,11 +1,10 @@
-/*package sansam.team.team.command.application.service;
+package sansam.team.team.command.application.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sansam.team.exception.CustomException;
 import sansam.team.team.command.application.dto.TeamReviewDTO;
 import sansam.team.team.command.domain.aggregate.entity.TeamReview;
 import sansam.team.team.command.domain.repository.TeamRepository;
@@ -20,7 +19,7 @@ public class TeamReviewService {
     private final ModelMapper modelMapper;
 
     @Transactional
-    public boolean createTeamReview(TeamReviewDTO teamReviewDTO) throws CustomException {
+    public boolean createTeamReview(TeamReviewDTO teamReviewDTO) {
         boolean result = false;
         try {
 
@@ -28,10 +27,9 @@ public class TeamReviewService {
             result = true;
         } catch (Exception e) {
             if(e.getMessage() != null) log.error("teamReview create Error : {}", e.getMessage());
-            throw new CustomException(ErrorCodeType.COMMON_ERROR);
         }
 
         return result;
     }
 
-}*/
+}
