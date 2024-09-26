@@ -3,6 +3,7 @@ package sansam.team.user.command.application.service.mypageservice;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import sansam.team.common.jwt.SecurityUtil;
 import sansam.team.user.command.application.dto.mypagedto.MyPageDTO;
@@ -17,16 +18,15 @@ public class MyPageService {
 
     @Transactional
     public User updateMyPage(MyPageDTO myPageDTO) {
+
         User user = SecurityUtil.getAuthenticatedUser();
 
         if (user.getUserSeq() == null) {
             throw new IllegalArgumentException("User Seq is null");
         }
 
-        user.updateMyPageList(user.getUserSeq(), myPageDTO);
-
-        /*User user = myPageRepository.findById(myPageDTO.getUserSeq())
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));*/
+        // User 엔티티 업데이트
+        user.updateMyPageList(myPageDTO);
 
         return user;
     }
