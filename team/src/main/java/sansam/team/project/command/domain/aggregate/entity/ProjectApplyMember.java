@@ -3,9 +3,9 @@ package sansam.team.project.command.domain.aggregate.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import sansam.team.common.aggregate.YnType;
 import sansam.team.common.aggregate.entity.BaseTimeEntity;
 
-import sansam.team.common.YnType;
 import sansam.team.project.command.application.dto.board.ProjectApplyMemberDTO;
 import sansam.team.project.command.domain.aggregate.ApplyStatus;
 import sansam.team.project.command.domain.aggregate.InterestType;

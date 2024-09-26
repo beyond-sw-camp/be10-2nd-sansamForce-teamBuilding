@@ -4,9 +4,7 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import sansam.team.common.BaseTimeEntity;
-import sansam.team.common.YnType;
-import sansam.team.project.command.domain.aggregate.InterestType;
+import sansam.team.common.aggregate.entity.BaseTimeEntity;
 
 @Entity
 @Table(name = "tbl_team_member")
