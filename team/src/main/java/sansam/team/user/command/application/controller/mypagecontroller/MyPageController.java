@@ -18,9 +18,9 @@ public class MyPageController {
     @PutMapping("/update")
     public ResponseEntity<User> updateMyPage(@RequestBody MyPageDTO myPageDTO) {
 
-        User user = myPageService.updateMyPage(myPageDTO);
+        User updateUser = myPageService.updateMyPage(myPageDTO);
 
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(updateUser);
     }
 
 
