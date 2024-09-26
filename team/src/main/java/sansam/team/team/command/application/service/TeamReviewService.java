@@ -1,4 +1,4 @@
-package sansam.team.team.command.application.service;
+/*package sansam.team.team.command.application.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -6,7 +6,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sansam.team.exception.CustomException;
-import sansam.team.exception.ErrorCodeType;
 import sansam.team.team.command.application.dto.TeamReviewDTO;
 import sansam.team.team.command.domain.aggregate.entity.TeamReview;
 import sansam.team.team.command.domain.repository.TeamRepository;
@@ -35,4 +34,4 @@ public class TeamReviewService {
         return result;
     }
 
-}
+}*/
