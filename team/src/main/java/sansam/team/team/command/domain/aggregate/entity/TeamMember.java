@@ -4,9 +4,9 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import sansam.team.common.aggregate.entity.BaseTimeEntity;
-import sansam.team.common.aggregate.YnType;
-import sansam.team.team.command.domain.aggregate.InterestType;
+import sansam.team.common.BaseTimeEntity;
+import sansam.team.common.YnType;
+import sansam.team.project.command.domain.aggregate.InterestType;
 
 @Entity
 @Table(name = "tbl_team_member")
@@ -18,14 +18,8 @@ import sansam.team.team.command.domain.aggregate.InterestType;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class TeamMember extends BaseTimeEntity {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.AUTO, generator = "TEAM_MEMBER_SEQ_GENERATOR")
     private long teamMemberSeq;
     private long teamSeq;
     private long userSeq;
-    @Column(name = "team_member_major_yn")
-    @Enumerated(value = EnumType.STRING)
-    private YnType majorYn;
-    @Column(name = "team_member_interest")
-    @Enumerated(value = EnumType.STRING)
-    private InterestType interest;
 }
