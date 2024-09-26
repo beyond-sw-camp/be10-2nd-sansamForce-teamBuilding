@@ -5,6 +5,9 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sansam.team.common.aggregate.entity.BaseTimeEntity;
+import sansam.team.team.command.domain.aggregate.TeamStatusType;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tbl_team")
@@ -17,6 +20,8 @@ public class Team extends BaseTimeEntity {
     private long projectSeq;    // 프로젝트 번호
     private long ruleSeq;   // 팀 빌딩 규칙 번호
     private String teamName;    // 팀명
+    private TeamStatusType teamStatus;
+    private LocalDateTime endDate;
 
     private Team(long projectSeq, long ruleSeq, String teamName) {
         this.projectSeq = projectSeq;

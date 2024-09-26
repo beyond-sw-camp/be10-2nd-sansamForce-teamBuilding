@@ -43,7 +43,7 @@ CREATE TABLE `tbl_user`
     `user_gender` char(10) NOT NULL,
     `user_github_id` varchar(30) NULL,
     `user_profile_img` varchar(255) NULL,
-    `user_status` varchar(20) NULL,
+    `user_status` ENUM('ACTIVE', 'BAN', 'DELETE') NULL,
     `user_pwd_mod_date` timestamp NULL,
     `user_ban_date` timestamp NULL,
     `reg_date` timestamp NOT NULL,
@@ -143,7 +143,7 @@ CREATE TABLE `tbl_building_rule`
     `rule_team_review_weight` int NULL,
     `rule_mentor_review_weight` int NULL,
     `rule_tech_stack_yn` CHAR(1) NULL,
-    `reg_date` timestamp NOT NULL,
+    `reg_date` timestamp NOT NULL,+_
     `mod_date` timestamp NULL,
     PRIMARY KEY (`rule_seq`)
 );
@@ -154,8 +154,10 @@ CREATE TABLE `tbl_team`
     `project_seq` bigint NOT NULL,
     `rule_seq` bigint NOT NULL,
     `team_name` varchar(255) NOT NULL,
+    `team_status` ENUM('OPEN', 'CLOSE') NULL,
     `reg_date` timestamp NOT NULL,
     `mod_date` timestamp NULL,
+    `end_date` timestamp NULL,
     PRIMARY KEY (`team_seq`),
     CONSTRAINT `FK_TBL_TEAM_PROJECT_SEQ` FOREIGN KEY (`project_seq`) REFERENCES `tbl_project`(`project_seq`),
     CONSTRAINT `FK_TBL_TEAM_RULE_SEQ` FOREIGN KEY (`rule_seq`) REFERENCES `tbl_building_rule`(`rule_seq`)
@@ -232,8 +234,8 @@ CREATE TABLE `tbl_user_review`
     `user_review_seq` bigint NOT NULL AUTO_INCREMENT,
     `send_team_member_seq` bigint NOT NULL,
     `receive_team_member_seq` bigint NOT NULL,
-    `user_review_star` double NOT NULL,
-    `user_review_content` varchar(255) NOT NULL,
+    `team_member_review_star` double NOT NULL,
+    `team_member_review_content` varchar(255) NOT NULL,
     `reg_date` TIMESTAMP NOT NULL,
     `mod_date` timestamp NULL,
     PRIMARY KEY (`user_review_seq`),
