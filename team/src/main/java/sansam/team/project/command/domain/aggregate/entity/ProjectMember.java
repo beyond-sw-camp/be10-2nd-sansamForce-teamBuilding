@@ -29,12 +29,12 @@ public class ProjectMember extends BaseTimeEntity {
     private Long projectSeq;
 
     @Enumerated(value = EnumType.STRING)
-    private YnType majorYn;
+    private YnType projectMemberMajorYn;
 
     @Enumerated(value = EnumType.STRING)
-    private InterestType interest;
+    private InterestType projectMemberInterestType;
 
-    private Long commitScore;
+    private Long projectMemberCommitScore;
 
     public ProjectMember(Long userSeq, Long projectSeq) {
         this.userSeq = userSeq;
@@ -53,13 +53,13 @@ public class ProjectMember extends BaseTimeEntity {
             this.projectMentorYn = updateDTO.getProjectMentorYn();
         }
         if(updateDTO.getProjectInterest() != null) {
-            this.interest = updateDTO.getProjectInterest();
+            this.projectMemberInterestType = updateDTO.getProjectInterest();
         }
         if(updateDTO.getMajorYn() != null) {
-            this.majorYn = updateDTO.getMajorYn();
+            this.projectMemberMajorYn = updateDTO.getMajorYn();
         }
         if(updateDTO.getProjectMemberCommitScore()!= null) {
-            this.commitScore = updateDTO.getProjectMemberCommitScore();
+            this.projectMemberCommitScore = updateDTO.getProjectMemberCommitScore();
         }
     }
 }
