@@ -16,8 +16,8 @@ public class TeamChatService {
     private final TeamChatRepository teamChatRepository;
 
     @Transactional
-    public TeamChat createTeamChat(TeamChatCreateRequestDTO teamChatDTO) {
-        TeamChat teamChat = TeamChatMapper.toEntity(teamChatDTO);
+    public TeamChat createTeamChat(Long teamSeq, TeamChatCreateRequestDTO teamChatDTO) {
+        TeamChat teamChat = TeamChatMapper.toEntity(teamSeq, teamChatDTO);
 
         teamChatRepository.save(teamChat);
 

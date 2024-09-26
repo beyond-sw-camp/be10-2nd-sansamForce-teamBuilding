@@ -1,4 +1,4 @@
-package sansam.team.user.command.domain.aggregate;
+package sansam.team.common.aggregate;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

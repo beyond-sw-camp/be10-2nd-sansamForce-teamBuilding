@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import sansam.team.common.YnType;
+import sansam.team.common.aggregate.YnType;
 import sansam.team.project.command.domain.aggregate.InterestType;
 
 @Getter
