@@ -27,14 +27,6 @@ public class ProjectApplyMember extends BaseTimeEntity {
 
     private Long projectBoardSeq;                       // 프로젝트 게시글 번호
 
-    @Column(name = "team_member_major_yn")
-    @Enumerated(value = EnumType.STRING)
-    private YnType majorYn;
-
-    @Column(name = "team_member_interest")
-    @Enumerated(value = EnumType.STRING)
-    private InterestType interest;
-
     private ProjectApplyMember(ApplyStatus applyStatus, Long userSeq, Long projectBoardSeq) {
         this.projectApplyMemberStatus = applyStatus;
         this.userSeq = userSeq;

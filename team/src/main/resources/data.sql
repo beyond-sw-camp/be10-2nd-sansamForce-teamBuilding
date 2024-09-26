@@ -51,30 +51,30 @@ VALUES
     (2, 1, 'Beta Team B', NOW());
 
 -- 프로젝트 Alpha (project_seq: 1, user_seq: 1-10)
-INSERT INTO `tbl_project_member` (`project_seq`, `user_seq`, `project_member_del_yn`, `project_mentor_yn`, `project_member_major_yn`, `project_member_interest`,`reg_date`)
+INSERT INTO `tbl_project_member` (`project_seq`, `user_seq`, `project_member_del_yn`, `project_mentor_yn`, `project_member_major_yn`, `project_member_interest_type`,`project_member_commit_score`,`reg_date`)
 VALUES
-    (1, 1, 'N', 'Y', 'Y',NULL, NOW()),  -- 관리자
-    (1, 2, 'N', 'N', 'Y','FRONTEND', NOW()),
-    (1, 3, 'N', 'N', 'Y','BACKEND', NOW()),
-    (1, 4, 'N', 'N', 'N','FRONTEND', NOW()),
-    (1, 5, 'N', 'N', 'N','BACKEND', NOW()),
-    (1, 6, 'N', 'N', 'N','BACKEND', NOW()),
-    (1, 7, 'N', 'N', 'N','FRONTEND', NOW()),
-    (1, 8, 'N', 'N', 'N','BACKEND', NOW()),
-    (1, 9, 'N', 'N', 'Y','BACKEND', NOW()),
-    (1, 10, 'N', 'N', 'Y','FRONTEND', NOW()),
+    (1, 1, 'N', 'Y', 'Y',NULL, NULL,NOW()),  -- 관리자
+    (1, 2, 'N', 'N', 'Y','FRONTEND', NULL,NOW()),
+    (1, 3, 'N', 'N', 'Y','BACKEND', NULL,NOW()),
+    (1, 4, 'N', 'N', 'N','FRONTEND', NULL,NOW()),
+    (1, 5, 'N', 'N', 'N','BACKEND', NULL,NOW()),
+    (1, 6, 'N', 'N', 'N','BACKEND', NULL,NOW()),
+    (1, 7, 'N', 'N', 'N','FRONTEND',NULL, NOW()),
+    (1, 8, 'N', 'N', 'N','BACKEND', NULL,NOW()),
+    (1, 9, 'N', 'N', 'Y','BACKEND', NULL,NOW()),
+    (1, 10, 'N', 'N', 'Y','FRONTEND', NULL,NOW()),
 
 -- 프로젝트 Beta (project_seq: 2, user_seq: 11-20)
-    (2, 11, 'N', 'Y', NULL,NULL,NOW()),  -- 관리자
-    (2, 12, 'N', 'N', 'Y','FRONTEND',NOW()),
-    (2, 13, 'N', 'N', 'Y','BACKEND',NOW()),
-    (2, 14, 'N', 'N', 'N','BACKEND',NOW()),
-    (2, 15, 'N', 'N', 'Y','FRONTEND',NOW()),
-    (2, 16, 'N', 'N', 'Y','BACKEND',NOW()),
-    (2, 17, 'N', 'N', 'N','FRONTEND',NOW()),
-    (2, 18, 'N', 'N', 'Y','BACKEND',NOW()),
-    (2, 19, 'N', 'N', 'N','FRONTEND',NOW()),
-    (2, 20, 'N', 'N', 'Y','BACKEND',NOW());
+    (2, 11, 'N', 'Y', NULL,NULL,NULL,NOW()),  -- 관리자
+    (2, 12, 'N', 'N', 'Y','FRONTEND',NULL,NOW()),
+    (2, 13, 'N', 'N', 'Y','BACKEND',NULL,NOW()),
+    (2, 14, 'N', 'N', 'N','BACKEND',NULL,NOW()),
+    (2, 15, 'N', 'N', 'Y','FRONTEND',NULL,NOW()),
+    (2, 16, 'N', 'N', 'Y','BACKEND',NULL,NOW()),
+    (2, 17, 'N', 'N', 'N','FRONTEND',NULL,NOW()),
+    (2, 18, 'N', 'N', 'Y','BACKEND',NULL,NOW()),
+    (2, 19, 'N', 'N', 'N','FRONTEND',NULL,NOW()),
+    (2, 20, 'N', 'N', 'Y','BACKEND',NULL,NOW());
 
 -- Alpha Team A (team_seq: 1, user_seq: 1-5)
 INSERT INTO `tbl_team_member` (`team_seq`, `user_seq`, `reg_date`)
