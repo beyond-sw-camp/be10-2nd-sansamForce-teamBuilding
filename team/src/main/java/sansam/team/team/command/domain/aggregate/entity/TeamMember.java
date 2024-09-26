@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sansam.team.common.BaseTimeEntity;
 import sansam.team.common.YnType;
-import sansam.team.team.command.domain.aggregate.InterestType;
+import sansam.team.project.command.domain.aggregate.InterestType;
 
 @Entity
 @Table(name = "tbl_team_member")
@@ -22,10 +22,4 @@ public class TeamMember extends BaseTimeEntity {
     private long teamMemberSeq;
     private long teamSeq;
     private long userSeq;
-    @Column(name = "team_member_major_yn")
-    @Enumerated(value = EnumType.STRING)
-    private YnType majorYn;
-    @Column(name = "team_member_interest")
-    @Enumerated(value = EnumType.STRING)
-    private InterestType interest;
 }

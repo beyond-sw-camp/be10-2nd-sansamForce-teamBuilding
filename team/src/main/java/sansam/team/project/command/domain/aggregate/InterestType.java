@@ -1,4 +1,4 @@
-package sansam.team.team.command.domain.aggregate;
+package sansam.team.project.command.domain.aggregate;
 
 public enum InterestType {
     BACKEND,    // 백엔드
