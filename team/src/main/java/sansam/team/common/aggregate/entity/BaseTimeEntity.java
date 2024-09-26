@@ -1,4 +1,4 @@
-package sansam.team.common;
+package sansam.team.common.aggregate.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

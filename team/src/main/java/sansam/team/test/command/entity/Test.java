@@ -2,7 +2,7 @@ package sansam.team.test.command.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import sansam.team.common.BaseTimeEntity;
+import sansam.team.common.aggregate.entity.BaseTimeEntity;
 
 @Entity
 @Table(name = "test")

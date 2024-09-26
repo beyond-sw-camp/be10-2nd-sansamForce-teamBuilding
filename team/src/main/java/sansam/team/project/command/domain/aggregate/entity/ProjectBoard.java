@@ -2,8 +2,7 @@ package sansam.team.project.command.domain.aggregate.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import sansam.team.common.BaseTimeEntity;
-import sansam.team.project.command.application.dto.board.ProjectBoardCreateDTO;
+import sansam.team.common.aggregate.entity.BaseTimeEntity;
 import sansam.team.project.command.application.dto.board.ProjectBoardUpdateDTO;
 import sansam.team.project.command.domain.aggregate.BoardStatus;
 
