@@ -61,6 +61,10 @@ dependencies {
 	// GitHub
 	implementation 'org.kohsuke:github-api:1.326'
 
+	// https://mvnrepository.com/artifact/org.json/json
+	implementation 'org.json:json:20240303'
+
+
 	// DockerCompose Helper
 //	developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
 
