@@ -1,4 +1,4 @@
-package sansam.team.project.command.application.controller;
+package sansam.team.project.command.application.controller.board;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sansam.team.project.command.application.dto.board.ProjectApplyMemberDTO;
 import sansam.team.project.command.domain.aggregate.entity.ProjectApplyMember;
-import sansam.team.project.command.application.service.ProjectApplyMemberService;
+import sansam.team.project.command.application.service.board.ProjectApplyMemberService;
 
 @RestController
 @RequestMapping("/api/v1/project/apply")

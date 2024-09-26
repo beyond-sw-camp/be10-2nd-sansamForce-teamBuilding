@@ -1,4 +1,4 @@
-package sansam.team.project.query.controller;
+package sansam.team.project.query.controller.board;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

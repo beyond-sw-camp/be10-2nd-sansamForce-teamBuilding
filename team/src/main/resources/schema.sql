@@ -1,3 +1,4 @@
+USE sansam;
 DROP TABLE IF EXISTS tbl_mentor_review;
 DROP TABLE IF EXISTS tbl_chat_content;
 DROP TABLE IF EXISTS tbl_user_review;
@@ -70,7 +71,7 @@ CREATE TABLE `tbl_project`
     `project_admin_seq` bigint,
     `project_title` varchar(50) NOT NULL,
     `project_content` longtext NOT NULL,
-    `project_status` varchar(10) NOT NULL,
+    `project_status` ENUM('PROGRESS', 'END') NOT NULL,
     `project_head_count` int NOT NULL,
     `project_img_url` varchar(100) NULL,
     `project_start_date` timestamp NOT NULL,
@@ -107,10 +108,13 @@ CREATE TABLE `tbl_project_member`
     `project_member_seq` bigint NOT NULL AUTO_INCREMENT,
     `project_seq` bigint NOT NULL,
     `user_seq` bigint NOT NULL,
-    `project_member_del_yn` char(1) NOT NULL,
-    `project_mentor_yn` char(1) NOT NULL,
+    `project_member_del_yn` ENUM('Y', 'N') NOT NULL,
+    `project_mentor_yn` ENUM('Y', 'N') NOT NULL,
     `reg_date` timestamp NOT NULL,
     `mod_date` timestamp NULL,
+    `project_member_major_yn` ENUM('Y','N') NULL,
+    `project_member_interest` ENUM('BACKEND', 'FRONTEND') NULL,
+    `project_member_commit_score` bigint NULL,
     PRIMARY KEY (`project_member_seq`),
     CONSTRAINT `FK_TBL_PROJECT_MEMBER_PROJECT_SEQ` FOREIGN KEY (`project_seq`) REFERENCES `tbl_project`(`project_seq`),
     CONSTRAINT `FK_TBL_PROJECT_MEMBER_USER_SEQ` FOREIGN KEY (`user_seq`) REFERENCES `tbl_user`(`user_seq`)
@@ -187,8 +191,6 @@ CREATE TABLE `tbl_team_member`
     `team_member_seq` bigint NOT NULL AUTO_INCREMENT,
     `team_seq` bigint NOT NULL,
     `user_seq` bigint NOT NULL,
-    `team_member_major_yn` char(1) NOT NULL,
-    `team_member_interest` char(2) NULL,
     `reg_date` timestamp NOT NULL,
     `mod_date` timestamp NULL,
     PRIMARY KEY (`team_member_seq`),

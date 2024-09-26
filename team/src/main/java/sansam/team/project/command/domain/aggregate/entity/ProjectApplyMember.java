@@ -5,8 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sansam.team.common.BaseTimeEntity;
 
+import sansam.team.common.YnType;
 import sansam.team.project.command.application.dto.board.ProjectApplyMemberDTO;
 import sansam.team.project.command.domain.aggregate.ApplyStatus;
+import sansam.team.project.command.domain.aggregate.InterestType;
 
 @Entity
 @Table(name = "tbl_project_apply_member")
