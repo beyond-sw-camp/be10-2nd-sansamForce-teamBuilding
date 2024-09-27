@@ -19,6 +19,9 @@ public enum ErrorCodeType {
     //team member 관련 오류
     MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "MEMBER_ERROR_001", "팀원을 찾을 수 없습니다."),
 
+    //team review 관련 오류
+    REVIEW_CREATE_ERROR(HttpStatus.BAD_REQUEST, "REVIEW_ERROR_001", "팀원 평가를 생성할 수 없습니다."),
+
     // 공통 오류
     COMMON_ERROR(HttpStatus.BAD_REQUEST, "COMMON_ERROR", "오류가 발생하였습니다. 관리자에게 문의 바랍니다.")
 

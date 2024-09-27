@@ -10,6 +10,14 @@ public class DateTimeUtil {
         return ChronoUnit.DAYS.between(endDate, LocalDateTime.now());
     }
 
+    /* 오늘이 몇 주 전인지 구함 - week가 2일 경우 오늘이 startDate로부터 2주 전인지 */
+    public static boolean isBeforeWeek(LocalDateTime startDate, int week) {
+        LocalDateTime nowDate = LocalDateTime.now();
+        LocalDateTime endDate = startDate.plusWeeks(week);
+
+        return nowDate.isBefore(endDate);
+    }
+
     public static boolean isBetweenDateTime(LocalDateTime startDate, LocalDateTime endDate) {
         LocalDateTime nowDate = LocalDateTime.now();
 
