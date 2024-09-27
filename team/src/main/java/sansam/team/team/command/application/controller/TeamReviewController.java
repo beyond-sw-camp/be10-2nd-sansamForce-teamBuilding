@@ -1,4 +1,3 @@
-/*
 package sansam.team.team.command.application.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,11 +22,11 @@ public class TeamReviewController {
 
     @PostMapping("/createReview")
     @Operation(summary = "팀 평가 추가")
-    public ResponseEntity<String> createTeamReview(@RequestBody TeamReviewDTO reviewDTO) throws CustomException {
+    public ResponseEntity<String> createTeamReview(@RequestBody TeamReviewDTO reviewDTO) {
         boolean result = teamReviewService.createTeamReview(reviewDTO);
 
         return ResponseEntity.status(result ? HttpStatus.CREATED : HttpStatus.BAD_REQUEST)
                 .body(result ? "createTeamReview success" : "createTeamReview error");
     }
 }
-*/
+
