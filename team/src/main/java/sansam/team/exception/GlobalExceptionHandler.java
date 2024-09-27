@@ -28,7 +28,7 @@ public class GlobalExceptionHandler {
         // 예외 메시지 로깅
         logger.error("CustomNotFoundException occurred: {}", e.getMessage(), e);
 
-        return ResponseUtil.failureResponse(e.getMessage(), "NOT_FOUND", HttpStatus.NOT_FOUND);
+        return ResponseUtil.failureResponse(e.getErrorCode().getMessage(), e.getErrorCode().getCode(), e.getErrorCode().getHttpStatus());
     }
 
     // 데이터베이스 관련 예외 처리

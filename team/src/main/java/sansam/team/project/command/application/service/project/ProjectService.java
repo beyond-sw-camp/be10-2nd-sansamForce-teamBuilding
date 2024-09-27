@@ -29,6 +29,10 @@ public class ProjectService {
             throw new IllegalArgumentException("User Seq is null");
         }
 
+        if(projectCreateDTO.getProjectStartDate().isBefore(projectCreateDTO.getProjectEndDate())) {
+            throw new IllegalArgumentException("Project Date Check Error");
+        }
+
         Project project = modelMapper.map(projectCreateDTO, Project.class);
         project.setProjectAdminSeq(user.getUserSeq());
 

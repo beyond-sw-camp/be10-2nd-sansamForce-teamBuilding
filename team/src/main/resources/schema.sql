@@ -143,7 +143,7 @@ CREATE TABLE `tbl_building_rule`
     `rule_team_review_weight` int NULL,
     `rule_mentor_review_weight` int NULL,
     `rule_tech_stack_yn` CHAR(1) NULL,
-    `reg_date` timestamp NOT NULL,+_
+    `reg_date` timestamp NOT NULL,
     `mod_date` timestamp NULL,
     PRIMARY KEY (`rule_seq`)
 );
