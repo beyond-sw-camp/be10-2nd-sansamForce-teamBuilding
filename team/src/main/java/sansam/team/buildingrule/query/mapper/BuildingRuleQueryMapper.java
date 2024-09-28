@@ -1,0 +1,14 @@
+package sansam.team.buildingrule.query.mapper;
+
+import org.apache.ibatis.annotations.Mapper;
+import sansam.team.buildingrule.query.dto.BuildingRuleQueryDTO;
+
+import java.util.List;
+
+@Mapper
+public interface BuildingRuleQueryMapper {
+
+    BuildingRuleQueryDTO findById(int ruleSeq);  // XML의 findById 쿼리를 호출
+
+    List<BuildingRuleQueryDTO> findAll();  // XML의 findAll 쿼리를 호출
+}
