@@ -18,10 +18,9 @@ import java.util.List;
 public class TeamBuildingController {
 
     private final TeamBuildingService teamBuildingService;
-    // 팀 빌딩 규칙 생성 요청
 
     // 팀 빌딩 요청
-    @PostMapping("/build")
+    @PostMapping("/team_building")
     @Operation(summary = "프로젝트 내 팀 빌딩")
     public ResponseEntity<List<Team>> buildTeams(@RequestParam Long projectSeq, @RequestBody Long teamBuildingRuleSeq) throws IOException {
         List<Team> teams = teamBuildingService.buildBalancedTeams(projectSeq,teamBuildingRuleSeq);
