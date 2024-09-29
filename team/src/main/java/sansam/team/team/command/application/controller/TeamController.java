@@ -44,7 +44,7 @@ public class TeamController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/createSchedule")
+    @PostMapping("/schedule")
     @Operation(summary = "팀 일정 추가")
     public ApiResponse<String> createTeamSchedule(@RequestBody TeamScheduleDTO scheduleDTO) {
         boolean result = teamService.createTeamSchedule(scheduleDTO);
@@ -52,7 +52,7 @@ public class TeamController {
         return result ? ApiResponse.ofSuccess("팀 일정 추가 성공") : ApiResponse.ofFailure("팀 일정 추가 실패", null);
     }
 
-    @PutMapping("/{scheduleSeq}")
+    @PutMapping("/schedule/{scheduleSeq}")
     @Operation(summary = "팀 일정 수정")
     public ApiResponse<TeamSchedule> updateTeamSchedule(@PathVariable long scheduleSeq, @RequestBody TeamScheduleDTO scheduleDTO) {
         TeamSchedule teamSchedule = teamService.updateTeamSchedule(scheduleSeq, scheduleDTO);
@@ -60,7 +60,7 @@ public class TeamController {
         return ApiResponse.ofSuccess(teamSchedule);
     }
 
-    @DeleteMapping("/{scheduleSeq}")
+    @DeleteMapping("/schedule/{scheduleSeq}")
     @Operation(summary = "팀 일정 삭제")
     public ApiResponse<String> deleteTeamSchedule(@PathVariable long scheduleSeq) {
         teamService.deleteTeamSchedule(scheduleSeq);
