@@ -1,4 +1,4 @@
-package sansam.team.team.query.dto;
+package sansam.team.team.query.dto.chat;
 
 import lombok.*;
 
@@ -7,7 +7,7 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class TeamChatDTO {
+public class TeamChatResponse {
     private long teamChatSeq;
     private long teamSeq;
     private String teamChatName;

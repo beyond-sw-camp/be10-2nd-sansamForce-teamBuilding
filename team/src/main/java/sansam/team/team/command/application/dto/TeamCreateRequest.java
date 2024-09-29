@@ -7,7 +7,8 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class TeamUpdateRequestDTO {
+public class TeamCreateRequest {
+    private long projectSeq;
     private long ruleSeq;
     private String teamName;
 }
