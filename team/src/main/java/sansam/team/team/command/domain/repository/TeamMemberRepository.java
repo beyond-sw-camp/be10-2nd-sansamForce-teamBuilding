@@ -8,4 +8,6 @@ public interface TeamMemberRepository {
     Optional<TeamMember> findByUserSeq(long userSeq);
 
     void deleteById(Long teamMemberSeq);
+
+    TeamMember save(TeamMember teamMember);
 }
