@@ -57,4 +57,15 @@ public class MentorReviewService {
         return mentorReview;
     }
 
+    /* 멘토 평가 삭제 로직 */
+    @Transactional
+    public void deleteMentorReview(Long projectMemberSeq) {
+        // projectMemberSeq로 멘토 평가 조회
+        MentorReview mentorReview = mentorReviewRepository.findByProjectMemberSeq(projectMemberSeq)
+                .orElseThrow(() -> new IllegalArgumentException("Mentor review not found for the given ProjectMemberSeq"));
+
+        // 멘토 평가 삭제
+        mentorReviewRepository.delete(mentorReview);
+    }
+
 }

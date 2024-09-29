@@ -9,4 +9,6 @@ public interface MentorReviewRepository {
     MentorReview save(MentorReview mentorReview);
 
     Optional<MentorReview> findByProjectMemberSeq(Long projectMemberSeq);
+
+    void delete(MentorReview mentorReview);
 }
