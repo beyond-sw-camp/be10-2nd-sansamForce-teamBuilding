@@ -16,5 +16,5 @@ public class BuildingRuleDTO {
     private int ruleGithubWeight;
     private int ruleTeamReviewWeight;
     private int ruleMentorReviewWeight;
-    private String ruleTechStackYn; // Enums를 String으로 받아서 사용할 수 있음
+    private String ruleTechStackYn;
 }

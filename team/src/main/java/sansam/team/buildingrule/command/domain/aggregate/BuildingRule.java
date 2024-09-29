@@ -33,6 +33,6 @@ public class BuildingRule extends BaseTimeEntity {
         this.ruleGithubWeight = buildingRuleDTO.getRuleGithubWeight();
         this.ruleTeamReviewWeight = buildingRuleDTO.getRuleTeamReviewWeight();
         this.ruleMentorReviewWeight = buildingRuleDTO.getRuleMentorReviewWeight();
-        this.ruleTechStackYn = YnType.valueOf(buildingRuleDTO.getRuleTechStackYn()); // Enum 변환
+        this.ruleTechStackYn = YnType.valueOf(buildingRuleDTO.getRuleTechStackYn());
     }
 }
