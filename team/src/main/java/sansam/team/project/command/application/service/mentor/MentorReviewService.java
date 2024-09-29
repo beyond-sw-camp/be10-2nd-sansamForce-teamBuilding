@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import sansam.team.common.jwt.SecurityUtil;
-import sansam.team.project.command.application.dto.mentor.MentorReviewCreateDTO;
+import sansam.team.project.command.application.dto.mentor.MentorReviewDTO;
 import sansam.team.project.command.domain.aggregate.entity.MentorReview;
 import sansam.team.project.command.domain.repository.mentor.MentorReviewRepository;
 import sansam.team.user.command.domain.aggregate.entity.User;
@@ -19,7 +19,7 @@ public class MentorReviewService {
 
     /* 멘토 평가 생성 로직 */
     @Transactional
-    public MentorReview createMentorReview(Long userSeq, MentorReviewCreateDTO mentorReviewCreateDTO){
+    public MentorReview createMentorReview(Long userSeq, MentorReviewDTO mentorReviewDTO){
 
         User mentor = SecurityUtil.getAuthenticatedUser();
 
@@ -27,7 +27,7 @@ public class MentorReviewService {
             throw new IllegalArgumentException("User Seq is null");
         }
 
-        MentorReview mentorReview = modelMapper.map(mentorReviewCreateDTO, MentorReview.class);
+        MentorReview mentorReview = modelMapper.map(mentorReviewDTO, MentorReview.class);
         mentorReview.projectMentorSeq(mentor.getUserSeq());
         mentorReview.projectUserSeq(userSeq);
 
