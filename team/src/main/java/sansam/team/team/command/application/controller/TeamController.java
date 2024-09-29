@@ -19,7 +19,7 @@ public class TeamController {
     private final TeamService teamService;
 
     @PostMapping
-    @Operation(summary = "팀 추가 (팀 빌딩 이후 시스템 추가")
+    @Operation(summary = "팀 추가 (팀 빌딩 이후 시스템 추가)", description = "반환한 팀 정보를 갖고 팀 채팅방을 생성한다.")
     public ResponseEntity<Team> createTeam(@RequestBody TeamCreateRequestDTO teamDTO) {
         Team team = teamService.createTeam(teamDTO);
 

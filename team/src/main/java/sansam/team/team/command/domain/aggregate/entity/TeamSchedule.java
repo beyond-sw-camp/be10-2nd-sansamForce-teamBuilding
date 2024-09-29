@@ -4,21 +4,17 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import sansam.team.common.BaseTimeEntity;
+import sansam.team.common.aggregate.entity.BaseTimeEntity;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table
-@SequenceGenerator(
-        name = "TEAM_SCHEDULE_SEQ_GENERATOR"
-        , sequenceName = "TEAM_SCHEDULE_SEQ"
-        , allocationSize = 1)
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class TeamSchedule extends BaseTimeEntity {
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO, generator = "TEAM_SCHEDULE_SEQ_GENERATOR")
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private long teamScheduleSeq;
     private long teamSeq;
     @Column(name = "team_schedule_content")
