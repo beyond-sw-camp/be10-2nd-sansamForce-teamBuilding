@@ -53,7 +53,7 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
         TeamChatMessageDTO chatDTO = mapper.readValue(payload, TeamChatMessageDTO.class);
         log.info("session {}", chatDTO.toString());
 
-        Long chatRoomId = chatDTO.getTeamSeq();  // 팀 Seq로 채팅방 Id 생성
+        Long chatRoomId = chatDTO.getTeamChatSeq();  // 팀 Seq로 채팅방 Id 생성
         // 메모리 상에 채팅방에 대한 세션 없으면 만들어줌
         if(!chatRoomSessionMap.containsKey(chatRoomId)){
             chatRoomSessionMap.put(chatRoomId,new HashSet<>());
@@ -71,8 +71,6 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
         if (chatRoomSession.size()>=3) {
             removeClosedSession(chatRoomSession);
         }
-        sendMessageToChatRoom(chatDTO, chatRoomSession);
-
     }
 
     // 소켓 종료 확인
