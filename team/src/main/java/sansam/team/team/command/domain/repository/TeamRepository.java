@@ -7,7 +7,7 @@ import java.util.Optional;
 public interface TeamRepository {
     Team save(Team team);
 
-    Optional<Team> findById(Long teamSeq);
+    Optional<Team> findById(long teamSeq);
 
-    void deleteById(Long teamSeq);
+    void deleteById(long teamSeq);
 }
