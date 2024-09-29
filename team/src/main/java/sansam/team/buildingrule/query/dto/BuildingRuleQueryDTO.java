@@ -15,5 +15,5 @@ public class BuildingRuleQueryDTO {
     private int ruleGithubWeight;
     private int ruleTeamReviewWeight;
     private int ruleMentorReviewWeight;
-    private String ruleTechStackYn; // YnType 대신 문자열로 조회
+    private String ruleTechStackYn;
 }
