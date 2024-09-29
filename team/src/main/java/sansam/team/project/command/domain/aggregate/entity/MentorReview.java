@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sansam.team.common.aggregate.entity.BaseTimeEntity;
+import sansam.team.project.command.application.dto.mentor.MentorReviewDTO;
 
 @Entity
 @Table(name = "tbl_mentor_review")
@@ -15,7 +16,7 @@ public class MentorReview extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long mentorReviewSeq;                           // 프로젝트 강사 평가 번호
 
-    private Long projectUserSeq;                          // 프로젝트 회원 번호
+    private Long projectMemberSeq;                          // 프로젝트 회원 번호
 
     private Long projectMentorSeq;                          // 프로젝트 강사 번호
 
@@ -28,9 +29,13 @@ public class MentorReview extends BaseTimeEntity {
         this.projectMentorSeq = projectMentorSeq;
     }
 
-    public void projectUserSeq(Long userSeq) {
-        this.projectUserSeq = userSeq;
+    public void projectUserSeq(Long projectMemberSeq) {
+        this.projectMemberSeq = projectMemberSeq;
     }
 
 
+    public void updateMentorReview(MentorReviewDTO mentorReviewDTO) {
+        this.mentorReviewStar = mentorReviewDTO.getMentorReviewStar();
+        this.mentorReviewContent = mentorReviewDTO.getMentorReviewContent();
+    }
 }
