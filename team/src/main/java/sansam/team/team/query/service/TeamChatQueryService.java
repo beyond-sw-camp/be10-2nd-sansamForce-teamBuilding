@@ -10,10 +10,7 @@ import sansam.team.common.jwt.SecurityUtil;
 import sansam.team.common.websocket.WebSocketClient;
 import sansam.team.common.websocket.dto.TeamChatMemberDTO;
 import sansam.team.common.websocket.dto.TeamChatMessageDTO;
-import sansam.team.team.query.dto.chat.TeamChatResponse;
-import sansam.team.team.query.dto.chat.TeamChatRequest;
-import sansam.team.team.query.dto.chat.TeamChatRoomRequest;
-import sansam.team.team.query.dto.chat.TeamChatRoomResponse;
+import sansam.team.team.query.dto.chat.*;
 import sansam.team.team.query.mapper.TeamChatQueryMapper;
 import sansam.team.user.command.domain.aggregate.entity.User;
 
@@ -59,6 +56,11 @@ public class TeamChatQueryService {
 
         webSocketClient.start(response);
 
+        return response;
+    }
+
+    public TeamChatMemberResponse selectTeamMember(Long teamMemberSeq) {
+        TeamChatMemberResponse response = teamChatQueryMapper.selectTeamMember(teamMemberSeq);
         return response;
     }
 }

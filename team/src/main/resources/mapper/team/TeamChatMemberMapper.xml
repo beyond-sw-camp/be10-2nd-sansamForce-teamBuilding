@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sansam.team.team.query.mapper.TeamChatMemberQueryMapper">
+    <select id="selectTeamMember" parameterType="TeamChatMemberRequest" resultType="TeamChatMemberResponse">
+        SELECT user_name
+            , user_nickname
+            , user_phone
+            , user_email
+            , user_birth_date
+            , user_gender
+            , user_github_id
+            , user_profile_img
+        FROM tbl_team_member tm
+        JOIN tbl_user u
+            ON tm.user_seq = u.user_seq
+        WHERE team_member_seq = #{teamMemberSeq}
+    </select>
+</mapper>
