@@ -1,4 +1,4 @@
-package sansam.team.config.websocket.handler;
+package sansam.team.common.websocket.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -8,8 +8,8 @@ import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-import sansam.team.team.command.application.dto.TeamChatMessageDTO;
-import sansam.team.team.command.application.dto.TeamChatMessageType;
+import sansam.team.common.websocket.dto.TeamChatMessageDTO;
+import sansam.team.common.websocket.dto.TeamChatMessageType;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -53,11 +53,12 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
         TeamChatMessageDTO chatDTO = mapper.readValue(payload, TeamChatMessageDTO.class);
         log.info("session {}", chatDTO.toString());
 
-        Long chatRoomId = chatDTO.getTeamSeq();  // 팀 Seq로 채팅방 Id 생성
+        Long chatRoomId = chatDTO.getTeamChatSeq();  // 팀 Seq로 채팅방 Id 생성
         // 메모리 상에 채팅방에 대한 세션 없으면 만들어줌
         if(!chatRoomSessionMap.containsKey(chatRoomId)){
             chatRoomSessionMap.put(chatRoomId,new HashSet<>());
         }
+
         Set<WebSocketSession> chatRoomSession = chatRoomSessionMap.get(chatRoomId);
 
         // message 에 담긴 타입을 확인한다.
@@ -70,14 +71,11 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
         if (chatRoomSession.size()>=3) {
             removeClosedSession(chatRoomSession);
         }
-        sendMessageToChatRoom(chatDTO, chatRoomSession);
-
     }
 
     // 소켓 종료 확인
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-        // TODO Auto-generated method stub
         log.info("{} 연결 끊김", session.getId());
         sessions.remove(session);
     }
@@ -87,10 +85,9 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
         chatRoomSession.removeIf(sess -> !sessions.contains(sess));
     }
 
-    private void sendMessageToChatRoom(TeamChatMessageDTO chatMessageDto, Set<WebSocketSession> chatRoomSession) {
-        chatRoomSession.parallelStream().forEach(sess -> sendMessage(sess, chatMessageDto));//2
+    private void sendMessageToChatRoom(TeamChatMessageDTO chatDTO, Set<WebSocketSession> chatRoomSession) {
+        chatRoomSession.parallelStream().forEach(sess -> sendMessage(sess, chatDTO.getMessage()));//2
     }
-
 
     public <T> void sendMessage(WebSocketSession session, T message) {
         try{

@@ -1,4 +1,4 @@
-package sansam.team.team.query.dto;
+package sansam.team.team.query.dto.chat;
 
 import lombok.*;
 import sansam.team.common.aggregate.RoleType;
@@ -8,7 +8,7 @@ import sansam.team.common.aggregate.RoleType;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class TeamChatQueryDTO {
+public class TeamChatRequest {
     Long userSeq;
     RoleType roleType;
 }

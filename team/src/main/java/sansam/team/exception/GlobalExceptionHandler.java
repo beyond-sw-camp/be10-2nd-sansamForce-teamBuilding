@@ -31,6 +31,14 @@ public class GlobalExceptionHandler {
         return ResponseUtil.failureResponse(e.getErrorCode().getMessage(), e.getErrorCode().getCode(), e.getErrorCode().getHttpStatus());
     }
 
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ApiResponse<String>> handleCustomNotFoundException(RuntimeException e) {
+        // 예외 메시지 로깅
+        logger.error("CustomNotFoundException occurred: {}", e.getMessage(), e);
+
+        return ResponseUtil.failureResponse(e.getMessage(), null);
+    }
+
     // 데이터베이스 관련 예외 처리
     @ExceptionHandler(DataAccessException.class)
     public ResponseEntity<ApiResponse<String>> handleDataAccessException(DataAccessException e) {

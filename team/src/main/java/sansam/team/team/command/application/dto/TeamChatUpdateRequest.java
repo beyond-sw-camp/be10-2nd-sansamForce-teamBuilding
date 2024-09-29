@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class TeamChatUpdateRequestDTO {
+public class TeamChatUpdateRequest {
     private String teamChatName;
     private String teamChatComment;
 }

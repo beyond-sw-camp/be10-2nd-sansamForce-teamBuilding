@@ -8,7 +8,7 @@ import sansam.team.common.aggregate.YnType;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class TeamChatCreateRequestDTO {
+public class TeamChatCreateRequest {
     private String teamChatName;
     private String teamChatComment;
     private YnType teamChatActive = YnType.Y;
