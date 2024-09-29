@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sansam.team.common.response.ApiResponse;
 import sansam.team.team.command.application.dto.TeamCreateRequest;
+import sansam.team.team.command.application.dto.TeamScheduleDTO;
 import sansam.team.team.command.application.dto.TeamUpdateRequest;
 import sansam.team.team.command.application.service.TeamService;
 import sansam.team.team.command.domain.aggregate.entity.Team;

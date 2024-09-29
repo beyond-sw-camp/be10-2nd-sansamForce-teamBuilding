@@ -12,6 +12,7 @@ import sansam.team.exception.ErrorCodeType;
 import sansam.team.team.command.domain.aggregate.entity.Team;
 import sansam.team.team.command.application.dto.TeamScheduleDTO;
 import sansam.team.team.command.domain.aggregate.TeamStatusType;
+import sansam.team.team.command.domain.aggregate.entity.TeamSchedule;
 import sansam.team.team.command.domain.repository.TeamRepository;
 import sansam.team.team.command.domain.repository.TeamScheduleRepository;
 import sansam.team.team.command.mapper.TeamMapper;
