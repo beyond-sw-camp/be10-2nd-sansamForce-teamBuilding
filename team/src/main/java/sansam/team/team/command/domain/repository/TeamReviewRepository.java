@@ -8,4 +8,6 @@ public interface TeamReviewRepository {
     TeamReview save(TeamReview teamReview);
     Optional<TeamReview> findById(long reviewSeq);
     void deleteById(long reviewSeq);
+
+    Optional<TeamReview> findAllByReceiveMemberSeq(long userSeq);
 }

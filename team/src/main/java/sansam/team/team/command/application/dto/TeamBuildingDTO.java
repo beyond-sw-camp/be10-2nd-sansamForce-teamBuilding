@@ -8,7 +8,7 @@ import lombok.Data;
 public class TeamBuildingDTO {
     private Long userSeq;
     private Long projectMemberSeq;
-    private int totalScore;
+    private double totalScore;
 
     public TeamBuildingDTO(Long userSeq, Long projectMemberSeq) {
         this.userSeq = userSeq;
