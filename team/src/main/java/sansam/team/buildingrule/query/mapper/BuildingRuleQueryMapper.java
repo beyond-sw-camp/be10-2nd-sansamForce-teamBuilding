@@ -8,7 +8,7 @@ import java.util.List;
 @Mapper
 public interface BuildingRuleQueryMapper {
 
-    BuildingRuleQueryDTO findById(int ruleSeq);  // XML의 findById 쿼리를 호출
+    BuildingRuleQueryDTO findById(int ruleSeq);
 
-    List<BuildingRuleQueryDTO> findAll();  // XML의 findAll 쿼리를 호출
+    List<BuildingRuleQueryDTO> findAll();
 }
