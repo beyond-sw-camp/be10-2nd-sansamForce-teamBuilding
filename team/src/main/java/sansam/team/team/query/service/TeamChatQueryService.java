@@ -36,13 +36,26 @@ public class TeamChatQueryService {
         User user = SecurityUtil.getAuthenticatedUser();
         TeamChatRoomResponse response = teamChatQueryMapper.selectChatRoom(new TeamChatRoomRequest(teamChatSeq, user.getUserSeq()));
 
-        Query query = new Query();
-        query.addCriteria(Criteria.where("teamChatSeq").is(teamChatSeq));
-        List<TeamChatMessageDTO> teamChatMessageList = mongoTemplate.find(query, TeamChatMessageDTO.class);
-        List<TeamChatMemberDTO> teamChatMemberList = mongoTemplate.find(query, TeamChatMemberDTO.class);
+        Query query = new Query(Criteria.where("teamChatSeq").is(teamChatSeq));
+
+        List<TeamChatMessageDTO> teamChatMessageList = mongoTemplate.find(query, TeamChatMessageDTO.class, "chat");
+        List<TeamChatMemberDTO> teamChatMemberList = mongoTemplate.find(query, TeamChatMemberDTO.class, "chatMember");
+
+        query = new Query(Criteria.where("teamChatSeq")
+                .is(teamChatSeq)
+                .and("teamMemberSeq")
+                .is(response.getTeamMemberSeq()));
+
+        TeamChatMemberDTO teamChatMember = mongoTemplate.findOne(query, TeamChatMemberDTO.class, "chatMember");
 
         response.setTeamChatMessageList(teamChatMessageList);
         response.setTeamChatMemberList(teamChatMemberList);
+        response.setTeamChatMember(teamChatMember);
+
+        if(teamChatMember == null) {
+            teamChatMember = new TeamChatMemberDTO(response.getTeamChatSeq(), response.getTeamMemberSeq(), response.getUserNickName());
+            mongoTemplate.insert(teamChatMember);
+        }
 
         webSocketClient.start(response);
 

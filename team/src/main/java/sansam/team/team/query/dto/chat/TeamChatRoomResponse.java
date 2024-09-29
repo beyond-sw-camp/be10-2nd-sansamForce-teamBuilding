@@ -21,4 +21,6 @@ public class TeamChatRoomResponse {
 
     private List<TeamChatMessageDTO> teamChatMessageList;
     private List<TeamChatMemberDTO> teamChatMemberList;
+
+    private TeamChatMemberDTO teamChatMember;
 }

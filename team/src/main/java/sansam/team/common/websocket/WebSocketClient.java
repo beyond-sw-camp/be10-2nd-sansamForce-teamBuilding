@@ -3,7 +3,9 @@ package sansam.team.common.websocket;
 import lombok.RequiredArgsConstructor;
 import okhttp3.*;
 import okio.ByteString;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
+import sansam.team.common.websocket.dto.TeamChatMemberDTO;
 import sansam.team.common.websocket.dto.TeamChatMessageDTO;
 import sansam.team.common.websocket.dto.TeamChatMessageType;
 import sansam.team.team.query.dto.chat.TeamChatRoomResponse;
@@ -12,10 +14,13 @@ import sansam.team.team.query.dto.chat.TeamChatRoomResponse;
 @RequiredArgsConstructor
 public class WebSocketClient extends WebSocketListener {
     private final OkHttpClient client = new OkHttpClient();
+    private final MongoTemplate mongoTemplate;
+
     private WebSocket webSocket;
     private String userNickName;
     private Long teamChatSeq;
     private Long teamMemberSeq;
+    private TeamChatMemberDTO teamChatMember;
 
     public void start(TeamChatRoomResponse teamChatRoom) {
         Request request = new Request.Builder()
@@ -33,33 +38,45 @@ public class WebSocketClient extends WebSocketListener {
         webSocket.send(makeMessage(teamChatMessage));
     }
 
+    public void leaveChatRoom() {
+        webSocket.close(1000, "채팅방 나가기");
+    }
+
     @Override
     public void onOpen(WebSocket webSocket, Response response) {
         System.out.println("Connected to server");
+        if(teamChatMember == null) {
+            TeamChatMessageDTO teamChatMessage = new TeamChatMessageDTO();
+            teamChatMessage.setMessageType(TeamChatMessageType.ENTER);
+            teamChatMessage.setTeamChatSeq(teamChatSeq);
+            teamChatMessage.setTeamMemberSeq(teamMemberSeq);
+            teamChatMessage.setMessage(userNickName + "님이 입장하였습니다.");
 
-        TeamChatMessageDTO teamChatMessage = new TeamChatMessageDTO();
-        teamChatMessage.setMessageType(TeamChatMessageType.ENTER);
-        teamChatMessage.setTeamChatSeq(teamChatSeq);
-        teamChatMessage.setTeamMemberSeq(teamMemberSeq);
-        teamChatMessage.setMessage(userNickName + "님이 입장하였습니다.");
+            mongoTemplate.insert(teamChatMessage);
 
-        webSocket.send(makeMessage(teamChatMessage));
+            webSocket.send(makeMessage(teamChatMessage));
+        }
     }
 
     @Override
     public void onMessage(WebSocket webSocket, String message) {
-
         System.out.println("Received message: " + message);
-    }
-
-    @Override
-    public void onMessage(WebSocket webSocket, ByteString bytes) {
-        System.out.println("Received bytes: " + bytes.hex());
     }
 
     @Override
     public void onClosed(WebSocket webSocket, int code, String reason) {
         System.out.println("Disconnected from server: " + reason);
+        if(teamChatMember == null) {
+            TeamChatMessageDTO teamChatMessage = new TeamChatMessageDTO();
+            teamChatMessage.setMessageType(TeamChatMessageType.LEAVE);
+            teamChatMessage.setTeamChatSeq(teamChatSeq);
+            teamChatMessage.setTeamMemberSeq(teamMemberSeq);
+            teamChatMessage.setMessage(userNickName + "님이 채팅방을 나갔습니다.");
+
+            mongoTemplate.insert(teamChatMessage);
+
+            webSocket.send(makeMessage(teamChatMessage));
+        }
     }
 
     @Override

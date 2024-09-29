@@ -35,9 +35,9 @@ public class TeamChatController {
     }
 
     @DeleteMapping("/{teamChatSeq}")
-    @Operation(summary = "팀 채팅방 논리 삭제")
-    public ResponseEntity<Void> deleteTeamChat(@PathVariable Long teamChatSeq) {
-        teamChatService.deleteTeamChat(teamChatSeq);
+    @Operation(summary = "팀 채팅방 나가기")
+    public ResponseEntity<Void> leaveTeamChat(@PathVariable Long teamChatSeq, @RequestParam Long teamMemberSeq) {
+        teamChatService.leaveTeamChat(teamChatSeq, teamMemberSeq);
 
         return ResponseEntity.noContent().build();
     }
