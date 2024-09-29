@@ -10,4 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @Tag(name = "Project Member Admin API", description = "프로젝트 회원 관리자 API")
 public class ProjectMemberAdminQueryCotroller {
+
+    // 프로젝트에 들어간 회원 전체 조회
+
 }
