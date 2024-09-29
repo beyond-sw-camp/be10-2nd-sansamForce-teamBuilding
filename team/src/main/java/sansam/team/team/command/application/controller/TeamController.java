@@ -5,10 +5,13 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sansam.team.common.response.ApiResponse;
 import sansam.team.team.command.application.dto.TeamCreateRequestDTO;
+import sansam.team.team.command.application.dto.TeamScheduleDTO;
 import sansam.team.team.command.application.dto.TeamUpdateRequestDTO;
 import sansam.team.team.command.application.service.TeamService;
 import sansam.team.team.command.domain.aggregate.entity.Team;
+import sansam.team.team.command.domain.aggregate.entity.TeamSchedule;
 
 @RestController
 @RequestMapping("/api/v1/team")
@@ -40,4 +43,29 @@ public class TeamController {
 
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/schedule")
+    @Operation(summary = "팀 일정 추가")
+    public ApiResponse<String> createTeamSchedule(@RequestBody TeamScheduleDTO scheduleDTO) {
+        boolean result = teamService.createTeamSchedule(scheduleDTO);
+
+        return result ? ApiResponse.ofSuccess("팀 일정 추가 성공") : ApiResponse.ofFailure("팀 일정 추가 실패", null);
+    }
+
+    @PutMapping("/schedule/{scheduleSeq}")
+    @Operation(summary = "팀 일정 수정")
+    public ApiResponse<TeamSchedule> updateTeamSchedule(@PathVariable long scheduleSeq, @RequestBody TeamScheduleDTO scheduleDTO) {
+        TeamSchedule teamSchedule = teamService.updateTeamSchedule(scheduleSeq, scheduleDTO);
+
+        return ApiResponse.ofSuccess(teamSchedule);
+    }
+
+    @DeleteMapping("/schedule/{scheduleSeq}")
+    @Operation(summary = "팀 일정 삭제")
+    public ApiResponse<String> deleteTeamSchedule(@PathVariable long scheduleSeq) {
+        teamService.deleteTeamSchedule(scheduleSeq);
+
+        return ApiResponse.ofSuccess("팀 일정 삭제 성공");
+    }
+
 }
