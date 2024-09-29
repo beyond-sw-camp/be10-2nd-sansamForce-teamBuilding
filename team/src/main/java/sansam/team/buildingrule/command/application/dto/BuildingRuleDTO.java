@@ -1,12 +1,10 @@
-package sansam.team.buildingrule.command.domain.application.dto;
+package sansam.team.buildingrule.command.application.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class BuildingRuleDTO {
@@ -17,5 +15,5 @@ public class BuildingRuleDTO {
     private int ruleGithubWeight;
     private int ruleTeamReviewWeight;
     private int ruleMentorReviewWeight;
-    private String ruleTechStackYn;
+    private String ruleTechStackYn; // Enums를 String으로 받아서 사용할 수 있음
 }

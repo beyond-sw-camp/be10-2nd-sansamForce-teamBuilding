@@ -1,6 +1,6 @@
-package sansam.team.buildingrule.command.domain.domain.repositroy;
+package sansam.team.buildingrule.command.domain.repositroy;
 
-import sansam.team.buildingrule.command.domain.domain.aggregate.BuildingRule;
+import sansam.team.buildingrule.command.domain.aggregate.BuildingRule;
 
 import java.util.Optional;
 
@@ -12,3 +12,4 @@ public interface BuildingRuleRepository {
 
     void deleteById(int ruleSeq);
 }
+

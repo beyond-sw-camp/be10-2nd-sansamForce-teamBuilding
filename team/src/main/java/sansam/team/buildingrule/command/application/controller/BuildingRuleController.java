@@ -1,10 +1,12 @@
-package sansam.team.buildingrule.command.domain.application.controller;
+package sansam.team.buildingrule.command.application.controller;
+
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sansam.team.buildingrule.command.domain.application.service.BuildingRuleService;
-import sansam.team.buildingrule.command.domain.domain.aggregate.BuildingRule;
+import sansam.team.buildingrule.command.application.dto.BuildingRuleDTO;
+import sansam.team.buildingrule.command.application.service.BuildingRuleService;
+import sansam.team.buildingrule.command.domain.aggregate.BuildingRule;
 
 @RestController
 @RequestMapping("/api/building-rules")
@@ -14,16 +16,16 @@ public class BuildingRuleController {
     private final BuildingRuleService buildingRuleService;
 
     @PostMapping
-    public ResponseEntity<BuildingRule> createBuildingRule(@RequestBody BuildingRule buildingRule) {
-        BuildingRule createdBuildingRule = buildingRuleService.createBuildingRule(buildingRule);
+    public ResponseEntity<BuildingRule> createBuildingRule(@RequestBody BuildingRuleDTO buildingRuleDTO) {
+        BuildingRule createdBuildingRule = buildingRuleService.createBuildingRule(buildingRuleDTO);
         return ResponseEntity.ok(createdBuildingRule);
     }
 
     @PutMapping("/{ruleSeq}")
     public ResponseEntity<BuildingRule> updateBuildingRule(
             @PathVariable int ruleSeq,
-            @RequestBody BuildingRule buildingRule) {
-        BuildingRule updatedBuildingRule = buildingRuleService.updateBuildingRule(ruleSeq, buildingRule);
+            @RequestBody BuildingRuleDTO buildingRuleDTO) {
+        BuildingRule updatedBuildingRule = buildingRuleService.updateBuildingRule(ruleSeq, buildingRuleDTO);
         return ResponseEntity.ok(updatedBuildingRule);
     }
 
@@ -33,4 +35,3 @@ public class BuildingRuleController {
         return ResponseEntity.noContent().build();
     }
 }
-
