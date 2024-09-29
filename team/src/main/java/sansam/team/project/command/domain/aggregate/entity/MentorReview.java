@@ -24,4 +24,13 @@ public class MentorReview extends BaseTimeEntity {
     private String mentorReviewContent;                     // 강사 평가 상세 내용
 
 
+    public void projectMentorSeq(Long projectMentorSeq) {
+        this.projectMentorSeq = projectMentorSeq;
+    }
+
+    public void projectUserSeq(Long userSeq) {
+        this.projectUserSeq = userSeq;
+    }
+
+
 }
