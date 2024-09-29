@@ -261,13 +261,13 @@ CREATE TABLE `tbl_chat_content`
 CREATE TABLE `tbl_mentor_review`
 (
     `mentor_review_seq` bigint NOT NULL AUTO_INCREMENT,
-    `project_user_seq` bigint NOT NULL,
+    `project_member_seq` bigint NOT NULL,
     `project_mentor_seq` bigint NOT NULL,
     `mentor_review_star` double NOT NULL,
     `mentor_review_content` longtext NOT NULL,
     `reg_date` timestamp NOT NULL,
     `mod_date` timestamp NULL,
     PRIMARY KEY (`mentor_review_seq`),
-    CONSTRAINT `FK_TBL_MENTOR_REVIEW_PROJECT_MEMBER_SEQ` FOREIGN KEY (`project_user_seq`) REFERENCES `tbl_project_member`(`project_member_seq`),
+    CONSTRAINT `FK_TBL_MENTOR_REVIEW_PROJECT_MEMBER_SEQ` FOREIGN KEY (`project_member_seq`) REFERENCES `tbl_project_member`(`project_member_seq`),
     CONSTRAINT `FK_TBL_MENTOR_REVIEW_MENTOR_USER_SEQ` FOREIGN KEY (`project_mentor_seq`) REFERENCES `tbl_user`(`user_seq`)
 );
