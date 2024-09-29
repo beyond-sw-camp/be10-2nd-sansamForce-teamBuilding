@@ -4,43 +4,50 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sansam.team.team.query.mapper.TeamChatQueryMapper">
     <!-- 모든 채팅방을 조회해오는 쿼리 -->
-    <select id="selectChatRoomList" parameterType="TeamChatQueryDTO" resultType="TeamChatDTO">
+    <select id="selectChatRoomList" parameterType="TeamChatRequest" resultType="TeamChatResponse">
         SELECT team_chat_seq
             , tc.team_seq
             , team_chat_name
             , team_chat_comment
             , DATE_FORMAT(tc.reg_date, '%Y-%m-%d %H:%i:%s') reg_date
-
-            FROM tbl_team_chat tc
-            <if test="roleType.getCode() == 'MENTOR'">
-                <!-- 멘토 : 내가 속한 프로젝트의 팀 채팅방 -->
-                JOIN tbl_team t
-                    ON tc.team_seq = t.team_seq
-                JOIN tbl_project p
-                    ON p.project_seq = t.project_seq
-                JOIN tbl_project_member pm
-                    ON pm.project_seq = p.project_seq
-                WHERE pm.user_seq = #{userSeq}
-                    AND pm.project_mentor_yn = 'Y'
-                    AND pm.project_member_del_yn = 'N'
-            </if>
-            <if test="roleType.getCode() == 'MEMBER'">
-                <!-- 멤버 : 내가 속한 팀의 채팅방 -->
-                JOIN tbl_team t
-                    ON tc.team_seq = t.team_seq
-                JOIN tbl_team_member tm
-                    ON tm.team_seq = t.team_seq
-                WHERE tm.user_seq = #{userSeq}
-            </if>
+        FROM tbl_team_chat tc
+        <if test="roleType.getCode() == 'MENTOR'">
+            <!-- 멘토 : 내가 속한 프로젝트의 팀 채팅방 -->
+            JOIN tbl_team t
+                ON tc.team_seq = t.team_seq
+            JOIN tbl_project p
+                ON p.project_seq = t.project_seq
+            JOIN tbl_project_member pm
+                ON pm.project_seq = p.project_seq
+            WHERE pm.user_seq = #{userSeq}
+                AND pm.project_mentor_yn = 'Y'
+                AND pm.project_member_del_yn = 'N'
+        </if>
+        <if test="roleType.getCode() == 'MEMBER'">
+            <!-- 멤버 : 내가 속한 팀의 채팅방 -->
+            JOIN tbl_team t
+                ON tc.team_seq = t.team_seq
+            JOIN tbl_team_member tm
+                ON tm.team_seq = t.team_seq
+            WHERE tm.user_seq = #{userSeq}
+        </if>
     </select>
 
-    <select id="selectChatRoom" resultType="TeamChatDTO">
+    <select id="selectChatRoom" parameterType="TeamChatRoomRequest" resultType="TeamChatRoomResponse">
         SELECT team_chat_seq
-            , team_seq
-            , team_chat_name
-            , team_chat_comment
-            , DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') reg_date
-        FROM tbl_team_chat
+                , t.team_seq
+                , team_chat_name
+                , team_chat_comment
+                , team_member_seq
+                , u.user_nickname
+        FROM tbl_team_chat tc
+        JOIN tbl_team t
+            ON t.team_seq = tc.team_seq
+        JOIN tbl_team_member tm
+            ON tm.team_seq = t.team_seq
+        JOIN tbl_user u
+            ON u.user_seq = tm.user_seq
         WHERE team_chat_seq = #{teamChatSeq}
+        AND u.user_seq = #{userSeq}
     </select>
 </mapper>

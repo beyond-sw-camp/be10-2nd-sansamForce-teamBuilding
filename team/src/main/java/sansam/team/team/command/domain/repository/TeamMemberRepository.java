@@ -7,4 +7,5 @@ import java.util.Optional;
 public interface TeamMemberRepository {
     Optional<TeamMember> findByUserSeq(long userSeq);
 
+    void deleteById(Long teamMemberSeq);
 }
