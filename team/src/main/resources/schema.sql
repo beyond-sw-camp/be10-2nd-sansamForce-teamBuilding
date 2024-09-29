@@ -31,7 +31,7 @@ CREATE TABLE `tbl_major`
 CREATE TABLE `tbl_user`
 (
     `user_seq` bigint NOT NULL AUTO_INCREMENT,
-    `major_seq` bigint,
+    `major_seq` bigint NULL,
     `user_id` varchar(30) NOT NULL,
     `user_name` varchar(30) NOT NULL,
     `user_nickname` varchar(50) NOT NULL,
@@ -143,7 +143,7 @@ CREATE TABLE `tbl_building_rule`
     `rule_team_review_weight` int NULL,
     `rule_mentor_review_weight` int NULL,
     `rule_tech_stack_yn` CHAR(1) NULL,
-    `reg_date` timestamp NOT NULL,+_
+    `reg_date` timestamp NOT NULL,
     `mod_date` timestamp NULL,
     PRIMARY KEY (`rule_seq`)
 );

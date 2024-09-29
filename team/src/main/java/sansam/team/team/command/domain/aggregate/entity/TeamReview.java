@@ -28,4 +28,10 @@ public class TeamReview extends BaseTimeEntity {
     @Column(name = "team_member_review_content")
     private String reviewContent;
 
+    public void updateReview(long receiveMemberSeq, double reviewStar, String reviewContent) {
+        this.receiveMemberSeq = receiveMemberSeq;
+        this.reviewStar = reviewStar;
+        this.reviewContent = reviewContent;
+    }
+
 }

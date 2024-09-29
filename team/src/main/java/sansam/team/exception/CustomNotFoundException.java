@@ -4,7 +4,11 @@ import lombok.Getter;
 
 @Getter
 public class CustomNotFoundException extends RuntimeException {
-    public CustomNotFoundException(String message) {
-        super(message);
+
+    ErrorCodeType errorCode;
+
+    public CustomNotFoundException(ErrorCodeType errorCode) {
+        this.errorCode = errorCode;
     }
+
 }
