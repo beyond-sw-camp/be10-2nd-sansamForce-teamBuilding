@@ -17,7 +17,7 @@ import java.util.List;
 @RequestMapping("/api/v1/project")
 @RequiredArgsConstructor
 @Tag(name = "Project Member API", description = "프로젝트 회원 API")
-public class ProjectUserQueryController {
+public class ProjectMemberUserQueryController {
 
     private final ProjectQueryService projectQueryService;
 
