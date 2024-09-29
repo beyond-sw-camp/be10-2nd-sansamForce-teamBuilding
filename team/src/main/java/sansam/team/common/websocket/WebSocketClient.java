@@ -38,10 +38,6 @@ public class WebSocketClient extends WebSocketListener {
         webSocket.send(makeMessage(teamChatMessage));
     }
 
-    public void leaveChatRoom() {
-        webSocket.close(1000, "채팅방 나가기");
-    }
-
     @Override
     public void onOpen(WebSocket webSocket, Response response) {
         System.out.println("Connected to server");

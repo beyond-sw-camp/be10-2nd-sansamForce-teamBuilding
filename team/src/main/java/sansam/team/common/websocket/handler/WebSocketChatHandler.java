@@ -76,7 +76,6 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
     // 소켓 종료 확인
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-        // TODO Auto-generated method stub
         log.info("{} 연결 끊김", session.getId());
         sessions.remove(session);
     }
