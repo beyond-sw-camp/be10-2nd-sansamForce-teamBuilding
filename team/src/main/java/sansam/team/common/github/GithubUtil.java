@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.kohsuke.github.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import sansam.team.project.command.domain.aggregate.InterestType;
 
 import java.io.IOException;
 import java.util.*;
@@ -21,8 +22,8 @@ public class GithubUtil {
         log.info("GitHub API 연결 성공: {}", token);
     }
 
-    public int getCommitCountByRole(String userGithubId, String role) throws IOException {
-        Set<String> languages = getLanguagesByRole(role);
+    public int getCommitCountByInterestType(String userGithubId, InterestType interestType) throws IOException {
+        Set<String> languages = getLanguagesByInterestType(interestType);
 
         int commitCount = 0;
 
@@ -57,10 +58,11 @@ public class GithubUtil {
     }
 
     // 역할에 따른 언어 세트 반환
-    private Set<String> getLanguagesByRole(String role) {
-        if ("backend".equalsIgnoreCase(role)) {
+    private Set<String> getLanguagesByInterestType(InterestType interestType) {
+        if(interestType.equals(InterestType.BACKEND)){
             return new HashSet<>(Arrays.asList("Python", "Java", "Kotlin", "Go", "Rust", "C#", "C++"));
-        } else if ("frontend".equalsIgnoreCase(role)) {
+        }
+        else if (interestType.equals(InterestType.FRONTEND)) {
             return new HashSet<>(Arrays.asList("HTML", "CSS", "JavaScript"));
         } else {
             return Collections.emptySet();

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import sansam.team.team.command.application.service.TeamBuildingService;
 import sansam.team.team.command.domain.aggregate.entity.Team;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -22,7 +23,7 @@ public class TeamBuildingController {
     // 팀 빌딩 요청
     @PostMapping("/build")
     @Operation(summary = "프로젝트 내 팀 빌딩")
-    public ResponseEntity<List<Team>> buildTeams(@RequestParam Long projectSeq, @RequestBody Long teamBuildingRuleSeq) {
+    public ResponseEntity<List<Team>> buildTeams(@RequestParam Long projectSeq, @RequestBody Long teamBuildingRuleSeq) throws IOException {
         List<Team> teams = teamBuildingService.buildBalancedTeams(projectSeq,teamBuildingRuleSeq);
         return ResponseEntity.ok(teams);
     }

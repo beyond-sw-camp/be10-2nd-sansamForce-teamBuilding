@@ -9,4 +9,6 @@ public interface ProjectMemberRepository {
     ProjectMember save(ProjectMember projectMember);
 
     Optional<ProjectMember> findById(Long projectMemberSeq);
+
+    Optional<ProjectMember> findAllByProjectSeq(Long projectSeq);
 }
