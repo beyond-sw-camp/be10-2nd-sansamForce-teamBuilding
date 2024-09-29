@@ -29,7 +29,7 @@ public class TeamService {
     }
 
     @Transactional
-    public Team updateTeam(Long teamSeq, TeamUpdateRequestDTO teamDTO) {
+    public Team updateTeam(long teamSeq, TeamUpdateRequestDTO teamDTO) {
         Team team = teamRepository.findById(teamSeq).orElseThrow();
 
         team.modifyTeam(teamDTO.getRuleSeq(), teamDTO.getTeamName());
@@ -38,12 +38,12 @@ public class TeamService {
     }
 
     @Transactional
-    public void deleteTeam(Long teamSeq) {
+    public void deleteTeam(long teamSeq) {
         teamRepository.deleteById(teamSeq);
     }
 
     @Transactional
-    public Team getTeamById(Long teamSeq) throws CustomNotFoundException {
+    public Team getTeamById(long teamSeq) throws CustomNotFoundException {
         return teamRepository.findById(teamSeq)
                 .orElseThrow(() -> new CustomNotFoundException(ErrorCodeType.TEAM_NOT_FOUND));
     }

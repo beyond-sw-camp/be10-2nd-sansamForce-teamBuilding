@@ -41,14 +41,14 @@ VALUES
     (11, 'Project Beta', 'Content for Project Beta', 'PROGRESS', 10, 'http://example.com/beta.png', '2024-02-01 00:00:00', '2024-11-30 23:59:59', NOW());
 
 -- 프로젝트 Alpha (project_seq: 1)
-INSERT INTO `tbl_team` (`project_seq`, `rule_seq`, `team_name`, `team_status`, `reg_date`)
+INSERT INTO `tbl_team` (`project_seq`, `rule_seq`, `team_name`, `team_status`, `reg_date`, `end_date`)
 VALUES
-    (1, 1, 'Alpha Team A', 'OPEN', NOW()),
-    (1, 1, 'Alpha Team B', 'OPEN', NOW()),
+    (1, 1, 'Alpha Team A', 'CLOSE', NOW(), '2024-09-16 14:58:01'),
+    (1, 1, 'Alpha Team B', 'CLOSE', NOW(), '2024-09-10 14:58:01'),
 
 -- 프로젝트 Beta (project_seq: 2)
-    (2, 1, 'Beta Team A', NOW()),
-    (2, 1, 'Beta Team B', NOW());
+    (2, 1, 'Beta Team A','OPEN', NOW()),
+    (2, 1, 'Beta Team B','OPEN', NOW());
 
 -- 프로젝트 Alpha (project_seq: 1, user_seq: 1-10)
 INSERT INTO `tbl_project_member` (`project_seq`, `user_seq`, `project_member_del_yn`, `project_mentor_yn`, `project_member_major_yn`, `project_member_interest_type`,`project_member_commit_score`,`reg_date`)

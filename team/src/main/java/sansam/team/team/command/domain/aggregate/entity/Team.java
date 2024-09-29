@@ -20,6 +20,7 @@ public class Team extends BaseTimeEntity {
     private long projectSeq;    // 프로젝트 번호
     private long ruleSeq;   // 팀 빌딩 규칙 번호
     private String teamName;    // 팀명
+    @Enumerated(EnumType.STRING)
     private TeamStatusType teamStatus;
     private LocalDateTime endDate;
 

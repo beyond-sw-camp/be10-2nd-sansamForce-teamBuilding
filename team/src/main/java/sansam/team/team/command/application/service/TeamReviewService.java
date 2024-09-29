@@ -27,25 +27,66 @@ public class TeamReviewService {
     @Transactional
     public boolean createTeamReview(TeamReviewDTO teamReviewDTO) {
         boolean result = false;
+
         try {
-
-            TeamMember teamMember = teamMemberService.getTeamMemberById(teamReviewDTO.getUserReviewSeq());
-            Team team = teamService.getTeamById(teamMember.getTeamSeq());
-
-            if(isReviewPeriod(team)) {
+            if(isReviewPeriod(teamReviewDTO)) {
                 teamReviewRepository.save(modelMapper.map(teamReviewDTO, TeamReview.class));
+                result = true;
             }
-            result = true;
+
         } catch (Exception e) {
-            if(e.getMessage() != null) log.error("teamReview create Error : {}", e.getMessage());
-            throw new CustomNotFoundException(ErrorCodeType.REVIEW_CREATE_ERROR);
+            if(((CustomNotFoundException) e).getErrorCode() != null) {
+                log.error("teamReview create Error : {}", ((CustomNotFoundException) e).getErrorCode().getMessage());
+                throw new CustomNotFoundException(((CustomNotFoundException) e).getErrorCode());
+            } else {
+                throw new CustomNotFoundException(ErrorCodeType.REVIEW_CREATE_ERROR);
+            }
         }
 
         return result;
     }
 
-    public boolean isReviewPeriod(Team team) {
-        return DateTimeUtil.isBeforeWeek(team.getEndDate(), 2) && team.getTeamStatus().equals(TeamStatusType.CLOSE);
+    public boolean isReviewPeriod(TeamReviewDTO teamReviewDTO) {
+        TeamMember teamMember = teamMemberService.getTeamMemberByUserId(teamReviewDTO.getUserReviewSeq());
+        Team team = teamService.getTeamById(teamMember.getTeamSeq());
+
+        if(!(DateTimeUtil.isBeforeWeek(team.getEndDate(), 2) && team.getTeamStatus().equals(TeamStatusType.CLOSE))) {
+            throw new CustomNotFoundException(ErrorCodeType.REVIEW_CREATE_TIME_ERROR);
+        }
+
+        return true;
     }
 
+    @Transactional
+    public TeamReview updateTeamReview(long reviewSeq, TeamReviewDTO reviewDTO) {
+        try {
+            TeamReview teamReview = teamReviewRepository.findById(reviewSeq)
+                    .orElseThrow(() -> new CustomNotFoundException(ErrorCodeType.REVIEW_NOT_FOUND));
+
+            if(isReviewPeriod(modelMapper.map(teamReview, TeamReviewDTO.class))) {
+                teamReview.updateReview(reviewDTO.getReceiveMemberSeq(), reviewDTO.getReviewStar(), reviewDTO.getReviewContent());
+                teamReviewRepository.save(teamReview);
+            }
+
+            return teamReview;
+
+        } catch (Exception e) {
+            if(((CustomNotFoundException) e).getErrorCode() != null) {
+                log.error("teamReview create Error : {}", ((CustomNotFoundException) e).getErrorCode().getMessage());
+                throw new CustomNotFoundException(((CustomNotFoundException) e).getErrorCode());
+            } else {
+                throw new CustomNotFoundException(ErrorCodeType.REVIEW_CREATE_ERROR);
+            }
+        }
+    }
+
+    @Transactional
+    public void deleteTeamReview(long reviewSeq) {
+        try {
+            teamReviewRepository.deleteById(reviewSeq);
+
+        } catch (Exception e) {
+            throw new CustomNotFoundException(ErrorCodeType.REVIEW_DELETE_ERROR);
+        }
+    }
 }
