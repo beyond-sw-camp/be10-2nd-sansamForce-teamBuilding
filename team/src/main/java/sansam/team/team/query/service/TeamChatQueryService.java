@@ -44,7 +44,6 @@ public class TeamChatQueryService {
         response.setTeamChatMessageList(teamChatMessageList);
         response.setTeamChatMemberList(teamChatMemberList);
 
-        System.out.println("response : " + response);
         webSocketClient.start(response);
 
         return response;
