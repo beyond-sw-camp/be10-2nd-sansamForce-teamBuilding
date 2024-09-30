@@ -7,8 +7,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sansam.team.common.response.ApiResponse;
 import sansam.team.common.response.ResponseUtil;
+import sansam.team.team.command.application.dto.TeamMemberUpdateRequest;
+import sansam.team.team.command.application.dto.TeamUpdateRequest;
 import sansam.team.team.command.application.service.TeamBuildingService;
+import sansam.team.team.command.application.service.TeamMemberService;
 import sansam.team.team.command.domain.aggregate.entity.Team;
+import sansam.team.team.command.domain.aggregate.entity.TeamMember;
 
 import java.io.IOException;
 import java.util.List;
@@ -20,13 +24,33 @@ import java.util.List;
 public class TeamBuildingController {
 
     private final TeamBuildingService teamBuildingService;
+    private final TeamMemberService teamMemberService;
 
     // 팀 빌딩 요청
     @PostMapping
-    @Operation(summary = "프로젝트 내 팀 빌딩")
-    public ApiResponse<List<Team>> buildTeams(@RequestParam Long projectSeq , @RequestParam int teamBuildingRuleSeq) throws IOException {
-        List<Team> teams = teamBuildingService.buildBalancedTeams(projectSeq ,teamBuildingRuleSeq);
-        return ResponseUtil.successResponse("팀 빌딩 성공",teams).getBody();
+    @Operation(summary = "프로젝트 자동 팀 빌딩")
+    public ApiResponse<?> buildTeams(@RequestParam Long projectSeq , @RequestParam int teamBuildingRuleSeq) throws IOException {
+        try{
+            List<Team> teams = teamBuildingService.buildBalancedTeams(projectSeq ,teamBuildingRuleSeq);
+            return ResponseUtil.successResponse("팀 빌딩 성공",teams).getBody();
+        } catch (IllegalArgumentException e){
+            return ResponseUtil.failureResponse(e.getMessage(), "PROJECT_SEQ_NULL").getBody();
+        } catch (Exception e){
+            return ResponseUtil.failureResponse(e.getMessage(), "TEAM_BUILDING_ERROR").getBody();
+        }
+    }
+
+    @PutMapping("/{teamMemberSeq}")
+    @Operation(summary = "프로젝트 수동 팀 빌딩(팀멤버 수정)")
+    public ApiResponse<?> updateTeamMember(@PathVariable Long teamMemberSeq, @RequestBody TeamMemberUpdateRequest request) {
+        try{
+            TeamMember teamMember = teamMemberService.updateTeamMember(teamMemberSeq, request);
+            return ResponseUtil.successResponse("팀 멤버 수정 성공",teamMember).getBody();
+        } catch (IllegalArgumentException e){
+            return ResponseUtil.failureResponse(e.getMessage(), "TEAM_MEMBER_NOT_FOUND").getBody();
+        } catch (Exception e){
+            return ResponseUtil.failureResponse(e.getMessage(), "UPDATE_TEAM_MEMBER_ERROR").getBody();
+        }
     }
 
 }
