@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sansam.team.common.aggregate.YnType;
 import sansam.team.common.aggregate.entity.BaseTimeEntity;
-import sansam.team.project.command.application.dto.project.ProjectMemberUpdateDTO;
+import sansam.team.project.command.application.dto.AdminProjectMemberUpdateDTO;
 import sansam.team.project.command.domain.aggregate.InterestType;
 
 @Entity
@@ -45,7 +45,7 @@ public class ProjectMember extends BaseTimeEntity {
         return new ProjectMember(userSeq, projectSeq);
     }
 
-    public void modifyProjectMember(ProjectMemberUpdateDTO updateDTO) {
+    public void modifyProjectMember(AdminProjectMemberUpdateDTO updateDTO) {
         if (updateDTO.getProjectMemberDelYn() != null) {
             this.projectMemberDelYn = updateDTO.getProjectMemberDelYn();
         }

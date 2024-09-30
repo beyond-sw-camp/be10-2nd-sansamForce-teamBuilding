@@ -6,7 +6,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import sansam.team.project.command.domain.aggregate.ApplyStatus;
-import sansam.team.project.query.dto.projectboard.*;
+import sansam.team.project.query.dto.ProjectApplyMemberQueryDTO;
+import sansam.team.project.query.dto.AdminProjectBoardDTO;
+import sansam.team.project.query.dto.ProjectBoardAllQueryDTO;
+import sansam.team.project.query.dto.ProjectBoardDTO;
 import sansam.team.project.query.mapper.ProjectBoardMapper;
 
 import java.time.LocalDateTime;
@@ -63,7 +66,7 @@ class ProjectBoardQueryServiceTest {
     void getProjectBoardByIdForAdmin_ShouldReturnProjectBoardForAdmin() {
         // Given
         Long projectBoardSeq = 1L;
-        ProjectBoardAdminDTO expected = new ProjectBoardAdminDTO(
+        AdminProjectBoardDTO expected = new AdminProjectBoardDTO(
                 projectBoardSeq,
                 1L,
                 "Project 1",
@@ -82,7 +85,7 @@ class ProjectBoardQueryServiceTest {
         when(projectBoardMapper.findByIdForAdmin(projectBoardSeq)).thenReturn(expected);
 
         // When
-        ProjectBoardAdminDTO actual = projectBoardQueryService.getProjectBoardByIdForAdmin(projectBoardSeq);
+        AdminProjectBoardDTO actual = projectBoardQueryService.getProjectBoardByIdForAdmin(projectBoardSeq);
 
         // Then
         assertEquals(expected, actual);
@@ -92,7 +95,7 @@ class ProjectBoardQueryServiceTest {
     void getProjectBoardByIdForUser_ShouldReturnProjectBoardForUser() {
         // Given
         Long projectBoardSeq = 1L;
-        ProjectBoardUserDTO expected = new ProjectBoardUserDTO(
+        ProjectBoardDTO expected = new ProjectBoardDTO(
                 projectBoardSeq,
                 "Project 1",
                 "Description 1",
@@ -105,7 +108,7 @@ class ProjectBoardQueryServiceTest {
         when(projectBoardMapper.findByIdForUser(projectBoardSeq)).thenReturn(expected);
 
         // When
-        ProjectBoardUserDTO actual = projectBoardQueryService.getProjectBoardByIdForUser(projectBoardSeq);
+        ProjectBoardDTO actual = projectBoardQueryService.getProjectBoardByIdForUser(projectBoardSeq);
 
         // Then
         assertEquals(expected, actual);

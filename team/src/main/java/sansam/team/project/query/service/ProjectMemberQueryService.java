@@ -2,7 +2,7 @@ package sansam.team.project.query.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import sansam.team.project.query.dto.project.ProjectMemberAdminAllQueryDTO;
+import sansam.team.project.query.dto.AdminProjectMemberAllQueryDTO;
 import sansam.team.project.query.mapper.ProjectMemberMapper;
 
 import java.util.List;
@@ -13,7 +13,7 @@ public class ProjectMemberQueryService {
 
     private final ProjectMemberMapper projectMemberMapper;
 
-    public List<ProjectMemberAdminAllQueryDTO> findProjectMembers(Long projectSeq) {
+    public List<AdminProjectMemberAllQueryDTO> findProjectMembers(Long projectSeq) {
         return projectMemberMapper.findProjectMembersByProjectSeq(projectSeq);
     }
 }

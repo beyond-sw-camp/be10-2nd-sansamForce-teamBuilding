@@ -9,11 +9,10 @@ import sansam.team.buildingrule.command.domain.aggregate.BuildingRule;
 import sansam.team.buildingrule.command.domain.repositroy.BuildingRuleRepository;
 import sansam.team.common.aggregate.YnType;
 import sansam.team.common.github.GithubUtil;
-import sansam.team.project.command.application.dto.project.ProjectMemberUpdateDTO;
+import sansam.team.project.command.application.dto.AdminProjectMemberUpdateDTO;
 import sansam.team.project.command.domain.aggregate.InterestType;
 import sansam.team.project.command.domain.aggregate.entity.ProjectMember;
-import sansam.team.project.command.domain.repository.project.ProjectMemberRepository;
-import sansam.team.project.command.domain.repository.project.ProjectRepository;
+import sansam.team.project.command.domain.repository.ProjectMemberRepository;
 import sansam.team.team.command.application.dto.TeamBuildingDTO;
 import sansam.team.team.command.domain.aggregate.entity.Team;
 import sansam.team.team.command.domain.aggregate.entity.TeamMember;
@@ -72,7 +71,7 @@ public class TeamBuildingService {
         }
 
         //pjMember commitScore 업데이트
-        ProjectMemberUpdateDTO pjMemberUpdateDTO = new ProjectMemberUpdateDTO();
+        AdminProjectMemberUpdateDTO pjMemberUpdateDTO = new AdminProjectMemberUpdateDTO();
         pjMemberUpdateDTO.setProjectMemberCommitScore(commitScore);
         pjMember.modifyProjectMember(pjMemberUpdateDTO);
 

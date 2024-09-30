@@ -3,7 +3,7 @@ package sansam.team.project.command.domain.aggregate.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import sansam.team.common.aggregate.entity.BaseTimeEntity;
-import sansam.team.project.command.application.dto.board.ProjectBoardUpdateDTO;
+import sansam.team.project.command.application.dto.AdminProjectBoardUpdateDTO;
 import sansam.team.project.command.domain.aggregate.BoardStatus;
 
 import java.time.LocalDateTime;
@@ -60,16 +60,16 @@ public class ProjectBoard extends BaseTimeEntity {
         return new ProjectBoard(projectBoardTitle, projectBoardContent, projectBoardHeadCount, projectBoardImgUrl, projectBoardStartDate, projectBoardEndDate, boardStatus, projectStartDate, projectEndDate, projectBoardAdminSeq);
     } */
 
-    public void modifyProjectBoard(ProjectBoardUpdateDTO projectBoardUpdateDTO) {
-        this.projectBoardTitle = projectBoardUpdateDTO.getProjectBoardTitle();
-        this.projectBoardContent = projectBoardUpdateDTO.getProjectBoardContent();
-        this.projectBoardHeadCount = projectBoardUpdateDTO.getProjectBoardHeadCount();
-        this.projectBoardImgUrl = projectBoardUpdateDTO.getProjectBoardImgUrl();
-        this.projectBoardStartDate = projectBoardUpdateDTO.getProjectBoardStartDate();
-        this.projectBoardEndDate = projectBoardUpdateDTO.getProjectBoardEndDate();
-        this.projectBoardStatus = projectBoardUpdateDTO.getBoardStatus();
-        this.projectStartDate = projectBoardUpdateDTO.getProjectStartDate();
-        this.projectEndDate = projectBoardUpdateDTO.getProjectEndDate();
+    public void modifyProjectBoard(AdminProjectBoardUpdateDTO adminProjectBoardUpdateDTO) {
+        this.projectBoardTitle = adminProjectBoardUpdateDTO.getProjectBoardTitle();
+        this.projectBoardContent = adminProjectBoardUpdateDTO.getProjectBoardContent();
+        this.projectBoardHeadCount = adminProjectBoardUpdateDTO.getProjectBoardHeadCount();
+        this.projectBoardImgUrl = adminProjectBoardUpdateDTO.getProjectBoardImgUrl();
+        this.projectBoardStartDate = adminProjectBoardUpdateDTO.getProjectBoardStartDate();
+        this.projectBoardEndDate = adminProjectBoardUpdateDTO.getProjectBoardEndDate();
+        this.projectBoardStatus = adminProjectBoardUpdateDTO.getBoardStatus();
+        this.projectStartDate = adminProjectBoardUpdateDTO.getProjectStartDate();
+        this.projectEndDate = adminProjectBoardUpdateDTO.getProjectEndDate();
     }
 
     public void setProjectBoardAdminSeq(Long userSeq) {
