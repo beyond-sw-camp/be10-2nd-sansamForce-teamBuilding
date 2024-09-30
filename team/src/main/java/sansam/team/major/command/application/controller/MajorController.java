@@ -1,8 +1,8 @@
 package sansam.team.major.command.application.controller;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sansam.team.common.response.ResponseUtil;
 import sansam.team.major.command.application.dto.MajorDTO;
 import sansam.team.major.command.application.service.MajorService;
 
@@ -17,20 +17,32 @@ public class MajorController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createMajor(@RequestBody MajorDTO dto) {
-        majorService.createMajor(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<?> createMajor(@RequestBody MajorDTO dto) {
+        try {
+            majorService.createMajor(dto);
+            return ResponseUtil.successResponse("Major created successfully", null);
+        } catch (Exception e) {
+            return ResponseUtil.exceptionResponse(e, "MAJOR_CREATE_ERROR");
+        }
     }
 
     @PutMapping("/{majorSeq}")
-    public ResponseEntity<Void> updateMajor(@PathVariable Long majorSeq, @RequestBody MajorDTO dto) {
-        majorService.updateMajor(majorSeq, dto);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<?> updateMajor(@PathVariable Long majorSeq, @RequestBody MajorDTO dto) {
+        try {
+            majorService.updateMajor(majorSeq, dto);
+            return ResponseUtil.successResponse("Major updated successfully", null);
+        } catch (Exception e) {
+            return ResponseUtil.exceptionResponse(e, "MAJOR_UPDATE_ERROR");
+        }
     }
 
     @DeleteMapping("/{majorSeq}")
-    public ResponseEntity<Void> deleteMajor(@PathVariable Long majorSeq) {
-        majorService.deleteMajor(majorSeq);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<?> deleteMajor(@PathVariable Long majorSeq) {
+        try {
+            majorService.deleteMajor(majorSeq);
+            return ResponseUtil.successResponse("Major deleted successfully", null);
+        } catch (Exception e) {
+            return ResponseUtil.exceptionResponse(e, "MAJOR_DELETE_ERROR");
+        }
     }
 }
