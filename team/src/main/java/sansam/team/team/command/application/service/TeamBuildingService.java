@@ -81,11 +81,31 @@ public class TeamBuildingService {
         return pjMember.getProjectMemberMajorYn()== YnType.Y?5:0;
 
     }
-    /*
-    // 3. 경력 점수 계산 로직 (컬럼 추가해야함)
-    public int calculateCareerScore(ProjectApplyMember pjMember) {
 
-    }*/
+    // 3. 경력 점수 계산 로직
+    public int calculateCareerScore(TeamBuildingDTO teamBuildingDTO) throws IOException {
+        User user = userRepository.findById(teamBuildingDTO.getUserSeq())
+                .orElseThrow(() -> new RuntimeException("User does not exist"));
+        long careerMonth = user.getUserCareerYears()*12 + user.getUserCareerMonths();
+        int careerScore = 0;
+        if(careerMonth>=60){
+            careerScore = 5;
+        }
+        else if(careerMonth>=36){
+            careerScore = 4;
+        }
+        else if(careerMonth>=18){
+            careerScore = 3;
+        }
+        else if(careerMonth>=12){
+            careerScore = 2;
+        }
+        else if(careerMonth>=6){
+            careerScore = 1;
+        }
+        return careerScore;
+
+    }
 
     // 4. 팀원 평가 점수 계산 로직
     public double calculateTeamEvaluation(TeamBuildingDTO teamBuildingDTO) throws IOException {
@@ -118,8 +138,9 @@ public class TeamBuildingService {
         //
         long commitScore = calculateCommitScore(teamBuildingDTO);
         int majorScore = calculateMajorScore(teamBuildingDTO);
+        int careerScore = calculateCareerScore(teamBuildingDTO);
         double teamEvaluationScore = calculateTeamEvaluation(teamBuildingDTO);
-        return commitScore + majorScore + teamEvaluationScore;
+        return commitScore + majorScore + careerScore+ teamEvaluationScore;
     }
     //팀 빌딩 로직 -> 팀 빌딩 규칙 추가해야함
     @Transactional
@@ -146,7 +167,6 @@ public class TeamBuildingService {
         }
         //3. 팀 빌딩 규칙의 팀 개수에 따라 정하기 (지금은 편의상 5로)
         int teamCnt = 5;
-
 
         //4. 팀 만들기
         List<Team> teams = new ArrayList<>();
