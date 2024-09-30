@@ -12,14 +12,14 @@ import sansam.team.team.query.dto.chat.TeamChatMemberResponse;
 import sansam.team.team.query.service.TeamChatMemberQueryService;
 
 @RestController
-@RequestMapping("/api/v1/team/chat")
+@RequestMapping("/api/v1/team/chat/member")
 @RequiredArgsConstructor
 @Tag(name = "Team Chatting Query API", description = "팀 채팅 멤버 조회 API")
 public class TeamChatMemberQueryController {
 
     private final TeamChatMemberQueryService teamChatMemberQueryService;
 
-    @GetMapping("/member/{teamMemberSeq}")
+    @GetMapping("/{teamMemberSeq}")
     @Operation(summary = "채팅방 팀원 정보 조회")
     public ResponseEntity<TeamChatMemberResponse> selectTeamMember(@PathVariable Long teamMemberSeq) {
         TeamChatMemberResponse teamChatMember = teamChatMemberQueryService.selectTeamMember(teamMemberSeq);
