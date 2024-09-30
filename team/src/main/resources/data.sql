@@ -6,39 +6,51 @@ VALUES
 
 
 -- 프로젝트 1의 사용자 (user_seq: 1-10)
-INSERT INTO `tbl_user` (`major_seq`, `user_id`, `user_name`, `user_nickname`, `user_password`, `user_auth`, `user_phone`, `user_email`, `user_birth_date`, `user_gender`, `user_github_id`, `user_profile_img`, `user_status`, `reg_date`)
+INSERT INTO `tbl_user` (`major_seq`, `user_id`, `user_name`, `user_nickname`, `user_password`, `user_auth`, `user_phone`, `user_email`, `user_birth_date`, `user_gender`, `user_github_id`, `user_profile_img`, `user_status`, `reg_date`,`user_career_years`,`user_career_months`)
 VALUES
-    (1, 'user1_p1', 'User One', 'UOne', 'password1', 'MEMBER', '01012345678', 'user1_p1@example.com', '900101', 'Male', 'person76', NULL, 'active', NOW()),
-    (1, 'user2_p1', 'User Two', 'UTwo', 'password2', 'MEMBER', '01023456789', 'user2_p1@example.com', '900202', 'Female', 'person76', NULL, 'active', NOW()),
-    (1, 'user3_p1', 'User Three', 'UThree', 'password3', 'MEMBER', '01034567890', 'user3_p1@example.com', '900303', 'Male', 'person76', NULL, 'active', NOW()),
-    (1, 'user4_p1', 'User Four', 'UFour', 'password4', 'MEMBER', '01045678901', 'user4_p1@example.com', '900404', 'Female', 'person76', NULL, 'active', NOW()),
-    (1, 'user5_p1', 'User Five', 'UFive', 'password5', 'MEMBER', '01056789012', 'user5_p1@example.com', '900505', 'Male', 'person76', NULL, 'active', NOW()),
-    (1, 'user6_p1', 'User Six', 'USix', 'password6', 'MEMBER', '01067890123', 'user6_p1@example.com', '900606', 'Female', 'person76', NULL, 'active', NOW()),
-    (1, 'user7_p1', 'User Seven', 'USeven', 'password7', 'MEMBER', '01078901234', 'user7_p1@example.com', '900707', 'Male', 'person76', NULL, 'active', NOW()),
-    (1, 'user8_p1', 'User Eight', 'UEight', 'password8', 'MEMBER', '01089012345', 'user8_p1@example.com', '900808', 'Female', 'person76', NULL, 'active', NOW()),
-    (1, 'user9_p1', 'User Nine', 'UNine', 'password9', 'MEMBER', '01090123456', 'user9_p1@example.com', '900909', 'Male', 'person76', NULL, 'active', NOW()),
-    (1, 'user10_p1', 'User Ten', 'UTen', 'password10', 'MEMBER', '01001234567', 'user10_p1@example.com', '901010', 'Female', 'person76', NULL, 'active', NOW()),
+    (1, 'user1_p1', 'User One', 'UOne', 'password1', 'MEMBER', '01012345678', 'user1_p1@example.com', '900101', 'Male', 'person76', NULL, 'active', NOW(),2,3),
+    (1, 'user2_p1', 'User Two', 'UTwo', 'password2', 'MEMBER', '01023456789', 'user2_p1@example.com', '900202', 'Female', 'person76', NULL, 'active', NOW(),0,0),
+    (1, 'user3_p1', 'User Three', 'UThree', 'password3', 'MEMBER', '01034567890', 'user3_p1@example.com', '900303', 'Male', 'person76', NULL, 'active', NOW(),1,3),
+    (1, 'user4_p1', 'User Four', 'UFour', 'password4', 'MEMBER', '01045678901', 'user4_p1@example.com', '900404', 'Female', 'person76', NULL, 'active', NOW(),4,0),
+    (1, 'user5_p1', 'User Five', 'UFive', 'password5', 'MEMBER', '01056789012', 'user5_p1@example.com', '900505', 'Male', 'person76', NULL, 'active', NOW(),0,6),
+    (1, 'user6_p1', 'User Six', 'USix', 'password6', 'MEMBER', '01067890123', 'user6_p1@example.com', '900606', 'Female', 'person76', NULL, 'active', NOW(),0,3),
+    (1, 'user7_p1', 'User Seven', 'USeven', 'password7', 'MEMBER', '01078901234', 'user7_p1@example.com', '900707', 'Male', 'person76', NULL, 'active', NOW(),2,10),
+    (1, 'user8_p1', 'User Eight', 'UEight', 'password8', 'MEMBER', '01089012345', 'user8_p1@example.com', '900808', 'Female', 'person76', NULL, 'active', NOW(),0,3),
+    (1, 'user9_p1', 'User Nine', 'UNine', 'password9', 'MEMBER', '01090123456', 'user9_p1@example.com', '900909', 'Male', 'person76', NULL, 'active', NOW(),1,3),
+    (1, 'user10_p1', 'User Ten', 'UTen', 'password10', 'MEMBER', '01001234567', 'user10_p1@example.com', '901010', 'Female', 'person76', NULL, 'active', NOW(),2,7),
 
 -- 프로젝트 2의 사용자 (user_seq: 11-20)
-    (2, 'user1_p2', 'User Eleven', 'UEleven', 'password11', 'MEMBER', '01011234567', 'user1_p2@example.com', '901111', 'Male', 'person76', NULL, 'active', NOW()),
-    (2, 'user2_p2', 'User Twelve', 'UTwelve', 'password12', 'MEMBER', '01022345678', 'user2_p2@example.com', '901222', 'Female', 'person76', NULL, 'active', NOW()),
-    (2, 'user3_p2', 'User Thirteen', 'UThirteen', 'password13', 'MEMBER', '01033456789', 'user3_p2@example.com', '901333', 'Male', 'person76', NULL, 'active', NOW()),
-    (2, 'user4_p2', 'User Fourteen', 'UFourteen', 'password14', 'MEMBER', '01044567890', 'user4_p2@example.com', '901444', 'Female', 'person76', NULL, 'active', NOW()),
-    (2, 'user5_p2', 'User Fifteen', 'UFifteen', 'password15', 'MEMBER', '01055678901', 'user5_p2@example.com', '901555', 'Male', 'person76', NULL, 'active', NOW()),
-    (2, 'user6_p2', 'User Sixteen', 'USixteen', 'password16', 'MEMBER', '01066789012', 'user6_p2@example.com', '901666', 'Female', 'person76', NULL, 'active', NOW()),
-    (2, 'user7_p2', 'User Seventeen', 'USeventeen', 'password17', 'MEMBER', '01077890123', 'user7_p2@example.com', '901777', 'Male', 'person76', NULL, 'active', NOW()),
-    (2, 'user8_p2', 'User Eighteen', 'UEighteen', 'password18', 'MEMBER', '01088901234', 'user8_p2@example.com', '901888', 'Female', 'person76', NULL, 'active', NOW()),
-    (2, 'user9_p2', 'User Nineteen', 'UNineteen', 'password19', 'MEMBER', '01099012345', 'user9_p2@example.com', '901999', 'Male', 'person76', NULL, 'active', NOW()),
-    (2, 'user10_p2', 'User Twenty', 'UTwenty', 'password20', 'MEMBER', '01010123456', 'user10_p2@example.com', '902010', 'Female', 'person76', NULL, 'active', NOW());
+    (2, 'user1_p2', 'User Eleven', 'UEleven', 'password11', 'MEMBER', '01011234567', 'user1_p2@example.com', '901111', 'Male', 'person76', NULL, 'active', NOW(),2,3),
+    (2, 'user2_p2', 'User Twelve', 'UTwelve', 'password12', 'MEMBER', '01022345678', 'user2_p2@example.com', '901222', 'Female', 'person76', NULL, 'active', NOW(),0,0),
+    (2, 'user3_p2', 'User Thirteen', 'UThirteen', 'password13', 'MEMBER', '01033456789', 'user3_p2@example.com', '901333', 'Male', 'person76', NULL, 'active', NOW(),2,3),
+    (2, 'user4_p2', 'User Fourteen', 'UFourteen', 'password14', 'MEMBER', '01044567890', 'user4_p2@example.com', '901444', 'Female', 'person76', NULL, 'active', NOW(),5,10),
+    (2, 'user5_p2', 'User Fifteen', 'UFifteen', 'password15', 'MEMBER', '01055678901', 'user5_p2@example.com', '901555', 'Male', 'person76', NULL, 'active', NOW(),2,3),
+    (2, 'user6_p2', 'User Sixteen', 'USixteen', 'password16', 'MEMBER', '01066789012', 'user6_p2@example.com', '901666', 'Female', 'person76', NULL, 'active', NOW(),0,3),
+    (2, 'user7_p2', 'User Seventeen', 'USeventeen', 'password17', 'MEMBER', '01077890123', 'user7_p2@example.com', '901777', 'Male', 'person76', NULL, 'active', NOW(),2,3),
+    (2, 'user8_p2', 'User Eighteen', 'UEighteen', 'password18', 'MEMBER', '01088901234', 'user8_p2@example.com', '901888', 'Female', 'person76', NULL, 'active', NOW(),1,3),
+    (2, 'user9_p2', 'User Nineteen', 'UNineteen', 'password19', 'MEMBER', '01099012345', 'user9_p2@example.com', '901999', 'Male', 'person76', NULL, 'active', NOW(),2,3),
+    (2, 'user10_p2', 'User Twenty', 'UTwenty', 'password20', 'MEMBER', '01010123456', 'user10_p2@example.com', '902010', 'Female', 'person76', NULL, 'active', NOW(),10,0);
 
-INSERT INTO `tbl_building_rule` (`rule_team_count`, `rule_major_weight`, `rule_career_weight`, `rule_github_weight`, `rule_team_review_weight`, `rule_mentor_review_weight`, `rule_tech_stack_yn`, `reg_date`)
-VALUES
-    (2, 10, 8, 7, 5, 5, 'Y', NOW());
 
 INSERT INTO `tbl_project` (`project_admin_seq`, `project_title`, `project_content`, `project_status`, `project_head_count`, `project_img_url`, `project_start_date`, `project_end_date`, `reg_date`)
 VALUES
     (1, 'Project Alpha', 'Content for Project Alpha', 'PROGRESS', 10, 'http://example.com/alpha.png', '2024-01-01 00:00:00', '2024-12-31 23:59:59', NOW()),
     (11, 'Project Beta', 'Content for Project Beta', 'PROGRESS', 10, 'http://example.com/beta.png', '2024-02-01 00:00:00', '2024-11-30 23:59:59', NOW());
+
+
+INSERT INTO tbl_building_rule ( rule_team_count
+                              , rule_major_weight
+                              , rule_career_weight
+                              , rule_github_weight
+                              , rule_team_review_weight
+                              , rule_mentor_review_weight
+                              , rule_tech_stack_yn
+                              , reg_date
+)
+VALUES
+    (5,4 , 3,2, 5,4,'Y',NOW()),
+    (2, 10, 8, 7, 5, 5, 'Y', NOW());
+
 
 -- 프로젝트 Alpha (project_seq: 1)
 INSERT INTO `tbl_team` (`project_seq`, `rule_seq`, `team_name`, `team_status`, `reg_date`, `end_date`)
@@ -113,26 +125,3 @@ VALUES
     (2, 'Alpha Team B Design Review', '2024-01-10 14:00:00', '2024-01-10 16:00:00'),
     (3, 'Beta Team A Sprint Planning', '2024-02-05 09:00:00', '2024-02-05 11:00:00'),
     (4, 'Beta Team B Retrospective', '2024-02-15 15:00:00', '2024-02-15 17:00:00');
-
-INSERT INTO tbl_building_rule ( rule_team_count
-                              , rule_major_weight
-                              , rule_career_weight
-                              , rule_github_weight
-                              , rule_team_review_weight
-                              , rule_mentor_review_weight
-                              , rule_tech_stack_yn
-                              , reg_date
-                              , mod_date
-)
-VALUES (
-           1,
-           10,
-           4,
-           3,
-           2,
-           5,
-           4,
-           'Y',
-           NOW(),
-           NOW()
-       );

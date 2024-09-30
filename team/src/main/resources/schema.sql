@@ -49,6 +49,8 @@ CREATE TABLE `tbl_user`
     `reg_date` timestamp NOT NULL,
     `mod_date` timestamp NULL,
     `del_date` timestamp NULL,
+    `user_career_years` bigint NULL,
+    `user_career_months` bigint NULL,
     PRIMARY KEY (`user_seq`),
     CONSTRAINT `FK_TBL_USER_MAJOR_SEQ` FOREIGN KEY (`major_seq`) REFERENCES `tbl_major`(`major_seq`)
 );

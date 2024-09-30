@@ -19,5 +19,8 @@ public class MyPageDTO {
     private String userEmail;
     private String userGithubId;
     private String userProfileImg;
+    private Long userCareerYears;
+    private Long userCareerMonths;
+
 }
 
