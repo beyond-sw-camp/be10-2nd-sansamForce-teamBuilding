@@ -9,9 +9,15 @@ import java.time.LocalDateTime;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class TeamScheduleDTO extends BaseTimeEntity {
+
     private long teamScheduleSeq;
+
     private long teamSeq;
+
     private String scheduleContent;
+
     private LocalDateTime scheduleStartDate;
+
     private LocalDateTime scheduleEndDate;
+
 }

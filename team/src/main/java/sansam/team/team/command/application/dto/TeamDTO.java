@@ -10,10 +10,17 @@ import java.time.LocalDateTime;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class TeamDTO extends BaseTimeEntity {
+
     private long teamSeq;
+
     private long projectSeq;
+
     private long ruleSeq;
+
     private String teamName;
+
     private TeamStatusType teamStatus;
+
     private LocalDateTime endDate;
+
 }

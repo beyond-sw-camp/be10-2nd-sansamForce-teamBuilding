@@ -47,7 +47,7 @@ public class TeamReviewService {
     }
 
     public boolean isReviewPeriod(TeamReviewDTO teamReviewDTO) {
-        TeamMember teamMember = teamMemberService.getTeamMemberByUserId(teamReviewDTO.getUserReviewSeq());
+        TeamMember teamMember = teamMemberService.getTeamMemberByUserSeq(teamReviewDTO.getUserReviewSeq());
         Team team = teamService.getTeamById(teamMember.getTeamSeq());
 
         if(!(DateTimeUtil.isBeforeWeek(team.getEndDate(), 2) && team.getTeamStatus().equals(TeamStatusType.CLOSE))) {
@@ -72,7 +72,7 @@ public class TeamReviewService {
 
         } catch (Exception e) {
             if(((CustomNotFoundException) e).getErrorCode() != null) {
-                log.error("teamReview create Error : {}", ((CustomNotFoundException) e).getErrorCode().getMessage());
+                log.error("teamReview update Error : {}", ((CustomNotFoundException) e).getErrorCode().getMessage());
                 throw new CustomNotFoundException(((CustomNotFoundException) e).getErrorCode());
             } else {
                 throw new CustomNotFoundException(ErrorCodeType.REVIEW_CREATE_ERROR);

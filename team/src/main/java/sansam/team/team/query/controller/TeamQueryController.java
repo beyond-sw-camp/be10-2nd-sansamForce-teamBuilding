@@ -24,7 +24,7 @@ public class TeamQueryController {
 
     @GetMapping(value = {"/schedule/{teamSeq}"})
     @Operation(summary = "팀 일정 조회", description = "팀 일정 API")
-    public List<TeamScheduleQueryDTO> loginProcess(@PathVariable long teamSeq) {
+    public List<TeamScheduleQueryDTO> getTeamScheduleList(@PathVariable long teamSeq) {
         return teamQueryService.getTeamScheduleList(teamSeq);
     }
 

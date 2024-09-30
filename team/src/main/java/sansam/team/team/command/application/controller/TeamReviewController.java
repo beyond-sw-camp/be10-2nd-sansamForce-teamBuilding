@@ -18,7 +18,7 @@ public class TeamReviewController {
 
     private final TeamReviewService teamReviewService;
 
-    @PostMapping("/createReview")
+    @PostMapping("/create")
     @Operation(summary = "팀원 평가 추가")
     public ApiResponse<String> createTeamReview(@RequestBody TeamReviewDTO reviewDTO) {
         boolean result = teamReviewService.createTeamReview(reviewDTO);

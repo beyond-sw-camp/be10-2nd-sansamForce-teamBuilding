@@ -24,6 +24,9 @@ public enum ErrorCodeType {
     //team schedule 관련 오류
     SCHEDULE_NOT_FOUND(HttpStatus.NOT_FOUND, "SCHEDULE_ERROR_001", "해당 일정을 찾을 수 없습니다."),
     SCHEDULE_DELETE_ERROR(HttpStatus.BAD_REQUEST, "SCHEDULE_ERROR_002", "해당 일정을 삭제할 수 없습니다."),
+    
+    //team member schedule 관련 오류
+    MEMBER_SCHEDULE_CREATE_ERROR(HttpStatus.BAD_REQUEST, "MEMBER_SCHEDULE_ERROR_001", "해당 팀원의 진행 상황을 생성할 수 없습니다."),
 
     //team review 관련 오류
     REVIEW_CREATE_ERROR(HttpStatus.BAD_REQUEST, "REVIEW_ERROR_001", "팀원 평가를 생성할 수 없습니다."),
