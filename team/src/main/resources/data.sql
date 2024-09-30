@@ -114,3 +114,25 @@ VALUES
     (3, 'Beta Team A Sprint Planning', '2024-02-05 09:00:00', '2024-02-05 11:00:00'),
     (4, 'Beta Team B Retrospective', '2024-02-15 15:00:00', '2024-02-15 17:00:00');
 
+INSERT INTO tbl_building_rule ( rule_team_count
+                              , rule_major_weight
+                              , rule_career_weight
+                              , rule_github_weight
+                              , rule_team_review_weight
+                              , rule_mentor_review_weight
+                              , rule_tech_stack_yn
+                              , reg_date
+                              , mod_date
+)
+VALUES (
+           1,
+           10,
+           4,
+           3,
+           2,
+           5,
+           4,
+           'Y',
+           NOW(),
+           NOW()
+       );
