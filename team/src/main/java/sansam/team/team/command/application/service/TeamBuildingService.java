@@ -144,7 +144,7 @@ public class TeamBuildingService {
     }
     //팀 빌딩 로직 -> 팀 빌딩 규칙 추가해야함
     @Transactional
-    public List<Team> buildBalancedTeams(Long projectSeq /*, Long buildingRuleSeq */) throws IOException {
+    public List<Team> buildBalancedTeams(Long projectSeq, /*, Long buildingRuleSeq */int teamBuildingRuleSeq) throws IOException {
 
         //1. 해당 프로젝트 참여자 List 불러오기
         List<ProjectMember> projectMembers = projectMemberRepository.findAllByProjectSeq(projectSeq);
