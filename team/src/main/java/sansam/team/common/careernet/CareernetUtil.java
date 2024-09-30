@@ -10,25 +10,34 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Component
 public class CareernetUtil {
-        private static final String API_URL = " //www.career.go.kr/cnet/openapi/getOpenApi.json?apiKey=";
-        private static final String SERVICE_TYPE = "schoolInfo";
+    private static final String API_URL = "http://www.career.go.kr/cnet/openapi/getOpenApi.json";
 
-        private final CareernetConfig careernetConfig;
+    @Autowired
+    private final CareernetConfig careernetConfig;
 
-        @Autowired
-        public CareernetUtil(CareernetConfig careernetConfig) {
-            this.careernetConfig = careernetConfig;
-        }
+    public CareernetUtil(CareernetConfig careernetConfig) {
+        this.careernetConfig = careernetConfig;
+    }
 
-        public JSONArray getMajorInfo() throws Exception {
-            RestTemplate restTemplate = new RestTemplate();
-            String queryUrl = API_URL + careernetConfig.getApiKey();
+    public JSONArray getMajorInfo(String gubun, String thisPage, String perPage) throws Exception {
+        RestTemplate restTemplate = new RestTemplate();
 
-            ResponseEntity<String> response = restTemplate.getForEntity(queryUrl, String.class);
-            JSONObject jsonResponse = new JSONObject(response.getBody());
+        // 필수 파라미터 설정
+        String queryUrl = API_URL + "?apiKey=" + careernetConfig.getApiKey()
+                + "&svcType=api"   // 필수 요청 변수
+                + "&svcCode=MAJOR" // 리스트 조회
+                + "&gubun=" + gubun // 고등학교 or 대학교
+                + "&thisPage=" + thisPage  // 현재 페이지
+                + "&perPage=" + perPage;   // 페이지 당 조회 건수
 
-            return jsonResponse.getJSONArray("majors");
-        }
+        ResponseEntity<String> response = restTemplate.getForEntity(queryUrl, String.class);
+
+        // 응답 처리
+        JSONObject jsonResponse = new JSONObject(response.getBody());
+        JSONObject dataSearch = jsonResponse.getJSONObject("dataSearch");
+
+        return dataSearch.getJSONArray("content");  // 학과 정보 리스트 반환
+    }
 }
 
 
