@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sansam.team.buildingrule.command.application.dto.BuildingRuleDTO;
-import sansam.team.common.BaseTimeEntity;
-import sansam.team.common.YnType;
+import sansam.team.common.aggregate.YnType;
+import sansam.team.common.aggregate.entity.BaseTimeEntity;
 
 @Entity
 @Table(name = "tbl_building_rule")
