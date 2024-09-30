@@ -5,7 +5,7 @@
 <mapper namespace="sansam.team.project.query.mapper.ProjectMemberMapper">
 
     <!-- 프로젝트 번호로 프로젝트 회원 전체 조회 -->
-    <select id="findProjectMembersByProjectSeq" resultType="ProjectMemberAdminAllQueryDTO">
+    <select id="findProjectMembersByProjectSeq" resultType="AdminProjectMemberAllQueryDTO">
         SELECT
         pm.user_seq AS userSeq,
         u.user_name AS userName,

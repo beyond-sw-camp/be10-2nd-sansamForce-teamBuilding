@@ -13,7 +13,7 @@ import sansam.team.team.command.application.service.TeamChatMessageService;
 @RestController
 @RequestMapping("/api/v1/team/chat/message")
 @RequiredArgsConstructor
-@Tag(name = "Team Chatting Message API", description = "팀 채팅방 메시지 전송")
+@Tag(name = "3-6. Team Chatting Message API", description = "팀 채팅방 메시지 전송")
 public class TeamChatMessageController {
 
     private final TeamChatMessageService teamChatMessageService;

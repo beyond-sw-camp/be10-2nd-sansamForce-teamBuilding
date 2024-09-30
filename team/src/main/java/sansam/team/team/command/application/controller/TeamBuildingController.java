@@ -14,17 +14,17 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/teamBuilding")
+@RequestMapping("/api/v1/team/build")
 @RequiredArgsConstructor
-@Tag(name = "TeamBuilding API", description = "팀빌딩 API")
+@Tag(name = "3-2. Team Building API", description = "팀빌딩 API")
 public class TeamBuildingController {
 
     private final TeamBuildingService teamBuildingService;
 
     // 팀 빌딩 요청
-    @PostMapping("/team_building")
+    @PostMapping
     @Operation(summary = "프로젝트 내 팀 빌딩")
-    public ApiResponse<List<Team>> buildTeams(@RequestParam Long projectSeq , @RequestParam int teamBuildingRuleSeq ) throws IOException {
+    public ApiResponse<List<Team>> buildTeams(@RequestParam Long projectSeq , @RequestParam int teamBuildingRuleSeq) throws IOException {
         List<Team> teams = teamBuildingService.buildBalancedTeams(projectSeq ,teamBuildingRuleSeq);
         return ResponseUtil.successResponse("팀 빌딩 성공",teams).getBody();
     }

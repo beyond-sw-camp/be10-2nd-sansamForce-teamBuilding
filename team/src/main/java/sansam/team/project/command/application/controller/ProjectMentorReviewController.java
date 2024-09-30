@@ -14,7 +14,7 @@ import sansam.team.project.command.application.service.ProjectMentorReviewServic
 @RestController
 @RequestMapping("/api/v1/project/{projectSeq}/mentor/review")
 @RequiredArgsConstructor
-@Tag(name = "Project Mentor Review API", description = "프로젝트 강사 평가 API")
+@Tag(name = "2-6. Project Mentor Review API", description = "프로젝트 강사 평가 API")
 public class ProjectMentorReviewController {
 
     private final ProjectMentorReviewService projectMentorReviewService;

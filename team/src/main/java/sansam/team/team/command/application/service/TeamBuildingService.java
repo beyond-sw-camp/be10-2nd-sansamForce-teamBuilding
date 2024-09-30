@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sansam.team.buildingrule.command.application.dto.BuildingRuleDTO;
-import sansam.team.buildingrule.command.domain.aggregate.BuildingRule;
-import sansam.team.buildingrule.command.domain.repositroy.BuildingRuleRepository;
+import sansam.team.team.command.application.dto.TeamBuildingRuleDTO;
+import sansam.team.team.command.domain.aggregate.entity.TeamBuildingRule;
+import sansam.team.team.command.domain.repository.TeamBuildingRuleRepository;
 import sansam.team.common.aggregate.YnType;
 import sansam.team.common.github.GithubUtil;
 import sansam.team.project.command.application.dto.AdminProjectMemberUpdateDTO;
@@ -37,7 +37,7 @@ public class TeamBuildingService {
     private final GithubUtil githubUtil;
     private final TeamReviewRepository teamReviewRepository;
     private final TeamMemberRepository teamMemberRepository;
-    private final BuildingRuleRepository buildingRuleRepository;
+    private final TeamBuildingRuleRepository buildingRuleRepository;
 
     // 1. 깃허브 커밋 점수 계산 로직
     public long calculateCommitScore(TeamBuildingDTO teamBuildingDTO) throws IOException {
@@ -138,7 +138,7 @@ public class TeamBuildingService {
 
 
     // 팀 빌딩 점수 합 구하기.
-    public double calculateTotalScore(TeamBuildingDTO teamBuildingDTO, BuildingRuleDTO buildingRuleDTO) throws IOException {
+    public double calculateTotalScore(TeamBuildingDTO teamBuildingDTO, TeamBuildingRuleDTO buildingRuleDTO) throws IOException {
         //
         long commitScore = calculateCommitScore(teamBuildingDTO) * buildingRuleDTO.getRuleGithubWeight();
         int majorScore = calculateMajorScore(teamBuildingDTO) * buildingRuleDTO.getRuleMajorWeight();
@@ -153,7 +153,7 @@ public class TeamBuildingService {
 
         //1. 해당 프로젝트 참여자 List와 팀빌딩 규칙 불러오기
         List<ProjectMember> projectMembers = projectMemberRepository.findAllByProjectSeq(projectSeq);
-        BuildingRule buildingRule = buildingRuleRepository.findById(teamBuildingRuleSeq)
+        TeamBuildingRule buildingRule = buildingRuleRepository.findById(teamBuildingRuleSeq)
                 .orElseThrow(() -> new RuntimeException("빌딩 규칙이 존재하지 않습니다."));
 
 

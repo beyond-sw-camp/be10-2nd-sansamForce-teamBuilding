@@ -19,7 +19,7 @@
     </select>
 
     <!-- 특정 ID로 ProjectBoard 데이터를 가져오는 SQL (관리자 전용) -->
-    <select id="findByIdForAdmin" parameterType="long" resultType="ProjectBoardAdminDTO">
+    <select id="findByIdForAdmin" parameterType="long" resultType="AdminProjectBoardDTO">
         SELECT
             project_board_seq,
             project_board_admin_seq,
@@ -40,7 +40,7 @@
     </select>
 
     <!-- 특정 ID로 ProjectBoard 데이터를 가져오는 SQL (사용자 전용) -->
-    <select id="findByIdForUser" parameterType="long" resultType="ProjectBoardUserDTO">
+    <select id="findByIdForUser" parameterType="long" resultType="ProjectBoardDTO">
         SELECT
             project_board_seq,
             project_board_title,

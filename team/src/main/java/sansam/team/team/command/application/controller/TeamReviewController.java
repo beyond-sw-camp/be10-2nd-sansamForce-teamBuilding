@@ -12,7 +12,7 @@ import sansam.team.team.command.domain.aggregate.entity.TeamReview;
 
 @RestController
 @RequestMapping("api/vi/team/review")
-@Tag(name = "TeamReview API", description = "팀 평가 API")
+@Tag(name = "3-8. TeamReview API", description = "팀 평가 API")
 @RequiredArgsConstructor
 public class TeamReviewController {
 

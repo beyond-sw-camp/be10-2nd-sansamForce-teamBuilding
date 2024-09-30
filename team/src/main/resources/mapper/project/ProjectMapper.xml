@@ -33,7 +33,7 @@
     </select>
 
     <!-- 프로젝트 상세 조회 (관리자) - 관리자 이름 포함 -->
-    <select id="findProjectByIdForAdmin" resultType="ProjectAdminQueryDTO">
+    <select id="findProjectByIdForAdmin" resultType="AdminProjectQueryDTO">
         SELECT
             p.project_seq AS projectSeq,
             p.project_title AS projectTitle,
@@ -53,7 +53,7 @@
     </select>
 
     <!-- 프로젝트 상세 조회 (사용자) -->
-    <select id="findProjectByIdForUser" resultType="ProjectUserQueryDTO">
+    <select id="findProjectByIdForUser" resultType="ProjectQueryDTO">
         SELECT
             project_seq AS projectSeq,
             project_title AS projectTitle,

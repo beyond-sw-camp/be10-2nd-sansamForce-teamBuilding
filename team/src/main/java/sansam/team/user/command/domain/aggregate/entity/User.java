@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 
-import sansam.team.user.command.application.dto.mypagedto.MyPageDTO;
+import sansam.team.user.command.application.dto.UserUpdateRequestDTO;
 
 import sansam.team.common.aggregate.entity.BaseTimeEntity;
 import sansam.team.common.aggregate.RoleType;
@@ -75,10 +75,6 @@ public class User extends BaseTimeEntity {
         this.userId = id;
     }
 
-    public void setToken(String token) {
-        this.token = token;
-    }
-
     // Spring Security 권한 반환
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
@@ -93,13 +89,7 @@ public class User extends BaseTimeEntity {
         return authorities;
     }
 
-    /* 테스트용 userSeq 세터 메소드 */
-    public void setUserSeq(Long userSeq) {
-        this.userSeq = userSeq;
-    }
-
-
-    public void updateMyPageList(MyPageDTO myPageDTO) {
+    public void modifyUser(UserUpdateRequestDTO myPageDTO) {
 
         this.userNickname = myPageDTO.getUserNickname();
         this.userPhone = myPageDTO.getUserPhone();
