@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class MentorReviewDTO {
+public class MentorReviewUpdateDTO {
 
     private double mentorReviewStar;
     private String mentorReviewContent;

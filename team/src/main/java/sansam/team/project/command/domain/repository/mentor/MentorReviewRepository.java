@@ -8,7 +8,8 @@ public interface MentorReviewRepository {
 
     MentorReview save(MentorReview mentorReview);
 
-    Optional<MentorReview> findByProjectMemberSeq(Long projectMemberSeq);
+    Optional<MentorReview> findById(Long mentorReviewSeq);
 
     void delete(MentorReview mentorReview);
+
 }

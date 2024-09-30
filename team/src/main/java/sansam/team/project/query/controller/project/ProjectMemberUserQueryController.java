@@ -33,7 +33,7 @@ public class ProjectMemberUserQueryController {
     /**
      * 프로젝트 상세 조회 (사용자용)
      */
-    @GetMapping("/user/{projectSeq}")
+    @GetMapping("/{projectSeq}")
     @Operation(summary = "회원 별 프로젝트 상세 조회", description = "해당 사용자가 들어간 프로젝트 상세 조회")
     public ProjectUserQueryDTO getProjectByIdForUser(@PathVariable Long projectSeq) {
         return projectQueryService.getProjectByIdForUser(projectSeq); // ResponseEntity 생략하고 DTO 반환
