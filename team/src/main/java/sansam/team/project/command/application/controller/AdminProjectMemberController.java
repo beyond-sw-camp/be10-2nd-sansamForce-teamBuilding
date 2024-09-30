@@ -6,8 +6,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sansam.team.common.response.ApiResponse;
+import sansam.team.common.response.ResponseUtil;
 import sansam.team.project.command.application.dto.AdminProjectMemberUpdateDTO;
 import sansam.team.project.command.application.service.AdminProjectMemberService;
+import sansam.team.project.command.domain.aggregate.entity.MentorReview;
 import sansam.team.project.command.domain.aggregate.entity.ProjectMember;
 
 @RestController
@@ -18,29 +21,48 @@ public class AdminProjectMemberController {
 
     private final AdminProjectMemberService adminProjectMemberService;
 
-    // 프로젝트 멤버 생성 엔드포인트
+    // 프로젝트 회원 추가 API
     @PostMapping("/{projectSeq}")
     @Operation(summary = "프로젝트 회원 추가", description = "프로젝트 회원 추가 API (관리자만 가능)")
-    public ResponseEntity<ProjectMember> addProjectMember(
+    public ApiResponse<?> addProjectMember(
             @PathVariable Long projectSeq,
             @RequestParam Long userSeq) {  // 요청 파라미터로 userSeq 받기
 
-        // 주어진 userSeq와 프로젝트 정보를 이용해 멤버 추가
-        ProjectMember projectMember = adminProjectMemberService.containForProject(projectSeq, userSeq);
+        try {
+            // 주어진 userSeq와 프로젝트 정보를 이용해 멤버 추가
+            ProjectMember projectMember = adminProjectMemberService.containForProject(projectSeq, userSeq);
 
-        return ResponseEntity.ok(projectMember);
+            // 성공 응답 반환
+            return ResponseUtil.successResponse("Project member created successfully").getBody();
+        } catch (IllegalArgumentException e) {
+            // 실패 응답 반환 (예외 발생 시)
+            return ResponseUtil.failureResponse(e.getMessage(), "PROJECT_SEQ_NULL").getBody();
+        } catch (Exception e) {
+            // 그 외 예외 처리
+            return ResponseUtil.exceptionResponse(e, "PROJECT_MEMBER_CREATE_ERROR").getBody();
+        }
     }
 
     // 프로젝트 멤버 수정 엔드포인트
     @PutMapping("/{projectMemberSeq}")
     @Operation(summary = "프로젝트 회원 상태 변경(탈퇴 유무, 멘토 유무)", description = "프로젝트 수정 API (관리자만 가능)")
-    public ResponseEntity<ProjectMember> updateProjectMember(
+    public ApiResponse<?> updateProjectMember(
             @PathVariable Long projectMemberSeq,
             @RequestBody AdminProjectMemberUpdateDTO updateDTO) {
 
-        ProjectMember updatedProjectMember = adminProjectMemberService.updateProjectMember(projectMemberSeq, updateDTO);
+        try {
+            // 프로젝트 회원 상태 변경 요청
+            ProjectMember updatedProjectMember = adminProjectMemberService.updateProjectMember(projectMemberSeq, updateDTO);
 
-        return ResponseEntity.ok(updatedProjectMember);
+            // 성공 응답 반환
+            return ResponseUtil.successResponse("Project member updated successfully").getBody();
+        } catch (IllegalArgumentException e) {
+            // 실패 응답 반환 (예외 발생 시)
+            return ResponseUtil.failureResponse(e.getMessage(), "PROJECT_MEMBER_SEQ_NULL").getBody();
+        } catch (Exception e) {
+            // 그 외 예외 처리
+            return ResponseUtil.exceptionResponse(e, "PROJECT_MEMBER_UPDATE_ERROR").getBody();
+        }
     }
 }
 
