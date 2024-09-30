@@ -22,7 +22,7 @@ public class BuildingRuleService {
     }
 
     @Transactional
-    public BuildingRule updateBuildingRule(int ruleSeq, BuildingRuleDTO buildingRuleDTO) {
+    public BuildingRule updateBuildingRule(long ruleSeq, BuildingRuleDTO buildingRuleDTO) {
         BuildingRule existingBuildingRule = buildingRuleRepository.findById(ruleSeq)
                 .orElseThrow(() -> new IllegalArgumentException("Rule not found"));
 
@@ -32,7 +32,7 @@ public class BuildingRuleService {
     }
 
     @Transactional
-    public void deleteBuildingRule(int ruleSeq) {
+    public void deleteBuildingRule(long ruleSeq) {
         buildingRuleRepository.deleteById(ruleSeq);
     }
 }

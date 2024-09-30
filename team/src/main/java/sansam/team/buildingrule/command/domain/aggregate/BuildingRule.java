@@ -15,7 +15,7 @@ public class BuildingRule extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ruleSeq;
+    private long ruleSeq;
     private int ruleTeamCount;
     private int ruleMajorWeight;
     private int ruleCareerWeight;

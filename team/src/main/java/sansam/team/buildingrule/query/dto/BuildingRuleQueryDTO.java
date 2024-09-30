@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BuildingRuleQueryDTO {
-    private int ruleSeq;
+    private long ruleSeq;
     private int ruleTeamCount;
     private int ruleMajorWeight;
     private int ruleCareerWeight;
