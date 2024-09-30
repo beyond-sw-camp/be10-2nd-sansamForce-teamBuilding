@@ -1,9 +1,9 @@
 package sansam.team.project.query.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
-import sansam.team.project.query.dto.project.ProjectAdminQueryDTO;
-import sansam.team.project.query.dto.project.ProjectAllQueryDTO;
-import sansam.team.project.query.dto.project.ProjectUserQueryDTO;
+import sansam.team.project.query.dto.AdminProjectQueryDTO;
+import sansam.team.project.query.dto.ProjectAllQueryDTO;
+import sansam.team.project.query.dto.ProjectQueryDTO;
 
 import java.util.List;
 
@@ -14,9 +14,9 @@ public interface ProjectMapper {
 
     List<ProjectAllQueryDTO> findAllProjectForUser(Long userSeq);
 
-    ProjectAdminQueryDTO findProjectByIdForAdmin(Long projectSeq);
+    AdminProjectQueryDTO findProjectByIdForAdmin(Long projectSeq);
 
-    ProjectUserQueryDTO findProjectByIdForUser(Long projectSeq);
+    ProjectQueryDTO findProjectByIdForUser(Long projectSeq);
 
 
 }

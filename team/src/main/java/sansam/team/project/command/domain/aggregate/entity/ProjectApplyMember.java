@@ -3,12 +3,10 @@ package sansam.team.project.command.domain.aggregate.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import sansam.team.common.aggregate.YnType;
 import sansam.team.common.aggregate.entity.BaseTimeEntity;
 
-import sansam.team.project.command.application.dto.board.ProjectApplyMemberDTO;
+import sansam.team.project.command.application.dto.AdminProjectApplyMemberDTO;
 import sansam.team.project.command.domain.aggregate.ApplyStatus;
-import sansam.team.project.command.domain.aggregate.InterestType;
 
 @Entity
 @Table(name = "tbl_project_apply_member")
@@ -37,8 +35,8 @@ public class ProjectApplyMember extends BaseTimeEntity {
         return new ProjectApplyMember(applyStatus, userSeq, projectBoardSeq);
     }
 
-    public void modifyApplyMemberStatus(Long projectBoardSeq, ProjectApplyMemberDTO projectApplyMemberDTO) {
+    public void modifyApplyMemberStatus(Long projectBoardSeq, AdminProjectApplyMemberDTO adminProjectApplyMemberDTO) {
         this.projectBoardSeq = projectBoardSeq;
-        this.projectApplyMemberStatus = projectApplyMemberDTO.getApplyStatus();
+        this.projectApplyMemberStatus = adminProjectApplyMemberDTO.getApplyStatus();
     }
 }
