@@ -61,6 +61,11 @@ public class User extends BaseTimeEntity {
 
     private LocalDateTime delDate;      // 회원 탈퇴 날짜
 
+    private Long userCareerYears; // 경력 년수
+
+    private Long userCareerMonths; // 경력 월수
+
+
     @Transient
     private String token;
 
@@ -102,6 +107,9 @@ public class User extends BaseTimeEntity {
         this.userPassword = myPageDTO.getUserPassword();
         this.userGithubId = myPageDTO.getUserGithubId();
         this.userProfileImg = myPageDTO.getUserProfileImg();
+        this.userCareerYears = myPageDTO.getUserCareerYears();
+        this.userCareerMonths = myPageDTO.getUserCareerMonths();
+
     }
 }
 

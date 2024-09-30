@@ -46,6 +46,11 @@ public class UserDTO extends BaseTimeEntity {
 
     private LocalDateTime delDate;
 
+    private Long careerYears;
+
+    private Long careerMonths;
+
+
     private JwtToken jwtToken;
 
     public void setJwtToken(JwtToken token) {
