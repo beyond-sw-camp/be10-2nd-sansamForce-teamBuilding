@@ -13,9 +13,9 @@ import sansam.team.common.response.ApiResponse;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/building-rule")
+@RequestMapping("/api/v1/building-rule/api")
 @RequiredArgsConstructor
-@Tag(name = "building rule query API", description = "팀빌딩 규칙 조회 API")
+@Tag(name = "building rule API", description = "팀빌딩 규칙")
 public class BuildingRuleQueryController {
 
     private final BuildingRuleQueryService buildingRuleQueryService;

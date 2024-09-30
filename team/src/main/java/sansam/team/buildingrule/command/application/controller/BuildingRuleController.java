@@ -12,7 +12,7 @@ import sansam.team.common.response.ResponseUtil;
 import sansam.team.common.response.ApiResponse;
 
 @RestController
-@RequestMapping("/api/building-rules/api")
+@RequestMapping("/api/v1/building-rules/api")
 @RequiredArgsConstructor
 @Tag(name = "building rule API", description = "팀빌딩 규칙")
 public class BuildingRuleController {
