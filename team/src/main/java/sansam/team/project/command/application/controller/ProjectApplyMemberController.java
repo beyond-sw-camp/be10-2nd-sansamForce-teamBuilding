@@ -21,15 +21,14 @@ public class ProjectApplyMemberController {
     private final ProjectApplyMemberService projectApplyMemberService;
 
     // 프로젝트 신청 API
-    @PostMapping("/{projectBoardSeq}")
+    @PostMapping()
     @Operation(summary = "프로젝트 신청", description = "프로젝트 신청 API")
     public ApiResponse<?> applyForProject(
-            @PathVariable Long projectBoardSeq,
             @RequestBody AdminProjectApplyMemberDTO applyMemberDTO) {
 
         try {
             // 서비스로 전달하여 신청 처리
-            ProjectApplyMember applyMember = projectApplyMemberService.applyForProject(projectBoardSeq, applyMemberDTO);
+            ProjectApplyMember applyMember = projectApplyMemberService.applyForProject(applyMemberDTO);
 
             // 성공 응답 반환
             return ResponseUtil.successResponse("Project apply member created successfully").getBody();
