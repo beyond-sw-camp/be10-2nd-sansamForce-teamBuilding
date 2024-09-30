@@ -29,17 +29,28 @@ public class TeamBuildingController {
     // 팀 빌딩 요청
     @PostMapping
     @Operation(summary = "프로젝트 자동 팀 빌딩")
-    public ApiResponse<List<Team>> buildTeams(@RequestParam Long projectSeq , @RequestParam int teamBuildingRuleSeq) throws IOException {
-        List<Team> teams = teamBuildingService.buildBalancedTeams(projectSeq ,teamBuildingRuleSeq);
-        return ResponseUtil.successResponse("팀 빌딩 성공",teams).getBody();
+    public ApiResponse<?> buildTeams(@RequestParam Long projectSeq , @RequestParam int teamBuildingRuleSeq) throws IOException {
+        try{
+            List<Team> teams = teamBuildingService.buildBalancedTeams(projectSeq ,teamBuildingRuleSeq);
+            return ResponseUtil.successResponse("팀 빌딩 성공",teams).getBody();
+        } catch (IllegalArgumentException e){
+            return ResponseUtil.failureResponse(e.getMessage(), "PROJECT_SEQ_NULL").getBody();
+        } catch (Exception e){
+            return ResponseUtil.failureResponse(e.getMessage(), "TEAM_BUILDING_ERROR").getBody();
+        }
     }
 
     @PutMapping("/{teamMemberSeq}")
     @Operation(summary = "프로젝트 수동 팀 빌딩(팀멤버 수정)")
-    public ApiResponse<TeamMember> updateTeamMember(@PathVariable Long teamMemberSeq, @RequestBody TeamMemberUpdateRequest request) {
-        TeamMember teamMember = teamMemberService.updateTeamMember(teamMemberSeq, request);
-
-        return ResponseUtil.successResponse(teamMember).getBody();
+    public ApiResponse<?> updateTeamMember(@PathVariable Long teamMemberSeq, @RequestBody TeamMemberUpdateRequest request) {
+        try{
+            TeamMember teamMember = teamMemberService.updateTeamMember(teamMemberSeq, request);
+            return ResponseUtil.successResponse("팀 멤버 수정 성공",teamMember).getBody();
+        } catch (IllegalArgumentException e){
+            return ResponseUtil.failureResponse(e.getMessage(), "TEAM_MEMBER_NOT_FOUND").getBody();
+        } catch (Exception e){
+            return ResponseUtil.failureResponse(e.getMessage(), "UPDATE_TEAM_MEMBER_ERROR").getBody();
+        }
     }
 
 }
