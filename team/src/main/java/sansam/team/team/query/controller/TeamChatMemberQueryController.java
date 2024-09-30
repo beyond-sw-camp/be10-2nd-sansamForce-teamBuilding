@@ -21,9 +21,8 @@ public class TeamChatMemberQueryController {
 
     @GetMapping("/{teamMemberSeq}")
     @Operation(summary = "채팅방 팀원 정보 조회")
-    public ResponseEntity<TeamChatMemberResponse> selectTeamMember(@PathVariable Long teamMemberSeq) {
-        TeamChatMemberResponse teamChatMember = teamChatMemberQueryService.selectTeamMember(teamMemberSeq);
+    public TeamChatMemberResponse selectTeamMember(@PathVariable Long teamMemberSeq) {
 
-        return ResponseEntity.ok(teamChatMember);
+        return teamChatMemberQueryService.selectTeamMember(teamMemberSeq);
     }
 }
