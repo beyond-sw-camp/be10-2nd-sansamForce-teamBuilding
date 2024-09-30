@@ -13,7 +13,7 @@ public class BuildingRuleQueryService {
 
     private final BuildingRuleQueryMapper buildingRuleQueryMapper;
 
-    public BuildingRuleQueryDTO findById(int ruleSeq) {
+    public BuildingRuleQueryDTO findById(long ruleSeq) {
         return buildingRuleQueryMapper.findById(ruleSeq);
     }
 
