@@ -24,7 +24,21 @@ public class TeamMemberSchedule extends BaseTimeEntity {
     @Column(name = "team_schedule_progress_content")
     private String memberScheduleContent;
 
+    @Column(name = "team_schedule_progress_percent")
+    private String memberSchedulePercent;
+
     @Column(name = "team_schedule_progress_feedback")
     private String memberScheduleFeedback;
+
+    public void updateMemberSchedule(String memberScheduleContent, String memberSchedulePercent) {
+        this.memberScheduleContent = memberScheduleContent;
+        this.memberSchedulePercent = memberSchedulePercent;
+    }
+
+    public void feedbackMemberSchedule(String memberScheduleContent, String memberSchedulePercent, String memberScheduleFeedback) {
+        this.memberScheduleContent = memberScheduleContent;
+        this.memberSchedulePercent = memberSchedulePercent;
+        this.memberScheduleFeedback = memberScheduleFeedback;
+    }
 
 }

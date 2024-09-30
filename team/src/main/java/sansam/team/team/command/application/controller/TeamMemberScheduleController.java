@@ -8,7 +8,7 @@ import sansam.team.common.response.ApiResponse;
 import sansam.team.common.response.ResponseUtil;
 import sansam.team.team.command.application.dto.TeamMemberScheduleDTO;
 import sansam.team.team.command.application.service.TeamMemberScheduleService;
-import sansam.team.team.command.domain.aggregate.entity.TeamReview;
+import sansam.team.team.command.domain.aggregate.entity.TeamMemberSchedule;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,7 +19,7 @@ public class TeamMemberScheduleController {
     private final TeamMemberScheduleService teamMemberScheduleService;
 
 
-    @PostMapping("/create")
+    @PostMapping
     @Operation(summary = "팀원 진행상황 추가")
     public ApiResponse<String> createScheduleByMember(@RequestBody TeamMemberScheduleDTO memberScheduleDTO) {
         boolean result = teamMemberScheduleService.createScheduleByMember(memberScheduleDTO);
@@ -27,13 +27,13 @@ public class TeamMemberScheduleController {
         return ResponseUtil.successResponse(result ? "팀원 진행상황 추가 성공" : "팀원 평가 추가 실패").getBody();
     }
 
-    /*@PutMapping("/{memberScheduleSeq}")
+    @PutMapping("/{memberScheduleSeq}")
     @Operation(summary = "팀원 진행상황 수정")
-    public ApiResponse<TeamReview> updateScheduleByMember(@PathVariable long memberScheduleSeq, @RequestBody TeamMemberScheduleDTO memberScheduleDTO) {
-        TeamReview teamReview = teamMemberScheduleService.updateScheduleByMember(memberScheduleSeq, memberScheduleDTO);
+    public ApiResponse<TeamMemberSchedule> updateScheduleByMember(@PathVariable long memberScheduleSeq, @RequestBody TeamMemberScheduleDTO memberScheduleDTO) {
+        TeamMemberSchedule teamMemberSchedule = teamMemberScheduleService.updateScheduleByMember(memberScheduleSeq, memberScheduleDTO);
 
-        return ResponseUtil.successResponse("팀원 진행상황 수정 성공", teamReview).getBody();
-    }*/
+        return ResponseUtil.successResponse("팀원 진행상황 수정 성공", teamMemberSchedule).getBody();
+    }
 
     @DeleteMapping("/{memberScheduleSeq}")
     @Operation(summary = "팀원 진행상황 삭제")
@@ -41,6 +41,14 @@ public class TeamMemberScheduleController {
         teamMemberScheduleService.deleteScheduleByMember(memberScheduleSeq);
 
         return ResponseUtil.successResponse("팀원 진행상황 삭제 성공").getBody();
+    }
+
+    @PutMapping("/feedback/{memberScheduleSeq}")
+    @Operation(summary = "강사가 팀원 진행상황 피드백")
+    public ApiResponse<TeamMemberSchedule> feedbackScheduleByMentor(@PathVariable long memberScheduleSeq, @RequestBody TeamMemberScheduleDTO memberScheduleDTO) {
+        TeamMemberSchedule teamMemberSchedule = teamMemberScheduleService.feedbackScheduleByMentor(memberScheduleSeq, memberScheduleDTO);
+
+        return ResponseUtil.successResponse("팀원 진행상황 피드백 성공", teamMemberSchedule).getBody();
     }
 
 }

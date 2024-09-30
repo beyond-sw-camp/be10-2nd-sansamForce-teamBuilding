@@ -11,6 +11,7 @@ public enum ErrorCodeType {
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "USER_ERROR_001", "사용자를 찾을 수 없습니다."),
     USER_DUPLICATED(HttpStatus.BAD_REQUEST, "USER_ERROR_002", "중복된 사용자입니다."),
     USER_LOGIN_NOT_FOUND(HttpStatus.NOT_FOUND, "USER_ERROR_003", "아이디 또는 비밀번호가 일치하지 않습니다."),
+    MENTOR_AUTH_ERROR(HttpStatus.BAD_REQUEST, "USER_ERROR_004", "해당 기능은 멘토만 가능합니다."),
 
 
     //team 관련 오류
@@ -23,16 +24,14 @@ public enum ErrorCodeType {
 
     //team schedule 관련 오류
     SCHEDULE_NOT_FOUND(HttpStatus.NOT_FOUND, "SCHEDULE_ERROR_001", "해당 일정을 찾을 수 없습니다."),
-    SCHEDULE_DELETE_ERROR(HttpStatus.BAD_REQUEST, "SCHEDULE_ERROR_002", "해당 일정을 삭제할 수 없습니다."),
-    
+    SCHEDULE_PERIOD_ERROR(HttpStatus.BAD_REQUEST, "SCHEDULE_ERROR_002", "팀 일정 기간을 확인해주세요."),
+
     //team member schedule 관련 오류
-    MEMBER_SCHEDULE_CREATE_ERROR(HttpStatus.BAD_REQUEST, "MEMBER_SCHEDULE_ERROR_001", "해당 팀원의 진행 상황을 생성할 수 없습니다."),
+    MEMBER_SCHEDULE_NOT_FOUND(HttpStatus.NOT_FOUND, "MEMBER_SCHEDULE_ERROR_001", "해당 팀원의 진행 일정을 찾을 수 없습니다."),
 
     //team review 관련 오류
-    REVIEW_CREATE_ERROR(HttpStatus.BAD_REQUEST, "REVIEW_ERROR_001", "팀원 평가를 생성할 수 없습니다."),
-    REVIEW_CREATE_TIME_ERROR(HttpStatus.BAD_REQUEST, "REVIEW_ERROR_002", "팀원 평가 기간이 아닙니다."),
-    REVIEW_NOT_FOUND(HttpStatus.NOT_FOUND, "REVIEW_ERROR_003", "해당 리뷰를 찾을 수 없습니다."),
-    REVIEW_DELETE_ERROR(HttpStatus.BAD_REQUEST, "REVIEW_ERROR_004", "해당 리뷰를 삭제할 수 없습니다."),
+    REVIEW_CREATE_TIME_ERROR(HttpStatus.BAD_REQUEST, "REVIEW_ERROR_001", "팀원 평가 기간이 아닙니다."),
+    REVIEW_NOT_FOUND(HttpStatus.NOT_FOUND, "REVIEW_ERROR_002", "해당 리뷰를 찾을 수 없습니다."),
 
     //team chat 오류
     TEAM_CHAT_NOT_FOUND(HttpStatus.BAD_REQUEST, "TEAM_CHAT_ERROR_001", "팀 채팅을 찾을 수 없습니다."),
