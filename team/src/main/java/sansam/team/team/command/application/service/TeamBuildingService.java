@@ -4,12 +4,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sansam.team.buildingrule.command.application.dto.BuildingRuleDTO;
+import sansam.team.buildingrule.command.domain.aggregate.BuildingRule;
+import sansam.team.buildingrule.command.domain.repositroy.BuildingRuleRepository;
 import sansam.team.common.aggregate.YnType;
 import sansam.team.common.github.GithubUtil;
-import sansam.team.project.command.application.dto.project.ProjectMemberUpdateDTO;
+import sansam.team.project.command.application.dto.AdminProjectMemberUpdateDTO;
 import sansam.team.project.command.domain.aggregate.InterestType;
 import sansam.team.project.command.domain.aggregate.entity.ProjectMember;
-import sansam.team.project.command.domain.repository.project.ProjectMemberRepository;
+import sansam.team.project.command.domain.repository.ProjectMemberRepository;
 import sansam.team.team.command.application.dto.TeamBuildingDTO;
 import sansam.team.team.command.domain.aggregate.entity.Team;
 import sansam.team.team.command.domain.aggregate.entity.TeamMember;
@@ -34,6 +37,7 @@ public class TeamBuildingService {
     private final GithubUtil githubUtil;
     private final TeamReviewRepository teamReviewRepository;
     private final TeamMemberRepository teamMemberRepository;
+    private final BuildingRuleRepository buildingRuleRepository;
 
     // 1. 깃허브 커밋 점수 계산 로직
     public long calculateCommitScore(TeamBuildingDTO teamBuildingDTO) throws IOException {
@@ -67,7 +71,7 @@ public class TeamBuildingService {
         }
 
         //pjMember commitScore 업데이트
-        ProjectMemberUpdateDTO pjMemberUpdateDTO = new ProjectMemberUpdateDTO();
+        AdminProjectMemberUpdateDTO pjMemberUpdateDTO = new AdminProjectMemberUpdateDTO();
         pjMemberUpdateDTO.setProjectMemberCommitScore(commitScore);
         pjMember.modifyProjectMember(pjMemberUpdateDTO);
 
@@ -81,11 +85,31 @@ public class TeamBuildingService {
         return pjMember.getProjectMemberMajorYn()== YnType.Y?5:0;
 
     }
-    /*
-    // 3. 경력 점수 계산 로직 (컬럼 추가해야함)
-    public int calculateCareerScore(ProjectApplyMember pjMember) {
 
-    }*/
+    // 3. 경력 점수 계산 로직
+    public int calculateCareerScore(TeamBuildingDTO teamBuildingDTO) throws IOException {
+        User user = userRepository.findById(teamBuildingDTO.getUserSeq())
+                .orElseThrow(() -> new RuntimeException("User does not exist"));
+        long careerMonth = user.getUserCareerYears()*12 + user.getUserCareerMonths();
+        int careerScore = 0;
+        if(careerMonth>=60){
+            careerScore = 5;
+        }
+        else if(careerMonth>=36){
+            careerScore = 4;
+        }
+        else if(careerMonth>=18){
+            careerScore = 3;
+        }
+        else if(careerMonth>=12){
+            careerScore = 2;
+        }
+        else if(careerMonth>=6){
+            careerScore = 1;
+        }
+        return careerScore;
+
+    }
 
     // 4. 팀원 평가 점수 계산 로직
     public double calculateTeamEvaluation(TeamBuildingDTO teamBuildingDTO) throws IOException {
@@ -114,19 +138,24 @@ public class TeamBuildingService {
 
 
     // 팀 빌딩 점수 합 구하기.
-    public double calculateTotalScore(TeamBuildingDTO teamBuildingDTO) throws IOException {
+    public double calculateTotalScore(TeamBuildingDTO teamBuildingDTO, BuildingRuleDTO buildingRuleDTO) throws IOException {
         //
-        long commitScore = calculateCommitScore(teamBuildingDTO);
-        int majorScore = calculateMajorScore(teamBuildingDTO);
-        double teamEvaluationScore = calculateTeamEvaluation(teamBuildingDTO);
-        return commitScore + majorScore + teamEvaluationScore;
+        long commitScore = calculateCommitScore(teamBuildingDTO) * buildingRuleDTO.getRuleGithubWeight();
+        int majorScore = calculateMajorScore(teamBuildingDTO) * buildingRuleDTO.getRuleMajorWeight();
+        int careerScore = calculateCareerScore(teamBuildingDTO) * buildingRuleDTO.getRuleCareerWeight();
+        double teamEvaluationScore = calculateTeamEvaluation(teamBuildingDTO)*buildingRuleDTO.getRuleTeamReviewWeight();
+        // double mentorEvaluationScore = calculateMentorEvaluation(teamBuildingDTO)*buildingRuleDTO.getRuleMentorReviewWeight();
+        return commitScore + majorScore + careerScore+ teamEvaluationScore;
     }
     //팀 빌딩 로직 -> 팀 빌딩 규칙 추가해야함
     @Transactional
-    public List<Team> buildBalancedTeams(Long projectSeq /*, Long buildingRuleSeq */) throws IOException {
+    public List<Team> buildBalancedTeams(Long projectSeq, int teamBuildingRuleSeq) throws IOException {
 
-        //1. 해당 프로젝트 참여자 List 불러오기
+        //1. 해당 프로젝트 참여자 List와 팀빌딩 규칙 불러오기
         List<ProjectMember> projectMembers = projectMemberRepository.findAllByProjectSeq(projectSeq);
+        BuildingRule buildingRule = buildingRuleRepository.findById(teamBuildingRuleSeq)
+                .orElseThrow(() -> new RuntimeException("빌딩 규칙이 존재하지 않습니다."));
+
 
         //2. 프로젝트 참여자들을 관심 분야에 따라 분류
         List<TeamBuildingDTO> frontMembers = new ArrayList<>();
@@ -135,8 +164,11 @@ public class TeamBuildingService {
         for (ProjectMember pjMember : projectMembers) {
             Long userSeq = pjMember.getUserSeq();
             TeamBuildingDTO teamBuildingDTO = new TeamBuildingDTO(userSeq,pjMember.getProjectMemberSeq());
-            double totalScore = calculateTotalScore(teamBuildingDTO);
+            // 프로젝트 참여자 점수 불러오기
+
+            double totalScore = calculateTotalScore(teamBuildingDTO, buildingRule.toDTO());
             teamBuildingDTO.setTotalScore(totalScore);
+
 
             if (pjMember.getProjectMemberInterestType().equals(InterestType.FRONTEND)) {
                 frontMembers.add(teamBuildingDTO);
@@ -144,9 +176,8 @@ public class TeamBuildingService {
                 backMembers.add(teamBuildingDTO);
             }
         }
-        //3. 팀 빌딩 규칙의 팀 개수에 따라 정하기 (지금은 편의상 5로)
-        int teamCnt = 5;
-
+        //3. 팀 빌딩 규칙의 팀 개수에 따라 정하기
+        int teamCnt = buildingRule.getRuleTeamCount();
 
         //4. 팀 만들기
         List<Team> teams = new ArrayList<>();

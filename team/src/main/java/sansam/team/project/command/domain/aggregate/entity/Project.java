@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sansam.team.common.aggregate.entity.BaseTimeEntity;
-import sansam.team.project.command.application.dto.project.ProjectUpdateDTO;
+import sansam.team.project.command.application.dto.AdminProjectUpdateDTO;
 import sansam.team.project.command.domain.aggregate.ProjectStatus;
 
 import java.time.LocalDateTime;
@@ -41,7 +41,7 @@ public class Project extends BaseTimeEntity {
         this.projectAdminSeq = userSeq;
     }
 
-    public void modifyProject(ProjectUpdateDTO projectDTO) {
+    public void modifyProject(AdminProjectUpdateDTO projectDTO) {
         this.projectTitle = projectDTO.getProjectTitle();
         this.projectContent = projectDTO.getProjectContent();
         this.projectHeadCount = projectDTO.getProjectHeadCount();

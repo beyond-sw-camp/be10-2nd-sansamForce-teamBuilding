@@ -29,4 +29,18 @@
         FROM tbl_building_rule
     </select>
 
+    <select id="findByid" resultType="sansam.team.buildingrule.query.dto.BuildingRuleQueryDTO">
+        SELECT
+               b.team_seq
+             , a.rule_team_count
+             , a.rule_major_weight
+             , a.rule_career_weight
+             , a.rule_github_weight
+             , a.rule_team_review_weight
+             , a.rule_mentor_review_weight
+             , a.rule_tech_stack_yn
+         FROM tbl_building_rule a
+         JOIN tbl_team b ON a.rule_seq = b.rule_seq
+    </select>
+
 </mapper>

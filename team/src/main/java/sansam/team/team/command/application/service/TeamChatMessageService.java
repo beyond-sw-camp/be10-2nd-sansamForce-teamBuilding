@@ -1,5 +1,6 @@
 package sansam.team.team.command.application.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -9,6 +10,8 @@ import sansam.team.common.websocket.WebSocketClient;
 import sansam.team.common.mongo.MongoDBSequenceCreator;
 import sansam.team.common.websocket.dto.TeamChatMessageDTO;
 import sansam.team.common.websocket.dto.TeamChatMessageType;
+import sansam.team.exception.CustomException;
+import sansam.team.exception.ErrorCodeType;
 import sansam.team.team.command.application.dto.TeamChatMessageCreateRequest;
 
 import org.springframework.data.mongodb.core.query.Query;
@@ -22,18 +25,32 @@ public class TeamChatMessageService {
     private final WebSocketClient webSocketClient;
     private final MongoDBSequenceCreator sequenceCreator;
 
+    @Transactional
     public void createTeamChatMessage(TeamChatMessageCreateRequest request) {
         TeamChatMessageDTO teamChatMessage = mapper.map(request, TeamChatMessageDTO.class);
         teamChatMessage.setMessageType(TeamChatMessageType.TALK);
         teamChatMessage.setTeamChatMessageSeq(sequenceCreator.createSeq("teamChatMessageSeq"));
 
-        mongoTemplate.insert(teamChatMessage);
+        try {
+            mongoTemplate.insert(teamChatMessage);
+        } catch (Exception e) {
+            throw new CustomException(ErrorCodeType.MONGO_ERROR);
+        }
 
-        webSocketClient.sendMessage(teamChatMessage);
+        try {
+            webSocketClient.sendMessage(teamChatMessage);
+        } catch (Exception e) {
+            throw new CustomException(ErrorCodeType.WEB_SOCKET_ERROR);
+        }
     }
 
+    @Transactional
     public void deleteTeamChatMessage(Long teamChatMessageSeq) {
-        Query query = new Query(Criteria.where("teamChatMessageSeq").is(teamChatMessageSeq));
-        mongoTemplate.remove(query, "chat");
+        try {
+            Query query = new Query(Criteria.where("teamChatMessageSeq").is(teamChatMessageSeq));
+            mongoTemplate.remove(query, "chat");
+        } catch (Exception e) {
+            throw new CustomException(ErrorCodeType.MONGO_ERROR);
+        }
     }
 }

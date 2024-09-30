@@ -6,8 +6,8 @@ import java.util.Optional;
 
 public interface BuildingRuleRepository {
     BuildingRule save(BuildingRule buildingRule);
-    Optional<BuildingRule> findById(int ruleSeq);
-    void deleteById(int ruleSeq);
+    Optional<BuildingRule> findById(long ruleSeq);
+    void deleteById(long ruleSeq);
 }
 
 

@@ -6,7 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sansam.team.common.util.DateTimeUtil;
-import sansam.team.exception.CustomNotFoundException;
+import sansam.team.exception.CustomException;
 import sansam.team.exception.ErrorCodeType;
 import sansam.team.team.command.application.dto.TeamReviewDTO;
 import sansam.team.team.command.domain.aggregate.TeamStatusType;
@@ -35,11 +35,11 @@ public class TeamReviewService {
             }
 
         } catch (Exception e) {
-            if(((CustomNotFoundException) e).getErrorCode() != null) {
-                log.error("teamReview create Error : {}", ((CustomNotFoundException) e).getErrorCode().getMessage());
-                throw new CustomNotFoundException(((CustomNotFoundException) e).getErrorCode());
+            if(((CustomException) e).getErrorCode() != null) {
+                log.error("teamReview create Error : {}", ((CustomException) e).getErrorCode().getMessage());
+                throw new CustomException(((CustomException) e).getErrorCode());
             } else {
-                throw new CustomNotFoundException(ErrorCodeType.REVIEW_CREATE_ERROR);
+                throw new CustomException(ErrorCodeType.REVIEW_CREATE_ERROR);
             }
         }
 
@@ -51,7 +51,7 @@ public class TeamReviewService {
         Team team = teamService.getTeamById(teamMember.getTeamSeq());
 
         if(!(DateTimeUtil.isBeforeWeek(team.getEndDate(), 2) && team.getTeamStatus().equals(TeamStatusType.CLOSE))) {
-            throw new CustomNotFoundException(ErrorCodeType.REVIEW_CREATE_TIME_ERROR);
+            throw new CustomException(ErrorCodeType.REVIEW_CREATE_TIME_ERROR);
         }
 
         return true;
@@ -61,7 +61,7 @@ public class TeamReviewService {
     public TeamReview updateTeamReview(long reviewSeq, TeamReviewDTO reviewDTO) {
         try {
             TeamReview teamReview = teamReviewRepository.findById(reviewSeq)
-                    .orElseThrow(() -> new CustomNotFoundException(ErrorCodeType.REVIEW_NOT_FOUND));
+                    .orElseThrow(() -> new CustomException(ErrorCodeType.REVIEW_NOT_FOUND));
 
             if(isReviewPeriod(modelMapper.map(teamReview, TeamReviewDTO.class))) {
                 teamReview.updateReview(reviewDTO.getReceiveMemberSeq(), reviewDTO.getReviewStar(), reviewDTO.getReviewContent());
@@ -71,11 +71,11 @@ public class TeamReviewService {
             return teamReview;
 
         } catch (Exception e) {
-            if(((CustomNotFoundException) e).getErrorCode() != null) {
-                log.error("teamReview update Error : {}", ((CustomNotFoundException) e).getErrorCode().getMessage());
-                throw new CustomNotFoundException(((CustomNotFoundException) e).getErrorCode());
+            if(((CustomException) e).getErrorCode() != null) {
+                log.error("teamReview update Error : {}", ((CustomException) e).getErrorCode().getMessage());
+                throw new CustomException(((CustomException) e).getErrorCode());
             } else {
-                throw new CustomNotFoundException(ErrorCodeType.REVIEW_CREATE_ERROR);
+                throw new CustomException(ErrorCodeType.REVIEW_CREATE_ERROR);
             }
         }
     }
@@ -86,7 +86,7 @@ public class TeamReviewService {
             teamReviewRepository.deleteById(reviewSeq);
 
         } catch (Exception e) {
-            throw new CustomNotFoundException(ErrorCodeType.REVIEW_DELETE_ERROR);
+            throw new CustomException(ErrorCodeType.REVIEW_DELETE_ERROR);
         }
     }
 }

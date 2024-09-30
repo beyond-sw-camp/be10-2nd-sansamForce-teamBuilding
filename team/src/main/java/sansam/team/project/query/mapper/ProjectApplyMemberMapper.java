@@ -2,7 +2,7 @@ package sansam.team.project.query.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import sansam.team.project.query.dto.projectboard.ApplyMemberQueryDTO;
+import sansam.team.project.query.dto.ApplyMemberQueryDTO;
 
 import java.util.List;
 
