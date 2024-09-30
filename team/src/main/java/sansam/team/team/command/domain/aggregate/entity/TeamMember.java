@@ -29,4 +29,8 @@ public class TeamMember extends BaseTimeEntity {
         return new TeamMember(userSeq, teamSeq);
     }
 
+    public void modifyTeamMember(long teamSeq) {
+        this.teamSeq = teamSeq;
+    }
+
 }
