@@ -39,7 +39,8 @@ public class TeamReviewService {
                 log.error("teamReview create Error : {}", ((CustomException) e).getErrorCode().getMessage());
                 throw new CustomException(((CustomException) e).getErrorCode());
             } else {
-                throw new CustomException(ErrorCodeType.REVIEW_CREATE_ERROR);
+                log.error("createTeamReview Error : {}", e.getMessage());
+                throw new CustomException(ErrorCodeType.COMMON_ERROR);
             }
         }
 
@@ -75,7 +76,8 @@ public class TeamReviewService {
                 log.error("teamReview update Error : {}", ((CustomException) e).getErrorCode().getMessage());
                 throw new CustomException(((CustomException) e).getErrorCode());
             } else {
-                throw new CustomException(ErrorCodeType.REVIEW_CREATE_ERROR);
+                log.error("updateTeamReview Error : {}", e.getMessage());
+                throw new CustomException(ErrorCodeType.COMMON_ERROR);
             }
         }
     }
@@ -86,7 +88,8 @@ public class TeamReviewService {
             teamReviewRepository.deleteById(reviewSeq);
 
         } catch (Exception e) {
-            throw new CustomException(ErrorCodeType.REVIEW_DELETE_ERROR);
+            log.error("deleteTeamReview Error : {}", e.getMessage());
+            throw new CustomException(ErrorCodeType.COMMON_ERROR);
         }
     }
 }

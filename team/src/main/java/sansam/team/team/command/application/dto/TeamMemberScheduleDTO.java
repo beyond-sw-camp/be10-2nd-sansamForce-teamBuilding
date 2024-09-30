@@ -16,6 +16,8 @@ public class TeamMemberScheduleDTO extends BaseTimeEntity {
 
     private final String memberScheduleContent;
 
+    private final String memberSchedulePercent;
+
     private final String memberScheduleFeedback;
 
 }

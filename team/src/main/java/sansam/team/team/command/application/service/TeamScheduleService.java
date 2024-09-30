@@ -39,7 +39,8 @@ public class TeamScheduleService {
                 log.error("createTeamSchedule Error : {}", ((CustomException) e).getErrorCode().getMessage());
                 throw new CustomException(((CustomException) e).getErrorCode());
             } else {
-                throw new RuntimeException("팀 일정 생성 중 오류가 발생하였습니다.");
+                log.error("createTeamSchedule Error : {}", e.getMessage());
+                throw new CustomException(ErrorCodeType.COMMON_ERROR);
             }
         }
 
@@ -64,7 +65,8 @@ public class TeamScheduleService {
                 log.error("updateTeamSchedule Error : {}", ((CustomException) e).getErrorCode().getMessage());
                 throw new CustomException(((CustomException) e).getErrorCode());
             } else {
-                throw new RuntimeException("팀 일정 수정 중 오류가 발생하였습니다.");
+                log.error("updateTeamSchedule Error : {}", e.getMessage());
+                throw new CustomException(ErrorCodeType.COMMON_ERROR);
             }
         }
     }
@@ -77,7 +79,7 @@ public class TeamScheduleService {
             throw new CustomException(ErrorCodeType.TEAM_STATUS_ERROR);
         }
 
-        if(team.getEndDate()!= null && team.getEndDate().isAfter(LocalDateTime.now())) {
+        if(team.getEndDate()!= null && team.getEndDate().isBefore(LocalDateTime.now())) {
             throw new CustomException(ErrorCodeType.TEAM_END_ERROR);
         }
 
@@ -90,7 +92,8 @@ public class TeamScheduleService {
             teamScheduleRepository.deleteById(scheduleSeq);
 
         } catch (Exception e) {
-            throw new CustomException(ErrorCodeType.SCHEDULE_DELETE_ERROR);
+            log.error("deleteScheduleByMember Error : {}", e.getMessage());
+            throw new CustomException(ErrorCodeType.COMMON_ERROR);
         }
     }
 

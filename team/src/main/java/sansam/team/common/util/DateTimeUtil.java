@@ -21,7 +21,7 @@ public class DateTimeUtil {
     public static boolean isBetweenDateTime(LocalDateTime startDate, LocalDateTime endDate) {
         LocalDateTime nowDate = LocalDateTime.now();
 
-        return startDate.isAfter(nowDate) && endDate.isBefore(nowDate);
+        return startDate.isBefore(nowDate) && endDate.isAfter(nowDate);
     }
 
 }
