@@ -19,7 +19,7 @@ public class ProjectApplyMemberQueryController {
     private final ProjectApplyMemberQueryService projectApplyMemberQueryService;
 
     // 특정 회원이 신청한 프로젝트 목록 조회 API
-    @GetMapping("/my-projects")
+    @GetMapping()
     @Operation(summary = "프로젝트 신청 리스트 조회", description = "해당 회원이 신청한 프로젝트 리스트 조회")
     public List<ApplyMemberQueryDTO> getMyProjects() {
         return projectApplyMemberQueryService.findProjectsByCurrentUser(); // ResponseEntity 생략하고 DTO 반환
