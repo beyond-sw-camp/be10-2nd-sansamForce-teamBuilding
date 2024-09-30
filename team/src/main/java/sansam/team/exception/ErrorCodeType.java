@@ -31,6 +31,15 @@ public enum ErrorCodeType {
     REVIEW_NOT_FOUND(HttpStatus.NOT_FOUND, "REVIEW_ERROR_003", "해당 리뷰를 찾을 수 없습니다."),
     REVIEW_DELETE_ERROR(HttpStatus.BAD_REQUEST, "REVIEW_ERROR_004", "해당 리뷰를 삭제할 수 없습니다."),
 
+    //team chat 오류
+    TEAM_CHAT_NOT_FOUND(HttpStatus.BAD_REQUEST, "TEAM_CHAT_ERROR_001", "팀 채팅을 찾을 수 없습니다."),
+
+    // MongoDB 오류
+    MONGO_ERROR(HttpStatus.BAD_REQUEST, "MONGO_ERROR_001", "오류가 발생하였습니다. 관리자에게 문의 바랍니다."),
+
+    // WebSocket 오류
+    WEB_SOCKET_ERROR(HttpStatus.BAD_REQUEST, "WEBSOCKET_ERROR_001", "오류가 발생하였습니다. 관리자에게 문의 바랍니다."),
+
     // 공통 오류
     COMMON_ERROR(HttpStatus.BAD_REQUEST, "COMMON_ERROR", "오류가 발생하였습니다. 관리자에게 문의 바랍니다.")
 

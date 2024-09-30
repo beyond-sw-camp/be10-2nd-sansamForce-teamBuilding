@@ -23,8 +23,8 @@ public class GlobalExceptionHandler {
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     // 커스텀 예외 처리
-    @ExceptionHandler(CustomNotFoundException.class)
-    public ResponseEntity<ApiResponse<String>> handleCustomNotFoundException(CustomNotFoundException e) {
+    @ExceptionHandler(CustomException.class)
+    public ResponseEntity<ApiResponse<String>> handleCustomNotFoundException(CustomException e) {
         // 예외 메시지 로깅
         logger.error("CustomNotFoundException occurred: {}", e.getMessage(), e);
 

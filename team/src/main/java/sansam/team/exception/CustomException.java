@@ -3,11 +3,11 @@ package sansam.team.exception;
 import lombok.Getter;
 
 @Getter
-public class CustomNotFoundException extends RuntimeException {
+public class CustomException extends RuntimeException {
 
     ErrorCodeType errorCode;
 
-    public CustomNotFoundException(ErrorCodeType errorCode) {
+    public CustomException(ErrorCodeType errorCode) {
         this.errorCode = errorCode;
     }
 

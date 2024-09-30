@@ -71,6 +71,8 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
         if (chatRoomSession.size()>=3) {
             removeClosedSession(chatRoomSession);
         }
+
+        sendMessageToChatRoom(chatDTO, chatRoomSession);
     }
 
     // 소켓 종료 확인
