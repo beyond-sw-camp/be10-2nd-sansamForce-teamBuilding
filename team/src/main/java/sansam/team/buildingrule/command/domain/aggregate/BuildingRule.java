@@ -26,6 +26,18 @@ public class BuildingRule extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private YnType ruleTechStackYn;
 
+    public BuildingRuleDTO toDTO() {
+        BuildingRuleDTO buildingRuleDTO = new BuildingRuleDTO();
+        buildingRuleDTO.setRuleTeamCount(this.ruleTeamCount);
+        buildingRuleDTO.setRuleMajorWeight(this.ruleMajorWeight);
+        buildingRuleDTO.setRuleCareerWeight(this.ruleCareerWeight);
+        buildingRuleDTO.setRuleGithubWeight(this.ruleGithubWeight);
+        buildingRuleDTO.setRuleTeamReviewWeight(this.ruleTeamReviewWeight);
+        buildingRuleDTO.setRuleMentorReviewWeight(this.ruleMentorReviewWeight);
+        buildingRuleDTO.setRuleTechStackYn(this.ruleTechStackYn.name()); // Enum을 String으로 변환
+        return buildingRuleDTO;
+    }
+
     public void updateFrom(BuildingRuleDTO buildingRuleDTO) {
         this.ruleTeamCount = buildingRuleDTO.getRuleTeamCount();
         this.ruleMajorWeight = buildingRuleDTO.getRuleMajorWeight();
