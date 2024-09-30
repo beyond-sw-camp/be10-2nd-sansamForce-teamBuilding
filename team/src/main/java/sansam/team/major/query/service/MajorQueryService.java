@@ -29,12 +29,12 @@ public class MajorQueryService {
     }
 
     public JSONArray getMajorInfoFromApi() throws Exception {
-        return careernetUtil.getMajorInfo();
+        return careernetUtil.getMajorInfo("universityName", "departmentName", "departmentCode");
     }
 
     public JSONObject getIntegratedMajorInfo() throws Exception {
         List<MajorQueryDTO> dbMajors = majorQueryMapper.findAll();
-        JSONArray apiMajors = careernetUtil.getMajorInfo();
+        JSONArray apiMajors = careernetUtil.getMajorInfo("universityName", "departmentName", "departmentCode");
 
         JSONObject result = new JSONObject();
         result.put("dbMajors", dbMajors);
