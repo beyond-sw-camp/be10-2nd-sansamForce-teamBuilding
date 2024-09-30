@@ -1,3 +1,4 @@
+USE sansam;
 DROP TABLE IF EXISTS tbl_mentor_review;
 DROP TABLE IF EXISTS tbl_chat_content;
 DROP TABLE IF EXISTS tbl_user_review;
@@ -30,7 +31,7 @@ CREATE TABLE `tbl_major`
 CREATE TABLE `tbl_user`
 (
     `user_seq` bigint NOT NULL AUTO_INCREMENT,
-    `major_seq` bigint,
+    `major_seq` bigint NULL,
     `user_id` varchar(30) NOT NULL,
     `user_name` varchar(30) NOT NULL,
     `user_nickname` varchar(50) NOT NULL,
@@ -42,7 +43,7 @@ CREATE TABLE `tbl_user`
     `user_gender` char(10) NOT NULL,
     `user_github_id` varchar(30) NULL,
     `user_profile_img` varchar(255) NULL,
-    `user_status` varchar(20) NULL,
+    `user_status` ENUM('ACTIVE', 'BAN', 'DELETE') NULL,
     `user_pwd_mod_date` timestamp NULL,
     `user_ban_date` timestamp NULL,
     `reg_date` timestamp NOT NULL,
@@ -67,10 +68,10 @@ CREATE TABLE `tbl_login_log`
 CREATE TABLE `tbl_project`
 (
     `project_seq` bigint NOT NULL AUTO_INCREMENT,
-    `user_seq` bigint,
+    `project_admin_seq` bigint,
     `project_title` varchar(50) NOT NULL,
     `project_content` longtext NOT NULL,
-    `project_status` varchar(10) NOT NULL,
+    `project_status` ENUM('PROGRESS', 'END') NOT NULL,
     `project_head_count` int NOT NULL,
     `project_img_url` varchar(100) NULL,
     `project_start_date` timestamp NOT NULL,
@@ -79,7 +80,7 @@ CREATE TABLE `tbl_project`
     `mod_date` timestamp NULL,
     `del_date` timestamp NULL,
     PRIMARY KEY (`project_seq`),
-    CONSTRAINT `FK_TBL_PROJECT_USER_SEQ` FOREIGN KEY (`user_seq`) REFERENCES `tbl_user`(`user_seq`)
+    CONSTRAINT `FK_TBL_PROJECT_USER_SEQ` FOREIGN KEY (`project_admin_seq`) REFERENCES `tbl_user`(`user_seq`)
 );
 
 CREATE TABLE `tbl_project_board`
@@ -107,10 +108,13 @@ CREATE TABLE `tbl_project_member`
     `project_member_seq` bigint NOT NULL AUTO_INCREMENT,
     `project_seq` bigint NOT NULL,
     `user_seq` bigint NOT NULL,
-    `project_member_del_yn` char(1) NOT NULL,
-    `project_mentor_yn` char(1) NOT NULL,
+    `project_member_del_yn` ENUM('Y', 'N') NOT NULL,
+    `project_mentor_yn` ENUM('Y', 'N') NOT NULL,
     `reg_date` timestamp NOT NULL,
     `mod_date` timestamp NULL,
+    `project_member_major_yn` ENUM('Y','N') NULL,
+    `project_member_interest_type` ENUM('BACKEND', 'FRONTEND') NULL,
+    `project_member_commit_score` bigint NULL,
     PRIMARY KEY (`project_member_seq`),
     CONSTRAINT `FK_TBL_PROJECT_MEMBER_PROJECT_SEQ` FOREIGN KEY (`project_seq`) REFERENCES `tbl_project`(`project_seq`),
     CONSTRAINT `FK_TBL_PROJECT_MEMBER_USER_SEQ` FOREIGN KEY (`user_seq`) REFERENCES `tbl_user`(`user_seq`)
@@ -150,8 +154,10 @@ CREATE TABLE `tbl_team`
     `project_seq` bigint NOT NULL,
     `rule_seq` bigint NOT NULL,
     `team_name` varchar(255) NOT NULL,
+    `team_status` ENUM('OPEN', 'CLOSE') NULL,
     `reg_date` timestamp NOT NULL,
     `mod_date` timestamp NULL,
+    `end_date` timestamp NULL,
     PRIMARY KEY (`team_seq`),
     CONSTRAINT `FK_TBL_TEAM_PROJECT_SEQ` FOREIGN KEY (`project_seq`) REFERENCES `tbl_project`(`project_seq`),
     CONSTRAINT `FK_TBL_TEAM_RULE_SEQ` FOREIGN KEY (`rule_seq`) REFERENCES `tbl_building_rule`(`rule_seq`)
@@ -187,8 +193,6 @@ CREATE TABLE `tbl_team_member`
     `team_member_seq` bigint NOT NULL AUTO_INCREMENT,
     `team_seq` bigint NOT NULL,
     `user_seq` bigint NOT NULL,
-    `team_member_major_yn` char(1) NOT NULL,
-    `team_member_interest` char(2) NULL,
     `reg_date` timestamp NOT NULL,
     `mod_date` timestamp NULL,
     PRIMARY KEY (`team_member_seq`),
@@ -230,8 +234,8 @@ CREATE TABLE `tbl_user_review`
     `user_review_seq` bigint NOT NULL AUTO_INCREMENT,
     `send_team_member_seq` bigint NOT NULL,
     `receive_team_member_seq` bigint NOT NULL,
-    `user_review_star` double NOT NULL,
-    `user_review_content` varchar(255) NOT NULL,
+    `team_member_review_star` double NOT NULL,
+    `team_member_review_content` varchar(255) NOT NULL,
     `reg_date` TIMESTAMP NOT NULL,
     `mod_date` timestamp NULL,
     PRIMARY KEY (`user_review_seq`),
@@ -258,10 +262,12 @@ CREATE TABLE `tbl_mentor_review`
 (
     `mentor_review_seq` bigint NOT NULL AUTO_INCREMENT,
     `project_member_seq` bigint NOT NULL,
-    `mentor_review_title` varchar(50) NOT NULL,
+    `project_mentor_seq` bigint NOT NULL,
+    `mentor_review_star` double NOT NULL,
     `mentor_review_content` longtext NOT NULL,
-    `mentor_review_rate` float NOT NULL,
     `reg_date` timestamp NOT NULL,
+    `mod_date` timestamp NULL,
     PRIMARY KEY (`mentor_review_seq`),
-    CONSTRAINT `FK_TBL_MENTOR_REVIEW_PROJECT_MEMBER_SEQ` FOREIGN KEY (`project_member_seq`) REFERENCES `tbl_project_member`(`project_member_seq`)
+    CONSTRAINT `FK_TBL_MENTOR_REVIEW_PROJECT_MEMBER_SEQ` FOREIGN KEY (`project_member_seq`) REFERENCES `tbl_project_member`(`project_member_seq`),
+    CONSTRAINT `FK_TBL_MENTOR_REVIEW_MENTOR_USER_SEQ` FOREIGN KEY (`project_mentor_seq`) REFERENCES `tbl_user`(`user_seq`)
 );

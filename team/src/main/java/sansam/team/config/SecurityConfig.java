@@ -56,7 +56,7 @@ public class SecurityConfig {
                                 .requestMatchers(
                                         "/api/v1/**"
                                 ).hasAnyAuthority("MEMBER", "MENTOR", "MANAGER", "SUB_MANAGER")
-                                .anyRequest().authenticated()
+                                .anyRequest().permitAll()
                 )
                 // LoginFilter는 UsernamePasswordAuthenticationFilter 앞에 위치시킵니다.
                 .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, modelMapper), UsernamePasswordAuthenticationFilter.class)

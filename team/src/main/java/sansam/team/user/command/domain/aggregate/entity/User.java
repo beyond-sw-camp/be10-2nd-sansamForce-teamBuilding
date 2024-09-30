@@ -1,13 +1,14 @@
 package sansam.team.user.command.domain.aggregate.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
-import sansam.team.common.BaseTimeEntity;
-import sansam.team.user.command.domain.aggregate.RoleType;
+
+import sansam.team.user.command.application.dto.mypagedto.MyPageDTO;
+
+import sansam.team.common.aggregate.entity.BaseTimeEntity;
+import sansam.team.common.aggregate.RoleType;
+
 import sansam.team.user.command.domain.aggregate.StatusType;
 
 import java.time.LocalDateTime;
@@ -91,4 +92,16 @@ public class User extends BaseTimeEntity {
     public void setUserSeq(Long userSeq) {
         this.userSeq = userSeq;
     }
+
+
+    public void updateMyPageList(MyPageDTO myPageDTO) {
+
+        this.userNickname = myPageDTO.getUserNickname();
+        this.userPhone = myPageDTO.getUserPhone();
+        this.userEmail = myPageDTO.getUserEmail();
+        this.userPassword = myPageDTO.getUserPassword();
+        this.userGithubId = myPageDTO.getUserGithubId();
+        this.userProfileImg = myPageDTO.getUserProfileImg();
+    }
 }
+

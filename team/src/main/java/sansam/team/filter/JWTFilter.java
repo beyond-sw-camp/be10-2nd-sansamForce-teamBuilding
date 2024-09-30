@@ -14,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
 import sansam.team.common.jwt.JWTUtil;
+import sansam.team.common.aggregate.RoleType;
 import sansam.team.user.command.domain.aggregate.entity.User;
 
 import java.io.IOException;
@@ -46,7 +47,7 @@ public class JWTFilter extends OncePerRequestFilter {
                 List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(auth));
 
                 // User 객체 생성 및 userSeq 설정
-                User user = User.builder().userSeq(userSeq).build();
+                User user = User.builder().userSeq(userSeq).userAuth(RoleType.valueOf(auth)).build();
 
                 // 로그로 권한 상태 확인
                 log.info("JWT UserSeq: " + userSeq);

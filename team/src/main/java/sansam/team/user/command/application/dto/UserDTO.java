@@ -2,8 +2,8 @@ package sansam.team.user.command.application.dto;
 
 import lombok.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import sansam.team.common.BaseTimeEntity;
-import sansam.team.user.command.domain.aggregate.RoleType;
+import sansam.team.common.aggregate.entity.BaseTimeEntity;
+import sansam.team.common.aggregate.RoleType;
 import sansam.team.user.command.domain.aggregate.StatusType;
 import sansam.team.common.jwt.JwtToken;
 

@@ -39,7 +39,10 @@ services:
 
 volumes:
   db_data:
+  mongodb-data:
 
 networks:
   springboot-network:
+    driver: bridge
+  network-mongo:
     driver: bridge
