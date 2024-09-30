@@ -7,8 +7,9 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class MentorReviewDTO {
+public class MentorReviewCreateDTO {
 
+    private Long projectMemberSeq;
     private double mentorReviewStar;
     private String mentorReviewContent;
 }
