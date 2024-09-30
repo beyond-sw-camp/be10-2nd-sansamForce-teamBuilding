@@ -186,6 +186,8 @@ CREATE TABLE `tbl_team_schedule`
     `team_schedule_content` varchar(4000) NOT NULL,
     `team_schedule_start_date` timestamp NOT NULL,
     `team_schedule_end_date` timestamp NOT NULL,
+    `reg_date` timestamp NOT NULL,
+    `mod_date` timestamp NULL,
     PRIMARY KEY (`team_schedule_seq`),
     CONSTRAINT `FK_TBL_TEAM_SCHEDULE_TEAM_SEQ` FOREIGN KEY (`team_seq`) REFERENCES `tbl_team`(`team_seq`)
 );

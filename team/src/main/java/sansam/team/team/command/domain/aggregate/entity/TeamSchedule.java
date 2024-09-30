@@ -22,18 +22,18 @@ public class TeamSchedule extends BaseTimeEntity {
     private long teamSeq;
 
     @Column(name = "team_schedule_content")
-    private String content;
+    private String scheduleContent;
 
     @Column(name = "team_schedule_start_date")
-    private LocalDateTime startDate;
+    private LocalDateTime scheduleStartDate;
 
     @Column(name = "team_schedule_end_date")
-    private LocalDateTime endDate;
+    private LocalDateTime scheduleEndDate;
 
     public void updateSchedule(String content, LocalDateTime startDate, LocalDateTime endDate) {
-        this.content = content;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.scheduleContent = content;
+        this.scheduleStartDate = startDate;
+        this.scheduleEndDate = endDate;
     }
 
 }

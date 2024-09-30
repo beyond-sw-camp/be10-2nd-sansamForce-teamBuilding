@@ -109,7 +109,7 @@ public class TeamService {
             throw new CustomNotFoundException(ErrorCodeType.TEAM_STATUS_ERROR);
         }
 
-        if(team.getEndDate().isAfter(LocalDateTime.now())) {
+        if(team.getEndDate()!= null && team.getEndDate().isAfter(LocalDateTime.now())) {
             throw new CustomNotFoundException(ErrorCodeType.TEAM_END_ERROR);
         }
 
