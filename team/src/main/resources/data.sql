@@ -107,12 +107,12 @@ VALUES
     (4, 20,  NOW());
 
 -- 팀 스케줄 예시
-INSERT INTO `tbl_team_schedule` (`team_seq`, `team_schedule_content`, `team_schedule_start_date`, `team_schedule_end_date`)
+INSERT INTO `tbl_team_schedule` (`team_seq`, `team_schedule_content`, `team_schedule_start_date`, `team_schedule_end_date`, `reg_date`)
 VALUES
-    (1, 'Alpha Team A Kickoff Meeting', '2024-01-05 10:00:00', '2024-01-05 12:00:00'),
-    (2, 'Alpha Team B Design Review', '2024-01-10 14:00:00', '2024-01-10 16:00:00'),
-    (3, 'Beta Team A Sprint Planning', '2024-02-05 09:00:00', '2024-02-05 11:00:00'),
-    (4, 'Beta Team B Retrospective', '2024-02-15 15:00:00', '2024-02-15 17:00:00');
+    (1, 'Alpha Team A Kickoff Meeting', '2024-01-05 10:00:00', '2024-01-05 12:00:00',  NOW()),
+    (2, 'Alpha Team B Design Review', '2024-01-10 14:00:00', '2024-01-10 16:00:00',  NOW()),
+    (3, 'Beta Team A Sprint Planning', '2024-02-05 09:00:00', '2024-02-05 11:00:00',  NOW()),
+    (4, 'Beta Team B Retrospective', '2024-02-15 15:00:00', '2024-02-15 17:00:00',  NOW());
 
 INSERT INTO tbl_building_rule ( rule_team_count
                               , rule_major_weight
