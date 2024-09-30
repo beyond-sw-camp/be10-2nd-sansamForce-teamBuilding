@@ -22,8 +22,8 @@ public class TeamBuildingController {
     // 팀 빌딩 요청
     @PostMapping("/team_building")
     @Operation(summary = "프로젝트 내 팀 빌딩")
-    public ResponseEntity<List<Team>> buildTeams(@RequestParam Long projectSeq /*, @RequestBody Long teamBuildingRuleSeq*/) throws IOException {
-        List<Team> teams = teamBuildingService.buildBalancedTeams(projectSeq /*,teamBuildingRuleSeq*/);
+    public ResponseEntity<List<Team>> buildTeams(@RequestParam Long projectSeq , @RequestParam int teamBuildingRuleSeq ) throws IOException {
+        List<Team> teams = teamBuildingService.buildBalancedTeams(projectSeq ,teamBuildingRuleSeq);
         return ResponseEntity.ok(teams);
     }
 
