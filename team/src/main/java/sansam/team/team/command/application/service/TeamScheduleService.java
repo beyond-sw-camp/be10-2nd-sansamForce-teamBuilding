@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sansam.team.exception.CustomNotFoundException;
+import sansam.team.exception.CustomException;
 import sansam.team.exception.ErrorCodeType;
 import sansam.team.team.command.application.dto.TeamScheduleDTO;
 import sansam.team.team.command.domain.aggregate.TeamStatusType;
@@ -35,9 +35,9 @@ public class TeamScheduleService {
             }
 
         } catch (Exception e) {
-            if(((CustomNotFoundException) e).getErrorCode() != null) {
-                log.error("createTeamSchedule Error : {}", ((CustomNotFoundException) e).getErrorCode().getMessage());
-                throw new CustomNotFoundException(((CustomNotFoundException) e).getErrorCode());
+            if(((CustomException) e).getErrorCode() != null) {
+                log.error("createTeamSchedule Error : {}", ((CustomException) e).getErrorCode().getMessage());
+                throw new CustomException(((CustomException) e).getErrorCode());
             } else {
                 throw new RuntimeException("팀 일정 생성 중 오류가 발생하였습니다.");
             }
@@ -50,7 +50,7 @@ public class TeamScheduleService {
     public TeamSchedule updateTeamSchedule(long scheduleSeq, TeamScheduleDTO scheduleDTO) {
         try {
             TeamSchedule teamSchedule = teamScheduleRepository.findById(scheduleSeq)
-                    .orElseThrow(() -> new CustomNotFoundException(ErrorCodeType.SCHEDULE_NOT_FOUND));
+                    .orElseThrow(() -> new CustomException(ErrorCodeType.SCHEDULE_NOT_FOUND));
 
             if(isSchedulePeriod(modelMapper.map(teamSchedule, TeamScheduleDTO.class))) {
                 teamSchedule.updateSchedule(scheduleDTO.getScheduleContent(), scheduleDTO.getScheduleStartDate(), scheduleDTO.getScheduleEndDate());
@@ -60,9 +60,9 @@ public class TeamScheduleService {
             return teamSchedule;
 
         } catch (Exception e) {
-            if(((CustomNotFoundException) e).getErrorCode() != null) {
-                log.error("updateTeamSchedule Error : {}", ((CustomNotFoundException) e).getErrorCode().getMessage());
-                throw new CustomNotFoundException(((CustomNotFoundException) e).getErrorCode());
+            if(((CustomException) e).getErrorCode() != null) {
+                log.error("updateTeamSchedule Error : {}", ((CustomException) e).getErrorCode().getMessage());
+                throw new CustomException(((CustomException) e).getErrorCode());
             } else {
                 throw new RuntimeException("팀 일정 수정 중 오류가 발생하였습니다.");
             }
@@ -74,11 +74,11 @@ public class TeamScheduleService {
         Team team = teamService.getTeamById(scheduleDTO.getTeamSeq());
 
         if (TeamStatusType.CLOSE.equals(team.getTeamStatus())) {
-            throw new CustomNotFoundException(ErrorCodeType.TEAM_STATUS_ERROR);
+            throw new CustomException(ErrorCodeType.TEAM_STATUS_ERROR);
         }
 
         if(team.getEndDate()!= null && team.getEndDate().isAfter(LocalDateTime.now())) {
-            throw new CustomNotFoundException(ErrorCodeType.TEAM_END_ERROR);
+            throw new CustomException(ErrorCodeType.TEAM_END_ERROR);
         }
 
         return true;
@@ -90,7 +90,7 @@ public class TeamScheduleService {
             teamScheduleRepository.deleteById(scheduleSeq);
 
         } catch (Exception e) {
-            throw new CustomNotFoundException(ErrorCodeType.SCHEDULE_DELETE_ERROR);
+            throw new CustomException(ErrorCodeType.SCHEDULE_DELETE_ERROR);
         }
     }
 

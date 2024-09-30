@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sansam.team.exception.CustomNotFoundException;
+import sansam.team.exception.CustomException;
 import sansam.team.exception.ErrorCodeType;
 import sansam.team.team.command.application.dto.TeamMemberScheduleDTO;
 import sansam.team.team.command.domain.aggregate.entity.TeamMemberSchedule;
@@ -31,11 +31,11 @@ public class TeamMemberScheduleService {
             }
 
         } catch (Exception e) {
-            if(((CustomNotFoundException) e).getErrorCode() != null) {
-                log.error("teamMemberSchedule create Error : {}", ((CustomNotFoundException) e).getErrorCode().getMessage());
-                throw new CustomNotFoundException(((CustomNotFoundException) e).getErrorCode());
+            if(((CustomException) e).getErrorCode() != null) {
+                log.error("teamMemberSchedule create Error : {}", ((CustomException) e).getErrorCode().getMessage());
+                throw new CustomException(((CustomException) e).getErrorCode());
             } else {
-                throw new CustomNotFoundException(ErrorCodeType.MEMBER_SCHEDULE_CREATE_ERROR);
+                throw new CustomException(ErrorCodeType.MEMBER_SCHEDULE_CREATE_ERROR);
             }
         }
 
@@ -46,7 +46,7 @@ public class TeamMemberScheduleService {
     public TeamMemberSchedule updateScheduleByMember(long memberScheduleSeq, TeamMemberScheduleDTO memberScheduleDTO) {
         try {
             TeamMemberSchedule teamMemberSchedule = teamMemberScheduleRepository.findById(memberScheduleSeq)
-                    .orElseThrow(() -> new CustomNotFoundException(ErrorCodeType.));
+                    .orElseThrow(() -> new CustomException(ErrorCodeType.));
 
             if(isScheduleByMember(modelMapper.map(teamMemberSchedule, TeamMemberScheduleDTO.class))) {
                 teamMemberSchedule.updateReview(memberScheduleDTO.getReceiveMemberSeq(), memberScheduleDTO.getReviewStar(), memberScheduleDTO.getReviewContent());
@@ -56,11 +56,11 @@ public class TeamMemberScheduleService {
             return teamMemberSchedule;
 
         } catch (Exception e) {
-            if(((CustomNotFoundException) e).getErrorCode() != null) {
-                log.error("teamMemberSchedule update Error : {}", ((CustomNotFoundException) e).getErrorCode().getMessage());
-                throw new CustomNotFoundException(((CustomNotFoundException) e).getErrorCode());
+            if(((CustomException) e).getErrorCode() != null) {
+                log.error("teamMemberSchedule update Error : {}", ((CustomException) e).getErrorCode().getMessage());
+                throw new CustomException(((CustomException) e).getErrorCode());
             } else {
-                throw new CustomNotFoundException(ErrorCodeType.);
+                throw new CustomException(ErrorCodeType.);
             }
         }
     }*/
