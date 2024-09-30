@@ -5,6 +5,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sansam.team.common.response.ApiResponse;
+import sansam.team.common.response.ResponseUtil;
 import sansam.team.team.command.application.service.TeamBuildingService;
 import sansam.team.team.command.domain.aggregate.entity.Team;
 
@@ -22,9 +24,9 @@ public class TeamBuildingController {
     // 팀 빌딩 요청
     @PostMapping("/team_building")
     @Operation(summary = "프로젝트 내 팀 빌딩")
-    public ResponseEntity<List<Team>> buildTeams(@RequestParam Long projectSeq , @RequestParam int teamBuildingRuleSeq ) throws IOException {
+    public ApiResponse<List<Team>> buildTeams(@RequestParam Long projectSeq , @RequestParam int teamBuildingRuleSeq ) throws IOException {
         List<Team> teams = teamBuildingService.buildBalancedTeams(projectSeq ,teamBuildingRuleSeq);
-        return ResponseEntity.ok(teams);
+        return ResponseUtil.successResponse("팀 빌딩 성공",teams).getBody();
     }
 
 }
