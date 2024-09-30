@@ -20,4 +20,8 @@ public class TeamMemberService {
                 .orElseThrow(() -> new CustomNotFoundException(ErrorCodeType.MEMBER_NOT_FOUND));
     }
 
+    @Transactional
+    public void deleteTeamMember(Long teamMemberSeq) {
+        teamMemberRepository.deleteById(teamMemberSeq);
+    }
 }
