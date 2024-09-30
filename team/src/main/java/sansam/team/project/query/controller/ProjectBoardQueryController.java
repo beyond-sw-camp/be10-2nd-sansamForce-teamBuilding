@@ -29,9 +29,9 @@ public class ProjectBoardQueryController {
     }
 
     /* 프로젝트 게시물 상세 조회 */
-    @GetMapping("/{id}")
+    @GetMapping("/{projectBoardSeq}")
     @Operation(summary = "프로젝트 게시물 상세 조회", description = "프로젝트 게시물 상세 조회 API (사용자가 조회)")
-    public ProjectBoardDTO getProjectBoardById(@PathVariable("id") Long projectBoardSeq) {
+    public ProjectBoardDTO getProjectBoardById(@PathVariable Long projectBoardSeq) {
         return projectBoardQueryService.getProjectBoardByIdForUser(projectBoardSeq); // ResponseEntity 생략하고 DTO 반환
     }
 }
