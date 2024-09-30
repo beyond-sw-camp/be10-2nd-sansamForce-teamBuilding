@@ -14,7 +14,7 @@ import sansam.team.project.command.domain.aggregate.entity.MentorReview;
 import sansam.team.project.command.domain.aggregate.entity.ProjectMember;
 
 @RestController
-@RequestMapping("/api/v1/admin/project/member")
+@RequestMapping("/api/v1/admin/project")
 @RequiredArgsConstructor
 @Tag(name = "2-4. Project Member Admin API", description = "프로젝트 회원 관리자 API")
 public class AdminProjectMemberController {
@@ -22,7 +22,7 @@ public class AdminProjectMemberController {
     private final AdminProjectMemberService adminProjectMemberService;
 
     // 프로젝트 회원 추가 API
-    @PostMapping("/{projectSeq}")
+    @PostMapping("/{projectSeq}/member")
     @Operation(summary = "프로젝트 회원 추가", description = "프로젝트 회원 추가 API (관리자만 가능)")
     public ApiResponse<?> addProjectMember(
             @PathVariable Long projectSeq,
@@ -44,7 +44,7 @@ public class AdminProjectMemberController {
     }
 
     // 프로젝트 멤버 수정 엔드포인트
-    @PutMapping("/{projectMemberSeq}")
+    @PutMapping("/{projectSeq}/member/{projectMemberSeq}")
     @Operation(summary = "프로젝트 회원 상태 변경(탈퇴 유무, 멘토 유무)", description = "프로젝트 수정 API (관리자만 가능)")
     public ApiResponse<?> updateProjectMember(
             @PathVariable Long projectMemberSeq,
