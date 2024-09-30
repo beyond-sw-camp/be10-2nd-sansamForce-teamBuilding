@@ -23,7 +23,6 @@ public class ProjectMentorReviewController {
     @PostMapping
     @Operation(summary = "프로젝트 별 강사 평가 추가 API", description = "강사만 평가 추가를 할 수 있음")
     public ApiResponse<?> createMentorReview(
-            @PathVariable Long projectSeq,
             @RequestBody ProjectMentorReviewCreateDTO projectMentorReviewCreateDTO) {
         try {
             // MentorReview 생성
