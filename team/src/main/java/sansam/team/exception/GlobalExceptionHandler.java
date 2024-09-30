@@ -26,7 +26,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(CustomException.class)
     public ResponseEntity<ApiResponse<String>> handleCustomNotFoundException(CustomException e) {
         // 예외 메시지 로깅
-        logger.error("CustomNotFoundException occurred: {}", e.getMessage(), e);
+        logger.error("CustomException occurred: {}", e.getMessage(), e);
 
         return ResponseUtil.failureResponse(e.getErrorCode().getMessage(), e.getErrorCode().getCode(), e.getErrorCode().getHttpStatus());
     }
@@ -34,7 +34,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ApiResponse<String>> handleCustomNotFoundException(RuntimeException e) {
         // 예외 메시지 로깅
-        logger.error("CustomNotFoundException occurred: {}", e.getMessage(), e);
+        logger.error("CustomException occurred: {}", e.getMessage(), e);
 
         return ResponseUtil.failureResponse(e.getMessage(), null);
     }

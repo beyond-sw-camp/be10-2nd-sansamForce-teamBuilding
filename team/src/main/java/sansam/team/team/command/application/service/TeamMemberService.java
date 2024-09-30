@@ -15,7 +15,7 @@ public class TeamMemberService {
     private final TeamMemberRepository teamMemberRepository;
 
     @Transactional
-    public TeamMember getTeamMemberByUserId(Long memberSeq) throws CustomException {
+    public TeamMember getTeamMemberByUserSeq(Long memberSeq) throws CustomException {
         return teamMemberRepository.findByUserSeq(memberSeq)
                 .orElseThrow(() -> new CustomException(ErrorCodeType.MEMBER_NOT_FOUND));
     }

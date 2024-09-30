@@ -6,18 +6,25 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sansam.team.common.aggregate.entity.BaseTimeEntity;
 
-@Entity
+@Entity @Getter
 @Table(name = "tbl_team_member_schedule_progress")
-@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class TeamMemberScheduleProgress extends BaseTimeEntity {
+public class TeamMemberSchedule extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long teamMemberScheduleProgressSeq;
+    @Column(name = "team_schedule_progress_seq")
+    private long teamScheduleProgressSeq;
+
+    @Column(name = "team_schedule_seq")
     private long teamScheduleSeq;
+
+    @Column(name = "team_member_seq")
     private long teamMemberSeq;
+
     @Column(name = "team_schedule_progress_content")
-    private String progressContent;
-    @Column(name = "team_schdeule_progress_feedback")
-    private String progressFeedback;
+    private String memberScheduleContent;
+
+    @Column(name = "team_schedule_progress_feedback")
+    private String memberScheduleFeedback;
+
 }
