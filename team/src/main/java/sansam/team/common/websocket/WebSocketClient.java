@@ -2,13 +2,12 @@ package sansam.team.common.websocket;
 
 import lombok.RequiredArgsConstructor;
 import okhttp3.*;
-import okio.ByteString;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
 import sansam.team.common.websocket.dto.TeamChatMemberDTO;
 import sansam.team.common.websocket.dto.TeamChatMessageDTO;
 import sansam.team.common.websocket.dto.TeamChatMessageType;
-import sansam.team.team.query.dto.chat.TeamChatRoomResponse;
+import sansam.team.team.query.dto.TeamChatRoomResponse;
 
 @Component
 @RequiredArgsConstructor

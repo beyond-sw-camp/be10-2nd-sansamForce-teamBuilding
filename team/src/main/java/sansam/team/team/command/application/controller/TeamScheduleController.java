@@ -13,12 +13,12 @@ import sansam.team.team.command.domain.aggregate.entity.TeamSchedule;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/team/schedule")
-@Tag(name = "Team Schedule API", description = "팀 일정 API")
+@Tag(name = "3-4-1. Team Schedule API", description = "팀 일정 API")
 public class TeamScheduleController {
 
     private final TeamScheduleService teamScheduleService;
 
-    @PostMapping("/create")
+    @PostMapping
     @Operation(summary = "팀 일정 추가")
     public ApiResponse<String> createTeamSchedule(@RequestBody TeamScheduleDTO scheduleDTO) {
         boolean result = teamScheduleService.createTeamSchedule(scheduleDTO);

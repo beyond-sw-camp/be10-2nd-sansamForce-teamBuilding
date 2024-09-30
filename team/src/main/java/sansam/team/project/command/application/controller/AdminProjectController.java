@@ -13,7 +13,7 @@ import sansam.team.project.command.domain.aggregate.entity.Project;
 @RestController
 @RequestMapping("api/v1/admin/project")
 @RequiredArgsConstructor
-@Tag(name = "Project Admin API", description = "프로젝트 관리자 API")
+@Tag(name = "2-3. Project Admin API", description = "프로젝트 관리자 API")
 public class AdminProjectController {
 
     private final AdminProjectService adminProjectService;

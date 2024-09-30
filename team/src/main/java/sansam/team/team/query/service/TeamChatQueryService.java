@@ -10,7 +10,7 @@ import sansam.team.common.jwt.SecurityUtil;
 import sansam.team.common.websocket.WebSocketClient;
 import sansam.team.common.websocket.dto.TeamChatMemberDTO;
 import sansam.team.common.websocket.dto.TeamChatMessageDTO;
-import sansam.team.team.query.dto.chat.*;
+import sansam.team.team.query.dto.*;
 import sansam.team.team.query.mapper.TeamChatQueryMapper;
 import sansam.team.user.command.domain.aggregate.entity.User;
 

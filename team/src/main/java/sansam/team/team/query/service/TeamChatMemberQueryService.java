@@ -3,7 +3,7 @@ package sansam.team.team.query.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import sansam.team.team.query.dto.chat.*;
+import sansam.team.team.query.dto.TeamChatMemberResponse;
 import sansam.team.team.query.mapper.TeamChatMemberQueryMapper;
 
 @Service

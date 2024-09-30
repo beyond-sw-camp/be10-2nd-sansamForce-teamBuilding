@@ -1,7 +1,7 @@
 package sansam.team.team.query.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
-import sansam.team.team.query.dto.chat.*;
+import sansam.team.team.query.dto.*;
 
 import java.util.List;
 

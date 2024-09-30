@@ -15,7 +15,7 @@ import sansam.team.team.command.domain.aggregate.entity.TeamChat;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/team/chat")
-@Tag(name = "Team Chatting API", description = "팀 채팅방 API")
+@Tag(name = "3-5. Team Chat API", description = "팀 채팅방 API")
 public class TeamChatController {
 
     private final TeamChatService teamChatService;

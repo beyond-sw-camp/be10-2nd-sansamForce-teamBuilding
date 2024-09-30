@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/project")
 @RequiredArgsConstructor
-@Tag(name = "Project Member API", description = "프로젝트 회원 API")
+@Tag(name = "2-5. Project Member API", description = "프로젝트 회원 API")
 public class ProjectMemberQueryController {
 
     private final ProjectQueryService projectQueryService;

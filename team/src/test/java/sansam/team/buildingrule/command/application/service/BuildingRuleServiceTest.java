@@ -5,10 +5,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.transaction.annotation.Transactional;
-import sansam.team.buildingrule.command.application.dto.BuildingRuleDTO;
-import sansam.team.buildingrule.command.domain.aggregate.BuildingRule;
-import sansam.team.buildingrule.command.domain.repositroy.BuildingRuleRepository;
-import sansam.team.common.YnType;
+import sansam.team.common.aggregate.YnType;
+import sansam.team.team.command.application.dto.TeamBuildingRuleDTO;
+import sansam.team.team.command.domain.aggregate.entity.TeamBuildingRule;
+import sansam.team.team.command.domain.repository.TeamBuildingRuleRepository;
+import sansam.team.team.command.application.service.TeamBuildingRuleService;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -18,18 +19,18 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class BuildingRuleServiceTest {
 
     @Autowired
-    private BuildingRuleRepository buildingRuleRepository;
+    private TeamBuildingRuleRepository buildingRuleRepository;
 
-    private BuildingRuleService buildingRuleService;
+    private TeamBuildingRuleService buildingRuleService;
 
     @BeforeEach
     public void setUp() {
-        this.buildingRuleService = new BuildingRuleService(buildingRuleRepository);
+        this.buildingRuleService = new TeamBuildingRuleService(buildingRuleRepository);
     }
 
     @Test
     public void testCreateBuildingRule() {
-        BuildingRuleDTO buildingRuleDTO = new BuildingRuleDTO();
+        TeamBuildingRuleDTO buildingRuleDTO = new TeamBuildingRuleDTO();
         buildingRuleDTO.setRuleTeamCount(5);
         buildingRuleDTO.setRuleMajorWeight(4);
         buildingRuleDTO.setRuleCareerWeight(3);
@@ -38,7 +39,7 @@ public class BuildingRuleServiceTest {
         buildingRuleDTO.setRuleMentorReviewWeight(5);
         buildingRuleDTO.setRuleTechStackYn("Y");
 
-        BuildingRule createdBuildingRule = buildingRuleService.createBuildingRule(buildingRuleDTO);
+        TeamBuildingRule createdBuildingRule = buildingRuleService.createBuildingRule(buildingRuleDTO);
 
         assertThat(createdBuildingRule).isNotNull();
         assertThat(createdBuildingRule.getRuleTeamCount()).isEqualTo(5);
@@ -47,11 +48,11 @@ public class BuildingRuleServiceTest {
 
     @Test
     public void testUpdateBuildingRule() {
-        BuildingRule buildingRule = new BuildingRule();
-        buildingRule.updateFrom(new BuildingRuleDTO(4, 3, 2, 1, 5, 5, "Y"));
+        TeamBuildingRule buildingRule = new TeamBuildingRule();
+        buildingRule.updateFrom(new TeamBuildingRuleDTO(4, 3, 2, 1, 5, 5, "Y"));
         buildingRuleRepository.save(buildingRule);
 
-        BuildingRuleDTO updateDTO = new BuildingRuleDTO();
+        TeamBuildingRuleDTO updateDTO = new TeamBuildingRuleDTO();
         updateDTO.setRuleTeamCount(3);
         updateDTO.setRuleMajorWeight(2);
         updateDTO.setRuleCareerWeight(1);
@@ -60,7 +61,7 @@ public class BuildingRuleServiceTest {
         updateDTO.setRuleMentorReviewWeight(5);
         updateDTO.setRuleTechStackYn("N");
 
-        BuildingRule updatedBuildingRule = buildingRuleService.updateBuildingRule(buildingRule.getRuleSeq(), updateDTO);
+        TeamBuildingRule updatedBuildingRule = buildingRuleService.updateBuildingRule(buildingRule.getRuleSeq(), updateDTO);
 
         assertThat(updatedBuildingRule).isNotNull();
         assertThat(updatedBuildingRule.getRuleTeamCount()).isEqualTo(3);
@@ -69,14 +70,14 @@ public class BuildingRuleServiceTest {
 
     @Test
     public void testDeleteBuildingRule() {
-        BuildingRule buildingRule = new BuildingRule();
-        buildingRule.updateFrom(new BuildingRuleDTO(5, 5, 5, 5, 5, 5, "Y"));
-        BuildingRule savedRule = buildingRuleRepository.save(buildingRule);
+        TeamBuildingRule buildingRule = new TeamBuildingRule();
+        buildingRule.updateFrom(new TeamBuildingRuleDTO(5, 5, 5, 5, 5, 5, "Y"));
+        TeamBuildingRule savedRule = buildingRuleRepository.save(buildingRule);
 
         buildingRuleService.deleteBuildingRule(savedRule.getRuleSeq());
 
         assertThrows(IllegalArgumentException.class, () -> {
-            buildingRuleService.updateBuildingRule(savedRule.getRuleSeq(), new BuildingRuleDTO());
+            buildingRuleService.updateBuildingRule(savedRule.getRuleSeq(), new TeamBuildingRuleDTO());
         });
     }
 }

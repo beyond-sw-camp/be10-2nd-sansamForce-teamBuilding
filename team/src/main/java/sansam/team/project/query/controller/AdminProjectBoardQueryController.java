@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/admin/project/board")
 @RequiredArgsConstructor
-@Tag(name = "Project Board Admin API", description = "프로젝트 게시물 관리자 API")
+@Tag(name = "2-1. Project Board Admin API", description = "프로젝트 게시물 관리자 API")
 public class AdminProjectBoardQueryController {
 
     private final ProjectBoardQueryService projectBoardQueryService;

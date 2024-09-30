@@ -14,7 +14,7 @@ import sansam.team.team.command.domain.aggregate.entity.Team;
 @RestController
 @RequestMapping("/api/v1/team")
 @RequiredArgsConstructor
-@Tag(name = "Team API", description = "팀 API")
+@Tag(name = "3-3. Team API", description = "팀 API")
 public class TeamController {
 
     private final TeamService teamService;

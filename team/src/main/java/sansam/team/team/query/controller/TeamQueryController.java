@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/query/team")
 @RequiredArgsConstructor
-@Tag(name = "Team API", description = "팀 API")
+@Tag(name = "3-3. Team API", description = "팀 API")
 public class TeamQueryController {
 
     private final TeamQueryService teamQueryService;
