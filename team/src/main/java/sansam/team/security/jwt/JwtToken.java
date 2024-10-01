@@ -1,9 +1,8 @@
-package sansam.team.common.jwt;
+package sansam.team.security.jwt;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.ToString;
 
 @Builder
 @Getter

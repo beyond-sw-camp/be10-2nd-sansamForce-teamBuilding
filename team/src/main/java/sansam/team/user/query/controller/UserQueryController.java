@@ -23,12 +23,4 @@ public class UserQueryController {
 
     private final UserQueryService userQueryService;
 
-    @PostMapping(value = {"/login"})
-    @Operation(summary = "로그인", description = "로그인 API")
-    public ResponseEntity<UserQueryDTO.LoginResponseDTO> loginProcess(@RequestBody UserQueryDTO.LoginRequestDTO loginRequestDTO) throws JsonProcessingException {
-        UserQueryDTO.LoginResponseDTO user = userQueryService.loginProcess(loginRequestDTO);
-        if(user == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-
-        return ResponseEntity.ok(user);
-    }
 }

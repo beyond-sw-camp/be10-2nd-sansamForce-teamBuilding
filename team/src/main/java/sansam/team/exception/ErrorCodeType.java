@@ -7,6 +7,12 @@ import org.springframework.http.HttpStatus;
 @Getter
 @RequiredArgsConstructor
 public enum ErrorCodeType {
+
+    // 스프링 시큐리티 관련 오류
+    SECURITY_ACCESS_ERROR(HttpStatus.BAD_REQUEST, "SECURITY_ERROR_001", "접근 권한이 없습니다."),
+    SECURITY_TOKEN_ERROR(HttpStatus.BAD_REQUEST, "SECURITY_ERROR_002", "로그인 후 다시 시도해 주세요."),
+    SECURITY_LOGIN_ERROR(HttpStatus.BAD_REQUEST, "SECURITY_ERROR_003", "로그인 실패하였습니다. 관리자에게 문의해 주세요."),
+
     // user 관련 오류
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "USER_ERROR_001", "사용자를 찾을 수 없습니다."),
     USER_DUPLICATED(HttpStatus.BAD_REQUEST, "USER_ERROR_002", "중복된 사용자입니다."),

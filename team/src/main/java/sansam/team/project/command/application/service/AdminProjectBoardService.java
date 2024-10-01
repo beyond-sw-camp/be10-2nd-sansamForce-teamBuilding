@@ -4,7 +4,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import sansam.team.common.jwt.SecurityUtil;
+import sansam.team.security.util.SecurityUtil;
 import sansam.team.project.command.application.dto.AdminProjectApplyMemberDTO;
 import sansam.team.project.command.application.dto.AdminProjectBoardCreateDTO;
 import sansam.team.project.command.application.dto.AdminProjectBoardUpdateDTO;

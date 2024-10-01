@@ -2,7 +2,7 @@ package sansam.team.project.query.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import sansam.team.common.jwt.SecurityUtil;
+import sansam.team.security.util.SecurityUtil;
 import sansam.team.project.query.dto.AdminProjectQueryDTO;
 import sansam.team.project.query.dto.ProjectAllQueryDTO;
 import sansam.team.project.query.dto.ProjectQueryDTO;

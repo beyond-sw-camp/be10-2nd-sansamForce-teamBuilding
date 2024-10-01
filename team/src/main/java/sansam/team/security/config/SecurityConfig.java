@@ -1,10 +1,13 @@
-package sansam.team.config;
+package sansam.team.security.config;
 
+import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -14,9 +17,14 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import sansam.team.common.jwt.JWTUtil;
-import sansam.team.filter.JWTFilter;
-import sansam.team.filter.LoginFilter;
+import sansam.team.security.filter.CustomAuthenticationFilter;
+import sansam.team.security.filter.JWTFilter;
+import sansam.team.security.handler.JwtAccessDeniedHandler;
+import sansam.team.security.handler.JwtAuthenticationEntryPoint;
+import sansam.team.security.handler.LoginFailureHandler;
+import sansam.team.security.handler.LoginSuccessHandler;
+import sansam.team.security.util.JWTUtil;
+import sansam.team.user.query.service.UserDetailServiceImpl;
 
 @Configuration
 @EnableWebSecurity
@@ -24,8 +32,8 @@ import sansam.team.filter.LoginFilter;
 public class SecurityConfig {
 
     private final JWTUtil jwtUtil;
-    private final AuthenticationConfiguration authenticationConfiguration;
-    private final ModelMapper modelMapper;  // ModelMapper 주입
+    private final Environment env;
+    private final UserDetailServiceImpl userDetailService;
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
@@ -56,20 +64,41 @@ public class SecurityConfig {
                                 .requestMatchers(
                                         "/api/v1/**"
                                 ).hasAnyAuthority("MEMBER", "MENTOR", "MANAGER", "SUB_MANAGER")
-                                .anyRequest().permitAll()
+                                .anyRequest().authenticated()
                 )
-                // LoginFilter는 UsernamePasswordAuthenticationFilter 앞에 위치시킵니다.
-                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, modelMapper), UsernamePasswordAuthenticationFilter.class)
-                // JWTFilter는 로그인 이후 JWT 검증을 담당하므로 UsernamePasswordAuthenticationFilter 뒤에 위치시킵니다.
-                .addFilterAfter(new JWTFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class)
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+                // JWT token 방식 사용
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+
+                .addFilterBefore(new JWTFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(getAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+
+                // 인증, 인가 관련 Exception Handler 설정
+                .exceptionHandling(exception -> {
+                    exception.accessDeniedHandler(new JwtAccessDeniedHandler());
+                    exception.authenticationEntryPoint(new JwtAuthenticationEntryPoint());
+                });
 
         return http.build();
     }
 
+    private Filter getAuthenticationFilter() {
+        CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter();
+        customAuthenticationFilter.setAuthenticationManager(getAuthenticationManager());
+        customAuthenticationFilter.setAuthenticationSuccessHandler(new LoginSuccessHandler(env));
+        customAuthenticationFilter.setAuthenticationFailureHandler(new LoginFailureHandler());
+        return customAuthenticationFilter;
+    }
+
+    private AuthenticationManager getAuthenticationManager() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setPasswordEncoder(bCryptPasswordEncoder());
+        provider.setUserDetailsService(userDetailService);
+        return new ProviderManager(provider);
+    }
+
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers( "/error", "/error/*", "/img/**", "/favicon.ico");
+        return (web) -> web.ignoring().requestMatchers( "/error", "/error/*", "/img/**", "/favicon.ico", "/resources/**");
     }
 }
 

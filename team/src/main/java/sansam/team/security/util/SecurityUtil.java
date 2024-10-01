@@ -1,4 +1,4 @@
-package sansam.team.common.jwt;
+package sansam.team.security.util;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

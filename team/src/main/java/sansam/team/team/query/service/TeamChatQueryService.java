@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
-import sansam.team.common.jwt.SecurityUtil;
+import sansam.team.security.util.SecurityUtil;
 import sansam.team.common.websocket.WebSocketClient;
 import sansam.team.common.websocket.dto.TeamChatMemberDTO;
 import sansam.team.common.websocket.dto.TeamChatMessageDTO;

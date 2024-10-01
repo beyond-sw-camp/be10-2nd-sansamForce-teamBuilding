@@ -1,12 +1,15 @@
 package sansam.team.user.query.dto;
 
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import sansam.team.common.aggregate.entity.BaseTimeEntity;
-import sansam.team.common.jwt.JwtToken;
+import sansam.team.security.jwt.JwtToken;
 import sansam.team.common.aggregate.RoleType;
 import sansam.team.user.command.domain.aggregate.StatusType;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 
 @Data
 @Builder
@@ -53,13 +56,28 @@ public class UserQueryDTO extends BaseTimeEntity {
 
     @Getter
     @Setter
-    public static class LoginResponseDTO {
+    public static class LoginResponseDTO implements UserDetails {
         private Long userSeq;
         private String userId;
         private String userPassword;
         private String userName;
         private RoleType userAuth;
         private JwtToken jwtToken;
+
+        @Override
+        public Collection<? extends GrantedAuthority> getAuthorities() {
+            return null;
+        }
+
+        @Override
+        public String getPassword() {
+            return null;
+        }
+
+        @Override
+        public String getUsername() {
+            return null;
+        }
     }
 
 }

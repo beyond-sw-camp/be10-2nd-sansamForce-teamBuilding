@@ -6,7 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sansam.team.common.aggregate.RoleType;
-import sansam.team.common.jwt.SecurityUtil;
+import sansam.team.security.util.SecurityUtil;
 import sansam.team.common.util.DateTimeUtil;
 import sansam.team.exception.CustomException;
 import sansam.team.exception.ErrorCodeType;

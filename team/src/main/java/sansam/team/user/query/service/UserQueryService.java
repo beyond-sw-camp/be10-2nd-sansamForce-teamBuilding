@@ -4,10 +4,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import sansam.team.common.jwt.JWTUtil;
-import sansam.team.common.jwt.JwtToken;
-import sansam.team.config.SecurityConfig;
+import sansam.team.security.util.JWTUtil;
+import sansam.team.security.jwt.JwtToken;
+import sansam.team.security.config.SecurityConfig;
 import sansam.team.exception.CustomException;
 import sansam.team.exception.ErrorCodeType;
 import sansam.team.user.command.domain.aggregate.entity.User;
@@ -20,23 +23,13 @@ import sansam.team.user.query.mapper.UserQueryMapper;
 public class UserQueryService {
 
     private final UserQueryMapper userMapper;
+
     private final SecurityConfig securityConfig;
-    private final ModelMapper modelMapper;
-    private final JWTUtil jwtUtil;
-
-    public UserQueryDTO.LoginResponseDTO loginProcess(UserQueryDTO.LoginRequestDTO loginRequestDTO) throws CustomException, JsonProcessingException {
-        UserQueryDTO.LoginResponseDTO userDTO = findById(loginRequestDTO);
-
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        JwtToken token = jwtUtil.createToken(modelMapper.map(userDTO, User.class));
-        userDTO.setJwtToken(token);
-
-        return userDTO;
-    }
 
     public UserQueryDTO.LoginResponseDTO findById(UserQueryDTO.LoginRequestDTO loginRequestDTO) throws CustomException {
         return userMapper.findByUserId(loginRequestDTO.getId())
                 .filter(member -> securityConfig.bCryptPasswordEncoder().matches(loginRequestDTO.getPw(), member.getUserPassword()))
                 .orElseThrow(() -> new CustomException(ErrorCodeType.USER_LOGIN_NOT_FOUND));
     }
+
 }
