@@ -2,6 +2,7 @@ package sansam.team.team.command.domain.repository;
 
 import sansam.team.team.command.domain.aggregate.entity.TeamReview;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface TeamReviewRepository {
@@ -9,5 +10,5 @@ public interface TeamReviewRepository {
     Optional<TeamReview> findById(long reviewSeq);
     void deleteById(long reviewSeq);
 
-    Optional<TeamReview> findAllByReceiveMemberSeq(long userSeq);
+    List<TeamReview> findAllByReceiveMemberSeq(long userSeq);
 }
