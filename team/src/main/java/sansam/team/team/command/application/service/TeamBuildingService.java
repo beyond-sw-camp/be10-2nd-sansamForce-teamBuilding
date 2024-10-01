@@ -58,16 +58,16 @@ public class TeamBuildingService {
         if(commitCnt < 0){
             commitScore = 0L;
         }
-        else if(commitCnt < 5){
+        else if(commitCnt < 10){
             commitScore = 1L;
         }
-        else if(commitCnt < 10){
+        else if(commitCnt < 30){
             commitScore = 2L;
         }
-        else if(commitCnt < 700){
+        else if(commitCnt < 70){
             commitScore = 3L;
         }
-        else if(commitCnt < 900){
+        else if(commitCnt < 100){
             commitScore = 4L;
         }
         else{
