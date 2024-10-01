@@ -94,7 +94,6 @@ public class User extends BaseTimeEntity {
         this.userNickname = myPageDTO.getUserNickname();
         this.userPhone = myPageDTO.getUserPhone();
         this.userEmail = myPageDTO.getUserEmail();
-        this.userPassword = myPageDTO.getUserPassword();
         this.userGithubId = myPageDTO.getUserGithubId();
         this.userProfileImg = myPageDTO.getUserProfileImg();
         this.userCareerYears = myPageDTO.getUserCareerYears();
