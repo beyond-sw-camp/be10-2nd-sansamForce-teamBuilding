@@ -125,3 +125,20 @@ VALUES
     (2, 'Alpha Team B Design Review', '2024-01-10 14:00:00', '2024-01-10 16:00:00',NOW()),
     (3, 'Beta Team A Sprint Planning', '2024-02-05 09:00:00', '2024-02-05 11:00:00',NOW()),
     (4, 'Beta Team B Retrospective', '2024-02-15 15:00:00', '2024-02-15 17:00:00',NOW());
+
+INSERT INTO `tbl_user_review` (`send_team_member_seq`,`receive_team_member_seq`,`team_member_review_star`,`team_member_review_content`,`reg_date`)
+VALUES
+        (1,2,5,'GREAT',NOW()),
+        (2,1,5,'GREAT',NOW()),
+        (10,3,5,'GREAT',NOW()),
+        (2,3,4,'GREAT',NOW());
+
+
+INSERT INTO `tbl_mentor_review` (project_member_seq, project_mentor_seq, mentor_review_star, mentor_review_content, reg_date)
+VALUES
+        (1,11,5,'GREAT',NOW()),
+        (3,11,5,'GREAT',NOW()),
+        (5,11,5,'GREAT',NOW()),
+        (7,11,5,'GREAT',NOW()),
+        (9,11,5,'GREAT',NOW());
+
