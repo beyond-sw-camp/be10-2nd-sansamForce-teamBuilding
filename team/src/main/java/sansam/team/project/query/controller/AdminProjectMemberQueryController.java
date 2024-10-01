@@ -13,7 +13,7 @@ import sansam.team.project.query.service.ProjectMemberQueryService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/admin/project/member")
+@RequestMapping("/api/v1/admin/project")
 @RequiredArgsConstructor
 @Tag(name = "2-4. Project Member Admin API", description = "프로젝트 회원 관리자 API")
 public class AdminProjectMemberQueryController {
@@ -23,7 +23,7 @@ public class AdminProjectMemberQueryController {
 
     // 프로젝트에 들어간 회원 전체 조회
     @Operation(summary = "프로젝트 회원 전체 조회", description = "프로젝트 번호로 해당 프로젝트의 회원들을 조회합니다.")
-    @GetMapping("/{projectSeq}")
+    @GetMapping("/{projectSeq}/member")
     public List<AdminProjectMemberAllQueryDTO> getProjectMembersByProjectSeq(@PathVariable Long projectSeq) {
         return projectMemberQueryService.findProjectMembers(projectSeq);
     }

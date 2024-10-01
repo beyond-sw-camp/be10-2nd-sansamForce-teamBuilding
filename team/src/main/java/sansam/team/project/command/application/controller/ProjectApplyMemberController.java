@@ -13,7 +13,7 @@ import sansam.team.project.command.domain.aggregate.entity.ProjectApplyMember;
 import sansam.team.project.command.application.service.ProjectApplyMemberService;
 
 @RestController
-@RequestMapping("/api/v1/project/apply")
+@RequestMapping("/api/v1/project/board/apply")
 @RequiredArgsConstructor
 @Tag(name = "2-2. Project Board Apply Member API", description = "프로젝트 게시물 신청 회원 API")
 public class ProjectApplyMemberController {
@@ -21,15 +21,14 @@ public class ProjectApplyMemberController {
     private final ProjectApplyMemberService projectApplyMemberService;
 
     // 프로젝트 신청 API
-    @PostMapping("/{projectBoardSeq}")
+    @PostMapping()
     @Operation(summary = "프로젝트 신청", description = "프로젝트 신청 API")
     public ApiResponse<?> applyForProject(
-            @PathVariable Long projectBoardSeq,
             @RequestBody AdminProjectApplyMemberDTO applyMemberDTO) {
 
         try {
             // 서비스로 전달하여 신청 처리
-            ProjectApplyMember applyMember = projectApplyMemberService.applyForProject(projectBoardSeq, applyMemberDTO);
+            ProjectApplyMember applyMember = projectApplyMemberService.applyForProject(applyMemberDTO);
 
             // 성공 응답 반환
             return ResponseUtil.successResponse("Project apply member created successfully").getBody();
