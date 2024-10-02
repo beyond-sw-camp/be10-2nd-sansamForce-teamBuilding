@@ -21,7 +21,7 @@ public class UserInfoQueryController {
         this.userInfoQueryService = userInfoQueryService;
     }
 
-    @PostMapping("/{userId}")
+    @GetMapping("/{userId}")
     @Operation(summary = "마이페이지", description = "마이페이지 API")
     public ResponseEntity<ApiResponse<UserInfoResponseDTO>> getUserInfo(@PathVariable String userId) {
         return userInfoQueryService.getUserInfo(userId);

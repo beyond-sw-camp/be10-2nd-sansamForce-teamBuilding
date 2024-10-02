@@ -6,5 +6,5 @@ import sansam.team.user.query.dto.UserInfoResponseDTO;
 @Mapper
 public interface UserInfoQueryMapper {
 
-    UserInfoResponseDTO findUserInfoByUserId(String userId);
+    UserInfoResponseDTO findUserInfoByUserSeq(String userId);
 }

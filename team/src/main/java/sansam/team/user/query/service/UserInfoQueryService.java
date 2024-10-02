@@ -19,11 +19,12 @@ public class UserInfoQueryService {
     }
 
     public ResponseEntity<ApiResponse<UserInfoResponseDTO>> getUserInfo(String userId) {
-        UserInfoResponseDTO userInfo = userInfoQueryMapper.findUserInfoByUserId(userId);
+        UserInfoResponseDTO userInfo = userInfoQueryMapper.findUserInfoByUserSeq(userId);
         if (userInfo != null) {
             return ResponseUtil.successResponse(userInfo);
         } else {
             return ResponseUtil.failureResponse("User not found", "USER_NOT_FOUND");
         }
     }
+
 }

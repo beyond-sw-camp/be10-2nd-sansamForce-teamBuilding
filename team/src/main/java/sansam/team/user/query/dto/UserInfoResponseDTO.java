@@ -12,4 +12,5 @@ public class UserInfoResponseDTO {
     private String userNickname;
     private String userEmail;
     private String userPhone;
+    private String userMajor;
 }
