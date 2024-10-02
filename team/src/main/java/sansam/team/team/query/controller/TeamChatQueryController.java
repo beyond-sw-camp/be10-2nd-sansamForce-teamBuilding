@@ -11,20 +11,20 @@ import sansam.team.team.query.service.TeamChatQueryService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/team/chat")
+@RequestMapping("/api/v1/team")
 @RequiredArgsConstructor
 @Tag(name = "3-5. Team Chat API", description = "팀 채팅방 API")
 public class TeamChatQueryController {
 
     private final TeamChatQueryService teamChatQueryService;
 
-    @GetMapping
+    @GetMapping("/{teamSeq}/chat")
     @Operation(summary = "팀 채팅방 리스트 조회")
     public List<TeamChatResponse> selectChatRoomList() {
         return teamChatQueryService.selectChatRoomList();
     }
 
-    @GetMapping("/{teamChatSeq}")
+    @GetMapping("/{teamSeq}/chat/{teamChatSeq}")
     @Operation(summary = "팀 채팅방 조회(입장)")
     public TeamChatRoomResponse enterChatRoom(@PathVariable Long teamChatSeq) {
         return teamChatQueryService.selectChatRoom(teamChatSeq);

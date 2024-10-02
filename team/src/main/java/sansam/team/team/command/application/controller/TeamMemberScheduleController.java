@@ -12,7 +12,7 @@ import sansam.team.team.command.domain.aggregate.entity.TeamMemberSchedule;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/team/memberSchedule")
+@RequestMapping("/api/v1/team/{teamSeq}/memberSchedule")
 @Tag(name = "3-4-2. TeamMember Schedule API", description = "회원 별 진행상황 API")
 public class TeamMemberScheduleController {
 

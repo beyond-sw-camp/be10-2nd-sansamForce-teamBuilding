@@ -15,14 +15,14 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/v1/query/user/GithubRepository")
+@RequestMapping("/api/v1/user/{userSeq}/GithubRepository")
 @RequiredArgsConstructor
 @Tag(name = "1-2. User GitHub Repository API", description = "유저 깃허브 레포지토리 API")
 public class UserGithubRepositoryQueryController {
 
     private final UserGithubRepositoryQueryService userGithubRepositoryQueryService;
 
-    @GetMapping("/{userSeq}")
+    @GetMapping()
     @Operation(summary = "자신의 깃허브 레포지토리 전체 조회")
     public List<UserGithubRepositoryQueryDTO> getAllGithubRepo(@PathVariable Long userSeq) {
         return userGithubRepositoryQueryService.getAllGithubRepo(userSeq);
