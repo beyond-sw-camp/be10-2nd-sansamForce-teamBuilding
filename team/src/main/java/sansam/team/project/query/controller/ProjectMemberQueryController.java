@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import sansam.team.common.response.ApiResponse;
 import sansam.team.project.query.dto.ProjectAllQueryDTO;
 import sansam.team.project.query.dto.ProjectQueryDTO;
 import sansam.team.project.query.service.ProjectQueryService;
@@ -26,8 +27,9 @@ public class ProjectMemberQueryController {
      */
     @GetMapping
     @Operation(summary = "회원 별 프로젝트 전체 조회", description = "해당 사용자가 들어간 프로젝트 전체 조회")
-    public List<ProjectAllQueryDTO> getAllProjectsForUser() {
-        return projectQueryService.getAllProjectsForUser(null); // ResponseEntity 생략하고 DTO 반환
+    public ApiResponse<List<ProjectAllQueryDTO>> getAllProjectsForUser() {
+        List<ProjectAllQueryDTO> projects = projectQueryService.getAllProjectsForUser(null);
+        return ApiResponse.ofSuccess(projects);
     }
 
     /**
@@ -35,7 +37,8 @@ public class ProjectMemberQueryController {
      */
     @GetMapping("/{projectSeq}")
     @Operation(summary = "회원 별 프로젝트 상세 조회", description = "해당 사용자가 들어간 프로젝트 상세 조회")
-    public ProjectQueryDTO getProjectByIdForUser(@PathVariable Long projectSeq) {
-        return projectQueryService.getProjectByIdForUser(projectSeq); // ResponseEntity 생략하고 DTO 반환
+    public ApiResponse<ProjectQueryDTO> getProjectByIdForUser(@PathVariable Long projectSeq) {
+        ProjectQueryDTO project = projectQueryService.getProjectByIdForUser(projectSeq);
+        return ApiResponse.ofSuccess(project);
     }
 }
