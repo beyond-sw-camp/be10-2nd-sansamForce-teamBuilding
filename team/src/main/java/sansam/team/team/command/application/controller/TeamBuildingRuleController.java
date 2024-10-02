@@ -21,24 +21,24 @@ public class TeamBuildingRuleController {
 
     @PostMapping
     @Operation(summary = "팀빌딩 규칙 생성", description = "팀 빌딩 규칙 가중치 생성 API")
-    public ResponseEntity<ApiResponse<TeamBuildingRule>> createBuildingRule(@RequestBody TeamBuildingRuleDTO buildingRuleDTO) {
+    public ApiResponse<TeamBuildingRule> createBuildingRule(@RequestBody TeamBuildingRuleDTO buildingRuleDTO) {
         TeamBuildingRule createdBuildingRule = buildingRuleService.createBuildingRule(buildingRuleDTO);
-        return ResponseUtil.successResponse("Building rule created successfully", createdBuildingRule);
+        return ApiResponse.ofSuccess("Building rule created successfully", createdBuildingRule);
     }
 
     @PutMapping("/{ruleSeq}")
     @Operation(summary = "팀빌딩 규칙 수정", description = "팀 빌딩 규칙 가중치 수정 API")
-    public ResponseEntity<ApiResponse<TeamBuildingRule>> updateBuildingRule(
+    public ApiResponse<TeamBuildingRule> updateBuildingRule(
             @PathVariable int ruleSeq,
             @RequestBody TeamBuildingRuleDTO buildingRuleDTO) {
         TeamBuildingRule updatedBuildingRule = buildingRuleService.updateBuildingRule(ruleSeq, buildingRuleDTO);
-        return ResponseUtil.successResponse("Building rule updated successfully", updatedBuildingRule);
+        return ApiResponse.ofSuccess("Building rule updated successfully", updatedBuildingRule);
     }
 
     @DeleteMapping("/{ruleSeq}")
     @Operation(summary = "팀빌딩 규칙 삭제", description = "팀 빌딩 규칙 가중치 삭제 API")
-    public ResponseEntity<ApiResponse<Void>> deleteBuildingRule(@PathVariable int ruleSeq) {
+    public ApiResponse<Void> deleteBuildingRule(@PathVariable int ruleSeq) {
         buildingRuleService.deleteBuildingRule(ruleSeq);
-        return ResponseUtil.successResponse("Building rule deleted successfully", null);
+        return ApiResponse.ofSuccess("Building rule deleted successfully");
     }
 }

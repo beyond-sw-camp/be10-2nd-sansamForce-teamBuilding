@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import sansam.team.common.response.ApiResponse;
 import sansam.team.team.query.dto.TeamScheduleQueryDTO;
 import sansam.team.team.query.service.TeamScheduleQueryService;
 
@@ -22,10 +23,11 @@ public class TeamScheduleQueryController {
 
     private final TeamScheduleQueryService teamScheduleQueryService;
 
-    @GetMapping()
+    @GetMapping
     @Operation(summary = "팀 일정 조회", description = "팀 일정 API")
-    public List<TeamScheduleQueryDTO> getTeamScheduleList(@PathVariable long teamSeq) {
-        return teamScheduleQueryService.getTeamScheduleList(teamSeq);
+    public ApiResponse<List<TeamScheduleQueryDTO>> getTeamScheduleList(@PathVariable long teamSeq) {
+        List<TeamScheduleQueryDTO> scheduleList = teamScheduleQueryService.getTeamScheduleList(teamSeq);
+        return ApiResponse.ofSuccess("Team schedule list retrieved successfully", scheduleList);
     }
 
 }

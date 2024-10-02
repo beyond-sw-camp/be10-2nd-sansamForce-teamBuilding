@@ -22,7 +22,6 @@ public class TeamReviewController {
     @Operation(summary = "팀원 평가 추가")
     public ApiResponse<String> createTeamReview(@RequestBody TeamReviewDTO reviewDTO) {
         boolean result = teamReviewService.createTeamReview(reviewDTO);
-
         return ResponseUtil.successResponse(result ? "팀원 평가 추가 성공" : "팀원 평가 추가 실패").getBody();
     }
 
@@ -30,7 +29,6 @@ public class TeamReviewController {
     @Operation(summary = "팀원 평가 수정")
     public ApiResponse<TeamReview> updateTeamReview(@PathVariable long reviewSeq, @RequestBody TeamReviewDTO reviewDTO) {
         TeamReview teamReview = teamReviewService.updateTeamReview(reviewSeq, reviewDTO);
-
         return ResponseUtil.successResponse("팀원 평가 수정 성공", teamReview).getBody();
     }
 
@@ -38,7 +36,6 @@ public class TeamReviewController {
     @Operation(summary = "팀원 평가 삭제")
     public ApiResponse<String> deleteTeamReview(@PathVariable long reviewSeq) {
         teamReviewService.deleteTeamReview(reviewSeq);
-
         return ResponseUtil.successResponse("팀원 평가 삭제 성공").getBody();
     }
 

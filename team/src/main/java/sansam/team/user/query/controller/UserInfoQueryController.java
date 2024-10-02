@@ -23,7 +23,7 @@ public class UserInfoQueryController {
 
     @GetMapping()
     @Operation(summary = "마이페이지", description = "마이페이지 API")
-    public ResponseEntity<ApiResponse<UserInfoResponseDTO>> getUserInfo(@PathVariable String userId) {
-        return userInfoQueryService.getUserInfo(userId);
+    public ResponseEntity<ApiResponse<UserInfoResponseDTO>> getUserInfo(@PathVariable Long userSeq) {
+        return userInfoQueryService.getUserInfo(userSeq);
     }
 }

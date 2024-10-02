@@ -18,8 +18,8 @@ public class UserInfoQueryService {
         this.userInfoQueryMapper = userInfoQueryMapper;
     }
 
-    public ResponseEntity<ApiResponse<UserInfoResponseDTO>> getUserInfo(String userId) {
-        UserInfoResponseDTO userInfo = userInfoQueryMapper.findUserInfoByUserSeq(userId);
+    public ResponseEntity<ApiResponse<UserInfoResponseDTO>> getUserInfo(Long userSeq) {
+        UserInfoResponseDTO userInfo = userInfoQueryMapper.findUserInfoByUserSeq(userSeq);
         if (userInfo != null) {
             return ResponseUtil.successResponse(userInfo);
         } else {
