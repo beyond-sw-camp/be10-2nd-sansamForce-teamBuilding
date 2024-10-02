@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import sansam.team.common.response.ApiResponse;
 import sansam.team.team.query.dto.TeamChatResponse;
 import sansam.team.team.query.dto.TeamChatRoomResponse;
 import sansam.team.team.query.service.TeamChatQueryService;
@@ -20,13 +21,15 @@ public class TeamChatQueryController {
 
     @GetMapping("/{teamSeq}/chat")
     @Operation(summary = "팀 채팅방 리스트 조회")
-    public List<TeamChatResponse> selectChatRoomList() {
-        return teamChatQueryService.selectChatRoomList();
+    public ApiResponse<List<TeamChatResponse>> selectChatRoomList() {
+        List<TeamChatResponse> chatRooms = teamChatQueryService.selectChatRoomList();
+        return ApiResponse.ofSuccess("Chat room list retrieved successfully", chatRooms);
     }
 
     @GetMapping("/{teamSeq}/chat/{teamChatSeq}")
     @Operation(summary = "팀 채팅방 조회(입장)")
-    public TeamChatRoomResponse enterChatRoom(@PathVariable Long teamChatSeq) {
-        return teamChatQueryService.selectChatRoom(teamChatSeq);
+    public ApiResponse<TeamChatRoomResponse> enterChatRoom(@PathVariable Long teamChatSeq) {
+        TeamChatRoomResponse chatRoom = teamChatQueryService.selectChatRoom(teamChatSeq);
+        return ApiResponse.ofSuccess("Entered chat room successfully", chatRoom);
     }
 }
