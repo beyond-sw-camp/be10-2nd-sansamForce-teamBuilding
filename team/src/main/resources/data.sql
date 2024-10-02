@@ -10,14 +10,14 @@ INSERT INTO `tbl_user` (`major_seq`, `user_id`, `user_name`, `user_nickname`, `u
 VALUES
     (1, 'user1_p1', 'User One', 'UOne', 'password1', 'MEMBER', '01012345678', 'user1_p1@example.com', '900101', 'Male', 'person76', NULL, 'active', NOW(),2,3),
     (1, 'user2_p1', 'User Two', 'UTwo', 'password2', 'MEMBER', '01023456789', 'user2_p1@example.com', '900202', 'Female', 'person76', NULL, 'active', NOW(),0,0),
-    (1, 'user3_p1', 'User Three', 'UThree', 'password3', 'MEMBER', '01034567890', 'user3_p1@example.com', '900303', 'Male', 'person76', NULL, 'active', NOW(),1,3),
-    (1, 'user4_p1', 'User Four', 'UFour', 'password4', 'MEMBER', '01045678901', 'user4_p1@example.com', '900404', 'Female', 'person76', NULL, 'active', NOW(),4,0),
-    (1, 'user5_p1', 'User Five', 'UFive', 'password5', 'MEMBER', '01056789012', 'user5_p1@example.com', '900505', 'Male', 'person76', NULL, 'active', NOW(),0,6),
-    (1, 'user6_p1', 'User Six', 'USix', 'password6', 'MEMBER', '01067890123', 'user6_p1@example.com', '900606', 'Female', 'person76', NULL, 'active', NOW(),0,3),
-    (1, 'user7_p1', 'User Seven', 'USeven', 'password7', 'MEMBER', '01078901234', 'user7_p1@example.com', '900707', 'Male', 'person76', NULL, 'active', NOW(),2,10),
-    (1, 'user8_p1', 'User Eight', 'UEight', 'password8', 'MEMBER', '01089012345', 'user8_p1@example.com', '900808', 'Female', 'person76', NULL, 'active', NOW(),0,3),
-    (1, 'user9_p1', 'User Nine', 'UNine', 'password9', 'MEMBER', '01090123456', 'user9_p1@example.com', '900909', 'Male', 'person76', NULL, 'active', NOW(),1,3),
-    (1, 'user10_p1', 'User Ten', 'UTen', 'password10', 'MEMBER', '01001234567', 'user10_p1@example.com', '901010', 'Female', 'person76', NULL, 'active', NOW(),2,7),
+    (1, 'user3_p1', 'User Three', 'UThree', 'password3', 'MEMBER', '01034567890', 'user3_p1@example.com', '900303', 'Male', 'Jeon-AYoeng', NULL, 'active', NOW(),1,3),
+    (1, 'user4_p1', 'User Four', 'UFour', 'password4', 'MEMBER', '01045678901', 'user4_p1@example.com', '900404', 'Female', 'Jeon-AYoeng', NULL, 'active', NOW(),4,0),
+    (1, 'user5_p1', 'User Five', 'UFive', 'password5', 'MEMBER', '01056789012', 'user5_p1@example.com', '900505', 'Male', 'beanteacher', NULL, 'active', NOW(),0,6),
+    (1, 'user6_p1', 'User Six', 'USix', 'password6', 'MEMBER', '01067890123', 'user6_p1@example.com', '900606', 'Female', 'beanteacher', NULL, 'active', NOW(),0,3),
+    (1, 'user7_p1', 'User Seven', 'USeven', 'password7', 'MEMBER', '01078901234', 'user7_p1@example.com', '900707', 'Male', 'SANGHYUN0519', NULL, 'active', NOW(),2,10),
+    (1, 'user8_p1', 'User Eight', 'UEight', 'password8', 'MEMBER', '01089012345', 'user8_p1@example.com', '900808', 'Female', 'SANGHYUN0519', NULL, 'active', NOW(),0,3),
+    (1, 'user9_p1', 'User Nine', 'UNine', 'password9', 'MEMBER', '01090123456', 'user9_p1@example.com', '900909', 'Male', 'kookong2', NULL, 'active', NOW(),1,3),
+    (1, 'user10_p1', 'User Ten', 'UTen', 'password10', 'MEMBER', '01001234567', 'user10_p1@example.com', '901010', 'Female', 'kookong2', NULL, 'active', NOW(),2,7),
 
 -- 프로젝트 2의 사용자 (user_seq: 11-20)
     (2, 'user1_p2', 'User Eleven', 'UEleven', 'password11', 'MEMBER', '01011234567', 'user1_p2@example.com', '901111', 'Male', 'person76', NULL, 'active', NOW(),2,3),
@@ -48,8 +48,8 @@ INSERT INTO tbl_building_rule ( rule_team_count
                               , reg_date
 )
 VALUES
-    (5,4 , 3,2, 5,4,'Y',NOW()),
-    (2, 10, 8, 7, 5, 5, 'Y', NOW());
+    (2,4 , 3,2, 5,4,'Y',NOW()),
+    (2, 5, 4, 3, 5, 5, 'Y', NOW());
 
 
 -- 프로젝트 Alpha (project_seq: 1)
@@ -70,9 +70,9 @@ VALUES
     (1, 3, 'N', 'N', 'Y','BACKEND', NULL,NOW()),
     (1, 4, 'N', 'N', 'N','FRONTEND', NULL,NOW()),
     (1, 5, 'N', 'N', 'N','BACKEND', NULL,NOW()),
-    (1, 6, 'N', 'N', 'N','BACKEND', NULL,NOW()),
-    (1, 7, 'N', 'N', 'N','FRONTEND',NULL, NOW()),
-    (1, 8, 'N', 'N', 'N','BACKEND', NULL,NOW()),
+    (1, 6, 'N', 'N', 'N','FRONTEND', NULL,NOW()),
+    (1, 7, 'N', 'N', 'N','BACKEND',NULL, NOW()),
+    (1, 8, 'N', 'N', 'N','FRONTEND', NULL,NOW()),
     (1, 9, 'N', 'N', 'Y','BACKEND', NULL,NOW()),
     (1, 10, 'N', 'N', 'Y','FRONTEND', NULL,NOW()),
 
