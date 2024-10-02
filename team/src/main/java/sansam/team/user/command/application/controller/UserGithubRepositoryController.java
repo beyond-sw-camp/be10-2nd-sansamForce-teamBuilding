@@ -13,7 +13,7 @@ import sansam.team.user.command.domain.aggregate.entity.UserGithubRepository;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/v1/user/githubRepository")
+@RequestMapping("/api/v1/user/{userSeq}/githubRepository")
 @RequiredArgsConstructor
 @Tag(name = "1-2. User GitHub Repository API", description = "유저 깃허브 레포지토리 API")
 public class UserGithubRepositoryController {
