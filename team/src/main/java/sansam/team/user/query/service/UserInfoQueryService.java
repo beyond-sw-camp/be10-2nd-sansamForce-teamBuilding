@@ -18,13 +18,8 @@ public class UserInfoQueryService {
         this.userInfoQueryMapper = userInfoQueryMapper;
     }
 
-    public ResponseEntity<ApiResponse<UserInfoResponseDTO>> getUserInfo(Long userSeq) {
-        UserInfoResponseDTO userInfo = userInfoQueryMapper.findUserInfoByUserSeq(userSeq);
-        if (userInfo != null) {
-            return ResponseUtil.successResponse(userInfo);
-        } else {
-            return ResponseUtil.failureResponse("User not found", "USER_NOT_FOUND");
-        }
+    public UserInfoResponseDTO getUserInfo(Long userSeq) {
+        return userInfoQueryMapper.findUserInfoByUserSeq(userSeq);
     }
 
 }

@@ -20,10 +20,10 @@ public class UserInfoQueryController {
 
     private final UserInfoQueryService userInfoQueryService;
 
-
-    @GetMapping()
+    @GetMapping
     @Operation(summary = "마이페이지", description = "마이페이지 API")
-    public ResponseEntity<ApiResponse<UserInfoResponseDTO>> getUserInfo(@PathVariable Long userSeq) {
-        return userInfoQueryService.getUserInfo(userSeq);
+    public ApiResponse<UserInfoResponseDTO> getUserInfo(@PathVariable Long userSeq) {
+        UserInfoResponseDTO userInfo = userInfoQueryService.getUserInfo(userSeq);
+        return ApiResponse.ofSuccess("User information retrieved successfully", userInfo);
     }
 }
