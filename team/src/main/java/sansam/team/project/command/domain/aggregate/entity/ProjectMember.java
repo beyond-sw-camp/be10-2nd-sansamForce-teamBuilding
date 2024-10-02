@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import sansam.team.common.aggregate.YnType;
 import sansam.team.common.aggregate.entity.BaseTimeEntity;
 import sansam.team.project.command.application.dto.AdminProjectMemberUpdateDTO;
-import sansam.team.project.command.domain.aggregate.InterestType;
+import sansam.team.common.aggregate.DevelopType;
 
 @Entity
 @Table(name = "tbl_project_member")
@@ -32,7 +32,7 @@ public class ProjectMember extends BaseTimeEntity {
     private YnType projectMemberMajorYn;
 
     @Enumerated(value = EnumType.STRING)
-    private InterestType projectMemberInterestType;
+    private DevelopType projectMemberDevelopType;
 
     private Long projectMemberCommitScore;
 
@@ -53,7 +53,7 @@ public class ProjectMember extends BaseTimeEntity {
             this.projectMentorYn = updateDTO.getProjectMentorYn();
         }
         if(updateDTO.getProjectInterest() != null) {
-            this.projectMemberInterestType = updateDTO.getProjectInterest();
+            this.projectMemberDevelopType = updateDTO.getProjectInterest();
         }
         if(updateDTO.getMajorYn() != null) {
             this.projectMemberMajorYn = updateDTO.getMajorYn();

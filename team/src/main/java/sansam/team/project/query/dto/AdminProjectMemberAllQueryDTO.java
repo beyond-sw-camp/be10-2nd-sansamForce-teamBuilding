@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import sansam.team.common.aggregate.YnType;
-import sansam.team.project.command.domain.aggregate.InterestType;
+import sansam.team.common.aggregate.DevelopType;
 
 @Getter
 @Setter
@@ -18,6 +18,6 @@ public class AdminProjectMemberAllQueryDTO {
     private YnType projectMemberDelYn;
     private YnType projectMentorYn;
     private YnType projectMemberMajorYn;
-    private InterestType projectMemberInterestType;
+    private DevelopType projectMemberDevelopType;
     private Long projectMemberCommitScore;
 }

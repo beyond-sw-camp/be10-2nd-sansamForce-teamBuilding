@@ -49,4 +49,5 @@ public class UserController {
             return ResponseUtil.exceptionResponse(e, "USER_UPDATE_ERROR").getBody();
         }
     }
+
 }
