@@ -2,8 +2,11 @@ package sansam.team.team.command.application.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sansam.team.project.command.domain.aggregate.entity.MentorReview;
+import sansam.team.project.command.domain.repository.ProjectMentorReviewRepository;
 import sansam.team.team.command.application.dto.TeamBuildingRuleDTO;
 import sansam.team.team.command.domain.aggregate.entity.TeamBuildingRule;
 import sansam.team.team.command.domain.repository.TeamBuildingRuleRepository;
@@ -38,6 +41,7 @@ public class TeamBuildingService {
     private final TeamReviewRepository teamReviewRepository;
     private final TeamMemberRepository teamMemberRepository;
     private final TeamBuildingRuleRepository buildingRuleRepository;
+    private final ProjectMentorReviewRepository projectMentorReviewRepository;
 
     // 1. 깃허브 커밋 점수 계산 로직
     public long calculateCommitScore(TeamBuildingDTO teamBuildingDTO) throws IOException {
@@ -51,19 +55,19 @@ public class TeamBuildingService {
 
         // GitHub 커밋 점수 계산 로직
         long commitScore;
-        if(commitCnt < 100){
+        if(commitCnt < 0){
             commitScore = 0L;
         }
-        else if(commitCnt < 300){
+        else if(commitCnt < 10){
             commitScore = 1L;
         }
-        else if(commitCnt < 500){
+        else if(commitCnt < 30){
             commitScore = 2L;
         }
-        else if(commitCnt < 700){
+        else if(commitCnt < 70){
             commitScore = 3L;
         }
-        else if(commitCnt < 900){
+        else if(commitCnt < 100){
             commitScore = 4L;
         }
         else{
@@ -113,9 +117,7 @@ public class TeamBuildingService {
 
     // 4. 팀원 평가 점수 계산 로직
     public double calculateTeamEvaluation(TeamBuildingDTO teamBuildingDTO) throws IOException {
-        List<TeamReview> reviews = teamReviewRepository.findAllByReceiveMemberSeq(teamBuildingDTO.getUserSeq())
-                .map(Collections::singletonList)
-                .orElseGet(Collections::emptyList);
+        List<TeamReview> reviews = teamReviewRepository.findAllByReceiveMemberSeq(teamBuildingDTO.getUserSeq());
 
         double totalEvaluation = 0;
 
@@ -130,12 +132,21 @@ public class TeamBuildingService {
 
     }
     //5. 강사 평가 점수 계산 로직
-    /*
+
     public double calculateMentorEvaluation(TeamBuildingDTO teamBuildingDTO) throws IOException{
+        List<MentorReview> reviews = projectMentorReviewRepository.findAllByProjectMemberSeq(teamBuildingDTO.getProjectMemberSeq());
 
+        double totalEvaluation = 0;
+
+        if (reviews.isEmpty()) {
+            return 3.0; // 평가가 없을 경우 3.0점 반환
+        }
+
+        for(MentorReview mentorReview: reviews){
+            totalEvaluation += mentorReview.getMentorReviewStar();
+        }
+        return totalEvaluation/reviews.size();
     }
-    * */
-
 
     // 팀 빌딩 점수 합 구하기.
     public double calculateTotalScore(TeamBuildingDTO teamBuildingDTO, TeamBuildingRuleDTO buildingRuleDTO) throws IOException {
@@ -144,8 +155,8 @@ public class TeamBuildingService {
         int majorScore = calculateMajorScore(teamBuildingDTO) * buildingRuleDTO.getRuleMajorWeight();
         int careerScore = calculateCareerScore(teamBuildingDTO) * buildingRuleDTO.getRuleCareerWeight();
         double teamEvaluationScore = calculateTeamEvaluation(teamBuildingDTO)*buildingRuleDTO.getRuleTeamReviewWeight();
-        // double mentorEvaluationScore = calculateMentorEvaluation(teamBuildingDTO)*buildingRuleDTO.getRuleMentorReviewWeight();
-        return commitScore + majorScore + careerScore+ teamEvaluationScore;
+        double mentorEvaluationScore = calculateMentorEvaluation(teamBuildingDTO)*buildingRuleDTO.getRuleMentorReviewWeight();
+        return commitScore + majorScore + careerScore+ teamEvaluationScore + mentorEvaluationScore;
     }
     //팀 빌딩 로직 -> 팀 빌딩 규칙 추가해야함
     @Transactional
@@ -167,6 +178,7 @@ public class TeamBuildingService {
             // 프로젝트 참여자 점수 불러오기
 
             double totalScore = calculateTotalScore(teamBuildingDTO, buildingRule.toDTO());
+            log.info("프로젝트 유저 번호: "+pjMember.getUserSeq()+" 총 점수: "+totalScore);
             teamBuildingDTO.setTotalScore(totalScore);
 
 
@@ -192,17 +204,16 @@ public class TeamBuildingService {
             teams.add(newTeam);
             teamTotalScores.put(newTeam,0.0);
             teamMemberCnt.put(newTeam,0L);
-            log.info(newTeam.toString());
         }
 
         // 5. 프로젝트 참여자 점수에 따라 정렬해 팀원 추가하기.
         frontMembers.sort(Comparator.comparingDouble(TeamBuildingDTO::getTotalScore)); ;
+
         backMembers.sort(Comparator.comparingDouble(TeamBuildingDTO::getTotalScore));
 
         // 6. 팀원 분배
         assignMembersToTeams(frontMembers, teamTotalScores, teamMemberCnt);
         assignMembersToTeams(backMembers, teamTotalScores, teamMemberCnt);
-
         return teams;
     }
 
