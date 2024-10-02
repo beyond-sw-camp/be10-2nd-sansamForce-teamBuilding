@@ -5,7 +5,7 @@
 <mapper namespace="sansam.team.user.query.mapper.UserQueryMapper">
 
 <!--유저 정보 조회 (마이페이지 기본 정보)-->
-    <select id="findByUserId" resultType="sansam.team.user.query.dto.UserInfoResponseDTO">
+    <select id="findUserInfoByUserSeq" resultType="UserInfoResponseDTO">
         SELECT
                 user_seq
                 , user_id
@@ -18,133 +18,10 @@
                 , user_github_id
                 , user_profile_img
                 , user_status
+                , user_major
                 , reg_date
                 , mod_date
         FROM tbl_user
         WHERE user_seq = #{userSeq};
-    </select>
-
-<!--유저가 속한 전공 조회-->
-    <select id="findByUserId" resultType="sansam.team.user.query.dto.UserInfoResponseDTO">
-        SELECT
-                a.user_seq
-                , a.user_nickname
-                , a.user_email
-                , a.user_github_id
-                , b.major_university
-                , b.major_department
-        FROM tbl_user a
-        LEFT JOIN tbl_major b ON a.major_seq = b.major_seq
-        WHERE u.user_seq = #{userSeq};
-    </select>
-
-<!--유저가 참여한 프로젝트 목록 조회-->
-    <select id="findByUserId" resultType="sansam.team.user.query.dto.UserInfoResponseDTO">
-        SELECT
-                a.project_seq
-                , b.project_title
-                , b.project_status
-                , b.project_start_date
-                ,b.project_end_date
-        FROM tbl_project_member a
-        JOIN tbl_project b ON a.project_seq = b.project_seq
-        WHERE a.user_seq = #{userSeq};
-    </select>
-
-<!--유저가 작성한 프로젝트 보드 조회-->
-    <select id="findByUserId" resultType="sansam.team.user.query.dto.UserInfoResponseDTO">
-        SELECT
-                project_board_seq
-                , project_board_title
-                , project_board_content
-                , project_board_status
-                , reg_date
-                , mod_date
-        FROM tbl_project_board
-        WHERE project_board_admin_seq = #{userSeq};
-    </select>
-
-<!--유저가 참여한 팀 정보 조회-->
-    <select id="findByUserId" resultType="sansam.team.user.query.dto.UserInfoResponseDTO">
-        SELECT
-                a.team_seq
-                , a.team_name
-                , a.team_status
-                , a.reg_date
-                , a.mod_date
-                , b.project_title
-        FROM tbl_team_member tm
-        JOIN tbl_team a ON c.team_seq = a.team_seq
-        JOIN tbl_project b ON a.project_seq = b.project_seq
-        WHERE c.user_seq = #{userSeq};
-    </select>
-
-<!--유저가 받은 리뷰 조회-->
-    <select id="findByUserId" resultType="sansam.team.user.query.dto.UserInfoResponseDTO">
-        SELECT
-                a.user_review_seq,
-                , a.team_member_review_star,
-                , a.team_member_review_content,
-                , a.reg_date
-        FROM tbl_user_review a
-        JOIN tbl_team_member b ON a.receive_team_member_seq = b.team_member_seq
-        WHERE b.user_seq = #{userSeq};
-    </select>
-
-<!-- 유저가 속한 프로젝트와 팀을 조회-->
-    <select id="findByUserId" resultType="sansam.team.user.query.dto.UserInfoResponseDTO">
-        SELECT
-                a.user_seq
-                , a.user_nickname
-                , b.project_seq
-                , b.project_title
-                , c.team_seq
-                , c.team_name
-        FROM tbl_user a
-        JOIN tbl_project_member d ON a.user_seq = d.user_seq
-        JOIN tbl_project b ON d.project_seq = b.project_seq
-        JOIN tbl_team c ON b.project_seq = c.project_seq
-        WHERE a.user_seq = #{userSeq};
-    </select>
-
-<!-- 유저가 속한 프로젝트의 팀의 리뷰를 조회-->
-    <select id="findByUserId" resultType="sansam.team.user.query.dto.UserInfoResponseDTO">
-        SELECT
-                a.user_review_seq
-                , a.team_member_review_star
-                , a.team_member_review_content
-                , a.reg_date
-                , a.mod_date
-                , c.project_title
-                , b.team_name
-                , d.user_nickname reviewer_nickname
-        FROM tbl_user_review a
-        JOIN tbl_team_member b ON a.send_team_member_seq = b.team_member_seq
-        JOIN tbl_team c ON b.team_seq = c.team_seq
-        JOIN tbl_project d ON c.project_seq = d.project_seq
-        WHERE d.project_seq = #{projectSeq}
-        AND b.team_seq = #{teamSeq};
-    </select>
-
-<!--유저가 속한 팀의 팀원과 팀일정을 조회-->
-    <select id="findByUserId" resultType="sansam.team.user.query.dto.UserInfoResponseDTO">
-        SELECT
-                a.team_name teamName
-                , b.schedule_seq scheduleId
-                , b.schedule_title scheduleTitle
-                , b.schedule_description scheduleDescription
-                , b.schedule_start_date startDate
-                , b.schedule_end_date endDate
-                , b.reg_date createdDate
-                , b.mod_date modifiedDate
-                , d.status_name scheduleStatus
-                , c.user_seq memberUserId
-                , c.user_nickname memberNickname
-        FROM tbl_team a
-        JOIN tbl_team_schedule b ON a.team_seq = b.team_seq
-        JOIN tbl_team_member c ON a.team_seq = c.team_seq
-        JOIN tbl_schedule_status d ON b.schedule_status_seq = d.status_seq
-        WHERE c.user_seq = #{userSeq}
-        ORDER BY b.schedule_start_date ASC;
     </select>
 </mapper>

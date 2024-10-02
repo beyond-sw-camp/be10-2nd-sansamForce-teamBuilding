@@ -17,21 +17,12 @@ DROP TABLE IF EXISTS tbl_user;
 DROP TABLE IF EXISTS tbl_major;
 DROP TABLE IF EXISTS tbl_building_rule;
 
-CREATE TABLE `tbl_major`
-(
-    `major_seq` bigint NOT NULL AUTO_INCREMENT,
-    `major_university` varchar(30) NULL,
-    `major_department` varchar(30) NULL,
-    `major_department_code` char(10) NULL,
-    `reg_date` timestamp NOT NULL,
-    `mod_date` timestamp NULL,
-    PRIMARY KEY (`major_seq`)
-);
+
 
 CREATE TABLE `tbl_user`
 (
     `user_seq` bigint NOT NULL AUTO_INCREMENT,
-    `major_seq` bigint NULL,
+    `user_major` varchar(30) NULL,
     `user_id` varchar(30) NOT NULL,
     `user_name` varchar(30) NOT NULL,
     `user_nickname` varchar(50) NOT NULL,
@@ -52,7 +43,7 @@ CREATE TABLE `tbl_user`
     `user_career_years` bigint NULL,
     `user_career_months` bigint NULL,
     PRIMARY KEY (`user_seq`),
-    CONSTRAINT `FK_TBL_USER_MAJOR_SEQ` FOREIGN KEY (`major_seq`) REFERENCES `tbl_major`(`major_seq`)
+
 );
 
 CREATE TABLE `tbl_login_log`
