@@ -24,6 +24,7 @@ import sansam.team.security.handler.JwtAuthenticationEntryPoint;
 import sansam.team.security.handler.LoginFailureHandler;
 import sansam.team.security.handler.LoginSuccessHandler;
 import sansam.team.security.util.JWTUtil;
+import sansam.team.security.util.SecurityUtil;
 import sansam.team.user.query.service.UserDetailServiceImpl;
 
 @Configuration
@@ -31,6 +32,7 @@ import sansam.team.user.query.service.UserDetailServiceImpl;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    private final SecurityUtil securityUtil;
     private final JWTUtil jwtUtil;
     private final Environment env;
     private final UserDetailServiceImpl userDetailService;
@@ -40,10 +42,6 @@ public class SecurityConfig {
         return configuration.getAuthenticationManager();
     }
 
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -91,7 +89,7 @@ public class SecurityConfig {
 
     private AuthenticationManager getAuthenticationManager() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setPasswordEncoder(bCryptPasswordEncoder());
+        provider.setPasswordEncoder(securityUtil.bCryptPasswordEncoder());
         provider.setUserDetailsService(userDetailService);
         return new ProviderManager(provider);
     }
