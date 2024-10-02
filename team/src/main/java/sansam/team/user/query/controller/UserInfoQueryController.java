@@ -14,14 +14,14 @@ import sansam.team.user.query.service.UserInfoQueryService;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/query/user/info")
+@RequestMapping("/api/v1/user/{userSeq}/info")
 @Tag(name = "1. User API", description = "회원 API")
 public class UserInfoQueryController {
 
     private final UserInfoQueryService userInfoQueryService;
 
 
-    @GetMapping("/{userSeq}")
+    @GetMapping()
     @Operation(summary = "마이페이지", description = "마이페이지 API")
     public ResponseEntity<ApiResponse<UserInfoResponseDTO>> getUserInfo(@PathVariable Long userSeq) {
         return userInfoQueryService.getUserInfo(userSeq);

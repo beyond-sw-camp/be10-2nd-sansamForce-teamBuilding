@@ -11,7 +11,7 @@ import sansam.team.team.command.application.dto.TeamChatMessageCreateRequest;
 import sansam.team.team.command.application.service.TeamChatMessageService;
 
 @RestController
-@RequestMapping("/api/v1/team/chat/message")
+@RequestMapping("/api/v1/team/{teamSeq}/chat/message")
 @RequiredArgsConstructor
 @Tag(name = "3-6. Team Chatting Message API", description = "팀 채팅방 메시지 전송")
 public class TeamChatMessageController {

@@ -10,7 +10,7 @@ import sansam.team.team.command.application.service.TeamMemberService;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/team/member")
+@RequestMapping("/api/v1/team/{teamSeq}/member")
 @Tag(name = "3-5. Team Chat API", description = "팀 채팅방 API")
 public class TeamMemberController {
 
