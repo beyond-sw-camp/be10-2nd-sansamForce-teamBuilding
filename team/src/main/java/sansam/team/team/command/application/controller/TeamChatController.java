@@ -14,13 +14,13 @@ import sansam.team.team.command.domain.aggregate.entity.TeamChat;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/team/chat")
+@RequestMapping("/api/v1/team")
 @Tag(name = "3-5. Team Chat API", description = "팀 채팅방 API")
 public class TeamChatController {
 
     private final TeamChatService teamChatService;
 
-    @PostMapping("/{teamSeq}")
+    @PostMapping("/{teamSeq}/chat")
     @Operation(summary = "팀 채팅방 추가")
     public ApiResponse<?> createTeamChat(@PathVariable Long teamSeq, @RequestBody TeamChatCreateRequest request) {
         try {
@@ -32,7 +32,7 @@ public class TeamChatController {
         }
     }
 
-    @PutMapping("/{teamChatSeq}")
+    @PutMapping("/{teamSeq}/chat/{teamChatSeq}")
     @Operation(summary = "팀 채팅방 정보 수정")
     public ApiResponse<?> updateTeamChat(@PathVariable Long teamChatSeq, @RequestBody TeamChatUpdateRequest request) {
         try {
