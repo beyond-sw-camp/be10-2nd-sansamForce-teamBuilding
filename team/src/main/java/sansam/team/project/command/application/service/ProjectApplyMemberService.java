@@ -23,7 +23,7 @@ public class ProjectApplyMemberService {
 
 
     @Transactional
-    public ProjectApplyMember applyForProject(Long projectBoardSeq, AdminProjectApplyMemberDTO applyMemberDTO) {
+    public ProjectApplyMember applyForProject(AdminProjectApplyMemberDTO applyMemberDTO) {
 
         // SecurityContext에서 현재 인증된 사용자(User 객체) 추출
         User user = SecurityUtil.getAuthenticatedUser();
@@ -33,10 +33,7 @@ public class ProjectApplyMemberService {
             throw new IllegalArgumentException("User Seq is null");
         }
 
-        ProjectBoard projectBoard = projectBoardRepository.findById(projectBoardSeq)
-                .orElseThrow(() -> new IllegalArgumentException("Project board not found"));
-
-        ProjectApplyMember projectApplyMember = ProjectApplyMemberMapper.toEntity(user.getUserSeq(), projectBoard.getProjectBoardSeq(), applyMemberDTO);
+        ProjectApplyMember projectApplyMember = ProjectApplyMemberMapper.toEntity(user.getUserSeq(), applyMemberDTO);
 
         projectApplyMemberRepository.save(projectApplyMember);
 

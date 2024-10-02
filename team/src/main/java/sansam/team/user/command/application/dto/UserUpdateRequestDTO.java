@@ -11,8 +11,8 @@ import lombok.Setter;
 @RequiredArgsConstructor
 public class UserUpdateRequestDTO {
 
+    private Long majorSeq;
     private String userNickname;
-    private String userPassword;
     private String userPhone;
     private String userEmail;
     private String userGithubId;

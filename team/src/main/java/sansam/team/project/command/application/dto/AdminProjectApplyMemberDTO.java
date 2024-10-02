@@ -12,5 +12,6 @@ import sansam.team.project.command.domain.aggregate.ApplyStatus;
 @AllArgsConstructor
 public class AdminProjectApplyMemberDTO {
 
+    private Long projectBoardSeq;
     private ApplyStatus applyStatus;
 }

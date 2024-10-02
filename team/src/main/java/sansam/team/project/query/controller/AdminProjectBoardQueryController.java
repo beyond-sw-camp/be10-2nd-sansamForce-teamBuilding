@@ -30,14 +30,14 @@ public class AdminProjectBoardQueryController {
     }
 
     /* 프로젝트 게시물 상세 조회 */
-    @GetMapping("/{id}")
+    @GetMapping("/{projectBoardSeq}")
     @Operation(summary = "프로젝트 게시물 상세 조회", description = "프로젝트 게시물 상세 조회 API (관리자만 가능)")
-    public AdminProjectBoardDTO getProjectBoardById(@PathVariable("id") Long projectBoardSeq) {
+    public AdminProjectBoardDTO getProjectBoardById(@PathVariable Long projectBoardSeq) {
         return projectBoardQueryService.getProjectBoardByIdForAdmin(projectBoardSeq); // ResponseEntity 생략하고 DTO 반환
     }
 
     /* 프로젝트 신청 회원 리스트 조회 */
-    @GetMapping("/{projectBoardSeq}/apply-members")
+    @GetMapping("/{projectBoardSeq}/apply-member")
     @Operation(summary = "프로젝트 게시물 신청 회원 리스트 조회", description = "프로젝트 게시물 신청 회원 리스트 조회 API (관리자만 가능)")
     public List<ProjectApplyMemberQueryDTO> getApplyMembers(
             @PathVariable Long projectBoardSeq) {

@@ -7,6 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sansam.team.common.response.ApiResponse;
+import sansam.team.common.response.ResponseUtil;
+import sansam.team.project.command.domain.aggregate.entity.Project;
 import sansam.team.user.command.application.dto.*;
 import sansam.team.user.command.application.service.UserService;
 import sansam.team.user.command.domain.aggregate.entity.User;
@@ -30,10 +33,20 @@ public class UserController {
 
     @PutMapping("/{userSeq}")
     @Operation(summary = "회원 수정 (마이페이지)", description = "회원 수정 API")
-    public ResponseEntity<User> updateMyPage(@PathVariable Long userSeq, @RequestBody UserUpdateRequestDTO request) {
+    public ApiResponse<?> updateMyPage(@PathVariable Long userSeq, @RequestBody UserUpdateRequestDTO request) {
 
-        User updateUser = userService.updateUser(userSeq, request);
+        try {
+            // Project 생성 요청
+            User updateUser = userService.updateUser(userSeq, request);
 
-        return ResponseEntity.ok(updateUser);
+            // 성공 응답 반환
+            return ResponseUtil.successResponse("User updated successfully").getBody();
+        } catch (IllegalArgumentException e) {
+            // 실패 응답 반환 (예외 발생 시)
+            return ResponseUtil.failureResponse(e.getMessage(), "USER_SEQ_NULL").getBody();
+        } catch (Exception e) {
+            // 그 외 예외 처리
+            return ResponseUtil.exceptionResponse(e, "USER_UPDATE_ERROR").getBody();
+        }
     }
 }
