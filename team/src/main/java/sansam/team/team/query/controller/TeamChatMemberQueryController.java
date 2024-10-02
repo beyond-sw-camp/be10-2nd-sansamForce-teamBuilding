@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import sansam.team.common.response.ApiResponse;
 import sansam.team.team.query.dto.TeamChatMemberResponse;
 import sansam.team.team.query.service.TeamChatMemberQueryService;
 
@@ -20,8 +21,8 @@ public class TeamChatMemberQueryController {
 
     @GetMapping("/{teamMemberSeq}")
     @Operation(summary = "채팅방 팀원 정보 조회")
-    public TeamChatMemberResponse selectTeamMember(@PathVariable Long teamMemberSeq) {
-
-        return teamChatMemberQueryService.selectTeamMember(teamMemberSeq);
+    public ApiResponse<TeamChatMemberResponse> selectTeamMember(@PathVariable Long teamMemberSeq) {
+        TeamChatMemberResponse teamChatMemberResponse = teamChatMemberQueryService.selectTeamMember(teamMemberSeq);
+        return ApiResponse.ofSuccess("Team member information retrieved successfully", teamChatMemberResponse);
     }
 }
