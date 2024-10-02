@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sansam.team.user.query.mapper.UserGithubRepositoryQueryMapper">
+
+    <!-- 깃허브 레포지토리 전체 조회 -->
+    <select id="findAllGithubRepoByUserSeq" resultType="UserGithubRepositoryQueryDTO">
+        SELECT
+            user_repository_url AS UserRepositoryUrl,
+            user_repository_name AS UserRepositoryName,
+            develop_type AS DevelopType
+          FROM tbl_user_github_repository
+         WHERE user_seq = #{userSeq};
+    </select>
+
+</mapper>

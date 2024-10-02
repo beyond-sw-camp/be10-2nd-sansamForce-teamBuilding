@@ -1,23 +1,18 @@
 USE sansam;
-INSERT INTO `tbl_major` (`major_university`, `major_department`, `major_department_code`, `reg_date`)
-VALUES
-    ('Seoul University', 'Computer Science', 'CS101', NOW()),
-    ('Korea University', 'Electrical Engineering', 'EE202', NOW());
-
 
 -- 프로젝트 1의 사용자 (user_seq: 1-10)
-INSERT INTO `tbl_user` (`major_seq`, `user_id`, `user_name`, `user_nickname`, `user_password`, `user_auth`, `user_phone`, `user_email`, `user_birth_date`, `user_gender`, `user_github_id`, `user_profile_img`, `user_status`, `reg_date`,`user_career_years`,`user_career_months`)
+INSERT INTO `tbl_user` (`user_major`, `user_id`, `user_name`, `user_nickname`, `user_password`, `user_auth`, `user_phone`, `user_email`, `user_birth_date`, `user_gender`, `user_github_id`, `user_profile_img`, `user_status`, `reg_date`,`user_career_years`,`user_career_months`)
 VALUES
-    (1, 'user1_p1', 'User One', 'UOne', 'password1', 'MEMBER', '01012345678', 'user1_p1@example.com', '900101', 'Male', 'person76', NULL, 'active', NOW(),2,3),
-    (1, 'user2_p1', 'User Two', 'UTwo', 'password2', 'MEMBER', '01023456789', 'user2_p1@example.com', '900202', 'Female', 'person76', NULL, 'active', NOW(),0,0),
-    (1, 'user3_p1', 'User Three', 'UThree', 'password3', 'MEMBER', '01034567890', 'user3_p1@example.com', '900303', 'Male', 'Jeon-AYoeng', NULL, 'active', NOW(),1,3),
-    (1, 'user4_p1', 'User Four', 'UFour', 'password4', 'MEMBER', '01045678901', 'user4_p1@example.com', '900404', 'Female', 'Jeon-AYoeng', NULL, 'active', NOW(),4,0),
-    (1, 'user5_p1', 'User Five', 'UFive', 'password5', 'MEMBER', '01056789012', 'user5_p1@example.com', '900505', 'Male', 'beanteacher', NULL, 'active', NOW(),0,6),
-    (1, 'user6_p1', 'User Six', 'USix', 'password6', 'MEMBER', '01067890123', 'user6_p1@example.com', '900606', 'Female', 'beanteacher', NULL, 'active', NOW(),0,3),
-    (1, 'user7_p1', 'User Seven', 'USeven', 'password7', 'MEMBER', '01078901234', 'user7_p1@example.com', '900707', 'Male', 'SANGHYUN0519', NULL, 'active', NOW(),2,10),
-    (1, 'user8_p1', 'User Eight', 'UEight', 'password8', 'MEMBER', '01089012345', 'user8_p1@example.com', '900808', 'Female', 'SANGHYUN0519', NULL, 'active', NOW(),0,3),
-    (1, 'user9_p1', 'User Nine', 'UNine', 'password9', 'MEMBER', '01090123456', 'user9_p1@example.com', '900909', 'Male', 'kookong2', NULL, 'active', NOW(),1,3),
-    (1, 'user10_p1', 'User Ten', 'UTen', 'password10', 'MEMBER', '01001234567', 'user10_p1@example.com', '901010', 'Female', 'kookong2', NULL, 'active', NOW(),2,7),
+    ('컴퓨터공학과', 'user1_p1', 'User One', 'UOne', 'password1', 'MEMBER', '01012345678', 'user1_p1@example.com', '900101', 'Male', 'person76', NULL, 'active', NOW(),2,3),
+    ('소프트웨어공학과', 'user2_p1', 'User Two', 'UTwo', 'password2', 'MEMBER', '01023456789', 'user2_p1@example.com', '900202', 'Female', 'person76', NULL, 'active', NOW(),0,0),
+    ('물리학과', 'user3_p1', 'User Three', 'UThree', 'password3', 'MEMBER', '01034567890', 'user3_p1@example.com', '900303', 'Male', 'Jeon-AYoeng', NULL, 'active', NOW(),1,3),
+    ('컴퓨터공학과', 'user4_p1', 'User Four', 'UFour', 'password4', 'MEMBER', '01045678901', 'user4_p1@example.com', '900404', 'Female', 'Jeon-AYoeng', NULL, 'active', NOW(),4,0),
+    ('영어교육과', 'user5_p1', 'User Five', 'UFive', 'password5', 'MEMBER', '01056789012', 'user5_p1@example.com', '900505', 'Male', 'beanteacher', NULL, 'active', NOW(),0,6),
+    ('컴퓨터공학과', 'user6_p1', 'User Six', 'USix', 'password6', 'MEMBER', '01067890123', 'user6_p1@example.com', '900606', 'Female', 'beanteacher', NULL, 'active', NOW(),0,3),
+    ('수학과', 'user7_p1', 'User Seven', 'USeven', 'password7', 'MEMBER', '01078901234', 'user7_p1@example.com', '900707', 'Male', 'SANGHYUN0519', NULL, 'active', NOW(),2,10),
+    ('경영학과', 'user8_p1', 'User Eight', 'UEight', 'password8', 'MEMBER', '01089012345', 'user8_p1@example.com', '900808', 'Female', 'SANGHYUN0519', NULL, 'active', NOW(),0,3),
+    ('컴퓨터공학과', 'user9_p1', 'User Nine', 'UNine', 'password9', 'MEMBER', '01090123456', 'user9_p1@example.com', '900909', 'Male', 'kookong2', NULL, 'active', NOW(),1,3),
+    ('응용통계학과', 'user10_p1', 'User Ten', 'UTen', 'password10', 'MEMBER', '01001234567', 'user10_p1@example.com', '901010', 'Female', 'kookong2', NULL, 'active', NOW(),2,7),
 
 -- 프로젝트 2의 사용자 (user_seq: 11-20)
     (2, 'user1_p2', 'User Eleven', 'UEleven', 'password11', 'MEMBER', '01011234567', 'user1_p2@example.com', '901111', 'Male', 'person76', NULL, 'active', NOW(),2,3),
@@ -142,3 +137,15 @@ VALUES
         (7,11,5,'GREAT',NOW()),
         (9,11,5,'GREAT',NOW());
 
+INSERT INTO `tbl_user_github_repository` (user_repository_url, user_repository_name, develop_type,user_seq)
+VALUES
+    ('https://github.com/orgs/SansamForce/repositories', 'SansamForce', 'BACKEND',1),
+    ('https://github.com/orgs/SansamForce/repositories', 'SansamForce', 'FRONTEND',2),
+    ('https://github.com/orgs/SansamForce/repositories', 'SansamForce', 'BACKEND',3),
+    ('https://github.com/orgs/SansamForce/repositories', 'SansamForce', 'FRONTEND',4),
+    ('https://github.com/orgs/SansamForce/repositories', 'SansamForce', 'BACKEND',5),
+    ('https://github.com/orgs/SansamForce/repositories', 'SansamForce','FRONTEND', 6),
+    ('https://github.com/orgs/SansamForce/repositories', 'SansamForce', 'BACKEND',7),
+    ('https://github.com/orgs/SansamForce/repositories', 'SansamForce', 'FRONTEND',8),
+    ('https://github.com/orgs/SansamForce/repositories', 'SansamForce', 'BACKEND',9),
+    ('https://github.com/orgs/SansamForce/repositories', 'SansamForce','FRONTEND',10);

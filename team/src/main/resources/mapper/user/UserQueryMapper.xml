@@ -16,7 +16,6 @@
             , user_birth_date
             , user_gender
             , user_github_id
-            , major_seq
             , user_profile_img
             , user_status
             , reg_date

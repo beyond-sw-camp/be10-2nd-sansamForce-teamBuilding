@@ -2,7 +2,6 @@ package sansam.team.team.command.application.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sansam.team.project.command.domain.aggregate.entity.MentorReview;
@@ -13,7 +12,7 @@ import sansam.team.team.command.domain.repository.TeamBuildingRuleRepository;
 import sansam.team.common.aggregate.YnType;
 import sansam.team.common.github.GithubUtil;
 import sansam.team.project.command.application.dto.AdminProjectMemberUpdateDTO;
-import sansam.team.project.command.domain.aggregate.InterestType;
+import sansam.team.common.aggregate.DevelopType;
 import sansam.team.project.command.domain.aggregate.entity.ProjectMember;
 import sansam.team.project.command.domain.repository.ProjectMemberRepository;
 import sansam.team.team.command.application.dto.TeamBuildingDTO;
@@ -50,8 +49,7 @@ public class TeamBuildingService {
 
         ProjectMember pjMember = projectMemberRepository.findById(teamBuildingDTO.getProjectMemberSeq())
                 .orElseThrow(() -> new RuntimeException("Project Member does not exist"));
-
-        int commitCnt = githubUtil.getCommitCountByInterestType(user.getUserGithubId(),pjMember.getProjectMemberInterestType());
+        int commitCnt = githubUtil.getCommitCountFromRepoUrl(user.getUserGithubId(),"https://github.com/kookong2/frontend");
 
         // GitHub 커밋 점수 계산 로직
         long commitScore;
@@ -182,9 +180,9 @@ public class TeamBuildingService {
             teamBuildingDTO.setTotalScore(totalScore);
 
 
-            if (pjMember.getProjectMemberInterestType().equals(InterestType.FRONTEND)) {
+            if (pjMember.getProjectMemberDevelopType().equals(DevelopType.FRONTEND)) {
                 frontMembers.add(teamBuildingDTO);
-            } else if (pjMember.getProjectMemberInterestType().equals(InterestType.BACKEND)) {
+            } else if (pjMember.getProjectMemberDevelopType().equals(DevelopType.BACKEND)) {
                 backMembers.add(teamBuildingDTO);
             }
         }
