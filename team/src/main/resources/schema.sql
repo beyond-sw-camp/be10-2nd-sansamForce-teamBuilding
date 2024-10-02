@@ -13,6 +13,7 @@ DROP TABLE IF EXISTS tbl_project_member;
 DROP TABLE IF EXISTS tbl_project_board;
 DROP TABLE IF EXISTS tbl_project;
 DROP TABLE IF EXISTS tbl_login_log;
+DROP TABLE IF EXISTS tbl_user_github_repository;
 DROP TABLE IF EXISTS tbl_user;
 DROP TABLE IF EXISTS tbl_major;
 DROP TABLE IF EXISTS tbl_building_rule;
@@ -266,4 +267,16 @@ CREATE TABLE `tbl_mentor_review`
     PRIMARY KEY (`mentor_review_seq`),
     CONSTRAINT `FK_TBL_MENTOR_REVIEW_PROJECT_MEMBER_SEQ` FOREIGN KEY (`project_member_seq`) REFERENCES `tbl_project_member`(`project_member_seq`),
     CONSTRAINT `FK_TBL_MENTOR_REVIEW_MENTOR_USER_SEQ` FOREIGN KEY (`project_mentor_seq`) REFERENCES `tbl_user`(`user_seq`)
+);
+
+CREATE TABLE `tbl_user_github_repository`
+(
+    `user_repository_seq` bigint NOT NULL AUTO_INCREMENT,
+    `user_repository_url` longtext NOT NULL,
+    `user_repository_name` varchar(255) NOT NULL,
+    `user_repository_type` ENUM('BACKEND', 'FRONTEND') NOT NULL,
+    `user_seq` bigint NOT NULL,
+    PRIMARY KEY (`user_repository_seq`),
+    CONSTRAINT `FK_TBL_USER_GITHUB_REPOSITORY_USER_SEQ` FOREIGN KEY (`user_seq`) REFERENCES `tbl_user`(`user_seq`)
+
 );
