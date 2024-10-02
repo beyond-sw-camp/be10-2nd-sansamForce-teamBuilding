@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import sansam.team.common.response.ApiResponse;
 import sansam.team.project.query.dto.ProjectBoardAllQueryDTO;
 import sansam.team.project.query.dto.ProjectBoardDTO;
 import sansam.team.project.query.service.ProjectBoardQueryService;
@@ -24,14 +25,16 @@ public class ProjectBoardQueryController {
     /* 프로젝트 게시물 전체 조회 */
     @GetMapping
     @Operation(summary = "프로젝트 게시물 전체 조회", description = "프로젝트 게시물 전체 조회 API (사용자가 조회)")
-    public List<ProjectBoardAllQueryDTO> getAllProjectBoards() {
-        return projectBoardQueryService.getAllProjectBoards(); // ResponseEntity 생략하고 DTO 반환
+    public ApiResponse<List<ProjectBoardAllQueryDTO>> getAllProjectBoards() {
+        List<ProjectBoardAllQueryDTO> projectBoards = projectBoardQueryService.getAllProjectBoards();
+        return ApiResponse.ofSuccess(projectBoards);
     }
 
     /* 프로젝트 게시물 상세 조회 */
     @GetMapping("/{projectBoardSeq}")
     @Operation(summary = "프로젝트 게시물 상세 조회", description = "프로젝트 게시물 상세 조회 API (사용자가 조회)")
-    public ProjectBoardDTO getProjectBoardById(@PathVariable Long projectBoardSeq) {
-        return projectBoardQueryService.getProjectBoardByIdForUser(projectBoardSeq); // ResponseEntity 생략하고 DTO 반환
+    public ApiResponse<ProjectBoardDTO> getProjectBoardById(@PathVariable Long projectBoardSeq) {
+        ProjectBoardDTO projectBoard = projectBoardQueryService.getProjectBoardByIdForUser(projectBoardSeq);
+        return ApiResponse.ofSuccess(projectBoard);
     }
 }
