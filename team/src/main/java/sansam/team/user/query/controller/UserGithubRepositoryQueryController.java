@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import sansam.team.common.response.ApiResponse;
 import sansam.team.user.query.dto.UserGithubRepositoryQueryDTO;
 import sansam.team.user.query.service.UserGithubRepositoryQueryService;
 
@@ -22,9 +23,10 @@ public class UserGithubRepositoryQueryController {
 
     private final UserGithubRepositoryQueryService userGithubRepositoryQueryService;
 
-    @GetMapping()
+    @GetMapping
     @Operation(summary = "자신의 깃허브 레포지토리 전체 조회")
-    public List<UserGithubRepositoryQueryDTO> getAllGithubRepo(@PathVariable Long userSeq) {
-        return userGithubRepositoryQueryService.getAllGithubRepo(userSeq);
+    public ApiResponse<List<UserGithubRepositoryQueryDTO>> getAllGithubRepo(@PathVariable Long userSeq) {
+        List<UserGithubRepositoryQueryDTO> githubRepos = userGithubRepositoryQueryService.getAllGithubRepo(userSeq);
+        return ApiResponse.ofSuccess("GitHub repositories retrieved successfully", githubRepos);
     }
 }
