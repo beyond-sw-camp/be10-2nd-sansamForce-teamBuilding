@@ -22,15 +22,15 @@ public class TeamBuildingRuleQueryController {
 
     @GetMapping
     @Operation(summary = "팀빌딩 규칙 전체 조회", description = "팀 빌딩 규칙 가중치에 대한 전체 조회")
-    public ResponseEntity<ApiResponse<List<TeamBuildingRuleQueryDTO>>> getAllBuildingRules() {
+    public ApiResponse<List<TeamBuildingRuleQueryDTO>> getAllBuildingRules() {
         List<TeamBuildingRuleQueryDTO> buildingRules = buildingRuleQueryService.findAll();
-        return ResponseUtil.successResponse("All building rules retrieved successfully", buildingRules);
+        return ApiResponse.ofSuccess("All building rules retrieved successfully", buildingRules);
     }
 
     @GetMapping("/{ruleSeq}")
     @Operation(summary = "특정 팀빌딩 규칙 조회", description = "특정 팀 빌딩 규칙 가중치에 대한 조회")
-    public ResponseEntity<ApiResponse<TeamBuildingRuleQueryDTO>> getBuildingRule(@PathVariable long ruleSeq) {
+    public ApiResponse<TeamBuildingRuleQueryDTO> getBuildingRule(@PathVariable long ruleSeq) {
         TeamBuildingRuleQueryDTO buildingRule = buildingRuleQueryService.findById(ruleSeq);
-        return ResponseUtil.successResponse("Building rule retrieved successfully", buildingRule);
+        return ApiResponse.ofSuccess("Building rule retrieved successfully", buildingRule);
     }
 }
