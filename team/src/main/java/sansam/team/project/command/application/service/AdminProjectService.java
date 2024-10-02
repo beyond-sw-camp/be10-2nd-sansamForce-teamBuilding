@@ -3,7 +3,7 @@ package sansam.team.project.command.application.service;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import sansam.team.common.jwt.SecurityUtil;
+import sansam.team.security.util.SecurityUtil;
 import sansam.team.project.command.application.dto.AdminProjectCreateDTO;
 import sansam.team.project.command.application.dto.AdminProjectUpdateDTO;
 import sansam.team.project.command.domain.aggregate.entity.Project;

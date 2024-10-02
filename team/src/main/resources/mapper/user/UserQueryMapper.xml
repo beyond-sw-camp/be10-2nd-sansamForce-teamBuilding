@@ -25,7 +25,7 @@
             , user_pwd_mod_date
             , user_ban_date
         FROM tbl_user
-        WHERE user_id = #{id}
+        WHERE user_id = #{userId}
     </select>
 
 </mapper>

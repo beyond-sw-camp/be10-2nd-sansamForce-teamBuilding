@@ -8,6 +8,6 @@ import java.util.Optional;
 @Mapper
 public interface UserQueryMapper {
 
-    Optional<UserQueryDTO.LoginResponseDTO> findByUserId(String id);
+    Optional<UserQueryDTO.LoginResponseDTO> findByUserId(String userId);
 
 }

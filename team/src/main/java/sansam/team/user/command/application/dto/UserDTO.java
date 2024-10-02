@@ -4,8 +4,9 @@ import lombok.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import sansam.team.common.aggregate.entity.BaseTimeEntity;
 import sansam.team.common.aggregate.RoleType;
+import sansam.team.security.config.SecurityConfig;
 import sansam.team.user.command.domain.aggregate.StatusType;
-import sansam.team.common.jwt.JwtToken;
+import sansam.team.security.jwt.JwtToken;
 
 import java.time.LocalDateTime;
 
