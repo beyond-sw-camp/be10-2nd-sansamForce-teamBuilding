@@ -43,7 +43,7 @@ CREATE TABLE `tbl_user`
     `del_date` timestamp NULL,
     `user_career_years` bigint NULL,
     `user_career_months` bigint NULL,
-    PRIMARY KEY (`user_seq`),
+    PRIMARY KEY (`user_seq`)
 
 );
 
@@ -274,7 +274,7 @@ CREATE TABLE `tbl_user_github_repository`
     `user_repository_seq` bigint NOT NULL AUTO_INCREMENT,
     `user_repository_url` longtext NOT NULL,
     `user_repository_name` varchar(255) NOT NULL,
-    `user_repository_type` ENUM('BACKEND', 'FRONTEND') NOT NULL,
+    `develop_type` ENUM('BACKEND', 'FRONTEND') NOT NULL,
     `user_seq` bigint NOT NULL,
     PRIMARY KEY (`user_repository_seq`),
     CONSTRAINT `FK_TBL_USER_GITHUB_REPOSITORY_USER_SEQ` FOREIGN KEY (`user_seq`) REFERENCES `tbl_user`(`user_seq`)

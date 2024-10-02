@@ -3,7 +3,7 @@ package sansam.team.team.query.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import sansam.team.common.jwt.SecurityUtil;
+import sansam.team.security.util.SecurityUtil;
 import sansam.team.team.query.dto.TeamFindByIdResponse;
 import sansam.team.team.query.dto.TeamRequest;
 import sansam.team.team.query.dto.TeamResponse;

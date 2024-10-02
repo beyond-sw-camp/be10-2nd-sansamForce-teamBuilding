@@ -3,6 +3,7 @@ package sansam.team.user.command.application.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sansam.team.user.command.application.dto.UserGithubRepositoryDTO;
@@ -11,6 +12,7 @@ import sansam.team.user.command.domain.repository.UserGithubRepositoryRepository
 import sansam.team.user.command.domain.repository.UserRepository;
 import sansam.team.user.command.mapper.UserGithubRepositoryMapper;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserGithubRepositoryService {

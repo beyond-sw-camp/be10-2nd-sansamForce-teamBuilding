@@ -7,10 +7,10 @@ import sansam.team.user.command.domain.aggregate.entity.UserGithubRepository;
 public class UserGithubRepositoryMapper {
     public static UserGithubRepository toEntity(UserGithubRepositoryDTO dto) {
         return UserGithubRepository.create(
+                dto.getUserSeq(),
                 dto.getUserRepositoryUrl(),
                 dto.getUserRepositoryName(),
-                dto.getDevelopType(),
-                dto.getUserSeq()
+                dto.getDevelopType()
         );
     }
 }

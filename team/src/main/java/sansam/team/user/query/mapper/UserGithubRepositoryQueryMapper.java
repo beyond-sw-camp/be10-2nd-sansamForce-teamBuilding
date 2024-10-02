@@ -6,6 +6,6 @@ import sansam.team.user.query.dto.UserGithubRepositoryQueryDTO;
 import java.util.List;
 
 @Mapper
-public interface UserGithubRepositoryMapper {
-    List<UserGithubRepositoryQueryDTO> findAllGithubRepo();
+public interface UserGithubRepositoryQueryMapper {
+    List<UserGithubRepositoryQueryDTO> findAllGithubRepoByUserSeq(long userSeq);
 }

@@ -19,6 +19,8 @@ public class UserGithubRepository {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userRepositorySeq;
 
+    private Long userSeq;
+
     private String userRepositoryUrl;
 
     private String userRepositoryName;
@@ -26,17 +28,16 @@ public class UserGithubRepository {
     @Enumerated(EnumType.STRING)
     private DevelopType developType;
 
-    private Long userSeq;
 
-    public UserGithubRepository(String userRepositoryUrl, String userRepositoryName, DevelopType developType, Long userSeq) {
+    public UserGithubRepository(Long userSeq, String userRepositoryUrl, String userRepositoryName, DevelopType developType) {
+        this.userSeq = userSeq;
         this.userRepositoryUrl = userRepositoryUrl;
         this.userRepositoryName = userRepositoryName;
         this.developType = developType;
-        this.userSeq = userSeq;
     }
 
-    public static UserGithubRepository create(String userRepositoryUrl, String userRepositoryName, DevelopType developType, Long userSeq) {
-        return new UserGithubRepository(userRepositoryUrl,userRepositoryName,developType,userSeq);
+    public static UserGithubRepository create(Long userSeq,String userRepositoryUrl, String userRepositoryName, DevelopType developType ) {
+        return new UserGithubRepository(userSeq,userRepositoryUrl,userRepositoryName,developType);
     }
 
 
