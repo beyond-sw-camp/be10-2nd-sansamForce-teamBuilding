@@ -1,6 +1,5 @@
 package sansam.team.security.handler;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -14,7 +13,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import sansam.team.security.jwt.JwtToken;
-import sansam.team.user.query.dto.UserQueryDTO;
 
 import javax.crypto.SecretKey;
 import java.io.IOException;
@@ -35,7 +33,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         byte[] keyBytes = Decoders.BASE64.decode(env.getProperty("JWT_SECRET_KEY"));
         SecretKey secretKey = Keys.hmacShaKeyFor(keyBytes);
 
-        UserQueryDTO.LoginResponseDTO loginInfo = new ObjectMapper().readValue(request.getInputStream(), UserQueryDTO.LoginResponseDTO.class);
+        //User loginInfo = (User) authentication.getPrincipal();
 
         List<String> authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
@@ -43,9 +41,9 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
         // Access Token 생성
         String accessToken = Jwts.builder()
-                .setSubject(String.valueOf(loginInfo.getUserSeq()))  // userSeq를 subject로 설정
-                .claim("userId", loginInfo.getUserId())
-                .claim("userName", loginInfo.getUsername())
+                .setSubject(authentication.getName())  // userSeq를 subject로 설정
+                //.claim("userId", loginInfo.getUserId())
+                //.claim("userName", loginInfo.getUserName())
                 .claim("auth", authorities)  // 권한 정보 추가
                 .setIssuedAt(new Date())  // iat 추가 (발행 시간)
                 .setExpiration(new Date((new Date()).getTime() + 86400000))  // 만료 시간 (1일)
@@ -66,7 +64,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
                 .refreshToken(refreshToken)
                 .build();
 
-        response.setHeader("token", String.valueOf(jwtToken));
+        response.setHeader("token", jwtToken.getAccessToken());
     }
 
 }

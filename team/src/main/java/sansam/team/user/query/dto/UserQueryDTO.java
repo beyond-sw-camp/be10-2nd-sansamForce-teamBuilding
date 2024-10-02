@@ -80,12 +80,12 @@ public class UserQueryDTO extends BaseTimeEntity {
 
         @Override
         public String getPassword() {
-            return null;
+            return this.userPassword=userPassword;
         }
 
         @Override
         public String getUsername() {
-            return null;
+            return this.userName=userName;
         }
     }
 
