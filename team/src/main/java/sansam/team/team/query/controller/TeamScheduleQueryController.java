@@ -15,14 +15,14 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/v1/query/team/schedule")
+@RequestMapping("/api/v1/team/{teamSeq}/schedule")
 @RequiredArgsConstructor
 @Tag(name = "3-4-1. Team Schedule API", description = "팀 일정 API")
 public class TeamScheduleQueryController {
 
     private final TeamScheduleQueryService teamScheduleQueryService;
 
-    @GetMapping(value = {"/{teamSeq}"})
+    @GetMapping()
     @Operation(summary = "팀 일정 조회", description = "팀 일정 API")
     public List<TeamScheduleQueryDTO> getTeamScheduleList(@PathVariable long teamSeq) {
         return teamScheduleQueryService.getTeamScheduleList(teamSeq);
