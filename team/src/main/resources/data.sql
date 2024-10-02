@@ -142,3 +142,15 @@ VALUES
         (7,11,5,'GREAT',NOW()),
         (9,11,5,'GREAT',NOW());
 
+INSERT INTO `tbl_user_github_repository` (user_repository_url, user_repository_name, user_repository_type,user_seq)
+VALUES
+    ('https://github.com/orgs/SansamForce/repositories', 'SansamForce', 'BACKEND',1),
+    ('https://github.com/orgs/SansamForce/repositories', 'SansamForce', 'FRONTEND',2),
+    ('https://github.com/orgs/SansamForce/repositories', 'SansamForce', 'BACKEND',3),
+    ('https://github.com/orgs/SansamForce/repositories', 'SansamForce', 'FRONTEND',4),
+    ('https://github.com/orgs/SansamForce/repositories', 'SansamForce', 'BACKEND',5),
+    ('https://github.com/orgs/SansamForce/repositories', 'SansamForce','FRONTEND', 6),
+    ('https://github.com/orgs/SansamForce/repositories', 'SansamForce', 'BACKEND',7),
+    ('https://github.com/orgs/SansamForce/repositories', 'SansamForce', 'FRONTEND',8),
+    ('https://github.com/orgs/SansamForce/repositories', 'SansamForce', 'BACKEND',9),
+    ('https://github.com/orgs/SansamForce/repositories', 'SansamForce','FRONTEND',10);
