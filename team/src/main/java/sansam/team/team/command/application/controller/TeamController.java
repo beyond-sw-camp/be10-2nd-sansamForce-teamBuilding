@@ -19,24 +19,16 @@ public class TeamController {
 
     private final TeamService teamService;
 
-    @PostMapping
-    @Operation(summary = "팀 추가 (팀 빌딩 이후 시스템 추가)", description = "반환한 팀 정보를 갖고 팀 채팅방을 생성한다.")
-    public ApiResponse<Team> createTeam(@RequestBody TeamCreateRequest request) {
-        Team team = teamService.createTeam(request);
-
-        return ResponseUtil.successResponse(team).getBody();
-    }
-
     @PutMapping("/{teamSeq}")
     @Operation(summary = "팀 이름, 팀 빌딩 규칙 변경")
-    public ApiResponse<Team> updateTeam(@PathVariable Long teamSeq, @RequestBody TeamUpdateRequest request) {
+    public ApiResponse<?> updateTeam(@PathVariable Long teamSeq, @RequestBody TeamUpdateRequest request) {
         Team team = teamService.updateTeam(teamSeq, request);
 
-        return ResponseUtil.successResponse(team).getBody();
+        return ResponseUtil.successResponse("팀 정보 변경 성공").getBody();
     }
 
     @DeleteMapping("/{teamSeq}")
-    public ApiResponse<String> deleteTeam(@PathVariable Long teamSeq) {
+    public ApiResponse<?> deleteTeam(@PathVariable Long teamSeq) {
         teamService.deleteTeam(teamSeq);
 
         return ResponseUtil.successResponse("삭제 성공").getBody();

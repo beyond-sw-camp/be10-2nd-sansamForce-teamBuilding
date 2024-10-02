@@ -26,15 +26,6 @@ public class TeamService {
     private final ModelMapper modelMapper;
 
     @Transactional
-    public Team createTeam(TeamCreateRequest request) {
-        Team team = TeamMapper.toEntity(request);
-
-        teamRepository.save(team);
-
-        return team;
-    }
-
-    @Transactional
     public Team updateTeam(Long teamSeq, TeamUpdateRequest request) {
         Team team = teamRepository.findById(teamSeq).orElseThrow();
 
