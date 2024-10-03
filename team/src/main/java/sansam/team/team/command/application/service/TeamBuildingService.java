@@ -216,9 +216,8 @@ public class TeamBuildingService {
         }
 
         // 5. 프로젝트 참여자 점수에 따라 정렬해 팀원 추가하기.
-        frontMembers.sort(Comparator.comparingDouble(TeamBuildingDTO::getTotalScore)); ;
-
-        backMembers.sort(Comparator.comparingDouble(TeamBuildingDTO::getTotalScore));
+        frontMembers.sort(Comparator.comparingDouble(TeamBuildingDTO::getTotalScore).reversed()); ;
+        backMembers.sort(Comparator.comparingDouble(TeamBuildingDTO::getTotalScore).reversed()); ;
 
         // 6. 팀원 분배
         assignMembersToTeams(frontMembers, teamTotalScores, teamMemberCnt);
