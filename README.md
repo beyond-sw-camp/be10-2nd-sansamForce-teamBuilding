@@ -28,7 +28,7 @@
 현대의 조직은 성공을 위해 뛰어난 개인보다 협력과 소통이 잘 이루어지는 팀을 더 필요로 합니다. 팀 빌딩 솔루션은 조직의 구성원들이 함께 일하며 더 나은 성과를 낼 수 있도록 돕는 맞춤형 팀 빌딩 프로그램을 제공합니다.
 팀 빌딩 기능은 사용자가 원하는 팀의 조건과 이용자의 정보를 활용한 알고리즘을 통해 효율적이고 생산적인 팀을 구축합니다.
 
-<br>
+<br> <br>
 
 ## 📰프로젝트 필요성
 
@@ -39,7 +39,6 @@
 결과적으로 팀 빌딩 프로젝트는 팀워크 강화, 소통 개선, 리더십 발달, 문제 해결 능력 향상 등 여러 측면에서 조직의 성과를 높이는 데 필수적입니다. 성공적인 팀 빌딩은 조직이 목표를 달성하는 것은 물론, 장기적인 성장 기반을 마련하는 데도 중요한 역할을 합니다.
 
 <img src="https://mblogthumb-phinf.pstatic.net/MjAyMDA3MjFfNzIg/MDAxNTk1MzI3MTczMTA0.dqrUnvnTCQnQR94nH7Vieo9mk3aYZo7aELHKKZycl7cg.R5Zu8bhWMSyRhuNK-lEv_-lJdDK32sOeewbEo2kUP-og.PNG.catchyoulater/SE-354ca162-82e4-48fd-a603-0bffa8cf4441.png?type=w800">
-
 
 <br/>
 
@@ -77,7 +76,7 @@
 
 <br/>
 
-## 📄MSA 아키텍쳐 구조
+## 📄MSA 시스템 아키텍쳐
 
 ![img_3.png](img_3.png)
 
@@ -86,11 +85,17 @@
 ## 📍주요기능
 
 - 회원
-  - GitHub API 연동
-- 팀
-  - 팀 빌딩 알고리즘
+  - 프로젝트 참여 신청
+  - 팀원 개인 스케줄 설정
   - 팀 채팅
-  - 팀 일정 관리
+  - 팀원 평가
+- 관리자 (프로젝트)
+  - 프로젝트 모집글 게시
+  - 프로젝트 생성 및 관리
+- 관리자 (팀)
+  - 자동 팀 빌딩 (팀 빌딩 알고리즘)
+  - 팀 관리
+  - 멘토 평가
 
 <br/>
 
@@ -101,7 +106,7 @@
 | DDD 이벤트 스토밍 | https://miro.com/app/board/uXjVKj5617c=/     |
 |   API 명세서   |    https://www.notion.so/API-dd7148e372ca4fffb67b8b2515345376?pvs=4    |
 |  요구사항 정의서   | https://docs.google.com/spreadsheets/d/1Kob6x7Rv2ZG7byc1e_eQpFn5DlWBgOLOvefKpXc0SUU/edit?gid=0#gid=0 |
-| 테스트 결과 보고서  |   https://www.notion.so/Swagger-114e5998dfd780ea9030dcd704e33f40?pvs=4        |
+| 테스트 결과 보고서  |   https://www.notion.so/Swagger-114e5998dfd780ea9030dcd704e33f40?pvs=4     |
 
 <br/>
 
