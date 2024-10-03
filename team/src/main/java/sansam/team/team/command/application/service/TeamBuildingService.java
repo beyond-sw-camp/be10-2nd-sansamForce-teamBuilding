@@ -179,6 +179,10 @@ public class TeamBuildingService {
         List<TeamBuildingDTO> backMembers = new ArrayList<>();
 
         for (ProjectMember pjMember : projectMembers) {
+            if(pjMember.getProjectMentorYn()==YnType.Y){
+                continue;
+            }
+
             Long userSeq = pjMember.getUserSeq();
             TeamBuildingDTO teamBuildingDTO = new TeamBuildingDTO(userSeq,pjMember.getProjectMemberSeq());
             // 프로젝트 참여자 점수 불러오기
