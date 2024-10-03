@@ -1,10 +1,5 @@
-# client? ????? gateway? port? ???? ????.
-server:
-  port: 8000
-
 spring:
   application:
-    # application ?? ??
     name: gateway
   cloud:
     gateway:
@@ -37,4 +32,4 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://server_sansam:8761/eureka
