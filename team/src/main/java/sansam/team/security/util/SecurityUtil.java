@@ -18,7 +18,7 @@ public class SecurityUtil {
 
     public static CustomUserDTO getAuthenticatedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.getPrincipal() instanceof User) {
+        if (authentication != null && authentication.getPrincipal() instanceof CustomUserDTO) {
             return (CustomUserDTO) authentication.getPrincipal();
         }
         throw new IllegalArgumentException("User not authenticated");
