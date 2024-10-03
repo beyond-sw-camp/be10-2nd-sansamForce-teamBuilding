@@ -16,11 +16,6 @@ class TeamServiceTest {
 
     private Team team;
 
-    @BeforeEach
-    public void setUp() {
-        team = new Team(); // Team 엔티티 초기화
-    }
-
     @Test
     public void testUpdateTeamTest() {
         long teamSeq = 1;
