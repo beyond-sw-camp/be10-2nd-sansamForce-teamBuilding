@@ -12,7 +12,7 @@ services:
     volumes:
       - db_data:/var/lib/mysql
     networks:
-      - springboot-network
+      - cloud-network
 
   phpmyadmin:
     image: phpmyadmin:latest
@@ -26,7 +26,7 @@ services:
     ports:
       - "8090:80"
     networks:
-      - springboot-network
+      - cloud-network
 
   mongo:
     image: mongo
@@ -36,16 +36,27 @@ services:
     volumes:
       - mongodb-data:/data/db
     networks:
-      - springboot-network
+      - cloud-network
 
-#  server:
-#    container_name: server_sansam
-#    build: ./server
-#    hostname: server_sansam
-#    ports:
-#      - "8761:8761"
-#    networks:
-#      - cloud-network
+  eureka-server:
+    container_name: eureka-server
+    build: ./eureka-server
+    hostname: eureka-server
+    ports:
+      - "8761:8761"
+    networks:
+      - cloud-network
+
+  api-gateway:
+    container_name: api-gateway
+    hostname: api-gateway
+    build: ./api-gateway
+    ports:
+      - "8000:8000"
+    environment:
+      - EUREKA_SERVER_URI=http://eureka-server:8761/eureka
+    networks:
+      - cloud-network
 
 #  config-server:
 #    container_name: config_sansam
@@ -55,23 +66,19 @@ services:
 #    networks:
 #      - cloud-network
 
-#  gateway:
-#    container_name: gateway_sansam
-#    build: ./gateway
-#    ports:
-#      - "8000:8000"
-#    networks:
-#      - cloud-network
+  user-service:
+    container_name: user_service
+    hostname: user-service
+    build: ./user-service
+    ports:
+      - "0:8000"
+    environment:
+      - EUREKA_SERVER_URI=http://eureka-server:8761/eureka
+    env_file:
+      - .env
+    networks:
+      - cloud-network
 
-#  user:
-#    container_name: user_sansam
-#    build: ./user
-#    ports:
-#      - "0:8000"
-#    networks:
-#      - cloud-network
-#    depends_on:
-#      - config-server
 #
 #  team:
 #    container_name: team_sansam
@@ -80,23 +87,7 @@ services:
 #      - "0:8000"
 #    networks:
 #      - cloud-network
-#  order:
-#    build: ./order
-#    ports:
-#      - "0:8000"
-#    networks:
-#      - cloud-network
-#    depends_on:
-#      - config-server
 
-#  spring:
-#    build:
-#      context: ./toyProject
-#      dockerfile: DockerFile
-#    depends_on:
-#      - mysql
-#    ports:
-#      - "8084:8084"
 
 volumes:
   db_data:
