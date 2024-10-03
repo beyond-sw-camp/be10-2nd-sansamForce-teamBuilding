@@ -35,7 +35,7 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
   mapper-locations: mapper/**/*.xml
-  type-aliases-package: com.sansam.team.**
+  type-aliases-package: com.sansam.user.**
 
 cloud:
   aws:

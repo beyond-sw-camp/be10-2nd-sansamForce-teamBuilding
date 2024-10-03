@@ -8,23 +8,23 @@ spring:
     gateway:
       routes:
         - id: user-service
-          uri: lb://user-service
+          uri: lb://USER-SERVICE
           predicates:
             - Path=/api/v1/user/**
           filters:
-            - RewritePath=/api/v1/user/(?<segment>.*), /$\{segment}
+#            - RewritePath=/api/v1/user/(?<segment>.*), /user/$\{segment}
         - id: team-service
-          uri: lb://team-service
+          uri: lb://TEAM-SERVICE
           predicates:
             - Path=/api/v1/team/**
           filters:
-            - RewritePath=/api/v1/team/(?<segment>.*), /$\{segment}
+#            - RewritePath=/api/v1/team/(?<segment>.*), /$\{segment}
         - id: project-service
-          uri: lb://project-service
+          uri: lb://PROJECT-SERVICE
           predicates:
             - Path=/api/v1/project/**
           filters:
-            - RewritePath=/api/v1/project/(?<segment>.*), /$\{segment}
+#            - RewritePath=/api/v1/project/(?<segment>.*), /$\{segment}
 eureka:
   instance:
     instance-id: ${spring.application.name}:${spring.instance.instance-id:${random.value}}
