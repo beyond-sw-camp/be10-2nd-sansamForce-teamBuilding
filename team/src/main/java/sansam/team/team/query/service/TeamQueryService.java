@@ -25,4 +25,5 @@ public class TeamQueryService {
     public TeamFindByIdResponse selectTeamById(Long teamSeq) {
         return teamQueryMapper.selectTeamById(teamSeq);
     }
+
 }

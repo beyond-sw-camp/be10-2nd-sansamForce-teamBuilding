@@ -52,6 +52,7 @@ public class UserQueryDTO extends BaseTimeEntity {
     private LocalDateTime delDate;
 
     @Getter
+    @AllArgsConstructor
     public static class LoginRequestDTO {
         private String id;
         private String pw;
