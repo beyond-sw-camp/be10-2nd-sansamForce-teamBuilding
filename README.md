@@ -40,8 +40,8 @@
 
 <img src="https://mblogthumb-phinf.pstatic.net/MjAyMDA3MjFfNzIg/MDAxNTk1MzI3MTczMTA0.dqrUnvnTCQnQR94nH7Vieo9mk3aYZo7aELHKKZycl7cg.R5Zu8bhWMSyRhuNK-lEv_-lJdDK32sOeewbEo2kUP-og.PNG.catchyoulater/SE-354ca162-82e4-48fd-a603-0bffa8cf4441.png?type=w800">
 
-<br/>
 
+<br/>
 
 ## 📅프로젝트 기간
 
@@ -67,34 +67,34 @@
 
 <br/>
 
-## 📍주요기능
-
-- 로그인
-  - GitHub API 연동
-- 팀
-    - 팀 빌딩 알고리즘
-    - 팀 채팅
-    - 팀 일정 관리
-- 회원 관리
-  - 팀 ??
+## 📄물리모델링
+![img.png](img.png)
 
 <br/>
 
-## 📄물리모델링
+## 📄논리모델링
+![img_2.png](img_2.png)
 
-
+<br/>
 
 ## 📄 명세서
 
 |    이름    |                                                 문제 링크                                                 |
 |:--------:|:-----------------------------------------------------------------------------------------------------:|
 | API 명세서  |                                                                                                       |
-|  물리 모델링  |                                                                                                       |
 | 요구사항 정의서 | https://docs.google.com/spreadsheets/d/1Kob6x7Rv2ZG7byc1e_eQpFn5DlWBgOLOvefKpXc0SUU/edit?gid=0#gid=0  |
 | 테이블 정의서  |                                                                                                       |
 
+<br/>
 
+## 📍주요기능
 
+- 로그인
+  - GitHub API 연동
+- 팀
+  - 팀 빌딩 알고리즘
+  - 팀 채팅
+  - 팀 일정 관리
 <br/>
 
 ## 📌 스터디 규칙
