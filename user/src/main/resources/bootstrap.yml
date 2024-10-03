@@ -2,4 +2,6 @@ spring:
   cloud:
     config:
       uri: http://localhost:8888
-      name: application-msa
+      name: msa
+      fail-fast: true
+      label: cloud
