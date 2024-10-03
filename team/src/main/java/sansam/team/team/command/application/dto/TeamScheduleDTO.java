@@ -8,7 +8,6 @@ import sansam.team.common.aggregate.entity.BaseTimeEntity;
 import java.time.LocalDateTime;
 
 @Data
-@AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class TeamScheduleDTO extends BaseTimeEntity {
 

@@ -6,7 +6,6 @@ import lombok.EqualsAndHashCode;
 import sansam.team.common.aggregate.entity.BaseTimeEntity;
 
 @Data
-@AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class TeamReviewDTO extends BaseTimeEntity {
 
