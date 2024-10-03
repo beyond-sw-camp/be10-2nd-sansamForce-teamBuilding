@@ -33,6 +33,7 @@ dependencies {
 
     // SpringBoot Starter Dependencies
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
 
@@ -74,6 +75,9 @@ dependencies {
 
     // mongodb
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+
+    // 인스턴스 간의 통신을 위해 추가한 dependency
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 
     // Testing Dependencies
     developmentOnly 'org.springframework.boot:spring-boot-devtools'

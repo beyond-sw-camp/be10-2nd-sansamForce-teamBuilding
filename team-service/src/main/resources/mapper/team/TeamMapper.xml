@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sansam.team.query.mapper.TeamQueryMapper">
+
+    <resultMap id="teamFindByIdResponse" type="TeamFindByIdResponse">
+        <id column="team_seq" property="teamSeq" javaType="Long"/>
+        <result column="team_name" property="teamName" javaType="String"/>
+        <collection property="teamMemberList" column="teamSeq = team_seq" ofType="TeamMemberResponse" javaType="java.util.ArrayList" select="selectTeamMemberListById"/>
+        <collection property="teamScheduleList" column="teamSeq = team_seq" ofType="TeamScheduleResponse" javaType="java.util.ArrayList" select="selectTeamScheduleListById"/>
+    </resultMap>
+
+    <select id="selectTeamList" resultType="TeamResponse">
+        SELECT project_title
+                , t.team_seq
+                , team_name
+                , DATE_FORMAT(t.reg_date, '%Y-%m-%d %H:%i:%s') reg_date
+        FROM tbl_team t
+        <if test="roleType.getCode() == 'MENTOR'">
+            <!-- 멘토 : 내가 속한 프로젝트의 모든 팀 -->
+            JOIN tbl_project p
+                ON t.project_seq = p.project_seq
+            JOIN tbl_project_member pm
+                ON p.project_seq = pm.project_seq
+            JOIN tbl_user u
+                ON pm.user_seq = u.user_seq
+            WHERE u.user_seq = #{userSeq}
+            AND pm.project_mentor_yn = 'Y'
+            AND pm.project_member_del_yn = 'N'
+            AND team_status = 'OPEN'
+        </if>
+        <if test="roleType.getCode() == 'MEMBER'">
+            <!-- 멤버 : 내가 속한 팀 -->
+            JOIN tbl_project p
+                ON t.project_seq = p.project_seq
+            JOIN tbl_team_member tm
+                ON tm.team_seq = t.team_seq
+            WHERE tm.user_seq = #{userSeq}
+        </if>
+    </select>
+
+    <select id="selectTeamMemberListById" resultType="TeamMemberResponse">
+        SELECT team_member_seq
+            , user_nickname
+            , user_phone
+            , user_email
+            , user_birth_date
+            , user_gender
+            , user_github_id
+        FROM tbl_team_member tm
+        JOIN tbl_team t
+            ON t.team_seq = tm.team_seq
+        JOIN tbl_user u
+            ON u.user_seq = tm.user_seq
+        WHERE tm.team_seq = #{teamSeq}
+        AND user_status = 'ACTIVE'
+    </select>
+
+    <select id="selectTeamScheduleListById" resultType="TeamScheduleResponse">
+        SELECT team_schedule_seq
+            , team_schedule_content
+            , DATE_FORMAT(team_schedule_start_date, '%Y-%m-%d %H:%i:%s') team_schedule_start_date
+            , DATE_FORMAT(team_schedule_end_date, '%Y-%m-%d %H:%i:%s') team_schedule_end_date
+        FROM tbl_team_schedule ts
+        JOIN tbl_team t
+            ON t.team_seq = ts.team_seq
+        WHERE t.team_seq = #{teamSeq}
+    </select>
+
+    <select id="selectTeamById" resultMap="teamFindByIdResponse">
+        SELECT team_seq
+            , team_name
+        FROM tbl_team t
+        JOIN tbl_project p
+            ON t.project_seq = p.project_seq
+        WHERE team_seq = #{teamSeq}
+    </select>
+</mapper>
+

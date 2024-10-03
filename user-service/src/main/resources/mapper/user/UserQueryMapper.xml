@@ -27,4 +27,13 @@
         WHERE user_id = #{userId}
     </select>
 
+    <select id="findById" resultType="UserDTO">
+        SELECT user_seq
+            , user_github_id
+            , user_career_years
+            , user_career_months
+        FROM tbl_user
+        WHERE user_seq = #{userSeq}
+    </select>
+
 </mapper>
