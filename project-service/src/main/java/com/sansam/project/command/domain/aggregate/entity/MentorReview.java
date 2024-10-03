@@ -1,10 +1,11 @@
-package sansam.team.project.command.domain.aggregate.entity;
+package com.sansam.project.command.domain.aggregate.entity;
 
+
+import com.sansam.project.command.application.dto.ProjectMentorReviewUpdateDTO;
+import com.sansam.project.common.aggregate.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import sansam.team.common.aggregate.entity.BaseTimeEntity;
-import sansam.team.project.command.application.dto.ProjectMentorReviewUpdateDTO;
 
 @Entity
 @Table(name = "tbl_mentor_review")

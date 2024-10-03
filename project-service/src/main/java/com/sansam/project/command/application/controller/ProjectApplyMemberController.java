@@ -1,16 +1,15 @@
-package sansam.team.project.command.application.controller;
+package com.sansam.project.command.application.controller;
 
+
+import com.sansam.project.command.application.dto.AdminProjectApplyMemberDTO;
+import com.sansam.project.command.application.service.ProjectApplyMemberService;
+import com.sansam.project.command.domain.aggregate.entity.ProjectApplyMember;
+import com.sansam.project.common.response.ApiResponse;
+import com.sansam.project.common.response.ResponseUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sansam.team.common.response.ApiResponse;
-import sansam.team.common.response.ResponseUtil;
-import sansam.team.project.command.application.dto.AdminProjectApplyMemberDTO;
-import sansam.team.project.command.domain.aggregate.entity.MentorReview;
-import sansam.team.project.command.domain.aggregate.entity.ProjectApplyMember;
-import sansam.team.project.command.application.service.ProjectApplyMemberService;
 
 @RestController
 @RequestMapping("/api/v1/project/board/apply")

@@ -1,15 +1,19 @@
-package sansam.team.project.query.controller;
+package com.sansam.project.query.controller;
 
+
+import com.sansam.project.common.response.ApiResponse;
+import com.sansam.project.query.dto.ProjectMentorReviewAllQueryDTO;
+import com.sansam.project.query.dto.ProjectMentorReviewAllUserQueryDTO;
+import com.sansam.project.query.dto.ProjectMentorReviewQueryDTO;
+import com.sansam.project.query.dto.ProjectMentorReviewUserQueryDTO;
+import com.sansam.project.query.service.ProjectMentorReviewQueryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
-import sansam.team.common.response.ApiResponse;
-import sansam.team.project.query.dto.ProjectMentorReviewAllQueryDTO;
-import sansam.team.project.query.dto.ProjectMentorReviewAllUserQueryDTO;
-import sansam.team.project.query.dto.ProjectMentorReviewQueryDTO;
-import sansam.team.project.query.dto.ProjectMentorReviewUserQueryDTO;
-import sansam.team.project.query.service.ProjectMentorReviewQueryService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 

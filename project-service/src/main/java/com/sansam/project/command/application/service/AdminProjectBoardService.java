@@ -1,19 +1,17 @@
-package sansam.team.project.command.application.service;
+package com.sansam.project.command.application.service;
 
-import jakarta.transaction.Transactional;
+
+import com.sansam.project.command.application.dto.AdminProjectApplyMemberDTO;
+import com.sansam.project.command.application.dto.AdminProjectBoardCreateDTO;
+import com.sansam.project.command.application.dto.AdminProjectBoardUpdateDTO;
+import com.sansam.project.command.domain.aggregate.entity.ProjectApplyMember;
+import com.sansam.project.command.domain.aggregate.entity.ProjectBoard;
+import com.sansam.project.command.domain.repository.ProjectApplyMemberRepository;
+import com.sansam.project.command.domain.repository.ProjectBoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
-import sansam.team.project.command.application.dto.AdminProjectApplyMemberDTO;
-import sansam.team.project.command.application.dto.AdminProjectBoardCreateDTO;
-import sansam.team.project.command.application.dto.AdminProjectBoardUpdateDTO;
-import sansam.team.project.command.domain.aggregate.entity.ProjectApplyMember;
-import sansam.team.project.command.domain.aggregate.entity.ProjectBoard;
-import sansam.team.project.command.domain.repository.ProjectApplyMemberRepository;
-import sansam.team.project.command.domain.repository.ProjectBoardRepository;
-import sansam.team.security.util.SecurityUtil;
-import sansam.team.user.query.dto.CustomUserDTO;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor

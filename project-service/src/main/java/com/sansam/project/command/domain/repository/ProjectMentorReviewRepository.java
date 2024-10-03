@@ -1,6 +1,7 @@
-package sansam.team.project.command.domain.repository;
+package com.sansam.project.command.domain.repository;
 
-import sansam.team.project.command.domain.aggregate.entity.MentorReview;
+
+import com.sansam.project.command.domain.aggregate.entity.MentorReview;
 
 import java.util.List;
 import java.util.Optional;

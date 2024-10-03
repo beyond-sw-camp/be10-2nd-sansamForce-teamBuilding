@@ -1,8 +1,9 @@
-package sansam.team.project.command.infrastructure.repository;
+package com.sansam.project.command.infrastructure.repository;
 
+
+import com.sansam.project.command.domain.aggregate.entity.ProjectBoard;
+import com.sansam.project.command.domain.repository.ProjectBoardRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
-import sansam.team.project.command.domain.repository.ProjectBoardRepository;
-import sansam.team.project.command.domain.aggregate.entity.ProjectBoard;
 
 public interface JpaProjectBoardRepository extends ProjectBoardRepository, JpaRepository<ProjectBoard, Long> {
 }

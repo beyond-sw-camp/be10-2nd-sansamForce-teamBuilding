@@ -1,6 +1,7 @@
-package sansam.team.project.command.mapper;
+package com.sansam.project.command.mapper;
 
-import sansam.team.project.command.domain.aggregate.entity.ProjectMember;
+
+import com.sansam.project.command.domain.aggregate.entity.ProjectMember;
 
 public class ProjectMemberMapper {
 

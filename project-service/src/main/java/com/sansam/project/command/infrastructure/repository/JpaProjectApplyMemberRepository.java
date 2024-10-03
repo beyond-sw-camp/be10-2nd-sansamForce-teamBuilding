@@ -1,8 +1,9 @@
-package sansam.team.project.command.infrastructure.repository;
+package com.sansam.project.command.infrastructure.repository;
 
+
+import com.sansam.project.command.domain.aggregate.entity.ProjectApplyMember;
+import com.sansam.project.command.domain.repository.ProjectApplyMemberRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
-import sansam.team.project.command.domain.repository.ProjectApplyMemberRepository;
-import sansam.team.project.command.domain.aggregate.entity.ProjectApplyMember;
 
 public interface JpaProjectApplyMemberRepository extends ProjectApplyMemberRepository, JpaRepository<ProjectApplyMember, Long> {
 

@@ -1,10 +1,10 @@
-package sansam.team.project.command.domain.aggregate.entity;
+package com.sansam.project.command.domain.aggregate.entity;
 
+import com.sansam.project.command.application.dto.AdminProjectBoardUpdateDTO;
+import com.sansam.project.command.domain.aggregate.BoardStatus;
+import com.sansam.project.common.aggregate.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
-import sansam.team.common.aggregate.entity.BaseTimeEntity;
-import sansam.team.project.command.application.dto.AdminProjectBoardUpdateDTO;
-import sansam.team.project.command.domain.aggregate.BoardStatus;
 
 import java.time.LocalDateTime;
 

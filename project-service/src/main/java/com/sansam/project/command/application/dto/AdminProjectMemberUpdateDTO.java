@@ -1,11 +1,12 @@
-package sansam.team.project.command.application.dto;
+package com.sansam.project.command.application.dto;
 
+
+import com.sansam.project.common.aggregate.DevelopType;
+import com.sansam.project.common.aggregate.YnType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import sansam.team.common.aggregate.YnType;
-import sansam.team.common.aggregate.DevelopType;
 
 @Getter
 @Setter

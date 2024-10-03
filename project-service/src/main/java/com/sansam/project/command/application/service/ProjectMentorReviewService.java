@@ -1,19 +1,16 @@
-package sansam.team.project.command.application.service;
+package com.sansam.project.command.application.service;
 
-import jakarta.transaction.Transactional;
+import com.sansam.project.command.application.dto.ProjectMentorReviewCreateDTO;
+import com.sansam.project.command.application.dto.ProjectMentorReviewUpdateDTO;
+import com.sansam.project.command.domain.aggregate.entity.MentorReview;
+import com.sansam.project.command.domain.aggregate.entity.ProjectMember;
+import com.sansam.project.command.domain.repository.ProjectMemberRepository;
+import com.sansam.project.command.domain.repository.ProjectMentorReviewRepository;
+import com.sansam.project.command.domain.repository.ProjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
-import sansam.team.project.command.application.dto.ProjectMentorReviewCreateDTO;
-import sansam.team.project.command.application.dto.ProjectMentorReviewUpdateDTO;
-import sansam.team.project.command.domain.aggregate.entity.MentorReview;
-import sansam.team.project.command.domain.aggregate.entity.ProjectMember;
-import sansam.team.project.command.domain.repository.ProjectMemberRepository;
-import sansam.team.project.command.domain.repository.ProjectMentorReviewRepository;
-import sansam.team.project.command.domain.repository.ProjectRepository;
-import sansam.team.security.util.SecurityUtil;
-import sansam.team.user.query.dto.CustomUserDTO;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor

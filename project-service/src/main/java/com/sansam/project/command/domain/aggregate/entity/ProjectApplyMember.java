@@ -1,12 +1,11 @@
-package sansam.team.project.command.domain.aggregate.entity;
+package com.sansam.project.command.domain.aggregate.entity;
 
+import com.sansam.project.command.application.dto.AdminProjectApplyMemberDTO;
+import com.sansam.project.command.domain.aggregate.ApplyStatus;
+import com.sansam.project.common.aggregate.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import sansam.team.common.aggregate.entity.BaseTimeEntity;
-
-import sansam.team.project.command.application.dto.AdminProjectApplyMemberDTO;
-import sansam.team.project.command.domain.aggregate.ApplyStatus;
 
 @Entity
 @Table(name = "tbl_project_apply_member")

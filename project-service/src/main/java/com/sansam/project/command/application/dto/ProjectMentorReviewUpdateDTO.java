@@ -1,4 +1,4 @@
-package sansam.team.project.command.application.dto;
+package com.sansam.project.command.application.dto;
 
 import lombok.*;
 
