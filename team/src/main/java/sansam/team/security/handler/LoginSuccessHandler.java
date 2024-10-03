@@ -37,18 +37,19 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
                 .map(GrantedAuthority::getAuthority)
                 .toList();
 
-        String userSeq="", userId = "";
+        String userSeq="", userId = "", userAuth = "";
         if(authentication.getName().contains(",")) {
             String[] seqAndId = authentication.getName().split(",");
             userSeq = seqAndId[0];
             userId = seqAndId[1];
+            userAuth = seqAndId[2];
         }
 
         // Access Token 생성
         String accessToken = Jwts.builder()
                 .setSubject(userSeq)  // userSeq를 subject로 설정
                 .claim("userId", userId)
-                .claim("auth", authorities)  // 권한 정보 추가
+                .claim("auth", userAuth)  // 권한 정보 추가
                 .setIssuedAt(new Date())  // iat 추가 (발행 시간)
                 .setExpiration(new Date((new Date()).getTime() + 86400000))  // 만료 시간 (1일)
                 .signWith(secretKey, SignatureAlgorithm.HS256)

@@ -5,18 +5,16 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sansam.team.common.aggregate.RoleType;
-import sansam.team.security.util.SecurityUtil;
 import sansam.team.common.util.DateTimeUtil;
 import sansam.team.exception.CustomException;
 import sansam.team.exception.ErrorCodeType;
+import sansam.team.security.util.SecurityUtil;
 import sansam.team.team.command.application.dto.TeamMemberScheduleDTO;
 import sansam.team.team.command.application.dto.TeamScheduleDTO;
 import sansam.team.team.command.domain.aggregate.entity.TeamMemberSchedule;
 import sansam.team.team.command.domain.aggregate.entity.TeamSchedule;
 import sansam.team.team.command.domain.repository.TeamMemberScheduleRepository;
 import sansam.team.team.command.domain.repository.TeamScheduleRepository;
-import sansam.team.user.command.domain.aggregate.entity.User;
 
 @Slf4j
 @Service
@@ -129,8 +127,7 @@ public class TeamMemberScheduleService {
 
     /* 피드백 가능 조건 체크 */
     public boolean isPossibleFeedback(long teamScheduleSeq) {
-        User user = SecurityUtil.getAuthenticatedUser();
-        if(RoleType.MENTOR != user.getUserAuth()) {  // TODO ayeong - 넘어오는 auth 값 제대로 확인하기
+        if(!"MENTOR".equals(SecurityUtil.getUserAuth())) {
             throw new CustomException(ErrorCodeType.MENTOR_AUTH_ERROR);
         }
 
