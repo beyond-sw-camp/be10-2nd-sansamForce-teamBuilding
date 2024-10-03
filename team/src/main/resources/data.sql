@@ -81,7 +81,7 @@ VALUES
     (1, 9, 'N', 'N', 'N','BACKEND', NULL,NOW()),
     (1, 10, 'N', 'N', 'N','BACKEND', NULL,NOW()),
 
-    (1, 11, 'N', 'N', 'Y',NULL,NULL,NOW()),  -- 관리자
+    (1, 11, 'N', 'N', 'Y','BACKEND',NULL,NOW()),
     (1, 12, 'N', 'N', 'Y','BACKEND',NULL,NOW()),
     (1, 13, 'N', 'N', 'Y','BACKEND',NULL,NOW()),
     (1, 14, 'N', 'N', 'Y','BACKEND',NULL,NOW()),
