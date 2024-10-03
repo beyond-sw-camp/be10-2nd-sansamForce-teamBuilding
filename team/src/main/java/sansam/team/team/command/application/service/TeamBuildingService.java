@@ -23,6 +23,8 @@ import sansam.team.team.command.domain.repository.TeamMemberRepository;
 import sansam.team.team.command.domain.repository.TeamRepository;
 import sansam.team.team.command.domain.repository.TeamReviewRepository;
 import sansam.team.user.command.domain.aggregate.entity.User;
+import sansam.team.user.command.domain.aggregate.entity.UserGithubRepository;
+import sansam.team.user.command.domain.repository.UserGithubRepositoryRepository;
 import sansam.team.user.command.domain.repository.UserRepository;
 
 import java.io.IOException;
@@ -41,31 +43,37 @@ public class TeamBuildingService {
     private final TeamMemberRepository teamMemberRepository;
     private final TeamBuildingRuleRepository buildingRuleRepository;
     private final ProjectMentorReviewRepository projectMentorReviewRepository;
+    private final UserGithubRepositoryRepository userGithubRepositoryRepository;
 
     // 1. 깃허브 커밋 점수 계산 로직
     public long calculateCommitScore(TeamBuildingDTO teamBuildingDTO) throws IOException {
         User user = userRepository.findById(teamBuildingDTO.getUserSeq())
-                .orElseThrow(() -> new RuntimeException("User does not exist"));
+                .orElseThrow(() -> new RuntimeException("유저 정보가 존재하지 않습니다."));
+
 
         ProjectMember pjMember = projectMemberRepository.findById(teamBuildingDTO.getProjectMemberSeq())
-                .orElseThrow(() -> new RuntimeException("Project Member does not exist"));
-        int commitCnt = githubUtil.getCommitCountFromRepoUrl(user.getUserGithubId(),"https://github.com/kookong2/frontend");
+                .orElseThrow(() -> new RuntimeException("프로젝트 정보가 존재하지 않습니다."));
+
+        List<UserGithubRepository> userGithubRepositories = userGithubRepositoryRepository.findAllByUserSeq(user.getUserSeq());
+        Map<DevelopType,Integer> CommitCntByDevelopType = githubUtil.analyzeCommitCountByDevelopType(userGithubRepositories,user.getUserGithubId());
+
+        int commitCnt = CommitCntByDevelopType.get(pjMember.getProjectMemberDevelopType());
 
         // GitHub 커밋 점수 계산 로직
         long commitScore;
-        if(commitCnt < 0){
+        if(commitCnt < 50){
             commitScore = 0L;
         }
-        else if(commitCnt < 10){
+        else if(commitCnt < 100){
             commitScore = 1L;
         }
-        else if(commitCnt < 30){
+        else if(commitCnt < 200){
             commitScore = 2L;
         }
-        else if(commitCnt < 70){
+        else if(commitCnt < 500){
             commitScore = 3L;
         }
-        else if(commitCnt < 100){
+        else if(commitCnt < 1000){
             commitScore = 4L;
         }
         else{
@@ -83,7 +91,7 @@ public class TeamBuildingService {
     // 2. 전공 점수 계산 로직
     public int calculateMajorScore(TeamBuildingDTO teamBuildingDTO) throws IOException {
         ProjectMember pjMember = projectMemberRepository.findById(teamBuildingDTO.getProjectMemberSeq())
-                .orElseThrow(() -> new RuntimeException("Project Member does not exist"));
+                .orElseThrow(() -> new RuntimeException("유저 정보가 존재하지 않습니다."));
         return pjMember.getProjectMemberMajorYn()== YnType.Y?5:0;
 
     }
@@ -91,7 +99,7 @@ public class TeamBuildingService {
     // 3. 경력 점수 계산 로직
     public int calculateCareerScore(TeamBuildingDTO teamBuildingDTO) throws IOException {
         User user = userRepository.findById(teamBuildingDTO.getUserSeq())
-                .orElseThrow(() -> new RuntimeException("User does not exist"));
+                .orElseThrow(() -> new RuntimeException("프로젝트 정보가 존재하지 않습니다."));
         long careerMonth = user.getUserCareerYears()*12 + user.getUserCareerMonths();
         int careerScore = 0;
         if(careerMonth>=60){
@@ -191,7 +199,6 @@ public class TeamBuildingService {
 
         //4. 팀 만들기
         List<Team> teams = new ArrayList<>();
-
 
         Map<Team, Double> teamTotalScores = new HashMap<>();
         Map<Team,Long> teamMemberCnt = new HashMap<>();

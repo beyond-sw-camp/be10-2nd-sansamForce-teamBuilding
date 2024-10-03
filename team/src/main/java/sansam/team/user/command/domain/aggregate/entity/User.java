@@ -27,7 +27,7 @@ public class User extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userSeq;           // 회원 번호
 
-    private Long userMajor;
+    private String userMajor;
 
     private String userId;          // 회원 아이디
 
