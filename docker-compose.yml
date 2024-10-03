@@ -79,6 +79,32 @@ services:
     networks:
       - cloud-network
 
+  project-service:
+    container_name: project_service
+    hostname: project-service
+    build: ./project-service
+    ports:
+      - "0:8000"
+    environment:
+      - EUREKA_SERVER_URI=http://eureka-server:8761/eureka
+    env_file:
+      - .env
+    networks:
+      - cloud-network
+
+  team-service:
+    container_name: team_service
+    hostname: team-service
+    build: ./team-service
+    ports:
+      - "0:8000"
+    environment:
+      - EUREKA_SERVER_URI=http://eureka-server:8761/eureka
+    env_file:
+      - .env
+    networks:
+      - cloud-network
+
 #
 #  team:
 #    container_name: team_sansam
