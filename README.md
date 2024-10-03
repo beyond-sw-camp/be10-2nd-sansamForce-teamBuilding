@@ -77,27 +77,36 @@
 
 <br/>
 
-## 📄 명세서
+## 📄MSA 아키텍쳐 구조
 
-|    이름    |                                                 문제 링크                                                 |
-|:--------:|:-----------------------------------------------------------------------------------------------------:|
-| API 명세서  |                                                                                                       |
-| 요구사항 정의서 | https://docs.google.com/spreadsheets/d/1Kob6x7Rv2ZG7byc1e_eQpFn5DlWBgOLOvefKpXc0SUU/edit?gid=0#gid=0  |
-| 테이블 정의서  |                                                                                                       |
+![img_3.png](img_3.png)
 
-<br/>
+<br />
 
 ## 📍주요기능
 
-- 로그인
+- 회원
   - GitHub API 연동
 - 팀
   - 팀 빌딩 알고리즘
   - 팀 채팅
   - 팀 일정 관리
+
 <br/>
 
-## 📌 스터디 규칙
+## 📄 명세서
+
+|     이름      |                                                문제 링크                                                 |
+|:-----------:|:----------------------------------------------------------------------------------------------------:|
+| DDD 이벤트 스토밍 | https://miro.com/app/board/uXjVKj5617c=/     |
+|   API 명세서   |    https://www.notion.so/API-dd7148e372ca4fffb67b8b2515345376?pvs=4    |
+|  요구사항 정의서   | https://docs.google.com/spreadsheets/d/1Kob6x7Rv2ZG7byc1e_eQpFn5DlWBgOLOvefKpXc0SUU/edit?gid=0#gid=0 |
+| 테스트 결과 보고서  |   https://www.notion.so/Swagger-114e5998dfd780ea9030dcd704e33f40?pvs=4        |
+
+<br/>
+
+
+## 📌프로젝트 규칙
 
 * 필드(카멜표기법) - 명사로 명명, 도메인 + 필드명
 ex) User클래스 userId, userName
