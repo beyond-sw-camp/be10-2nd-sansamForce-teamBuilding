@@ -10,14 +10,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import sansam.team.security.jwt.JwtToken;
+import sansam.team.user.query.dto.CustomUserDTO;
 
 import javax.crypto.SecretKey;
 import java.io.IOException;
 import java.util.Date;
-import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -33,23 +32,13 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         byte[] keyBytes = Decoders.BASE64.decode(env.getProperty("JWT_SECRET_KEY"));
         SecretKey secretKey = Keys.hmacShaKeyFor(keyBytes);
 
-        List<String> authorities = authentication.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .toList();
-
-        String userSeq="", userId = "", userAuth = "";
-        if(authentication.getName().contains(",")) {
-            String[] seqAndId = authentication.getName().split(",");
-            userSeq = seqAndId[0];
-            userId = seqAndId[1];
-            userAuth = seqAndId[2];
-        }
+        CustomUserDTO userInfo = (CustomUserDTO) authentication.getPrincipal();
 
         // Access Token 생성
         String accessToken = Jwts.builder()
-                .setSubject(userSeq)  // userSeq를 subject로 설정
-                .claim("userId", userId)
-                .claim("auth", userAuth)  // 권한 정보 추가
+                .setSubject(authentication.getName())  // userSeq를 subject로 설정
+                .claim("userId", userInfo.getUserId())
+                .claim("auth", userInfo.getUserAuth())
                 .setIssuedAt(new Date())  // iat 추가 (발행 시간)
                 .setExpiration(new Date((new Date()).getTime() + 86400000))  // 만료 시간 (1일)
                 .signWith(secretKey, SignatureAlgorithm.HS256)

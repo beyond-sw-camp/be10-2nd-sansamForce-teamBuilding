@@ -9,8 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sansam.team.common.response.ApiResponse;
 import sansam.team.common.response.ResponseUtil;
-import sansam.team.project.command.domain.aggregate.entity.Project;
-import sansam.team.user.command.application.dto.*;
+import sansam.team.user.command.application.dto.UserDTO;
+import sansam.team.user.command.application.dto.UserUpdateRequestDTO;
 import sansam.team.user.command.application.service.UserService;
 import sansam.team.user.command.domain.aggregate.entity.User;
 
@@ -18,7 +18,7 @@ import sansam.team.user.command.domain.aggregate.entity.User;
 @RestController
 @RequestMapping("/api/v1/user")
 @RequiredArgsConstructor
-@Tag(name = "1. User API", description = "회원 API")
+@Tag(name = "1-1. User API", description = "회원 API")
 public class UserController {
 
     private final UserService userService;

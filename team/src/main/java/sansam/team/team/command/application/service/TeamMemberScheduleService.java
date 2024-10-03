@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sansam.team.common.aggregate.RoleType;
 import sansam.team.common.util.DateTimeUtil;
 import sansam.team.exception.CustomException;
 import sansam.team.exception.ErrorCodeType;
@@ -127,7 +128,7 @@ public class TeamMemberScheduleService {
 
     /* 피드백 가능 조건 체크 */
     public boolean isPossibleFeedback(long teamScheduleSeq) {
-        if(!"MENTOR".equals(SecurityUtil.getUserAuth())) {
+        if(!RoleType.MENTOR.equals(SecurityUtil.getAuthenticatedUser().getUserAuth())) {
             throw new CustomException(ErrorCodeType.MENTOR_AUTH_ERROR);
         }
 

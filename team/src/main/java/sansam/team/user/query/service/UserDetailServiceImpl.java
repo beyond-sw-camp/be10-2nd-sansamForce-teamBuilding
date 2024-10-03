@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import sansam.team.exception.CustomException;
 import sansam.team.exception.ErrorCodeType;
+import sansam.team.user.query.dto.CustomUserDTO;
 import sansam.team.user.query.dto.UserQueryDTO;
 import sansam.team.user.query.mapper.UserQueryMapper;
 
@@ -22,10 +23,13 @@ public class UserDetailServiceImpl implements UserDetailsService {
                 .filter(pw -> pw.getUserPassword()!=null)
                 .orElseThrow(() -> new CustomException(ErrorCodeType.USER_LOGIN_NOT_FOUND));
 
-        return new org.springframework.security.core.userdetails.User(
-                String.valueOf(user.getUserSeq())+","+user.getUserId()+","+user.getUserAuth(),
+        return new CustomUserDTO(
+                String.valueOf(user.getUserSeq()),
                 user.getUserPassword(),
-                user.getAuthorities()
+                user.getAuthorities(),
+                user.getUserSeq(),
+                user.getUserId(),
+                user.getUserAuth()
         );
     }
 

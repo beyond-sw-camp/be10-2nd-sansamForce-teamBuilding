@@ -18,7 +18,7 @@ import sansam.team.user.query.service.UserQueryService;
 @RestController
 @RequestMapping("/api/v1/query/user")
 @RequiredArgsConstructor
-@Tag(name = "1. User API", description = "회원 API")
+@Tag(name = "1-1. User API", description = "회원 API")
 public class UserQueryController {
 
     private final UserQueryService userQueryService;

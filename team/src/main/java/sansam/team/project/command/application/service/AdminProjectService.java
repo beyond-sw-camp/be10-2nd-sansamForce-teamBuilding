@@ -3,6 +3,7 @@ package sansam.team.project.command.application.service;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 import sansam.team.security.util.SecurityUtil;
 import sansam.team.project.command.application.dto.AdminProjectCreateDTO;
 import sansam.team.project.command.application.dto.AdminProjectUpdateDTO;
@@ -10,6 +11,7 @@ import sansam.team.project.command.domain.aggregate.entity.Project;
 import sansam.team.project.command.domain.repository.ProjectRepository;
 import jakarta.transaction.Transactional;
 import sansam.team.user.command.domain.aggregate.entity.User;
+import sansam.team.user.query.dto.CustomUserDTO;
 
 
 @Service
@@ -23,9 +25,9 @@ public class AdminProjectService {
     @Transactional
     public Project createProject(AdminProjectCreateDTO adminProjectCreateDTO){
 
-        User user = SecurityUtil.getAuthenticatedUser();
+        CustomUserDTO user = SecurityUtil.getAuthenticatedUser();
 
-        if(user.getUserSeq() == null){
+        if(ObjectUtils.isEmpty(user.getUserSeq())){
             throw new IllegalArgumentException("User Seq is null");
         }
 

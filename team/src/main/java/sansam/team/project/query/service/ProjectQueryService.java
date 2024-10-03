@@ -2,12 +2,14 @@ package sansam.team.project.query.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 import sansam.team.security.util.SecurityUtil;
 import sansam.team.project.query.dto.AdminProjectQueryDTO;
 import sansam.team.project.query.dto.ProjectAllQueryDTO;
 import sansam.team.project.query.dto.ProjectQueryDTO;
 import sansam.team.project.query.mapper.ProjectMapper;
 import sansam.team.user.command.domain.aggregate.entity.User;
+import sansam.team.user.query.dto.CustomUserDTO;
 
 import java.util.List;
 
@@ -25,9 +27,9 @@ public class ProjectQueryService {
     /* 프로젝트 전체 조회 (사용자) */
     public List<ProjectAllQueryDTO> getAllProjectsForUser(Long userSeq){
 
-        User user = SecurityUtil.getAuthenticatedUser();
+        CustomUserDTO user = SecurityUtil.getAuthenticatedUser();
 
-        if(user.getUserSeq() == null){
+        if(ObjectUtils.isEmpty(user.getUserSeq())){
             throw new IllegalArgumentException("User Seq is null");
         }
 

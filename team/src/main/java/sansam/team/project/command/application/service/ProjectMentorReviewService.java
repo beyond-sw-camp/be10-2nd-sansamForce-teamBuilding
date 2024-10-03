@@ -4,15 +4,16 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import sansam.team.security.util.SecurityUtil;
+import org.springframework.util.ObjectUtils;
 import sansam.team.project.command.application.dto.ProjectMentorReviewCreateDTO;
 import sansam.team.project.command.application.dto.ProjectMentorReviewUpdateDTO;
 import sansam.team.project.command.domain.aggregate.entity.MentorReview;
 import sansam.team.project.command.domain.aggregate.entity.ProjectMember;
-import sansam.team.project.command.domain.repository.ProjectMentorReviewRepository;
 import sansam.team.project.command.domain.repository.ProjectMemberRepository;
+import sansam.team.project.command.domain.repository.ProjectMentorReviewRepository;
 import sansam.team.project.command.domain.repository.ProjectRepository;
-import sansam.team.user.command.domain.aggregate.entity.User;
+import sansam.team.security.util.SecurityUtil;
+import sansam.team.user.query.dto.CustomUserDTO;
 
 @Service
 @RequiredArgsConstructor
@@ -27,10 +28,10 @@ public class ProjectMentorReviewService {
     @Transactional
     public MentorReview createMentorReview(ProjectMentorReviewCreateDTO projectMentorReviewCreateDTO){
 
-        User mentor = SecurityUtil.getAuthenticatedUser(); // 인증된 멘토 가져오기
+        CustomUserDTO mentor = SecurityUtil.getAuthenticatedUser(); // 인증된 멘토 가져오기
 
-        if(mentor.getUserSeq() == null){
-            throw new IllegalArgumentException("Mentor user sequence is null");
+        if(ObjectUtils.isEmpty(mentor.getUserSeq())){
+            throw new IllegalArgumentException("User Seq is null");
         }
 
         // ProjectMemberSeq로 프로젝트 회원을 조회

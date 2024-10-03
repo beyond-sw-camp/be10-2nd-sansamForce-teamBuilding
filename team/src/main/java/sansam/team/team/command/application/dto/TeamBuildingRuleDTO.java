@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import sansam.team.common.aggregate.YnType;
 
 @Getter
 @Setter
@@ -16,5 +17,5 @@ public class TeamBuildingRuleDTO {
     private int ruleGithubWeight;
     private int ruleTeamReviewWeight;
     private int ruleMentorReviewWeight;
-    private String ruleTechStackYn;
+    private YnType ruleTechStackYn;
 }
