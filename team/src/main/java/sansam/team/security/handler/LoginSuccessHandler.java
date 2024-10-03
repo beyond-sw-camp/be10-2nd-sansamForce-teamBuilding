@@ -33,17 +33,21 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         byte[] keyBytes = Decoders.BASE64.decode(env.getProperty("JWT_SECRET_KEY"));
         SecretKey secretKey = Keys.hmacShaKeyFor(keyBytes);
 
-        //User loginInfo = (User) authentication.getPrincipal();
-
         List<String> authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .toList();
 
+        String userSeq="", userId = "";
+        if(authentication.getName().contains(",")) {
+            String[] seqAndId = authentication.getName().split(",");
+            userSeq = seqAndId[0];
+            userId = seqAndId[1];
+        }
+
         // Access Token 생성
         String accessToken = Jwts.builder()
-                .setSubject(authentication.getName())  // userSeq를 subject로 설정
-                //.claim("userId", loginInfo.getUserId())
-                //.claim("userName", loginInfo.getUserName())
+                .setSubject(userSeq)  // userSeq를 subject로 설정
+                .claim("userId", userId)
                 .claim("auth", authorities)  // 권한 정보 추가
                 .setIssuedAt(new Date())  // iat 추가 (발행 시간)
                 .setExpiration(new Date((new Date()).getTime() + 86400000))  // 만료 시간 (1일)

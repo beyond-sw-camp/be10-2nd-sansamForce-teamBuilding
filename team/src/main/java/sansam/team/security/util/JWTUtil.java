@@ -60,7 +60,7 @@ public class JWTUtil {
 
     /* Token에서 사용자의 id(subject 클레임) 추출 */
     public String getUserId(String token) {
-        return parseClaims(token).getSubject();
+        return (String) parseClaims(token).get("userId");
     }
 
 }
