@@ -1,16 +1,19 @@
 package sansam.team.common.github;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.kohsuke.github.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import sansam.team.common.aggregate.DevelopType;
+import sansam.team.user.command.domain.aggregate.entity.UserGithubRepository;
 
 import java.io.IOException;
-
-@Getter
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 @Slf4j
 @Component
 public class GithubUtil {
+
     private final GitHub github;
 
     public GithubUtil(@Value("${github.token}") String token) throws IOException {
@@ -18,36 +21,63 @@ public class GithubUtil {
         this.github.checkApiUrlValidity();
     }
 
+    // 사용자의 레포지토리 URL로 백엔드, 프론트엔드 커밋 개수를 분석
+    public Map<DevelopType, Integer> analyzeCommitCountByDevelopType(List<UserGithubRepository> repositories, String userGithubId) throws IOException {
+        Map<DevelopType, Integer> commitCountsByInterest = new HashMap<>();
 
-    public int getCommitCountFromRepoUrl(String userGithubId, String repoUrl) throws IOException {
-        // 레포지토리 이름 추출 (organization/repository)
-        String[] urlParts = repoUrl.split("/");
-        if (urlParts.length < 5) {
-            throw new IllegalArgumentException("잘못된 레포지토리 URL 형식입니다.");
+        for (UserGithubRepository repo : repositories) {
+            String repoUrl = repo.getUserRepositoryUrl();
+            DevelopType developType = repo.getDevelopType();
+
+            try {
+                //이름 추출
+                String repoFullName = extractRepoFullNameFromUrl(repoUrl);
+
+                if (repoFullName != null) {
+                    int commitCount = getCommitCountByInterestType(repoFullName, userGithubId, developType);
+                    commitCountsByInterest.put(developType, commitCountsByInterest.getOrDefault(developType, 0) + commitCount);
+
+                } else {
+                    log.warn("유효하지 않은 레포지토리 URL: {}", repoUrl);
+                }
+            } catch (Exception e) {
+                log.error("리포지토리 {}에서 커밋 이력을 분석하는 중 오류 발생: {}", repoUrl, e.getMessage());
+            }
         }
+        log.info("커밋정보 "+ commitCountsByInterest);
+        return commitCountsByInterest;
+    }
 
-        String orgName = urlParts[3];
-        String repoName = urlParts[4];
-
-        // 레포지토리 가져오기
-        GHRepository repository = github.getRepository(orgName + "/" + repoName);
-
-        if (repository == null) {
-            log.warn("레포지토리 {}를 찾을 수 없습니다.", repoUrl);
-            return 0;
-        }
-
+    private int getCommitCountByInterestType(String repoFullName, String userGithubId, DevelopType interestType) throws IOException {
         int commitCount = 0;
 
+        GHRepository repository = github.getRepository(repoFullName);
+
+        // 포크된 리포지토리 제외
+        if (repository.isFork()) return commitCount;
+
         try {
-            // 사용자의 커밋 이력 가져오기
             PagedIterable<GHCommit> commits = repository.queryCommits().author(userGithubId).list();
-            commitCount = (int) commits.toList().size(); // 사용자의 커밋 개수
-        } catch (IOException e) {
-            log.error("레포지토리 {}에서 커밋을 가져오는 중 오류 발생: {}", repoUrl, e.getMessage());
+
+            // 커밋 개수 카운팅
+            for (GHCommit commit : commits) {
+                commitCount++;
+            }
+        } catch (GHException e) {
+            log.error("리포지토리 {}에서 커밋을 가져오는 중 오류 발생: {}", repoFullName, e.getMessage());
         }
 
-        log.info("레포지토리 {}에서 사용자 {}의 커밋 개수: {}", repoUrl, userGithubId, commitCount);
         return commitCount;
+    }
+
+    // URL에서 레포지토리 이름 추출
+    private String extractRepoFullNameFromUrl(String repoUrl) {
+        if (repoUrl != null && repoUrl.startsWith("https://github.com/")) {
+            String[] parts = repoUrl.split("/");
+            if (parts.length >= 5) {
+                return parts[3] + "/" + parts[4];
+            }
+        }
+        return null;
     }
 }

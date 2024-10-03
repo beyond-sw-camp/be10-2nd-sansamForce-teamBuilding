@@ -58,7 +58,7 @@ VALUES
     (2, 1, 'Beta Team B','OPEN', NOW(),NULL);
 
 -- 프로젝트 Alpha (project_seq: 1, user_seq: 1-10)
-INSERT INTO `tbl_project_member` (`project_seq`, `user_seq`, `project_member_del_yn`, `project_mentor_yn`, `project_member_major_yn`, `project_member_interest_type`,`project_member_commit_score`,`reg_date`)
+INSERT INTO `tbl_project_member` (`project_seq`, `user_seq`, `project_member_del_yn`, `project_mentor_yn`, `project_member_major_yn`, `project_member_develop_type`,`project_member_commit_score`,`reg_date`)
 VALUES
     (1, 1, 'N', 'Y', 'Y','BACKEND', NULL,NOW()),  -- 관리자
     (1, 2, 'N', 'N', 'Y','FRONTEND', NULL,NOW()),
@@ -139,13 +139,13 @@ VALUES
 
 INSERT INTO `tbl_user_github_repository` (user_repository_url, user_repository_name, develop_type,user_seq)
 VALUES
-    ('https://github.com/orgs/SansamForce/repositories', 'SansamForce', 'BACKEND',1),
-    ('https://github.com/orgs/SansamForce/repositories', 'SansamForce', 'FRONTEND',2),
-    ('https://github.com/orgs/SansamForce/repositories', 'SansamForce', 'BACKEND',3),
-    ('https://github.com/orgs/SansamForce/repositories', 'SansamForce', 'FRONTEND',4),
-    ('https://github.com/orgs/SansamForce/repositories', 'SansamForce', 'BACKEND',5),
-    ('https://github.com/orgs/SansamForce/repositories', 'SansamForce','FRONTEND', 6),
-    ('https://github.com/orgs/SansamForce/repositories', 'SansamForce', 'BACKEND',7),
-    ('https://github.com/orgs/SansamForce/repositories', 'SansamForce', 'FRONTEND',8),
-    ('https://github.com/orgs/SansamForce/repositories', 'SansamForce', 'BACKEND',9),
-    ('https://github.com/orgs/SansamForce/repositories', 'SansamForce','FRONTEND',10);
+    ('https://github.com/SansamForce/team-building', 'SansamForce', 'BACKEND',1),
+    ('https://github.com/SansamForce/team-building', 'SansamForce', 'FRONTEND',2),
+    ('https://github.com/SansamForce/team-building', 'SansamForce', 'BACKEND',3),
+    ('https://github.com/SansamForce/team-building', 'SansamForce', 'FRONTEND',4),
+    ('https://github.com/SansamForce/team-building', 'SansamForce', 'BACKEND',5),
+    ('https://github.com/SansamForce/team-building', 'SansamForce','FRONTEND', 6),
+    ('https://github.com/SansamForce/team-building', 'SansamForce', 'BACKEND',7),
+    ('https://github.com/SansamForce/team-building', 'SansamForce', 'FRONTEND',8),
+    ('https://github.com/SansamForce/team-building', 'SansamForce', 'BACKEND',9),
+    ('https://github.com/SansamForce/team-building', 'SansamForce','FRONTEND',10);
