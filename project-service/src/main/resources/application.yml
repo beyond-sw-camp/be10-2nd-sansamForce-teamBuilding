@@ -1,0 +1,79 @@
+server:
+  port: 0
+  servlet:
+    encoding:
+      charset: UTF-8
+
+spring:
+  application:
+    name: project-service
+  config:
+    import: optional:file:.env[.properties]
+  datasource:
+    driver-class-name: ${DRIVER_CLASS_NAME}
+    url: jdbc:log4jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+    properties:
+      hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
+      hibernate:
+        format_sql: true
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+# mybatis
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: mapper/**/*.xml
+  type-aliases-package: com.sansam.project.**
+
+cloud:
+  aws:
+    s3:
+      bucket: sansamforce
+    stack:
+      auto: false
+    region:
+      static: ap-northeast-2
+    credentials:
+      access-key: ${AWS_ACCESS_KEY}
+      secret-key: ${AWS_SECRET_KEY}
+
+# logging setting
+logging:
+  file:
+    path: C:/logs/team-msa/project
+  level:
+    root: info
+    org.springframework.web: info
+    com.zaxxer.hikari: info
+    log4jdbc.log4j2: error
+    jdbc.sqlonly: info
+    jdbc.resultsettable: info
+    jdbc.connection: info
+
+springdoc:
+  swagger-ui:
+    path: /
+    tags-sorter: alpha
+    operations-sorter: method
+    doc-expansion : none
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
