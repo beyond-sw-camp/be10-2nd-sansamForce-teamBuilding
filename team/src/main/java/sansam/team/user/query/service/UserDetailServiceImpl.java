@@ -23,7 +23,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
                 .orElseThrow(() -> new CustomException(ErrorCodeType.USER_LOGIN_NOT_FOUND));
 
         return new org.springframework.security.core.userdetails.User(
-                String.valueOf(user.getUserSeq())+","+user.getUserId(),
+                String.valueOf(user.getUserSeq())+","+user.getUserId()+","+user.getUserAuth(),
                 user.getUserPassword(),
                 user.getAuthorities()
         );
