@@ -1,6 +1,7 @@
 package com.sansam.user.query.mapper;
 
 
+import com.sansam.user.command.application.dto.UserDTO;
 import com.sansam.user.query.dto.UserQueryDTO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -11,4 +12,5 @@ public interface UserQueryMapper {
 
     Optional<UserQueryDTO.LoginResponseDTO> findByUserId(String userId);
 
+    UserDTO findById(Long userSeq);
 }

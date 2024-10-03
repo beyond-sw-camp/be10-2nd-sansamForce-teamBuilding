@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sansam.team.query.mapper.TeamBuildingRuleQueryMapper">
+
+    <select id="findById" resultType="TeamBuildingRuleQueryDTO">
+        SELECT  rule_seq
+               , rule_team_count
+               , rule_major_weight
+               , rule_career_weight
+               , rule_github_weight
+               , rule_team_review_weight
+               , rule_mentor_review_weight
+               , rule_tech_stack_yn
+         FROM tbl_building_rule
+        WHERE rule_seq = #{ruleSeq}
+    </select>
+
+    <select id="findAll" resultType="TeamBuildingRuleQueryDTO">
+        SELECT rule_seq
+             , rule_team_count
+             , rule_major_weight
+             , rule_career_weight
+             , rule_github_weight
+             , rule_team_review_weight
+             , rule_mentor_review_weight
+             , rule_tech_stack_yn
+        FROM tbl_building_rule
+    </select>
+
+</mapper>
