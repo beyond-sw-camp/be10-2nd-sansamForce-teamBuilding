@@ -38,14 +38,14 @@ services:
     networks:
       - springboot-network
 
-  server:
-    container_name: server_sansam
-    build: ./server
-    hostname: server_sansam
-    ports:
-      - "8761:8761"
-    networks:
-      - my-network
+#  server:
+#    container_name: server_sansam
+#    build: ./server
+#    hostname: server_sansam
+#    ports:
+#      - "8761:8761"
+#    networks:
+#      - cloud-network
 
 #  config-server:
 #    container_name: config_sansam
@@ -53,15 +53,15 @@ services:
 #    ports:
 #      - "8888:8888"
 #    networks:
-#      - my-network
+#      - cloud-network
 
-  gateway:
-    container_name: gateway_sansam
-    build: ./gateway
-    ports:
-      - "8000:8000"
-    networks:
-      - my-network
+#  gateway:
+#    container_name: gateway_sansam
+#    build: ./gateway
+#    ports:
+#      - "8000:8000"
+#    networks:
+#      - cloud-network
 
 #  user:
 #    container_name: user_sansam
@@ -69,23 +69,23 @@ services:
 #    ports:
 #      - "0:8000"
 #    networks:
-#      - my-network
+#      - cloud-network
 #    depends_on:
 #      - config-server
-
-  team:
-    container_name: team_sansam
-    build: ./team
-    ports:
-      - "0:8000"
-    networks:
-      - my-network
+#
+#  team:
+#    container_name: team_sansam
+#    build: ./team
+#    ports:
+#      - "0:8000"
+#    networks:
+#      - cloud-network
 #  order:
 #    build: ./order
 #    ports:
 #      - "0:8000"
 #    networks:
-#      - my-network
+#      - cloud-network
 #    depends_on:
 #      - config-server
 
@@ -105,5 +105,5 @@ volumes:
 networks:
   springboot-network:
     driver: bridge
-  my-network:
+  cloud-network:
     driver: bridge
