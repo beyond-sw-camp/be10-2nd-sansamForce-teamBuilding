@@ -1,10 +1,13 @@
-package sansam.team.project.command.application.dto;
+package com.sansam.project.command.application.dto;
 
+
+import com.sansam.project.command.domain.aggregate.BoardStatus;
 import lombok.*;
-import sansam.team.project.command.domain.aggregate.BoardStatus;
+
 import java.time.LocalDateTime;
 
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sansam.project.query.mapper.ProjectMemberMapper">
+<mapper namespace="com.sansam.project.query.mapper.ProjectMemberQueryMapper">
 
     <!-- 프로젝트 번호로 프로젝트 회원 전체 조회 -->
     <select id="findProjectMembersByProjectSeq" resultType="AdminProjectMemberAllQueryDTO">

@@ -1,4 +1,4 @@
-package sansam.team.project.command.domain.aggregate;
+package com.sansam.project.command.domain.aggregate;
 
 public enum BoardStatus {
     RECRUITMENT("모집"),

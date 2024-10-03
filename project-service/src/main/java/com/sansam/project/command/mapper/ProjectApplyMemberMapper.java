@@ -1,7 +1,8 @@
-package sansam.team.project.command.mapper;
+package com.sansam.project.command.mapper;
 
-import sansam.team.project.command.application.dto.AdminProjectApplyMemberDTO;
-import sansam.team.project.command.domain.aggregate.entity.ProjectApplyMember;
+
+import com.sansam.project.command.application.dto.AdminProjectApplyMemberDTO;
+import com.sansam.project.command.domain.aggregate.entity.ProjectApplyMember;
 
 public class ProjectApplyMemberMapper {
     public static ProjectApplyMember toEntity(Long userSeq, AdminProjectApplyMemberDTO applyMemberDTO) {

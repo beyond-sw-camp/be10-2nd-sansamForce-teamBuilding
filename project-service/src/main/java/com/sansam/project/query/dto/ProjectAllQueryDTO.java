@@ -1,10 +1,11 @@
-package sansam.team.project.query.dto;
+package com.sansam.project.query.dto;
 
+
+import com.sansam.project.command.domain.aggregate.ProjectStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import sansam.team.project.command.domain.aggregate.ProjectStatus;
 
 @Getter
 @Setter

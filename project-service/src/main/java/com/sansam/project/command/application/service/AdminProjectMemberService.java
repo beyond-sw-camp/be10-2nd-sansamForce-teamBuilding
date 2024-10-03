@@ -1,14 +1,15 @@
-package sansam.team.project.command.application.service;
+package com.sansam.project.command.application.service;
 
+
+import com.sansam.project.command.application.dto.AdminProjectMemberUpdateDTO;
+import com.sansam.project.command.domain.aggregate.entity.Project;
+import com.sansam.project.command.domain.aggregate.entity.ProjectMember;
+import com.sansam.project.command.domain.repository.ProjectMemberRepository;
+import com.sansam.project.command.domain.repository.ProjectRepository;
+import com.sansam.project.command.mapper.ProjectMemberMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sansam.team.project.command.application.dto.AdminProjectMemberUpdateDTO;
-import sansam.team.project.command.domain.aggregate.entity.Project;
-import sansam.team.project.command.domain.aggregate.entity.ProjectMember;
-import sansam.team.project.command.domain.repository.ProjectMemberRepository;
-import sansam.team.project.command.domain.repository.ProjectRepository;
-import sansam.team.project.command.mapper.ProjectMemberMapper;
 
 @Service
 @RequiredArgsConstructor

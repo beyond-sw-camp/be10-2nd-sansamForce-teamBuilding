@@ -1,6 +1,7 @@
-package sansam.team.project.command.domain.repository;
+package com.sansam.project.command.domain.repository;
 
-import sansam.team.project.command.domain.aggregate.entity.ProjectMember;
+
+import com.sansam.project.command.domain.aggregate.entity.ProjectMember;
 
 import java.util.List;
 import java.util.Optional;

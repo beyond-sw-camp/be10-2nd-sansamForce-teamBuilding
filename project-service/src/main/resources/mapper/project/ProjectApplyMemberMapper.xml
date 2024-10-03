@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.sansam.project.query.mapper.project.ProjectApplyMemberMapper">
+<mapper namespace="com.sansam.project.query.mapper.ProjectApplyMemberQueryMapper">
 
     <!-- 특정 회원이 신청한 프로젝트 목록 조회 -->
     <select id="findProjectsByUserSeq" resultType="ApplyMemberQueryDTO">

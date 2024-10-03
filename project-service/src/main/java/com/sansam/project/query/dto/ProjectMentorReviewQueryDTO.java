@@ -1,4 +1,4 @@
-package sansam.team.project.query.dto;
+package com.sansam.project.query.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
