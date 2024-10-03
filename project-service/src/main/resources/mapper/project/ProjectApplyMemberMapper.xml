@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sansam.project.query.mapper.project.ProjectApplyMemberMapper">
+
+    <!-- 특정 회원이 신청한 프로젝트 목록 조회 -->
+    <select id="findProjectsByUserSeq" resultType="ApplyMemberQueryDTO">
+        SELECT
+        pam.project_apply_member_status AS applyStatus,
+        pb.project_board_title AS projectBoardTitle,
+        pb.project_board_content AS projectBoardContent,
+        pb.project_board_head_count AS projectBoardHeadCount,
+        pb.project_board_img_url AS projectBoardImgUrl,
+        pb.project_board_start_date AS projectBoardStartDate,
+        pb.project_board_end_date AS projectBoardEndDate,
+        pb.project_start_date AS projectStartDate,
+        pb.project_end_date AS projectEndDate
+        FROM tbl_project_apply_member pam
+        JOIN tbl_project_board pb ON pam.project_board_seq = pb.project_board_seq
+        WHERE pam.user_seq = #{userSeq}
+    </select>
+
+</mapper>
