@@ -8,7 +8,7 @@ import sansam.team.team.query.dto.TeamFindByIdResponse;
 import sansam.team.team.query.dto.TeamRequest;
 import sansam.team.team.query.dto.TeamResponse;
 import sansam.team.team.query.mapper.TeamQueryMapper;
-import sansam.team.user.command.domain.aggregate.entity.User;
+import sansam.team.user.query.dto.CustomUserDTO;
 
 @Slf4j
 @Service
@@ -18,7 +18,7 @@ public class TeamQueryService {
     private final TeamQueryMapper teamQueryMapper;
 
     public TeamResponse selectTeamList() {
-        User user = SecurityUtil.getAuthenticatedUser();
+        CustomUserDTO user = SecurityUtil.getAuthenticatedUser();
         return teamQueryMapper.selectTeamList(new TeamRequest(user.getUserSeq(), user.getUserAuth()));
     }
 

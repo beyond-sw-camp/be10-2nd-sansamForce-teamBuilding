@@ -34,7 +34,7 @@ public class TeamBuildingRule extends BaseTimeEntity {
         buildingRuleDTO.setRuleGithubWeight(this.ruleGithubWeight);
         buildingRuleDTO.setRuleTeamReviewWeight(this.ruleTeamReviewWeight);
         buildingRuleDTO.setRuleMentorReviewWeight(this.ruleMentorReviewWeight);
-        buildingRuleDTO.setRuleTechStackYn(this.ruleTechStackYn.name()); // Enum을 String으로 변환
+        buildingRuleDTO.setRuleTechStackYn(YnType.valueOf(this.ruleTechStackYn.name())); // Enum을 String으로 변환
         return buildingRuleDTO;
     }
 
@@ -45,6 +45,6 @@ public class TeamBuildingRule extends BaseTimeEntity {
         this.ruleGithubWeight = buildingRuleDTO.getRuleGithubWeight();
         this.ruleTeamReviewWeight = buildingRuleDTO.getRuleTeamReviewWeight();
         this.ruleMentorReviewWeight = buildingRuleDTO.getRuleMentorReviewWeight();
-        this.ruleTechStackYn = YnType.valueOf(buildingRuleDTO.getRuleTechStackYn());
+        this.ruleTechStackYn = YnType.valueOf(String.valueOf(buildingRuleDTO.getRuleTechStackYn()));
     }
 }

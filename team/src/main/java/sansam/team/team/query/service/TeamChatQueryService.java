@@ -6,13 +6,13 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
-import sansam.team.security.util.SecurityUtil;
 import sansam.team.common.websocket.WebSocketClient;
 import sansam.team.common.websocket.dto.TeamChatMemberDTO;
 import sansam.team.common.websocket.dto.TeamChatMessageDTO;
+import sansam.team.security.util.SecurityUtil;
 import sansam.team.team.query.dto.*;
 import sansam.team.team.query.mapper.TeamChatQueryMapper;
-import sansam.team.user.command.domain.aggregate.entity.User;
+import sansam.team.user.query.dto.CustomUserDTO;
 
 import java.util.List;
 
@@ -25,12 +25,12 @@ public class TeamChatQueryService {
     private final WebSocketClient webSocketClient;
 
     public List<TeamChatResponse> selectChatRoomList() {
-        User user = SecurityUtil.getAuthenticatedUser();
+        CustomUserDTO user = SecurityUtil.getAuthenticatedUser();
         return teamChatQueryMapper.selectChatRoomList(new TeamChatRequest(user.getUserSeq(), user.getUserAuth()));
     }
 
     public TeamChatRoomResponse selectChatRoom(Long teamChatSeq) {
-        User user = SecurityUtil.getAuthenticatedUser();
+        CustomUserDTO user = SecurityUtil.getAuthenticatedUser();
         TeamChatRoomResponse response = teamChatQueryMapper.selectChatRoom(new TeamChatRoomRequest(teamChatSeq, user.getUserSeq()));
 
         Query query = new Query(Criteria.where("teamChatSeq").is(teamChatSeq));
