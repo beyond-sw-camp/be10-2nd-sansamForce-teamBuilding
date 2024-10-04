@@ -42,25 +42,34 @@
 
 <br/>
 
-## 📅프로젝트 기간
+## 📅개발 환경
 
 <table>
-  <tr>
-    <td>진행 기간</td>
-    <td>2024년 08월 30일 ~ 2024년 10월 3일</td>
-  </tr>
-  <tr>
-    <td>팀 이름</td>
-    <td>파워레인저 산삼포스</td>
-  </tr>
 <tr>
-    <td>프로젝트 이름</td>
-    <td>team-building</td>
-  </tr>
-  <tr>
     <td>언어</td>
     <td><img src="https://img.shields.io/badge/Java-007396.svg?&style=for-the-badge&logo=Java&logoColor=white"> 
     </td>
+  </tr>
+  <tr>
+    <td>DB</td>
+    <td>
+      <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white">
+      <img src="https://img.shields.io/badge/MONGO DB-007396?style=for-the-badge&logo=MONGODB&logoColor=white"/>    
+</td>
+  </tr>
+  <tr>
+    <td>프레임워크</td>
+    <td><img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">
+</td>
+  </tr>
+<tr>
+    <td>기타</td>
+    <td><img src="https://img.shields.io/badge/Amazon%20S3-569A31?style=for-the-badge&logo=Amazon%20S3&logoColor=white">
+        <img src="https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white">
+        <img src="https://img.shields.io/badge/Spring Security-6DB33F?style=for-the-badge&logo=Spring Security&logoColor=white">
+        <img src="https://img.shields.io/badge/JUnit5-25A162?style=for-the-badge&logo=JUnit5&logoColor=white">
+
+</td>
   </tr>
 </table>
 
