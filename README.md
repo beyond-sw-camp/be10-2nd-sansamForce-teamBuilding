@@ -113,7 +113,6 @@
 |     이름      |                                                문제 링크                                                 |
 |:-----------:|:----------------------------------------------------------------------------------------------------:|
 | DDD 이벤트 스토밍 | https://miro.com/app/board/uXjVKj5617c=/     |
-|   API 명세서   |    https://www.notion.so/API-dd7148e372ca4fffb67b8b2515345376?pvs=4    |
 |  요구사항 정의서   | https://docs.google.com/spreadsheets/d/1Kob6x7Rv2ZG7byc1e_eQpFn5DlWBgOLOvefKpXc0SUU/edit?gid=0#gid=0 |
 | 테스트 결과 보고서  |   https://www.notion.so/Swagger-114e5998dfd780ea9030dcd704e33f40?pvs=4     |
 
