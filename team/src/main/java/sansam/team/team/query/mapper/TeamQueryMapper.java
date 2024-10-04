@@ -6,9 +6,11 @@ import sansam.team.team.query.dto.TeamFindByIdResponse;
 import sansam.team.team.query.dto.TeamRequest;
 import sansam.team.team.query.dto.TeamResponse;
 
+import java.util.List;
+
 @Mapper
 public interface TeamQueryMapper {
-    TeamResponse selectTeamList(TeamRequest teamRequest);
+    List<TeamResponse> selectTeamList(TeamRequest teamRequest);
 
     TeamFindByIdResponse selectTeamById(@Param("teamSeq") Long teamSeq);
 }
