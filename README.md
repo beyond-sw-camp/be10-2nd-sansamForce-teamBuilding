@@ -41,6 +41,38 @@
 <img src="https://mblogthumb-phinf.pstatic.net/MjAyMDA3MjFfNzIg/MDAxNTk1MzI3MTczMTA0.dqrUnvnTCQnQR94nH7Vieo9mk3aYZo7aELHKKZycl7cg.R5Zu8bhWMSyRhuNK-lEv_-lJdDK32sOeewbEo2kUP-og.PNG.catchyoulater/SE-354ca162-82e4-48fd-a603-0bffa8cf4441.png?type=w800">
 
 <br/>
+
+## 📅개발 환경
+
+<table>
+<tr>
+    <td>언어</td>
+    <td><img src="https://img.shields.io/badge/Java-007396.svg?&style=for-the-badge&logo=Java&logoColor=white"> 
+    </td>
+  </tr>
+  <tr>
+    <td>DB</td>
+    <td>
+      <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white">
+      <img src="https://img.shields.io/badge/MONGO DB-007396?style=for-the-badge&logo=MONGODB&logoColor=white"/>    
+</td>
+  </tr>
+  <tr>
+    <td>프레임워크</td>
+    <td><img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">
+</td>
+  </tr>
+<tr>
+    <td>기타</td>
+    <td><img src="https://img.shields.io/badge/Amazon%20S3-569A31?style=for-the-badge&logo=Amazon%20S3&logoColor=white">
+        <img src="https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white">
+        <img src="https://img.shields.io/badge/Spring Security-6DB33F?style=for-the-badge&logo=Spring Security&logoColor=white">
+        <img src="https://img.shields.io/badge/JUnit5-25A162?style=for-the-badge&logo=JUnit5&logoColor=white">
+
+</td>
+  </tr>
+</table>
+
 <br/>
 
 ## 📄물리모델링
