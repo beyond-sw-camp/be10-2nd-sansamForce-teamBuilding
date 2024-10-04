@@ -54,7 +54,8 @@ public class SecurityConfig {
                                         "/swagger-ui/**",
                                         "/v3/api-docs/**",
                                         "/login",
-                                        "/api/v1/user/join"
+                                        "/api/v1/user/join",
+                                        "/ws/chat/**"
                                 ).permitAll()
                                 .requestMatchers("/api/v1/admin/**")
                                 .hasAnyAuthority("MANAGER", "SUB_MANAGER")
