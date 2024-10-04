@@ -8,6 +8,7 @@ import com.sansam.team.command.domain.repository.TeamMemberScheduleRepository;
 import com.sansam.team.command.domain.repository.TeamScheduleRepository;
 import com.sansam.team.common.aggregate.RoleType;
 import com.sansam.team.common.util.DateTimeUtil;
+import com.sansam.team.common.util.SecurityUtil;
 import com.sansam.team.exception.CustomException;
 import com.sansam.team.exception.ErrorCodeType;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class TeamMemberScheduleService {
 
     private final TeamScheduleService teamScheduleService;
-
+    private final SecurityUtil securityUtil;
     private final TeamScheduleRepository teamScheduleRepository;
     private final TeamMemberScheduleRepository teamMemberScheduleRepository;
 
@@ -127,7 +128,7 @@ public class TeamMemberScheduleService {
 
     /* 피드백 가능 조건 체크 */
     public boolean isPossibleFeedback(long teamScheduleSeq) {
-        if(!RoleType.MENTOR.equals(SecurityUtil.getAuthenticatedUser().getUserAuth())) {
+        if(!RoleType.MENTOR.equals(SecurityUtil.getAuthenticatedUser().getRoleType())) {
             throw new CustomException(ErrorCodeType.MENTOR_AUTH_ERROR);
         }
 

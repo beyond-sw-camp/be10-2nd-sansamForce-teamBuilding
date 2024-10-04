@@ -2,10 +2,7 @@ package com.sansam.project.query.controller;
 
 
 import com.sansam.project.common.response.ApiResponse;
-import com.sansam.project.query.dto.ProjectMentorReviewAllQueryDTO;
-import com.sansam.project.query.dto.ProjectMentorReviewAllUserQueryDTO;
-import com.sansam.project.query.dto.ProjectMentorReviewQueryDTO;
-import com.sansam.project.query.dto.ProjectMentorReviewUserQueryDTO;
+import com.sansam.project.query.dto.*;
 import com.sansam.project.query.service.ProjectMentorReviewQueryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -38,6 +35,12 @@ public class ProjectMentorReviewQueryController {
     @Operation(summary = "프로젝트 별 강사 평가 상세 조회 API", description = "강사가 프로젝트 내 특정 회원을 평가한 내용을 조회합니다.")
     public ApiResponse<ProjectMentorReviewQueryDTO> getProjectMentorReviewByIdForMentor(@PathVariable Long mentorReviewSeq) {
         ProjectMentorReviewQueryDTO review = projectMentorReviewQueryService.getProjectMentorReviewByIdForMentor(mentorReviewSeq);
+        return ApiResponse.ofSuccess(review);
+    }
+
+    @GetMapping("/project/mentor/review/{projectMemberSeq}")
+    public ApiResponse<List<ProjectMentorReviewDTO>> findMentorReviewByProjectMemberSeq(@PathVariable Long projectMemberSeq) {
+        List<ProjectMentorReviewDTO> review = projectMentorReviewQueryService.getProjectMentorReviewByProjectMember(projectMemberSeq);
         return ApiResponse.ofSuccess(review);
     }
 

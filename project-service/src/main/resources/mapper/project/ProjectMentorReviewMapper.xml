@@ -75,4 +75,12 @@
         mr.mentor_review_seq = #{mentorReviewSeq}
     </select>
 
+    <select id="findProjectMentorReviewByProjectMember" resultType="ProjectMentorReviewDTO">
+        SELECT mentor_review_star
+        FROM tbl_mentor_review mr
+        JOIN tbl_project_member pm
+            ON mr.project_user_seq = pm.project_member_seq
+        WHERE pm.project_member_seq = #{projectMemberSeq}
+    </select>
+
 </mapper>

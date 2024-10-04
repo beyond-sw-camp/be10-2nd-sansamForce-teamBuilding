@@ -20,11 +20,11 @@ public interface ProjectServiceClient {
     @GetMapping("/api/v1/project/member/{projectMember}")
     ProjectMemberDTO findProjectMemberById(@PathVariable("projectMember") Long projectMember);
 
-    @PutMapping("/api/v1/project/member/{projectMemberSeq}")
+    @PutMapping("/api/v1/admin/project/{projectSeq}/member/{projectMemberSeq}")
     ApiResponse<?> modifyProjectMember(@PathVariable Long projectMemberSeq, ProjectMemberUpdateDTO pjMemberUpdateDTO);
 
     @GetMapping("/api/v1/project/mentor/review/{projectMemberSeq}")
-    List<MentorReviewDTO> findMentorReviewByProjectMemberSeq(@PathVariable Long projectMemberSeq);
+    ApiResponse<List<MentorReviewDTO>> findMentorReviewByProjectMemberSeq(@PathVariable Long projectMemberSeq);
 
     @GetMapping("/api/v1/project/{projectSeq}/member")
     List<ProjectMemberDTO> findProjectMemberByProjectSeq(@PathVariable Long projectSeq);

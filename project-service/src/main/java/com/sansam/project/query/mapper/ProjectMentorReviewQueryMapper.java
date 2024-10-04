@@ -1,10 +1,7 @@
 package com.sansam.project.query.mapper;
 
 
-import com.sansam.project.query.dto.ProjectMentorReviewAllQueryDTO;
-import com.sansam.project.query.dto.ProjectMentorReviewAllUserQueryDTO;
-import com.sansam.project.query.dto.ProjectMentorReviewQueryDTO;
-import com.sansam.project.query.dto.ProjectMentorReviewUserQueryDTO;
+import com.sansam.project.query.dto.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -18,4 +15,6 @@ public interface ProjectMentorReviewQueryMapper {
     ProjectMentorReviewUserQueryDTO findByIdForUser(Long mentorReviewSeq);
 
     List<ProjectMentorReviewAllUserQueryDTO> findAllByIdForUser();
+
+    List<ProjectMentorReviewDTO> findProjectMentorReviewByProjectMember(Long projectMemberSeq);
 }

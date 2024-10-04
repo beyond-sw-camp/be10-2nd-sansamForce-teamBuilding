@@ -51,7 +51,7 @@ public class TeamBuildingService {
             throw new RuntimeException("프로젝트 정보가 존재하지 않습니다.");
         }
 
-        List<UserGithubRepositoryDTO> userGithubRepositories = userServiceClient.findAllGithubRepositoryByUserSeq(user.getUserSeq());
+        List<UserGithubRepositoryDTO> userGithubRepositories = userServiceClient.findAllGithubRepositoryByUserSeq(user.getUserSeq()).getData();
         Map<DevelopType,Integer> CommitCntByDevelopType = githubUtil.analyzeCommitCountByDevelopType(userGithubRepositories, user.getUserGithubId());
 
         int commitCnt = CommitCntByDevelopType.get(pjMember.getProjectMemberDevelopType());

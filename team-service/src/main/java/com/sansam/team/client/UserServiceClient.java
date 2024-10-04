@@ -2,6 +2,7 @@ package com.sansam.team.client;
 
 import com.sansam.team.client.dto.UserDTO;
 import com.sansam.team.client.dto.UserGithubRepositoryDTO;
+import com.sansam.team.common.response.ApiResponse;
 import com.sansam.team.config.FeignClientConfig;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,5 +16,5 @@ public interface UserServiceClient {
     UserDTO findUserById(@PathVariable Long userSeq);
 
     @GetMapping("/api/v1/user/{userSeq}/GithubRepository")
-    List<UserGithubRepositoryDTO> findAllGithubRepositoryByUserSeq(@PathVariable Long userSeq);
+    ApiResponse<List<UserGithubRepositoryDTO>> findAllGithubRepositoryByUserSeq(@PathVariable Long userSeq);
 }

@@ -1,13 +1,12 @@
 package com.sansam.team.query.service;
 
 
+import com.sansam.team.common.util.CustomUserDTO;
 import com.sansam.team.common.websocket.WebSocketClient;
 import com.sansam.team.common.websocket.dto.TeamChatMemberDTO;
 import com.sansam.team.common.websocket.dto.TeamChatMessageDTO;
 import com.sansam.team.query.dto.*;
 import com.sansam.team.query.mapper.TeamChatQueryMapper;
-import com.sansam.team.security.dto.CustomUserDTO;
-import com.sansam.team.security.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mongodb.core.MongoTemplate;

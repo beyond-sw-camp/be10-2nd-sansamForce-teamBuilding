@@ -18,12 +18,14 @@ spring:
           predicates:
             - Path=/api/v1/team/**
           filters:
+            - AuthorizationHeaderFilter
 #            - RewritePath=/api/v1/team/(?<segment>.*), /$\{segment}
         - id: project-service
           uri: lb://PROJECT-SERVICE
           predicates:
             - Path=/api/v1/project/**
           filters:
+            - AuthorizationHeaderFilter
 #            - RewritePath=/api/v1/project/(?<segment>.*), /$\{segment}
 eureka:
   instance:

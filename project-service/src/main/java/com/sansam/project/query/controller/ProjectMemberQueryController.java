@@ -2,9 +2,12 @@ package com.sansam.project.query.controller;
 
 
 import com.sansam.project.common.response.ApiResponse;
+import com.sansam.project.query.dto.AdminProjectMemberAllQueryDTO;
 import com.sansam.project.query.dto.ProjectAllQueryDTO;
 import com.sansam.project.query.dto.ProjectQueryDTO;
+import com.sansam.project.query.service.ProjectMemberQueryService;
 import com.sansam.project.query.service.ProjectQueryService;
+import com.sansam.team.client.dto.ProjectMemberDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +25,7 @@ import java.util.List;
 public class ProjectMemberQueryController {
 
     private final ProjectQueryService projectQueryService;
-
+    private final ProjectMemberQueryService projectMemberQueryService;
     /**
      * 프로젝트 전체 조회 (사용자용)
      */
@@ -41,5 +44,12 @@ public class ProjectMemberQueryController {
     public ApiResponse<ProjectQueryDTO> getProjectByIdForUser(@PathVariable Long projectSeq) {
         ProjectQueryDTO project = projectQueryService.getProjectByIdForUser(projectSeq);
         return ApiResponse.ofSuccess(project);
+    }
+
+    @GetMapping("/{projectSeq}/member")
+    @Operation(summary = "프로젝트 별 멤버 리스트 조회", description = "프로젝트 별 멤버 리스트 조회")
+    public ApiResponse<List<AdminProjectMemberAllQueryDTO>> getProjectMemberByProjectSeq(@PathVariable Long projectSeq) {
+        List<AdminProjectMemberAllQueryDTO> projectMemberList = projectMemberQueryService.findProjectMembers(projectSeq);
+        return ApiResponse.ofSuccess(projectMemberList);
     }
 }

@@ -79,6 +79,11 @@ dependencies {
     // 인스턴스 간의 통신을 위해 추가한 dependency
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 
+    // JWT
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+    implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
+    implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
     // Testing Dependencies
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

@@ -1,10 +1,7 @@
 package com.sansam.project.query.service;
 
 
-import com.sansam.project.query.dto.ProjectMentorReviewAllQueryDTO;
-import com.sansam.project.query.dto.ProjectMentorReviewAllUserQueryDTO;
-import com.sansam.project.query.dto.ProjectMentorReviewQueryDTO;
-import com.sansam.project.query.dto.ProjectMentorReviewUserQueryDTO;
+import com.sansam.project.query.dto.*;
 import com.sansam.project.query.mapper.ProjectMentorReviewQueryMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -35,5 +32,9 @@ public class ProjectMentorReviewQueryService {
     /* 회원 - 프로젝트 내 강사 평가 상세 조회*/
     public ProjectMentorReviewUserQueryDTO getProjectMentorReviewByIdForUser(Long mentorReviewSeq){
         return projectMentorReviewMapper.findByIdForUser(mentorReviewSeq);
+    }
+
+    public List<ProjectMentorReviewDTO> getProjectMentorReviewByProjectMember(Long projectMemberSeq) {
+        return projectMentorReviewMapper.findProjectMentorReviewByProjectMember(projectMemberSeq);
     }
 }
