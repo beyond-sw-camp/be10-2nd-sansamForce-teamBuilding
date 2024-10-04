@@ -76,7 +76,7 @@
 <br/>
 
 ## 📄물리모델링
-![img.png](img.png)
+![img_3.png](img_3.png)
 
 <br/>
 
@@ -87,7 +87,7 @@
 
 ## 📄MSA 시스템 아키텍쳐
 
-![img_3.png](img_3.png)
+![img.png](img.png)
 
 <br />
 
