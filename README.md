@@ -41,29 +41,6 @@
 <img src="https://mblogthumb-phinf.pstatic.net/MjAyMDA3MjFfNzIg/MDAxNTk1MzI3MTczMTA0.dqrUnvnTCQnQR94nH7Vieo9mk3aYZo7aELHKKZycl7cg.R5Zu8bhWMSyRhuNK-lEv_-lJdDK32sOeewbEo2kUP-og.PNG.catchyoulater/SE-354ca162-82e4-48fd-a603-0bffa8cf4441.png?type=w800">
 
 <br/>
-
-## 📅프로젝트 기간
-
-<table>
-  <tr>
-    <td>진행 기간</td>
-    <td>2024년 08월 30일 ~ 2024년 10월 3일</td>
-  </tr>
-  <tr>
-    <td>팀 이름</td>
-    <td>파워레인저 산삼포스</td>
-  </tr>
-<tr>
-    <td>프로젝트 이름</td>
-    <td>team-building</td>
-  </tr>
-  <tr>
-    <td>언어</td>
-    <td><img src="https://img.shields.io/badge/Java-007396.svg?&style=for-the-badge&logo=Java&logoColor=white"> 
-    </td>
-  </tr>
-</table>
-
 <br/>
 
 ## 📄물리모델링
