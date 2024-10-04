@@ -13,6 +13,8 @@ import sansam.team.team.query.dto.TeamFindByIdResponse;
 import sansam.team.team.query.dto.TeamResponse;
 import sansam.team.team.query.service.TeamQueryService;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping("/api/v1/team")
@@ -24,8 +26,8 @@ public class TeamQueryController {
 
     @GetMapping
     @Operation(summary = "팀 리스트 조회")
-    public ApiResponse<TeamResponse> selectTeamList() {
-        TeamResponse teamList = teamQueryService.selectTeamList();
+    public ApiResponse<List<TeamResponse>> selectTeamList() {
+        List<TeamResponse> teamList = teamQueryService.selectTeamList();
         return ApiResponse.ofSuccess("Team list retrieved successfully", teamList);
     }
 

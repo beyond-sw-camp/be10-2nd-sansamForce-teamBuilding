@@ -17,10 +17,10 @@
                 , team_name
                 , DATE_FORMAT(t.reg_date, '%Y-%m-%d %H:%i:%s') reg_date
         FROM tbl_team t
+        JOIN tbl_project p
+        ON t.project_seq = p.project_seq
         <if test="roleType.getCode() == 'MENTOR'">
             <!-- 멘토 : 내가 속한 프로젝트의 모든 팀 -->
-            JOIN tbl_project p
-                ON t.project_seq = p.project_seq
             JOIN tbl_project_member pm
                 ON p.project_seq = pm.project_seq
             JOIN tbl_user u
@@ -32,8 +32,6 @@
         </if>
         <if test="roleType.getCode() == 'MEMBER'">
             <!-- 멤버 : 내가 속한 팀 -->
-            JOIN tbl_project p
-                ON t.project_seq = p.project_seq
             JOIN tbl_team_member tm
                 ON tm.team_seq = t.team_seq
             WHERE tm.user_seq = #{userSeq}

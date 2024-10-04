@@ -10,6 +10,8 @@ import sansam.team.team.query.dto.TeamResponse;
 import sansam.team.team.query.mapper.TeamQueryMapper;
 import sansam.team.user.query.dto.CustomUserDTO;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -17,7 +19,7 @@ public class TeamQueryService {
 
     private final TeamQueryMapper teamQueryMapper;
 
-    public TeamResponse selectTeamList() {
+    public List<TeamResponse> selectTeamList() {
         CustomUserDTO user = SecurityUtil.getAuthenticatedUser();
         return teamQueryMapper.selectTeamList(new TeamRequest(user.getUserSeq(), user.getUserAuth()));
     }
