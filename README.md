@@ -115,6 +115,8 @@
 | DDD 이벤트 스토밍 | https://miro.com/app/board/uXjVKj5617c=/     |
 |  요구사항 정의서   | https://docs.google.com/spreadsheets/d/1Kob6x7Rv2ZG7byc1e_eQpFn5DlWBgOLOvefKpXc0SUU/edit?gid=0#gid=0 |
 | 테스트 결과 보고서  |   https://www.notion.so/Swagger-114e5998dfd780ea9030dcd704e33f40?pvs=4     |
+| API 명세  | https://efficacious-somersault-ab3.notion.site/55950f7c191141018296900bfa248774?pvs=4  |
+
 
 <br/>
 
