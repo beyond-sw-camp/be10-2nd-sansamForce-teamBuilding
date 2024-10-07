@@ -172,7 +172,7 @@ git commit -m "[FEAT] Spring Security 추가"
     </td>
   </tr>
   <tr>
-    <td>박상현현</td>
+    <td>박상현</td>
     <td>
     </td>
   </tr>
