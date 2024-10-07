@@ -158,6 +158,40 @@ git commit -m "[FEAT] Spring Security 추가"
 
 <br/>
 
+## 📅회고
+
+<table>
+<tr>
+    <td>구대윤</td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>오민성</td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>박상현현</td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>임서연</td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td>전아영</td>
+    <td>
+    </td>
+  </tr>
+  
+</table>
+
+<br/>
+
+
 ---
 
 
